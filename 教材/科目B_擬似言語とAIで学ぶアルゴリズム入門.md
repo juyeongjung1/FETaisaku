@@ -61,15 +61,15 @@
 <ol class="toc-list">
   <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>4</b></a></li>
   <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>8</b></a></li>
-  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>12</b></a></li>
-  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>17</b></a></li>
-  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>20</b></a></li>
-  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>25</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>31</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>36</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>40</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>44</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>48</b></a></li>
+  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>13</b></a></li>
+  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>18</b></a></li>
+  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>21</b></a></li>
+  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>26</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>32</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>37</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>41</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>45</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>49</b></a></li>
 </ol>
 
 </div>
@@ -121,7 +121,7 @@
 <div class="thinking-sheet filled">
   <p class="sheet-title">記入例</p>
   <div><span>1</span><p><strong>分かっていること</strong>totalが合計を保存する変数であることは分かります。</p></div>
-  <div><span>2</span><p><strong>分からないこと</strong><code>total ← total + A[i]</code>の右辺で、どの値を使うのか分かりません。</p></div>
+  <div><span>2</span><p><strong>分からないこと</strong><code>total ← total ＋ A[i]</code>の右辺で、どの値を使うのか分かりません。</p></div>
   <div><span>3</span><p><strong>自分で試したこと</strong>iが1の場合までは表に書きました。</p></div>
 </div>
 
@@ -293,7 +293,7 @@ AIから回答を得たら、次の順番で確認します。
   <div><span>プログラム</span><strong>各言語の書き方へ変換</strong></div>
 </div>
 
-本書では、次のような表記を使います。
+本書では、IPAが定める基本情報技術者試験用の擬似言語の記述形式に合わせます。
 
 ```text
 整数型: price
@@ -308,9 +308,21 @@ total ← price × count
 
 上から一行ずつ実行すると、`total` には450が入り、450が表示されます。
 
+<div class="note-box">
+  <p class="box-title">※ 本書の練習問題で使う共通仕様</p>
+  <p><code>入力する()</code>は入力された値を返す関数、<code>表示する(値)</code>は受け取った値を画面に表示する手続として扱います。これらの名前は試験共通の命令ではありません。実際の試験では、問題文に書かれた関数・手続の名前と仕様に従います。</p>
+</div>
+
 <div class="term-box">
-  <p class="box-title">本書の表記について</p>
-  <p>試験問題では、問題文の中で配列の添字や関数の仕様が定義されることがあります。必ず問題文の定義を優先してください。本書の表記は、初学者が読みやすいように整えた学習用表記です。</p>
+  <p class="box-title">※ 「○」は手続・関数の宣言</p>
+  <pre><code>○整数型: add(整数型: a, 整数型: b)
+  return a ＋ b</code></pre>
+  <p>試験では、手続や関数の宣言を先頭の<code>○</code>で表します。この例は、整数<code>a</code>と<code>b</code>を受け取り、その合計を返す関数です。</p>
+</div>
+
+<div class="important-box">
+  <p class="box-title">問題文で定義された仕様を最優先する</p>
+  <p>本書のコード表記は試験形式に合わせています。ただし、配列の要素番号が始まる位置、関数が受け取る引数、返す値などは問題ごとに定義されます。その部分は必ず問題文の指示を優先します。</p>
 </div>
 
 ## 1.4 処理を作る三つの基本構造
@@ -345,7 +357,7 @@ total ← price × count
 ```text
 a ← 5
 b ← 10
-c ← a + b
+c ← a ＋ b
 ```
 
 ### 選択
@@ -353,10 +365,10 @@ c ← a + b
 条件によって、実行する処理を分けます。
 
 ```text
-if (score >= 60)
-    "合格"を表示する
+if (score ≧ 60)
+  表示する("合格")
 else
-    "不合格"を表示する
+  表示する("不合格")
 endif
 ```
 
@@ -365,8 +377,8 @@ endif
 条件や回数に従って、同じ処理を繰り返します。
 
 ```text
-for (iを1から5まで1ずつ増やす)
-    iを表示する
+for (i を 1 から 5 まで 1 ずつ増やす)
+  表示する(i)
 endfor
 ```
 
@@ -431,13 +443,13 @@ total ← 0
 代入とは、計算結果や値を変数へ入れる操作です。
 
 ```text
-total ← total + 5
+total ← total ＋ 5
 ```
 
 <div class="assignment-visual">
-  <div class="assignment-right"><span>右側を先に計算</span><strong>3 + 5 = 8</strong></div>
+  <div class="assignment-right"><span>右側を先に計算</span><strong>3 ＋ 5 ＝ 8</strong></div>
   <b class="assignment-arrow">→</b>
-  <div class="assignment-left"><span>左側の箱へ入れる</span><strong>total = 8</strong></div>
+  <div class="assignment-left"><span>左側の箱へ入れる</span><strong>total ← 8</strong></div>
 </div>
 
 これは、次の順番で実行します。
@@ -454,7 +466,7 @@ total ← total + 5
 
 | 実行する文 | 右辺の計算 | 実行後の`total` |
 |---|---:|---:|
-| `total ← total + 5` | `3 + 5` | `8` |
+| `total ← total ＋ 5` | `3 ＋ 5` | `8` |
 
 ## 2.4 値は上書きされる
 
@@ -534,14 +546,14 @@ b ← a</code></pre>
 整数型: total
 
 total ← 2
-total ← total + 3
+total ← total ＋ 3
 total ← total × 2
 ```
 
 | 実行した文 | 実行後の`total` |
 |---|---:|
 | `total ← 2` | |
-| `total ← total + 3` | |
+| `total ← total ＋ 3` | |
 | `total ← total × 2` | |
 
 <div class="ai-box">
@@ -595,7 +607,7 @@ y ← [ ③ ]
 
 apple ← 150
 orange ← 80
-total ← apple × 3 + orange × 4
+total ← apple × 3 ＋ orange × 4
 表示する(total)
 ```
 
@@ -697,25 +709,30 @@ rate ← 0.1
 </div>
 
 ```text
-if (score >= 60)
-    "合格"を表示する
+if (score ≧ 60)
+  表示する("合格")
 else
-    "不合格"を表示する
+  表示する("不合格")
 endif
 ```
 
-条件`score >= 60`が成立すれば「合格」、成立しなければ「不合格」を表示します。
+条件`score ≧ 60`が成立すれば「合格」、成立しなければ「不合格」を表示します。
 
 ## 4.2 比較演算子
 
 | 演算子 | 意味 | 例 |
 |---|---|---|
-| `=` | 等しい | `x = 10` |
+| `＝` | 等しい | `x ＝ 10` |
 | `≠` | 等しくない | `x ≠ 10` |
-| `>` | より大きい | `x > 10` |
-| `<` | より小さい | `x < 10` |
-| `>=` | 以上 | `x >= 10` |
-| `<=` | 以下 | `x <= 10` |
+| `＞` | より大きい | `x ＞ 10` |
+| `＜` | より小さい | `x ＜ 10` |
+| `≧` | 以上 | `x ≧ 10` |
+| `≦` | 以下 | `x ≦ 10` |
+
+<div class="note-box">
+  <p class="box-title">※ 試験で使う関係演算子</p>
+  <p>キーボード入力でよく使う<code>&gt;=</code>や<code>&lt;=</code>ではなく、試験問題では<code>≧</code>や<code>≦</code>を使います。代入は<code>←</code>、等しいかの比較は<code>＝</code>です。</p>
+</div>
 
 「18より大きい」と「18以上」は異なります。境界となる値を確認しましょう。
 
@@ -744,20 +761,20 @@ endif
 | `not` | 条件が成立しない |
 
 ```text
-if (age >= 18 and age < 65)
-    "対象"を表示する
+if (age ≧ 18 and age ＜ 65)
+  表示する("対象")
 endif
 ```
 
 ## 4.4 三つ以上に分ける
 
 ```text
-if (score >= 80)
-    "A"を表示する
-elseif (score >= 60)
-    "B"を表示する
+if (score ≧ 80)
+  表示する("A")
+elseif (score ≧ 60)
+  表示する("B")
 else
-    "C"を表示する
+  表示する("C")
 endif
 ```
 
@@ -773,12 +790,12 @@ endif
 
 <div class="mistake-box">
   <p class="box-title">順番を逆にするとどうなるか</p>
-  <pre><code>if (score >= 60)
-    "B"を表示する
-elseif (score >= 80)
-    "A"を表示する
+  <pre><code>if (score ≧ 60)
+  表示する("B")
+elseif (score ≧ 80)
+  表示する("A")
 endif</code></pre>
-  <p>`score`が90でも、最初の`score >= 60`が成立するため「B」と表示されます。</p>
+  <p>`score`が90でも、最初の`score ≧ 60`が成立するため「B」と表示されます。</p>
 </div>
 
 ## 演習4-A　偶数・奇数を判定する
@@ -789,9 +806,9 @@ endif</code></pre>
 
 ```text
 if ([ ① ])
-    "偶数"を表示する
+  表示する("偶数")
 else
-    "奇数"を表示する
+  表示する("奇数")
 endif
 ```
 
@@ -802,7 +819,7 @@ endif
 身長`height`（m）と体重`weight`（kg）からBMIを求め、次の基準で結果を表示します。
 
 <div class="criteria-card">
-  <p><strong>BMIの計算式</strong><code>BMI = 体重 ÷ (身長 × 身長)</code></p>
+  <p><strong>BMIの計算式</strong><code>BMI ＝ 体重 ÷ (身長 × 身長)</code></p>
   <div class="criteria-row">
     <span><b>18.5未満</b>低体重</span>
     <span><b>18.5以上25未満</b>標準体重</span>
@@ -821,11 +838,11 @@ weight ← 入力する()
 bmi ← weight ÷ (height × height)
 
 if ([ ① ])
-    result ← "低体重"
+  result ← "低体重"
 elseif ([ ② ])
-    result ← "標準体重"
+  result ← "標準体重"
 else
-    result ← "肥満"
+  result ← "肥満"
 endif
 
 表示する(result)
@@ -847,7 +864,7 @@ endif
 
 <div class="explain-box">
   <p class="box-title">説明してみよう</p>
-  <p>二つ目の条件を`bmi < 25`だけで書ける理由を説明してください。最初の`if`が成立しなかった時点で、どの条件が分かっているでしょうか。</p>
+  <p>二つ目の条件を`bmi ＜ 25`だけで書ける理由を説明してください。最初の`if`が成立しなかった時点で、どの条件が分かっているでしょうか。</p>
 </div>
 
 <div class="page-break"></div>
@@ -867,8 +884,8 @@ endif
 </div>
 
 ```text
-for (iを1から5まで1ずつ増やす)
-    iを表示する
+for (i を 1 から 5 まで 1 ずつ増やす)
+  表示する(i)
 endfor
 ```
 
@@ -879,16 +896,21 @@ endfor
 `for`は、繰り返す回数が分かっている場合に向いています。
 
 <div class="loop-counter">
-  <span class="active">i = 1</span><b>→</b><span>i = 2</span><b>→</b><span>i = 3</span><b>→</b><span>…</span><b>→</b><span>i = 10</span><b>→ 終了</b>
+  <span class="active">i ＝ 1</span><b>→</b><span>i ＝ 2</span><b>→</b><span>i ＝ 3</span><b>→</b><span>…</span><b>→</b><span>i ＝ 10</span><b>→ 終了</b>
 </div>
 
 ```text
 整数型: i
 
-for (iを1から10まで1ずつ増やす)
-    iを表示する
+for (i を 1 から 10 まで 1 ずつ増やす)
+  表示する(i)
 endfor
 ```
+
+<div class="note-box">
+  <p class="box-title">※ 「1から10まで」は10を含む</p>
+  <p><code>for (i を 1 から 10 まで 1 ずつ増やす)</code>では、<code>i</code>は1、2、…、10と変化します。開始値・終了値・増減の方向を、毎回確認します。</p>
+</div>
 
 ## 5.3 条件で続ける繰返し
 
@@ -904,9 +926,9 @@ endfor
 整数型: i
 
 i ← 1
-while (i <= 5)
-    iを表示する
-    i ← i + 1
+while (i ≦ 5)
+  表示する(i)
+  i ← i ＋ 1
 endwhile
 ```
 
@@ -920,7 +942,7 @@ endwhile
 
 <div class="important-box">
   <p class="box-title">無限ループに注意</p>
-  <p>`i ← i + 1`がなければ、`i`は1のままです。条件`i <= 5`が常に成立し、処理が終わりません。繰返しでは「いつ条件が成立しなくなるか」を確認します。</p>
+  <p>`i ← i ＋ 1`がなければ、`i`は1のままです。条件`i ≦ 5`が常に成立し、処理が終わりません。繰返しでは「いつ条件が成立しなくなるか」を確認します。</p>
 </div>
 
 ## 5.4 合計を求める
@@ -938,14 +960,14 @@ endwhile
 
 total ← 0
 
-for (iを1から5まで1ずつ増やす)
-    total ← total + i
+for (i を 1 から 5 まで 1 ずつ増やす)
+  total ← total ＋ i
 endfor
 
 表示する(total)
 ```
 
-| `i` | 実行前の`total` | `total + i` | 実行後の`total` |
+| `i` | 実行前の`total` | `total ＋ i` | 実行後の`total` |
 |---:|---:|---:|---:|
 | 1 | 0 | 1 | 1 |
 | 2 | 1 | 3 | 3 |
@@ -974,10 +996,10 @@ endfor
 
 count ← 0
 
-for (iを1から10まで1ずつ増やす)
-    if (i mod 2 = 0)
-        count ← count + 1
-    endif
+for (i を 1 から 10 まで 1 ずつ増やす)
+  if (i mod 2 ＝ 0)
+    count ← count ＋ 1
+  endif
 endfor
 
 表示する(count)
@@ -998,9 +1020,9 @@ endfor
 
 total ← [ ① ]
 
-for (iを[ ② ]から[ ③ ]まで1ずつ増やす)
-    iを表示する
-    total ← [ ④ ]
+for (i を [ ② ] から [ ③ ] まで 1 ずつ増やす)
+  表示する(i)
+  total ← [ ④ ]
 endfor
 
 average ← [ ⑤ ]
@@ -1024,16 +1046,16 @@ average ← [ ⑤ ]
 
 i ← 1
 
-while (i <= 5)
-    // 処理①
-    if (i mod 2 = 1)
-        // 処理②
-    endif
-    i ← i + 1
+while (i ≦ 5)
+  // 処理①
+  if (i mod 2 ＝ 1)
+    // 処理②
+  endif
+  i ← i ＋ 1
 endwhile
 ```
 
-| `i` | `i <= 5` | 処理① | `i mod 2 = 1` | 処理② |
+| `i` | `i ≦ 5` | 処理① | `i mod 2 ＝ 1` | 処理② |
 |---:|---|---|---|---|
 | 1 | | | | |
 | 2 | | | | |
@@ -1071,7 +1093,7 @@ endwhile
 整数型の配列: A ← {5, 10, 3}
 ```
 
-本書のこの例では、添字を1から始めます。
+この例では、配列の要素番号を1から始めます。
 
 | 要素 | `A[1]` | `A[2]` | `A[3]` |
 |---|---:|---:|---:|
@@ -1080,8 +1102,8 @@ endwhile
 `A`は配列全体の名前、`A[2]`は二番目の要素を表します。
 
 <div class="important-box">
-  <p class="box-title">添字の開始位置を確認する</p>
-  <p>問題によって、配列の添字が0から始まる場合と1から始まる場合があります。本書の例を暗記するのではなく、問題文の定義を必ず確認してください。</p>
+  <p class="box-title">※ 配列の要素番号を確認する</p>
+  <p>試験問題では、「配列の要素番号は1から始まる」のように開始位置が示されます。<code>A[1]</code>を先頭と決めつけず、問題文の指定を確認します。</p>
 </div>
 
 ## 6.2 配列の要素を順番に表示する
@@ -1090,8 +1112,8 @@ endwhile
 整数型: i
 整数型の配列: A ← {3, 8, 2, 5}
 
-for (iを1から4まで1ずつ増やす)
-    A[i]を表示する
+for (i を 1 から 4 まで 1 ずつ増やす)
+  表示する(A[i])
 endfor
 ```
 
@@ -1104,7 +1126,7 @@ endfor
     <div><small>A[3]</small><strong>2</strong></div>
     <div><small>A[4]</small><strong>5</strong></div>
   </div>
-  <p><span>↑</span> `i = 2`なら、2番のロッカー`A[2]`を見る</p>
+  <p><span>↑</span> `i ＝ 2`なら、2番のロッカー`A[2]`を見る</p>
 </div>
 
 ## 6.3 配列の合計
@@ -1116,8 +1138,8 @@ endfor
 
 total ← 0
 
-for (iを1から4まで1ずつ増やす)
-    total ← total + A[i]
+for (i を 1 から 4 まで 1 ずつ増やす)
+  total ← total ＋ A[i]
 endfor
 
 表示する(total)
@@ -1143,10 +1165,10 @@ endfor
 
 max ← A[1]
 
-for (iを2から10まで1ずつ増やす)
-    if (A[i] > max)
-        max ← A[i]
-    endif
+for (i を 2 から 10 まで 1 ずつ増やす)
+  if (A[i] ＞ max)
+    max ← A[i]
+  endif
 endfor
 
 表示する(max)
@@ -1178,8 +1200,8 @@ endfor
 
 total ← [ ① ]
 
-for (iを[ ② ]から[ ③ ]まで1ずつ増やす)
-    total ← [ ④ ]
+for (i を [ ② ] から [ ③ ] まで 1 ずつ増やす)
+  total ← [ ④ ]
 endfor
 
 表示する(total)
@@ -1200,7 +1222,7 @@ endfor
 A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
 ```
 
-| `i` | `A[i]` | 比較前の`max` | `A[i] > max` | 比較後の`max` |
+| `i` | `A[i]` | 比較前の`max` | `A[i] ＞ max` | 比較後の`max` |
 |---:|---:|---:|---|---:|
 | 初期化 | 2 | ― | ― | 2 |
 | 2 | 5 | | | |
@@ -1232,9 +1254,9 @@ A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
 
 <div class="trace-visual">
   <div class="trace-code">
-    <span>1回目</span><strong>total ← 0 + 1</strong>
-    <span>2回目</span><strong>total ← 1 + 2</strong>
-    <span>3回目</span><strong>total ← 3 + 3</strong>
+    <span>1回目</span><strong>total ← 0 ＋ 1</strong>
+    <span>2回目</span><strong>total ← 1 ＋ 2</strong>
+    <span>3回目</span><strong>total ← 3 ＋ 3</strong>
   </div>
   <b>→</b>
   <div class="trace-note">
@@ -1266,8 +1288,8 @@ A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
 
 total ← 0
 
-for (iを1から3まで1ずつ増やす)
-    total ← total + i × 2
+for (i を 1 から 3 まで 1 ずつ増やす)
+  total ← total ＋ i × 2
 endfor
 ```
 
@@ -1293,15 +1315,15 @@ endfor
 ```text
 i ← 1
 
-while (i <= 3)
-    iを表示する
-    i ← i + 1
+while (i ≦ 3)
+  表示する(i)
+  i ← i ＋ 1
 endwhile
 ```
 
-`i`が4になったときも、条件`i <= 3`は一度判定されます。ただし、処理本体は実行されません。
+`i`が4になったときも、条件`i ≦ 3`は一度判定されます。ただし、処理本体は実行されません。
 
-| `i` | `i <= 3` | 表示 | 更新後の`i` |
+| `i` | `i ≦ 3` | 表示 | 更新後の`i` |
 |---:|---|---:|---:|
 | 1 | true | 1 | 2 |
 | 2 | true | 2 | 3 |
@@ -1335,8 +1357,8 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
 
 total ← 1
 
-for (iを1から4まで1ずつ増やす)
-    total ← total × i
+for (i を 1 から 4 まで 1 ずつ増やす)
+  total ← total × i
 endfor
 ```
 
@@ -1384,10 +1406,10 @@ endfor
 
 count ← [ ① ]
 
-for (iを1から10まで1ずつ増やす)
-    if ([ ② ])
-        [ ③ ]
-    endif
+for (i を 1 から 10 まで 1 ずつ増やす)
+  if ([ ② ])
+    [ ③ ]
+  endif
 endfor
 
 表示する(count)
@@ -1413,11 +1435,11 @@ endfor
 max ← A[1]
 maxIndex ← 1
 
-for (iを2からAの要素数まで1ずつ増やす)
-    if ([ ① ])
-        max ← [ ② ]
-        maxIndex ← [ ③ ]
-    endif
+for (i を 2 から Aの要素数 まで 1 ずつ増やす)
+  if ([ ① ])
+    max ← [ ② ]
+    maxIndex ← [ ③ ]
+  endif
 endfor
 
 表示する(max)
@@ -1426,13 +1448,13 @@ endfor
 
 ### 考えるポイント
 
-- 条件を`>=`にすると、最大値が複数ある場合に何が起きるか
+- 条件を`≧`にすると、最大値が複数ある場合に何が起きるか
 - `max`を更新するタイミングと`maxIndex`を更新するタイミング
 - 繰返しを2から始める理由
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜条件の違いを考える</p>
-  <p>`A[i] > max`と`A[i] >= max`の違いについて、具体的な配列を一つ使って質問形式で説明してください。最終的な空欄の答えは表示しないでください。</p>
+  <p>`A[i] ＞ max`と`A[i] ≧ max`の違いについて、具体的な配列を一つ使って質問形式で説明してください。最終的な空欄の答えは表示しないでください。</p>
 </div>
 
 ## 演習8-C　記号を正方形に表示する
@@ -1449,17 +1471,17 @@ endfor
 num ← 入力する()
 
 for ([ ① ])
-    for ([ ② ])
-        [ ③ ]
-    endfor
-    [ ④ ]
+  for ([ ② ])
+    [ ③ ]
+  endfor
+  [ ④ ]
 endfor
 ```
 
 `num`が3の場合の出力：
 
 <div class="output-sample" aria-label="numが3の場合の出力例">
-  <code>***<br>***<br>***</code>
+  <code>***＜br＞***＜br＞***</code>
 </div>
 
 <div class="ai-box">
@@ -1496,7 +1518,7 @@ endfor
 | 実行した文 | 実行後の`total` |
 |---|---:|
 | `total ← 2` | 2 |
-| `total ← total + 3` | 5 |
+| `total ← total ＋ 3` | 5 |
 | `total ← total × 2` | 10 |
 
 最後の行では、直前の値5を使って`5 × 2`を計算します。
@@ -1515,14 +1537,14 @@ y ← work
 
 ## 演習3-A
 
-① `150`、② `80`、③ `apple × 3 + orange × 4`
+① `150`、② `80`、③ `apple × 3 ＋ orange × 4`
 
 合計金額は770円です。
 
 ## 演習3-B
 
 ```text
-taxIncluded ← price × (1 + rate)
+taxIncluded ← price × (1 ＋ rate)
 表示する(taxIncluded)
 ```
 
@@ -1531,18 +1553,18 @@ taxIncluded ← price × (1 + rate)
 ## 演習4-A
 
 ```text
-x mod 2 = 0
+x mod 2 ＝ 0
 ```
 
 2で割った余りが0なら偶数です。
 
 ## 演習4-B
 
-① `bmi < 18.5`
+① `bmi ＜ 18.5`
 
-② `bmi < 25`
+② `bmi ＜ 25`
 
-最初の条件が成立しなかった時点で、`bmi >= 18.5`であることが分かっています。そのため、二つ目では上限だけを確認できます。
+最初の条件が成立しなかった時点で、`bmi ≧ 18.5`であることが分かっています。そのため、二つ目では上限だけを確認できます。
 
 | `bmi` | 結果 |
 |---:|---|
@@ -1553,7 +1575,7 @@ x mod 2 = 0
 
 ## 演習5-A
 
-① `0`、② `1`、③ `10`、④ `total + i`、⑤ `total ÷ 10`
+① `0`、② `1`、③ `10`、④ `total ＋ i`、⑤ `total ÷ 10`
 
 合計は55、平均は5.5です。
 
@@ -1565,7 +1587,7 @@ x mod 2 = 0
 
 ## 演習6-A
 
-① `0`、② `1`、③ `10`、④ `total + A[i]`
+① `0`、② `1`、③ `10`、④ `total ＋ A[i]`
 
 `i`は添字、`A[i]`はその位置に保存されている値です。
 
@@ -1581,36 +1603,36 @@ x mod 2 = 0
 
 ## 演習7-A
 
-最初の誤りは`i = 3`の行です。`2 × 3`は6なので、実行後の`total`は6です。続く`i = 4`では`6 × 4`を計算し、24になります。
+最初の誤りは`i ＝ 3`の行です。`2 × 3`は6なので、実行後の`total`は6です。続く`i ＝ 4`では`6 × 4`を計算し、24になります。
 
 ## 演習8-A
 
 ① `0`
 
-② `A[i] >= 5`
+② `A[i] ≧ 5`
 
-③ `count ← count + 1`
+③ `count ← count ＋ 1`
 
 条件を満たした要素に出会うたびに、件数を1増やします。
 
 ## 演習8-B
 
-① `A[i] > max`
+① `A[i] ＞ max`
 
 ② `A[i]`
 
 ③ `i`
 
-`>`を使うため、同じ最大値が後から現れても更新せず、最初の位置が残ります。
+`＞`を使うため、同じ最大値が後から現れても更新せず、最初の位置が残ります。
 
 ## 演習8-C
 
 ```text
-for (iを1からnumまで1ずつ増やす)
-    for (jを1からnumまで1ずつ増やす)
-        "*"を横に表示する
-    endfor
-    改行する()
+for (i を 1 から num まで 1 ずつ増やす)
+  for (j を 1 から num まで 1 ずつ増やす)
+    横に表示する("*")
+  endfor
+  改行する()
 endfor
 ```
 
@@ -1681,8 +1703,9 @@ PDFファイルを添付できる生成AIに本書を読み込ませる場合は
 
 - [独立行政法人情報処理推進機構（IPA）「試験要綱・シラバスについて」](https://www.ipa.go.jp/shiken/syllabus/gaiyou.html)
 - [独立行政法人情報処理推進機構（IPA）「基本情報技術者試験 科目Bのサンプル問題」](https://www.ipa.go.jp/shiken/syllabus/ps6vr7000000oett-att/fe_kamoku_b_sample.pdf)
+- [独立行政法人情報処理推進機構（IPA）「令和8年度 基本情報技術者試験 科目B 公開問題」](https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf)
 - [独立行政法人情報処理推進機構（IPA）「SG・FE 公開問題」](https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/index.html)
 
 ---
 
-本教材は内容確認用の初稿です。擬似言語の最終的な表記、演習量、難易度、解説の粒度は、研修対象者と実施時間に合わせて調整します。
+本教材は内容確認用の初稿です。擬似言語は基本情報技術者試験用の記述形式に合わせています。演習量、難易度、解説の粒度は、研修対象者と実施時間に合わせて調整します。
