@@ -6,6 +6,11 @@
   <p class="cover-subtitle">はじめての変数から、配列のトレースまで</p>
   <div class="cover-rule"></div>
   <p class="cover-message">「答えを聞く」のではなく、<br>「分からない場所を見つける」ためにAIを使おう。</p>
+  <div class="cover-meta">
+    <span><strong>対象</strong> プログラミング未経験者</span>
+    <span><strong>形式</strong> 講義＋演習＋AI活用</span>
+    <span><strong>範囲</strong> 変数・分岐・繰返し・配列・トレース</span>
+  </div>
   <p class="edition">初稿・内容確認版</p>
 </div>
 
