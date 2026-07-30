@@ -1,6 +1,7 @@
 <link rel="stylesheet" href="教材.css">
 
 <div class="cover">
+  <img class="cover-logo" src="images/trainocate-logo.png" alt="TRAINOCATE">
   <p class="cover-label">基本情報技術者試験　科目B対策</p>
   <h1>擬似言語とAIで学ぶ<br>アルゴリズム入門</h1>
   <p class="cover-subtitle">はじめての変数から、配列のトレースまで</p>
@@ -42,7 +43,7 @@
 
 <div class="learning-cycle">
   <div><span>1</span><strong>概念を読む</strong><small>何をする仕組みか理解する</small></div>
-  <div><span>2</span><strong>例を追う</strong><small>値の変化を手で記録する</small></div>
+  <div><span>2</span><strong>処理をたどる</strong><small>値が変わる順番を手で記録する</small></div>
   <div><span>3</span><strong>自力で解く</strong><small>最初からAIに聞かない</small></div>
   <div><span>4</span><strong>AIに質問する</strong><small>分からない箇所だけ尋ねる</small></div>
   <div><span>5</span><strong>解き直す</strong><small>AIを閉じてもう一度解く</small></div>
@@ -57,17 +58,19 @@
 
 ## 目次
 
-1. [AIを学習相手にする](#chapter-0)
-2. [アルゴリズムと擬似言語](#chapter-1)
-3. [変数・データ型・代入](#chapter-2)
-4. [順次処理](#chapter-3)
-5. [選択処理](#chapter-4)
-6. [繰返し処理](#chapter-5)
-7. [配列](#chapter-6)
-8. [トレースの技術](#chapter-7)
-9. [総合演習](#chapter-8)
-10. [解答・解説](#answers)
-11. [研修後の学習ロードマップ](#roadmap)
+<ol class="toc-list">
+  <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>4</b></a></li>
+  <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>8</b></a></li>
+  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>12</b></a></li>
+  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>17</b></a></li>
+  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>20</b></a></li>
+  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>25</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>31</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>36</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>40</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>44</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>48</b></a></li>
+</ol>
 
 </div>
 

@@ -66,6 +66,14 @@ body {
   background: #fff;
 }
 
+.cover-logo {
+  position: absolute;
+  top: 34px;
+  right: 42px;
+  width: 190px;
+  height: auto;
+}
+
 .cover::before {
   width: 62px;
   height: 8px;
@@ -178,6 +186,43 @@ a {
 a:hover {
   text-decoration: underline;
   text-underline-offset: 3px;
+}
+
+.toc-list {
+  margin: 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc-list li {
+  margin: 0;
+  border-bottom: 1px dotted #aeb7c2;
+}
+
+.toc-list a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1em;
+  padding: 0.34em 0.1em;
+}
+
+.toc-list a::after {
+  order: 2;
+  flex: 1;
+  border-bottom: 1px dotted #b6bec8;
+  content: "";
+}
+
+.toc-list span {
+  order: 1;
+}
+
+.toc-list b {
+  order: 3;
+  min-width: 2em;
+  color: var(--navy);
+  text-align: right;
 }
 
 ul,
@@ -1776,6 +1821,14 @@ td:empty {
 
   .cover h1 {
     font-size: 30pt;
+  }
+
+  .cover-logo {
+    top: 25mm;
+    right: auto;
+    left: 50%;
+    width: 52mm;
+    transform: translateX(-50%);
   }
 
   .edition {
