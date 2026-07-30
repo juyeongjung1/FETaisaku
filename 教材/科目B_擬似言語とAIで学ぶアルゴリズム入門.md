@@ -106,19 +106,21 @@
 
 質問を入力する前に、次の三点を書き出します。
 
-```text
-① 分かっていること：
-② 分からないこと：
-③ 自分で試したこと：
-```
+<div class="thinking-sheet">
+  <p class="sheet-title">AIへ聞く前の整理メモ</p>
+  <div><span>1</span><strong>分かっていること</strong><i>ここに書く</i></div>
+  <div><span>2</span><strong>分からないこと</strong><i>ここに書く</i></div>
+  <div><span>3</span><strong>自分で試したこと</strong><i>ここに書く</i></div>
+</div>
 
 例えば、次のように書きます。
 
-```text
-① totalが合計を保存する変数であることは分かります。
-② total ← total + A[i] の右辺で、どの値を使うのか分かりません。
-③ iが1の場合までは表に書きました。
-```
+<div class="thinking-sheet filled">
+  <p class="sheet-title">記入例</p>
+  <div><span>1</span><p><strong>分かっていること</strong>totalが合計を保存する変数であることは分かります。</p></div>
+  <div><span>2</span><p><strong>分からないこと</strong><code>total ← total + A[i]</code>の右辺で、どの値を使うのか分かりません。</p></div>
+  <div><span>3</span><p><strong>自分で試したこと</strong>iが1の場合までは表に書きました。</p></div>
+</div>
 
 ここまで書くと、AIへの質問が具体的になります。また、自分がどこまで理解できているかも見えるようになります。
 
@@ -148,19 +150,13 @@ AIに質問するには、まずAIが読める形で問題を渡す必要があ�
 
 問題文、擬似言語、選択肢をまとめてコピーし、質問の前に貼り付けます。長い問題では、次の見出しを付けるとAIが内容を区別しやすくなります。
 
-```text
-【問題文】
-ここに問題文を貼る
-
-【擬似言語】
-ここに擬似言語を貼る
-
-【選択肢】
-ここに選択肢を貼る
-
-【自分が分からないところ】
-例：3行目で、totalにどの値が入るのか分からない
-```
+<div class="copy-template">
+  <p class="template-title">AIへ貼り付ける形</p>
+  <div><strong>問題文</strong><span>ここに問題文を貼る</span></div>
+  <div><strong>擬似言語</strong><span>ここに擬似言語を貼る</span></div>
+  <div><strong>選択肢</strong><span>ここに選択肢を貼る</span></div>
+  <div><strong>自分が分からないところ</strong><span>例：3行目で、totalにどの値が入るのか分からない</span></div>
+</div>
 
 ### 方法2　スクリーンショットを添付する
 
@@ -644,11 +640,12 @@ total ← [ ③ ]
 
 ### 自分の説明
 
-```text
-変数appleの役割：
-変数orangeの役割：
-変数totalの役割：
-```
+<div class="answer-sheet">
+  <p class="sheet-title">自分の言葉で書く</p>
+  <div><strong>変数 apple の役割</strong><span></span></div>
+  <div><strong>変数 orange の役割</strong><span></span></div>
+  <div><strong>変数 total の役割</strong><span></span></div>
+</div>
 
 <div class="explain-box">
   <p class="box-title">ペアまたはAIへ説明しよう</p>
@@ -801,13 +798,14 @@ endif
 
 身長`height`（m）と体重`weight`（kg）からBMIを求め、次の基準で結果を表示します。
 
-```text
-BMI = 体重 ÷ (身長 × 身長)
-
-18.5未満       ：低体重
-18.5以上25未満 ：標準体重
-25以上         ：肥満
-```
+<div class="criteria-card">
+  <p><strong>BMIの計算式</strong><code>BMI = 体重 ÷ (身長 × 身長)</code></p>
+  <div class="criteria-row">
+    <span><b>18.5未満</b>低体重</span>
+    <span><b>18.5以上25未満</b>標準体重</span>
+    <span><b>25以上</b>肥満</span>
+  </div>
+</div>
 
 ```text
 実数型: height
@@ -1361,13 +1359,14 @@ endfor
 
 この章では、複数の知識を組み合わせます。最初からAIへ入力せず、問題ごとに次の欄を埋めてください。
 
-```text
-使われている変数：
-使われている配列：
-選択処理：
-繰返し処理：
-求めている結果：
-```
+<div class="analysis-sheet">
+  <p class="sheet-title">問題を解く前の確認欄</p>
+  <div><strong>使われている変数</strong><span></span></div>
+  <div><strong>使われている配列</strong><span></span></div>
+  <div><strong>選択処理</strong><span></span></div>
+  <div><strong>繰返し処理</strong><span></span></div>
+  <div><strong>求めている結果</strong><span></span></div>
+</div>
 
 ## 演習8-A　条件に合う値の件数
 
@@ -1456,11 +1455,9 @@ endfor
 
 `num`が3の場合の出力：
 
-```text
-***
-***
-***
-```
+<div class="output-sample" aria-label="numが3の場合の出力例">
+  <code>***<br>***<br>***</code>
+</div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜入れ子の繰返し</p>
@@ -1573,9 +1570,9 @@ x mod 2 = 0
 
 `max`は次のように変化します。
 
-```text
-2 → 5 → 5 → 9 → 9 → 10 → 10 → 10 → 10 → 10
-```
+<div class="value-path">
+  <span>2</span><b>→</b><span>5</span><b>→</b><span>5</span><b>→</b><span>9</span><b>→</b><span>9</span><b>→</b><span>10</span><b>→</b><span>10</span><b>→</b><span>10</span><b>→</b><span>10</span><b>→</b><span>10</span>
+</div>
 
 現在の`max`より大きい値が現れた場合だけ更新します。
 
@@ -1651,14 +1648,15 @@ endfor
 
 本書をPDFにしてNotebookLMへ登録した場合は、質問に次の条件を付けます。
 
-```text
-登録された教材を優先して回答してください。
-答えを直接示す前に、私がどこまで考えたかを確認してください。
-最初はヒントを一つだけ提示してください。
-擬似言語を説明するときは、変数の変化を表にしてください。
-私の考えに誤りがある場合は、最初の誤りだけを指摘してください。
-教材と異なる説明をする場合は、そのことを明示してください。
-```
+<div class="prompt-card">
+  <p class="prompt-title">コピーして使える指示文</p>
+  <p>登録された教材を優先して回答してください。<br>
+  答えを直接示す前に、私がどこまで考えたかを確認してください。<br>
+  最初はヒントを一つだけ提示してください。<br>
+  擬似言語を説明するときは、変数の変化を表にしてください。<br>
+  私の考えに誤りがある場合は、最初の誤りだけを指摘してください。<br>
+  教材と異なる説明をする場合は、そのことを明示してください。</p>
+</div>
 
 <div class="important-box">
   <p class="box-title">最後は必ずAIなしで解く</p>

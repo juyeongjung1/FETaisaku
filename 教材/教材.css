@@ -219,17 +219,6 @@ pre {
   line-height: 1.62;
 }
 
-pre::before {
-  display: block;
-  margin-bottom: 0.65em;
-  color: var(--coral-dark);
-  content: "擬似言語";
-  font-family: var(--sans);
-  font-size: 0.65rem;
-  font-weight: 800;
-  letter-spacing: 0.11em;
-}
-
 pre code {
   border: 0;
   background: transparent;
@@ -237,6 +226,225 @@ pre code {
   color: inherit;
   font-size: 0.91rem;
   word-break: normal;
+}
+
+.thinking-sheet,
+.copy-template,
+.answer-sheet,
+.analysis-sheet,
+.prompt-card {
+  margin: 1.35em 0 1.7em;
+  border: 1px solid #cbd8eb;
+  border-radius: 7px;
+  background: #f7faff;
+  overflow: hidden;
+}
+
+.sheet-title,
+.template-title,
+.prompt-title {
+  margin: 0;
+  background: #eaf2ff;
+  padding: 0.72em 1.1em;
+  color: var(--navy);
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+}
+
+.thinking-sheet > div {
+  display: grid;
+  grid-template-columns: 2rem 11rem 1fr;
+  align-items: center;
+  min-height: 3.25rem;
+  border-top: 1px solid #dce5f2;
+  padding: 0.65em 1em;
+}
+
+.thinking-sheet > div > span {
+  display: grid;
+  width: 1.45rem;
+  height: 1.45rem;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--blue);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.thinking-sheet i {
+  border-bottom: 1px dashed #9badc5;
+  padding: 0.35em 0;
+  color: #8693a5;
+  font-style: normal;
+}
+
+.thinking-sheet.filled > div {
+  grid-template-columns: 2rem 1fr;
+}
+
+.thinking-sheet.filled p {
+  margin: 0;
+}
+
+.thinking-sheet.filled p strong {
+  display: block;
+  margin-bottom: 0.18em;
+  color: var(--navy);
+  font-size: 0.78rem;
+}
+
+.copy-template > div {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  border-top: 1px solid #dce5f2;
+  min-height: 3rem;
+}
+
+.copy-template strong {
+  background: #f0f5fc;
+  padding: 0.8em 1em;
+  color: var(--navy);
+}
+
+.copy-template span {
+  padding: 0.8em 1em;
+  color: #66758a;
+}
+
+.answer-sheet,
+.analysis-sheet {
+  background: white;
+}
+
+.answer-sheet > div,
+.analysis-sheet > div {
+  display: grid;
+  grid-template-columns: 13rem 1fr;
+  min-height: 3.2rem;
+  border-top: 1px solid #dce5f2;
+}
+
+.answer-sheet strong,
+.analysis-sheet strong {
+  background: #f5f8fc;
+  padding: 0.8em 1em;
+  color: var(--navy);
+}
+
+.answer-sheet span,
+.analysis-sheet span {
+  margin: 0.8em 1em;
+  border-bottom: 1px dashed #a9b6c7;
+}
+
+.output-sample {
+  width: 12rem;
+  margin: 1em 0 1.7em;
+  border: 2px solid #243447;
+  border-radius: 5px;
+  background: #17212e;
+  padding: 0.9em 1.2em;
+  color: #f8fbff;
+  text-align: center;
+}
+
+.output-sample code {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: 1.05rem;
+  letter-spacing: 0.32em;
+}
+
+.value-path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45em;
+  margin: 1em 0 1.7em;
+  border-radius: 7px;
+  background: #f2f6fc;
+  padding: 1em;
+}
+
+.value-path span {
+  display: grid;
+  min-width: 2.2rem;
+  height: 2.2rem;
+  place-items: center;
+  border: 2px solid var(--blue);
+  border-radius: 50%;
+  background: white;
+  color: var(--navy);
+  font-weight: 800;
+}
+
+.value-path b {
+  color: var(--coral);
+}
+
+.prompt-card {
+  border-color: #b7d3ca;
+  background: #f5fbf8;
+}
+
+.prompt-card .prompt-title {
+  background: #e4f3ed;
+  color: #155f4c;
+}
+
+.prompt-card > p:last-child {
+  margin: 0;
+  padding: 1em 1.2em;
+  line-height: 1.8;
+}
+
+.criteria-card {
+  margin: 1.25em 0 1.7em;
+  border: 1px solid #cbd8eb;
+  border-radius: 7px;
+  background: #f7faff;
+  padding: 1em;
+}
+
+.criteria-card > p {
+  display: flex;
+  align-items: center;
+  gap: 1.2em;
+  margin: 0 0 0.9em;
+}
+
+.criteria-card > p strong {
+  color: var(--navy);
+}
+
+.criteria-card > p code {
+  border: 0;
+  background: white;
+  padding: 0.45em 0.8em;
+}
+
+.criteria-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.55em;
+}
+
+.criteria-row span {
+  border-top: 3px solid var(--blue);
+  background: white;
+  padding: 0.75em;
+  text-align: center;
+}
+
+.criteria-row b {
+  display: block;
+  margin-bottom: 0.25em;
+  color: var(--navy);
+  font-size: 0.82rem;
 }
 
 table {
@@ -1628,6 +1836,14 @@ td:empty {
   .champion-visual,
   .trace-visual,
   .trace-column-guide,
+  .thinking-sheet,
+  .copy-template,
+  .answer-sheet,
+  .analysis-sheet,
+  .criteria-card,
+  .output-sample,
+  .value-path,
+  .prompt-card,
   .goal-box,
   .important-box,
   .note-box,
@@ -1741,6 +1957,14 @@ td:empty {
   pre,
   thead,
   .toc-box,
+  .thinking-sheet,
+  .copy-template,
+  .answer-sheet,
+  .analysis-sheet,
+  .criteria-card,
+  .output-sample,
+  .value-path,
+  .prompt-card,
   .goal-box,
   .important-box,
   .note-box,
