@@ -92,7 +92,7 @@
 
 <div class="ng-box">
   <p class="box-title">避けたい質問</p>
-  <p>「この問題の答えを教えて」「完成した擬似言語を作って」</p>
+  <p>問題文を渡さずに「答えを教えて」とだけ頼むことや、考える前に「完成した擬似言語を作って」と頼むこと</p>
   <p class="box-caption">正解だけを受け取ると、どこで考えられなくなったのかが分かりません。</p>
 </div>
 
@@ -122,11 +122,71 @@
 
 ここまで書くと、AIへの質問が具体的になります。また、自分がどこまで理解できているかも見えるようになります。
 
-## 0.3 本書で使う基本プロンプト
+## 0.3 問題をAIへ渡す
+
+AIに質問するには、まずAIが読める形で問題を渡す必要があります。方法は次の三つです。
+
+<div class="input-methods">
+  <div>
+    <span class="method-number">1</span>
+    <strong>文章をコピーして貼る</strong>
+    <small>WebページやPDFで文字を選択できる場合</small>
+  </div>
+  <div>
+    <span class="method-number">2</span>
+    <strong>スクリーンショットを添付する</strong>
+    <small>図・表・擬似言語を含む問題の場合</small>
+  </div>
+  <div>
+    <span class="method-number">3</span>
+    <strong>必要な部分を手で入力する</strong>
+    <small>コピーも画像添付もできない場合</small>
+  </div>
+</div>
+
+### 方法1　問題文をコピーして貼り付ける
+
+問題文、擬似言語、選択肢をまとめてコピーし、質問の前に貼り付けます。長い問題では、次の見出しを付けるとAIが内容を区別しやすくなります。
+
+```text
+【問題文】
+ここに問題文を貼る
+
+【擬似言語】
+ここに擬似言語を貼る
+
+【選択肢】
+ここに選択肢を貼る
+
+【自分が分からないところ】
+例：3行目で、totalにどの値が入るのか分からない
+```
+
+### 方法2　スクリーンショットを添付する
+
+文字を選択できない場合は、問題全体が読めるスクリーンショットを添付します。問題文、擬似言語、選択肢が途中で切れないようにしてください。
+
+<div class="important-box">
+  <p class="box-title">画像を添付したら、最初に読み取り確認をする</p>
+  <p>AIは、画像内の添字、記号、数字を読み間違えることがあります。すぐに解かせず、「画像から読み取った問題文と擬似言語をそのまま書き出してください」と頼み、元画像と見比べます。</p>
+</div>
+
+### 方法3　必要な部分を手で入力する
+
+画像を添付できない場合は、問題の条件と擬似言語を入力します。すべてを打ち直すのが大変なら、分からない行と、その行で使う変数の初期値だけでも構いません。
+
+<div class="problem-packet">
+  <p class="box-title">AIへ送る順番</p>
+  <div><span>問題を渡す</span><b>→</b><span>読み取りを確認する</span><b>→</b><span>分からない点を書く</span><b>→</b><span>ヒントを頼む</span></div>
+</div>
+
+## 0.4 本書で使う基本プロンプト
+
+次の例文は、問題文や画像をAIへ渡し、内容が正しく読み取られたことを確認した**あと**に続けて送ります。
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜ヒントが欲しいとき</p>
-  <p>あなたはプログラミング未経験者の学習支援者です。正解や完成した擬似言語はまだ示さないでください。この問題を解くために、最初に確認することを一つだけ質問してください。私が答えたら、次の質問へ進んでください。</p>
+  <p>あなたはプログラミング未経験者の学習支援者です。先ほど渡した問題について、正解や完成した擬似言語はまだ示さないでください。最初に確認すべきことを一つだけ、私に質問してください。私が答えたら次の質問へ進んでください。</p>
 </div>
 
 <div class="ai-box">
@@ -136,10 +196,10 @@
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜類題を作るとき</p>
-  <p>この問題と同じ考え方で解ける、数字だけを変更した練習問題を一問作ってください。問題だけを提示し、解答と解説は私が回答するまで表示しないでください。</p>
+  <p>先ほど渡した問題と同じ考え方で解ける、数字だけを変更した練習問題を一問作ってください。問題だけを提示し、解答と解説は私が回答するまで表示しないでください。</p>
 </div>
 
-## 0.4 AIの回答を確認する
+## 0.5 AIの回答を確認する
 
 AIから回答を得たら、次の順番で確認します。
 
@@ -151,7 +211,7 @@ AIから回答を得たら、次の順番で確認します。
 
 <div class="note-box">
   <p class="box-title">個人情報・会社情報を入力しない</p>
-  <p>氏名、メールアドレス、顧客情報、社内資料、パスワードなどはAIへ入力しません。研修で指定されたAIサービスと利用ルールに従ってください。</p>
+  <p>氏名、メールアドレス、顧客情報、公開されていない会社資料、パスワードなどはAIへ入力しません。この教材の練習問題のように、公開しても問題のない内容だけを使います。</p>
 </div>
 
 <div class="page-break"></div>
@@ -164,6 +224,23 @@ AIから回答を得たら、次の順番で確認します。
 
 アルゴリズムとは、目的を達成するための**処理手順**です。
 
+<div class="concept-visual">
+  <div class="concept-copy">
+    <p class="visual-kicker">身近なたとえ</p>
+    <p class="visual-title">アルゴリズムは「料理のレシピ」と同じ</p>
+    <p>カレーを作るとき、材料だけを渡されても完成しません。「切る → 炒める → 煮る」のように、作業の順番が必要です。コンピュータにも、同じように具体的な手順を一つずつ伝えます。</p>
+  </div>
+  <img src="images/algorithm-steps.png" alt="歯車に1から4の番号が付き、手順が順番に進むイラスト">
+</div>
+
+<div class="visual-steps">
+  <div><span>材料</span><strong>入力</strong><small>数値や文字を受け取る</small></div>
+  <b>→</b>
+  <div><span>レシピ</span><strong>処理</strong><small>順番どおりに計算する</small></div>
+  <b>→</b>
+  <div><span>料理</span><strong>出力</strong><small>答えを表示する</small></div>
+</div>
+
 例えば、「三つの数の中から最大の数を見つける」という目的に対して、次の手順を考えられます。
 
 1. 一つ目の数を、現在の最大値として覚える
@@ -172,6 +249,14 @@ AIから回答を得たら、次の順番で確認します。
 4. 最後に残った最大値を表示する
 
 人間が何となく行っている判断を、コンピュータが実行できる順序に分解したものがアルゴリズムです。
+
+<div class="number-race">
+  <p class="visual-title">例：3、10、7の中から最大値を探す</p>
+  <div class="race-row"><span class="candidate current">3</span><b>最初の暫定1位</b></div>
+  <div class="race-row"><span class="candidate">10</span><b>3より大きいので、暫定1位を10へ交代</b></div>
+  <div class="race-row"><span class="candidate">7</span><b>10より小さいので、そのまま</b></div>
+  <p class="race-result">最後の暫定1位「10」が答え</p>
+</div>
 
 ## 1.2 良いアルゴリズム
 
@@ -184,9 +269,30 @@ AIから回答を得たら、次の順番で確認します。
 
 「いい感じに並べる」「適切な回数だけ繰り返す」という表現は、人間には伝わってもコンピュータには伝わりません。
 
+<div class="compare-instructions">
+  <div class="bad-instruction">
+    <strong>人には通じるかもしれない</strong>
+    <p>「数字をいい感じに並べて」</p>
+    <small>何を基準に？　大きい順？　小さい順？</small>
+  </div>
+  <div class="good-instruction">
+    <strong>コンピュータにも伝わる</strong>
+    <p>「左から右へ、小さい順に並べる」</p>
+    <small>基準と終了地点が明確</small>
+  </div>
+</div>
+
 ## 1.3 擬似言語とは
 
 擬似言語は、アルゴリズムをプログラムに近い形で表現するための記述方法です。特定のプログラミング言語に依存せず、処理の考え方を表します。
+
+<div class="bridge-visual">
+  <div><span>人の言葉</span><strong>合計を計算して表示する</strong></div>
+  <b>→</b>
+  <div class="bridge-center"><span>擬似言語</span><strong>total ← price × count</strong></div>
+  <b>→</b>
+  <div><span>プログラム</span><strong>各言語の書き方へ変換</strong></div>
+</div>
 
 本書では、次のような表記を使います。
 
@@ -211,6 +317,27 @@ total ← price × count
 ## 1.4 処理を作る三つの基本構造
 
 複雑なアルゴリズムも、基本的には次の三つを組み合わせて作ります。
+
+<div class="structure-map">
+  <div>
+    <span class="structure-number">1</span>
+    <strong>順次</strong>
+    <p>上から順番に行う</p>
+    <small>例：服を着てから靴を履く</small>
+  </div>
+  <div>
+    <span class="structure-number">2</span>
+    <strong>選択</strong>
+    <p>条件で行動を変える</p>
+    <small>例：雨なら傘を持つ</small>
+  </div>
+  <div>
+    <span class="structure-number">3</span>
+    <strong>繰返し</strong>
+    <p>同じことを何度か行う</p>
+    <small>例：全員分の出席を取る</small>
+  </div>
+</div>
 
 ### 順次
 
@@ -261,6 +388,19 @@ endfor
 
 変数には名前を付けます。例えば、合計を保存する変数なら`total`、件数なら`count`のように、役割が分かる名前を使います。
 
+<div class="variable-visual">
+  <p class="visual-title">変数は「名前付きの箱」</p>
+  <div class="variable-box">
+    <span class="variable-name">total</span>
+    <strong>0</strong>
+  </div>
+  <div class="visual-notes">
+    <p><b>箱の名前：</b>`total`</p>
+    <p><b>箱の中身：</b>`0`</p>
+    <p><b>箱に入れられるもの：</b>整数</p>
+  </div>
+</div>
+
 ```text
 整数型: total
 total ← 0
@@ -271,6 +411,8 @@ total ← 0
 ## 2.2 データ型
 
 データ型は、変数にどのような値を保存するかを表します。
+
+データ型は、箱に貼る「中に何を入れてよいか」というラベルです。整数用の箱に文章を入れないように、保存する値の種類をあらかじめ決めます。
 
 | データ型 | 保存する値の例 | 使用例 |
 |---|---|---|
@@ -292,6 +434,12 @@ total ← 0
 ```text
 total ← total + 5
 ```
+
+<div class="assignment-visual">
+  <div class="assignment-right"><span>右側を先に計算</span><strong>3 + 5 = 8</strong></div>
+  <b class="assignment-arrow">→</b>
+  <div class="assignment-left"><span>左側の箱へ入れる</span><strong>total = 8</strong></div>
+</div>
 
 これは、次の順番で実行します。
 
@@ -320,9 +468,40 @@ a ← 3
 
 実行後の`a`は3です。最初に入れた10は残りません。
 
+<div class="overwrite-visual">
+  <div><span>1回目</span><div class="small-variable"><small>a</small><strong>10</strong></div></div>
+  <b>新しい値を入れる →</b>
+  <div><span>2回目</span><div class="small-variable changed"><small>a</small><strong>3</strong></div></div>
+  <p>同じ箱の中身が10から3へ置き換わる</p>
+</div>
+
 ## 2.5 二つの変数の値を交換する
 
 `a`に10、`b`に3が入っているとします。二つの値を交換するには、一時的に値を保存する変数が必要です。
+
+二つのコップの飲み物を交換するとき、空のコップが一つ必要なのと同じです。`work`は、値を一時的に避難させる空のコップです。
+
+<div class="swap-visual">
+  <div class="swap-stage">
+    <span>最初</span>
+    <div class="small-variable"><small>a</small><strong>10</strong></div>
+    <div class="small-variable"><small>b</small><strong>3</strong></div>
+    <div class="small-variable empty"><small>work</small><strong>空</strong></div>
+  </div>
+  <b>→</b>
+  <div class="swap-stage">
+    <span>一時保存</span>
+    <div class="small-variable"><small>a</small><strong>10</strong></div>
+    <div class="small-variable"><small>b</small><strong>3</strong></div>
+    <div class="small-variable changed"><small>work</small><strong>3</strong></div>
+  </div>
+  <b>→</b>
+  <div class="swap-stage">
+    <span>交換後</span>
+    <div class="small-variable changed"><small>a</small><strong>3</strong></div>
+    <div class="small-variable changed"><small>b</small><strong>10</strong></div>
+  </div>
+</div>
 
 ```text
 整数型: work
@@ -400,6 +579,16 @@ y ← [ ③ ]
 
 順次処理は、文を上から下へ一度ずつ実行する、最も基本的な構造です。
 
+<div class="vertical-sequence">
+  <div><span>1</span><p>リンゴの単価を150円として覚える</p></div>
+  <i>↓</i>
+  <div><span>2</span><p>みかんの単価を80円として覚える</p></div>
+  <i>↓</i>
+  <div><span>3</span><p>それぞれの代金を計算して足す</p></div>
+  <i>↓</i>
+  <div><span>4</span><p>合計金額を表示する</p></div>
+</div>
+
 ```text
 整数型: apple
 整数型: orange
@@ -416,6 +605,14 @@ total ← apple × 3 + orange × 4
 ## 3.2 入力・処理・出力で整理する
 
 問題文を読んだら、最初に次の三つへ分けます。
+
+<div class="ipo-visual">
+  <div><span>INPUT</span><strong>入力</strong><p>150円、3個<br>80円、4個</p></div>
+  <b>→</b>
+  <div><span>PROCESS</span><strong>処理</strong><p>150×3<br>＋80×4</p></div>
+  <b>→</b>
+  <div><span>OUTPUT</span><strong>出力</strong><p>合計770円</p></div>
+</div>
 
 | 分類 | 意味 | 例 |
 |---|---|---|
@@ -490,6 +687,15 @@ rate ← 0.1
 
 選択処理は、条件が成立するかどうかによって、実行する処理を変えます。
 
+<div class="everyday-choice">
+  <p class="visual-title">選択は「雨が降っている？」と考えるのと同じ</p>
+  <div class="choice-question">雨が降っている？</div>
+  <div class="choice-branches">
+    <div><span>はい</span><strong>傘を持つ</strong></div>
+    <div><span>いいえ</span><strong>そのまま出かける</strong></div>
+  </div>
+</div>
+
 ```text
 if (score >= 60)
     "合格"を表示する
@@ -513,9 +719,23 @@ endif
 
 「18より大きい」と「18以上」は異なります。境界となる値を確認しましょう。
 
+<div class="boundary-visual">
+  <p class="visual-title">「60点以上」の境界を見る</p>
+  <div class="number-line">
+    <span>59</span><strong class="boundary-point">60</strong><span>61</span>
+  </div>
+  <div class="boundary-labels"><span>条件を満たさない</span><span>ここから条件を満たす</span></div>
+</div>
+
 ## 4.3 複数の条件
 
 二つ以上の条件を組み合わせるときは、論理演算を使います。
+
+<div class="logic-gates">
+  <div><strong>and</strong><p>学生証も必要<br>予約票も必要</p><small>両方そろって通れる</small></div>
+  <div><strong>or</strong><p>学生証または<br>運転免許証</p><small>どちらか一方で通れる</small></div>
+  <div><strong>not</strong><p>「雨ではない」</p><small>条件を反対にする</small></div>
+</div>
 
 | 論理演算 | 成立する条件 |
 |---|---|
@@ -542,6 +762,14 @@ endif
 ```
 
 上から条件を確認し、最初に成立した処理だけを実行します。そのため、条件を書く順番が重要です。
+
+<div class="ranking-visual">
+  <div><span>80点以上？</span><strong>A</strong></div>
+  <i>成立しなければ次へ ↓</i>
+  <div><span>60点以上？</span><strong>B</strong></div>
+  <i>成立しなければ次へ ↓</i>
+  <div><span>どちらでもない</span><strong>C</strong></div>
+</div>
 
 <div class="mistake-box">
   <p class="box-title">順番を逆にするとどうなるか</p>
@@ -631,6 +859,12 @@ endif
 
 繰返し処理は、決められた回数または条件が成立している間、同じ処理を実行します。
 
+<div class="repeat-visual">
+  <p class="visual-title">5人の出席を確認する</p>
+  <div><span>1人目</span><span>2人目</span><span>3人目</span><span>4人目</span><span>5人目</span></div>
+  <p>「名前を呼ぶ → 返事を記録する」を5回繰り返す</p>
+</div>
+
 ```text
 for (iを1から5まで1ずつ増やす)
     iを表示する
@@ -643,6 +877,10 @@ endfor
 
 `for`は、繰り返す回数が分かっている場合に向いています。
 
+<div class="loop-counter">
+  <span class="active">i = 1</span><b>→</b><span>i = 2</span><b>→</b><span>i = 3</span><b>→</b><span>…</span><b>→</b><span>i = 10</span><b>→ 終了</b>
+</div>
+
 ```text
 整数型: i
 
@@ -654,6 +892,12 @@ endfor
 ## 5.3 条件で続ける繰返し
 
 `while`は、条件が成立している間、処理を繰り返します。
+
+<div class="analogy-box">
+  <p class="visual-title">身近なたとえ：行列に人がいる間は受付を続ける</p>
+  <p><b>for：</b>最初から「10人」と分かっているとき</p>
+  <p><b>while：</b>あと何人来るか分からず、「待っている人がいる間」続けるとき</p>
+</div>
 
 ```text
 整数型: i
@@ -681,6 +925,11 @@ endwhile
 ## 5.4 合計を求める
 
 1から5までの合計を求めます。
+
+<div class="piggy-bank">
+  <p class="visual-title">`total`は、数字を貯める貯金箱</p>
+  <div><span>0</span><b>＋1</b><span>1</span><b>＋2</b><span>3</span><b>＋3</b><span>6</span><b>＋4</b><span>10</span><b>＋5</b><span class="final">15</span></div>
+</div>
 
 ```text
 整数型: i
@@ -711,6 +960,12 @@ endfor
 ## 5.5 件数を数える
 
 1から10までの整数のうち、偶数の件数を数えます。
+
+<div class="tally-visual">
+  <p class="visual-title">`count`は、条件に合ったときだけ押すカウンター</p>
+  <div><span>1</span><span class="hit">2</span><span>3</span><span class="hit">4</span><span>5</span><span class="hit">6</span><span>7</span><span class="hit">8</span><span>9</span><span class="hit">10</span></div>
+  <p>色の付いた偶数だけで、カウンターを1増やす</p>
+</div>
 
 ```text
 整数型: i
@@ -801,6 +1056,16 @@ endwhile
 
 配列は、同じデータ型の複数の値を、一つの名前で管理する仕組みです。
 
+<div class="array-visual">
+  <p class="visual-title">配列は「番号付きのロッカー」</p>
+  <div class="array-cells">
+    <div><small>A[1]</small><strong>5</strong></div>
+    <div><small>A[2]</small><strong>10</strong></div>
+    <div><small>A[3]</small><strong>3</strong></div>
+  </div>
+  <p>配列名は建物の名前、添字はロッカー番号、値は中に入っている荷物です。</p>
+</div>
+
 ```text
 整数型の配列: A ← {5, 10, 3}
 ```
@@ -831,6 +1096,16 @@ endfor
 
 `i`が1、2、3、4と変化するため、`A[1]`、`A[2]`、`A[3]`、`A[4]`を順番に参照します。
 
+<div class="array-pointer">
+  <div class="array-cells">
+    <div><small>A[1]</small><strong>3</strong></div>
+    <div class="selected"><small>A[2]</small><strong>8</strong></div>
+    <div><small>A[3]</small><strong>2</strong></div>
+    <div><small>A[4]</small><strong>5</strong></div>
+  </div>
+  <p><span>↑</span> `i = 2`なら、2番のロッカー`A[2]`を見る</p>
+</div>
+
 ## 6.3 配列の合計
 
 ```text
@@ -854,6 +1129,10 @@ endfor
 | 3 | 2 | 11 | 13 |
 | 4 | 5 | 13 | 18 |
 
+<div class="array-sum-strip">
+  <span>0</span><b>+ A[1]の3</b><span>3</span><b>+ A[2]の8</b><span>11</span><b>+ A[3]の2</b><span>13</span><b>+ A[4]の5</b><span class="final">18</span>
+</div>
+
 ## 6.4 配列の最大値
 
 ```text
@@ -873,6 +1152,12 @@ endfor
 ```
 
 最初の要素`A[1]`を、現在の最大値として`max`へ入れます。その後、残りの要素を一つずつ比較します。
+
+<div class="champion-visual">
+  <p class="visual-title">`max`は「暫定チャンピオン」</p>
+  <div><span>2</span><b>→</b><span class="winner">5</span><b>→</b><span>1</span><b>→</b><span class="winner">9</span><b>→</b><span>8</span><b>→</b><span class="winner final">10</span></div>
+  <p>今のチャンピオンより大きい値が現れたときだけ、`max`を交代する</p>
+</div>
 
 <div class="note-box">
   <p class="box-title">なぜ最大値の初期値を0にしないのか</p>
@@ -944,9 +1229,28 @@ A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
 
 この作業を**トレース**といいます。
 
+<div class="trace-visual">
+  <div class="trace-code">
+    <span>1回目</span><strong>total ← 0 + 1</strong>
+    <span>2回目</span><strong>total ← 1 + 2</strong>
+    <span>3回目</span><strong>total ← 3 + 3</strong>
+  </div>
+  <b>→</b>
+  <div class="trace-note">
+    <p class="visual-title">頭の中だけで追わない</p>
+    <p>「何回目か」「計算前」「計算後」を表へ書く。トレースは、プログラムの実況中継です。</p>
+  </div>
+</div>
+
 ## 7.2 最初に表の列を決める
 
 すべての変数を書く必要はありません。次を目安に列を作ります。
+
+<div class="trace-column-guide">
+  <div><strong>いつ？</strong><span>i</span><small>何回目か</small></div>
+  <div><strong>何を使う？</strong><span>A[i]</span><small>現在の要素</small></div>
+  <div><strong>どう変わる？</strong><span>total</span><small>実行前と実行後</small></div>
+</div>
 
 - 繰返しを制御する変数
 - 条件式で参照する変数
