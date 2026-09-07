@@ -554,6 +554,13 @@ td:empty {
   height: 2.3em;
 }
 
+.syntax-table table th:first-child,
+.syntax-table table td:first-child {
+  white-space: nowrap;
+  width: 1%;
+  min-width: 12em;
+}
+
 .toc-box {
   margin: 1.6em 0 2.2em;
   border: 1px solid #dfe4e8;
