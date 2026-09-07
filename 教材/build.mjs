@@ -142,7 +142,9 @@ const sourceMap={
 };
 for(const item of exercises) {
   const svg=viz.renderString(graph(item),{format:'svg'});
-  await fs.writeFile(path.join(root,`images/flowcharts/${item.id}.svg`),svg);
+  const flowPath=path.join(root,`images/flowcharts/${item.id}.svg`);
+  const previous=await fs.readFile(flowPath,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error));
+  if (previous!==svg) await fs.writeFile(flowPath,svg);
 }
 let md=(await fs.readFile(source,'utf8')).replaceAll('\r\n','\n');
 try {
@@ -156,7 +158,7 @@ for(let chapter=1;chapter<=8;chapter++) {
   const section=`<!-- 追加演習開始 ${chapter} -->\n\n`+extra.map(item=>{
     const types=item.natural?'':(item.types||('この問題の変数は整数型です。'+(Number(item.id[0])>=6?'配列の添字は1から始まります。':'')));
     const prereq=item.id==='6-F'?'\n**先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。\n':item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
-    return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types}\n\n${item.natural?'':'```text\n'+code(item.steps).join('\n')+'\n```\n'}\n**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。\n\n> 研修中の質問例：本教材の演習${item.id}についてです。私は○○と考えました。答えはまだ示さず、次に確認することを一つ教えてください。\n\n</section>\n`;
+    return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types}\n\n${item.natural?'':'```text\n'+code(item.steps).join('\n')+'\n```\n'}\n**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。\n\n> 研修中の質問例：本教材の演習${item.id}についてです。私は○○と考えました。○○が分かりません。\n\n</section>\n`;
   }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
   const marker=chapter===8?'## 演習後の振り返り':`<div class="page-break"></div>\n\n<a id="chapter-${chapter+1}"></a>`;
   assert(md.includes(marker),marker);md=md.replace(marker,section+marker);
