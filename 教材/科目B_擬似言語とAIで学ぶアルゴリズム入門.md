@@ -1086,7 +1086,8 @@ total ← price × quantity
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>表示される値</strong><span></span></div>
-  <div><strong>入力</strong><span></span></div>
+  <div><strong>入力 price（単価）</strong><span></span></div>
+  <div><strong>入力 quantity（個数）</strong><span></span></div>
   <div><strong>処理</strong><span></span></div>
   <div><strong>出力</strong><span></span></div>
 </div>
@@ -1127,13 +1128,13 @@ price ← price ＋ 300
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習3-E　作業時間の見積り
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】製品を18個作り、一個に7分、全体の準備に12分かかります。総時間minutes（分）とhours（時間）の組合せとして、適切なものを一つ選んでください。hoursは実数型で、小数点以下を切り捨てません。
+【実践】製品を18個作り、一個に7分、全体の準備に12分かかります。総時間minutes（分）とhours（時間）を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。hoursは実数型で、小数点以下を切り捨てません。
 
 整数型: quantity, perItem, setup, minutes
 実数型: hours
@@ -1142,18 +1143,18 @@ price ← price ＋ 300
 quantity ← 18
 perItem ← 7
 setup ← 12
-minutes ← quantity × perItem ＋ setup
-hours ← minutes ÷ 60
+minutes ← [ a ]
+hours ← [ b ]
 ```
 
 <div class="choice-table" data-exercise="3-E">
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | minutes＝126、hours＝2.1 |
-| イ | minutes＝138、hours＝2.3 |
-| ウ | minutes＝342、hours＝5.7 |
-| エ | minutes＝138、hours＝2.0 |
+| ア | a: quantity × perItem ／ b: minutes ÷ 60 |
+| イ | a: quantity × perItem ＋ setup ／ b: minutes ÷ 60 |
+| ウ | a: (quantity ＋ setup) × perItem ／ b: minutes ÷ 60 |
+| エ | a: quantity × perItem ＋ setup ／ b: minutes × 60 |
 
 </div>
 
@@ -1164,18 +1165,18 @@ hours ← minutes ÷ 60
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題3-Eについて質問です。固定の準備時間と個数ごとの製造時間を合わせた総時間の計算順序を確認してください。</p>
+  <p>問題3-Eについて質問です。製造時間と固定の準備時間を合わせた総分数の計算式と、時間への換算方法を確認してください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習3-F　倉庫の一日の記録
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】朝の在庫40個に15個入荷し、23個出荷しました。出荷可能な在庫があるものとします。処理後の在庫stockと、翌日の目標50個に対する不足数shortageの組合せとして、適切なものを一つ選んでください。
+【実践】朝の在庫40個に15個入荷し、23個出荷しました。出荷可能な在庫があるものとします。処理後の在庫stockと、翌日の目標50個に対する不足数shortageを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
 
@@ -1183,8 +1184,8 @@ hours ← minutes ÷ 60
 stock ← 40
 received ← 15
 shipped ← 23
-stock ← stock ＋ received
-stock ← stock − shipped
+stock ← [ a ]
+stock ← [ b ]
 shortage ← 50 − stock
 ```
 
@@ -1192,10 +1193,10 @@ shortage ← 50 − stock
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | stock＝17、shortage＝33 |
-| イ | stock＝55、shortage＝−5 |
-| ウ | stock＝32、shortage＝10 |
-| エ | stock＝32、shortage＝18 |
+| ア | a: stock ＋ received ／ b: shipped − stock |
+| イ | a: received ／ b: stock − shipped |
+| ウ | a: stock − received ／ b: stock ＋ shipped |
+| エ | a: stock ＋ received ／ b: stock − shipped |
 
 </div>
 
@@ -1206,7 +1207,7 @@ shortage ← 50 − stock
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題3-Fについて質問です。入出荷後の在庫数の推移と、目標に対する不足数の求め方を確認してください。</p>
+  <p>問題3-Fについて質問です。入出荷後の在庫数の更新式（加算・減算）と、目標に対する不足数の求め方を確認してください。</p>
 </div>
 
 </section>
@@ -1469,25 +1470,23 @@ endif
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習4-E　利用料金を判定する
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】年齢ageは0以上の整数です。6歳未満は無料、6歳以上18歳未満は400円、18歳以上は900円です。age＝5、6、17、18の順にfeeを並べたものとして、適切なものを一つ選んでください。
+【実践】年齢ageは0以上の整数です。6歳未満は無料（0円）、6歳以上18歳未満は400円、18歳以上は900円です。年齢に応じた料金feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
 
 ```text
-if (age ＜ 6)
+if ([ a ])
   fee ← 0
+elseif ([ b ])
+  fee ← 400
 else
-  if (age ＜ 18)
-    fee ← 400
-  else
-    fee ← 900
-  endif
+  fee ← 900
 endif
 ```
 
@@ -1495,10 +1494,10 @@ endif
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | 0円、400円、400円、900円 |
-| イ | 0円、0円、400円、900円 |
-| ウ | 0円、400円、400円、400円 |
-| エ | 400円、400円、900円、900円 |
+| ア | a: age ＜ 6 ／ b: age ＜ 18 |
+| イ | a: age ≦ 6 ／ b: age ＜ 18 |
+| ウ | a: age ＜ 6 ／ b: age ≦ 18 |
+| エ | a: age ≦ 6 ／ b: age ≦ 18 |
 
 </div>
 
@@ -1509,30 +1508,28 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題4-Eについて質問です。年齢に応じた料金判定で、境界値（6歳、18歳）の条件漏れがないか確認してください。</p>
+  <p>問題4-Eについて質問です。年齢に応じた料金判定で、境界値（6歳、18歳）の条件式（＜ か ≦ か）を確認してください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習4-F　配送サービスを選ぶ
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】冷蔵が必要(cold＝1)なら金額によらず冷蔵便600円。不要(cold＝0)なら購入額amountが5000円以上で送料無料、未満で通常便300円です。(cold, amount)＝(1,6000)、(0,5000)、(0,4999)の順に送料を並べたものとして、適切なものを一つ選んでください。
+【実践】冷蔵が必要(cold＝1)なら金額によらず冷蔵便600円、不要(cold＝0)なら購入額amountが5000円以上で送料無料（0円）、未満で通常便300円です。送料feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
 
 ```text
-if (cold ＝ 1)
+if ([ a ])
   fee ← 600
+elseif ([ b ])
+  fee ← 0
 else
-  if (amount ≧ 5000)
-    fee ← 0
-  else
-    fee ← 300
-  endif
+  fee ← 300
 endif
 ```
 
@@ -1540,10 +1537,10 @@ endif
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | 0円、0円、300円 |
-| イ | 600円、300円、300円 |
-| ウ | 600円、0円、300円 |
-| エ | 600円、0円、0円 |
+| ア | a: amount ≧ 5000 ／ b: cold ＝ 1 |
+| イ | a: cold ＝ 0 ／ b: amount ≧ 5000 |
+| ウ | a: cold ＝ 1 ／ b: amount ≧ 5000 |
+| エ | a: cold ＝ 1 ／ b: amount ＜ 5000 |
 
 </div>
 
@@ -1867,22 +1864,22 @@ endwhile
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習5-E　目標金額まで積み立てる
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】最初の貯金は1000円、毎月700円を加え、3000円以上になったら終了します。必要な月数、最後の貯金額、whileの条件判定回数の組合せとして、適切なものを一つ選んでください。
+【実践】最初の貯金は1000円で毎月700円を積み立て、3000円以上になったら終了します。目標達成まで正しく繰り返すように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
 
 ```text
 balance ← 1000
 months ← 0
-while (balance ＜ 3000)
+while ([ a ])
   balance ← balance ＋ 700
-  months ← months ＋ 1
+  months ← [ b ]
 endwhile
 ```
 
@@ -1890,10 +1887,10 @@ endwhile
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | 3か月、3100円、3回 |
-| イ | 3か月、3100円、4回 |
-| ウ | 2か月、2400円、3回 |
-| エ | 3か月、3000円、4回 |
+| ア | a: balance ≦ 3000 ／ b: months ＋ 1 |
+| イ | a: balance ＜ 3000 ／ b: months ＋ 1 |
+| ウ | a: balance ＞ 3000 ／ b: months ＋ 1 |
+| エ | a: balance ＜ 3000 ／ b: balance ＋ 1 |
 
 </div>
 
@@ -1904,26 +1901,26 @@ endwhile
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題5-Eについて質問です。目標額以上になるまで積み立てる処理で、月数と判定回数の数え方を確認してください。</p>
+  <p>問題5-Eについて質問です。目標額以上になるまで積み立てる処理で、繰返し条件（＜ か ≦ か）と月数の加算式を確認してください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習5-F　一括処理の所要時間
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】1番から6番までの伝票を順に処理します。各伝票に2分、3番と6番には追加点検で各5分かかります。合計時間として、適切なものを一つ選んでください。i mod 3＝0は、番号が3の倍数かを判定します。
+【実践】1番から6番までの伝票を順に処理します。各伝票に2分、3番と6番（3の倍数）には追加点検で各5分かかります。合計時間minutesを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
 
 ```text
 minutes ← 0
 for (i を 1 から 6 まで 1 ずつ増やす)
-  minutes ← minutes ＋ 2
-  if (i mod 3 ＝ 0)
+  minutes ← [ a ]
+  if ([ b ])
     minutes ← minutes ＋ 5
   endif
 endfor
@@ -1933,10 +1930,10 @@ endfor
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | 12分 |
-| イ | 18分 |
-| ウ | 42分 |
-| エ | 22分 |
+| ア | a: minutes ＋ 2 ／ b: i mod 2 ＝ 0 |
+| イ | a: 2 ／ b: i mod 3 ＝ 0 |
+| ウ | a: minutes ＋ i ／ b: i mod 3 ＝ 0 |
+| エ | a: minutes ＋ 2 ／ b: i mod 3 ＝ 0 |
 
 </div>
 
@@ -1947,7 +1944,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題5-Fについて質問です。全伝票の基本時間と、3の倍数の伝票にかかる追加時間の計算方法を確認してください。</p>
+  <p>問題5-Fについて質問です。全伝票の基本処理時間の加算と、3の倍数を判定する条件式の書き方を確認してください。</p>
 </div>
 
 </section>
@@ -2210,13 +2207,13 @@ endfor
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習6-E　不足している商品を数える
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】4商品の在庫A＝{2,8,0,5}を点検します。各商品は5個以上が目標です。不足している商品の種類数countと、補充する総個数neededの組合せとして、適切なものを一つ選んでください。添字は1からです。
+【実践】4商品の在庫A＝{2,8,0,5}を点検します。各商品は5個以上が目標です。不足している商品の種類数countと補充する総個数neededを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
@@ -2224,8 +2221,8 @@ endfor
 count ← 0
 needed ← 0
 for (i を 1 から 4 まで 1 ずつ増やす)
-  if (A[i] ＜ 5)
-    count ← count ＋ 1
+  if ([ a ])
+    count ← [ b ]
     needed ← needed ＋ (5 − A[i])
   endif
 endfor
@@ -2235,10 +2232,10 @@ endfor
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | count＝2、needed＝8 |
-| イ | count＝3、needed＝8 |
-| ウ | count＝2、needed＝10 |
-| エ | count＝2、needed＝2 |
+| ア | a: A[i] ＜ 5 ／ b: count ＋ 1 |
+| イ | a: A[i] ≦ 5 ／ b: count ＋ 1 |
+| ウ | a: A[i] ＜ 5 ／ b: needed ＋ 1 |
+| エ | a: A[i] ＞ 5 ／ b: count ＋ 1 |
 
 </div>
 
@@ -2249,18 +2246,18 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題6-Eについて質問です。各商品の在庫数と目標数を比較し、不足商品の種類数と補充個数を集計する考え方を確認してください。</p>
+  <p>問題6-Eについて質問です。各商品の在庫数と目標数を比較する条件式（＜ か ≦ か）と品目数の加算式を確認してください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習6-F　最初に一致する商品を探す
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】商品番号A＝{7,4,7,9}からtargetを探します。位置は1から、未発見を0とします。次の三つの場合の最終的なpositionを順に並べたものを一つ選んでください。①このコードでtarget＝7、②条件の「and position＝0」を除いてtarget＝7、③元のコードでtarget＝6。
+【実践】商品番号配列A＝{7,4,7,9}から目的の値targetを線形探索し、最初に出現した位置（添字i）をpositionに記録します（未発見時は0）。プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。
 
 **先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。
 
@@ -2269,8 +2266,8 @@ endfor
 ```text
 position ← 0
 for (i を 1 から 4 まで 1 ずつ増やす)
-  if (A[i] ＝ target and position ＝ 0)
-    position ← i
+  if ([ a ])
+    position ← [ b ]
   endif
 endfor
 ```
@@ -2279,10 +2276,10 @@ endfor
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | 1、1、0 |
-| イ | 3、3、0 |
-| ウ | 1、3、0 |
-| エ | 1、3、4 |
+| ア | a: A[i] ＝ target ／ b: i |
+| イ | a: A[i] ＝ target and position ≠ 0 ／ b: i |
+| ウ | a: A[i] ＝ target and position ＝ 0 ／ b: i |
+| エ | a: A[i] ＝ target and position ＝ 0 ／ b: A[i] |
 
 </div>
 
@@ -2553,13 +2550,13 @@ endwhile
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習7-E　値引き処理の境界を検証する
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】一件の注文が1000円以上なら100円引きにします。A＝{999,1000,1500}の3件を処理します。このコードの最終的なtotalと、条件を「pay ＞ 1000」に変えた場合の最終的なtotalの組合せとして、適切なものを一つ選んでください。
+【実践】一件の注文が1000円以上なら100円引きにします。注文額の配列A＝{999,1000,1500}の3件を処理するとき、合計金額totalを正しく求めるように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
@@ -2567,10 +2564,10 @@ endwhile
 total ← 0
 for (i を 1 から 3 まで 1 ずつ増やす)
   pay ← A[i]
-  if (pay ≧ 1000)
-    pay ← pay − 100
-  endif
-  total ← total ＋ pay
+if ([ a ])
+  pay ← [ b ]
+endif
+total ← total ＋ pay
 endfor
 ```
 
@@ -2578,10 +2575,10 @@ endfor
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | 元の条件：3299円／変更後：3299円 |
-| イ | 元の条件：3299円／変更後：3399円 |
-| ウ | 元の条件：3399円／変更後：3299円 |
-| エ | 元の条件：3199円／変更後：3399円 |
+| ア | a: pay ＞ 1000 ／ b: pay − 100 |
+| イ | a: pay ≧ 1000 ／ b: pay − 100 |
+| ウ | a: pay ≧ 1000 ／ b: total − 100 |
+| エ | a: pay ＞ 999 ／ b: 100 |
 
 </div>
 
@@ -2597,13 +2594,13 @@ endfor
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習7-F　連続した記録をまとめる
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】同じ番号が連続した部分を一つのまとまりとして数えます。A＝{2,2,5,5,2}です。最初のまとまりを1とし、前の値と違ったときだけ増やします。処理後のgroupsと、配列に含まれる異なる番号の種類数の組合せとして、適切なものを一つ選んでください。
+【実践】同じ番号が連続した部分を一つのまとまり（グループ）として数えます。配列A＝{2,2,5,5,2}において、前の値と違ったときだけグループ数を増やすように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 **先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。
 
@@ -2612,8 +2609,8 @@ endfor
 ```text
 groups ← 1
 for (i を 2 から 5 まで 1 ずつ増やす)
-  if (A[i] ≠ A[i − 1])
-    groups ← groups ＋ 1
+  if ([ a ])
+    groups ← [ b ]
   endif
 endfor
 ```
@@ -2622,10 +2619,10 @@ endfor
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | groups＝2、種類数＝2 |
-| イ | groups＝3、種類数＝3 |
-| ウ | groups＝5、種類数＝2 |
-| エ | groups＝3、種類数＝2 |
+| ア | a: A[i] ＝ A[i − 1] ／ b: groups ＋ 1 |
+| イ | a: A[i] ≠ A[i − 1] ／ b: i |
+| ウ | a: A[i] ＞ A[i − 1] ／ b: groups ＋ 1 |
+| エ | a: A[i] ≠ A[i − 1] ／ b: groups ＋ 1 |
 
 </div>
 
@@ -2636,7 +2633,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題7-Fについて質問です。配列の隣接する要素（A[i]とA[i−1]）の比較で、まとまりの数を数える考え方を確認してください。</p>
+  <p>問題7-Fについて質問です。配列の隣接する要素（A[i]とA[i−1]）の比較で、まとまりの数を数える条件式を確認してください。</p>
 </div>
 
 </section>
@@ -3247,7 +3244,7 @@ price＝2100。先に送料を足すと2300 × 0.9＝2070です。後者では�
 
 **正解：イ**
 
-minutes＝138分、hours＝2.3時間。準備は全体で一回なので、製造時間126分に12分だけ加えます。
+製造時間（quantity × perItem）に全体の準備時間（setup）を加えるため [ a ] は quantity × perItem ＋ setup です。分から時間への換算は60で割るため [ b ] は minutes ÷ 60 です（minutes＝138、hours＝2.3）。
 
 ### 値の確認（各処理の実行後）
 
@@ -3273,7 +3270,7 @@ minutes＝138分、hours＝2.3時間。準備は全体で一回なので、製�
 
 **正解：エ**
 
-stock＝32、shortage＝18。入荷後は55、出荷後は32です。不足数は、出荷後の値を使って50−32と計算します。
+入荷時は現在在庫に加算するため [ a ] は stock ＋ received（55個）、出荷時は減算するため [ b ] は stock − shipped（32個）です。不足数は50−32＝18個となります。
 
 ### 値の確認（各処理の実行後）
 
@@ -3383,7 +3380,7 @@ stock＝32、shortage＝18。入荷後は55、出荷後は32です。不足数�
 
 **正解：ア**
 
-順に0、400、400、900円。≦18にすると18歳が400円となり誤りです。境目の直前と境目自身を必ず確認します。
+「6歳未満」は6を含まないため [ a ] は age ＜ 6 です。最初の条件が偽なら6歳以上と確定しているため、続く条件 [ b ] は age ＜ 18 で6歳以上18歳未満を過不足なく判定できます。
 
 表の確認に使う入力：age＝5。
 
@@ -3409,7 +3406,7 @@ stock＝32、shortage＝18。入荷後は55、出荷後は32です。不足数�
 
 **正解：ウ**
 
-順に600、0、300円。冷蔵条件を優先します。「5000円以上なら無料」だけを先に適用すると、冷蔵便まで無料にしてしまいます。
+冷蔵条件（cold ＝ 1）を最優先で600円とし、次に通常便の中で5000円以上（amount ≧ 5000）を無料と判定します。先に購入額を判定すると冷蔵便まで無料にしてしまうため順序が重要です。
 
 表の確認に使う入力：cold＝1、amount＝6000。
 
@@ -3527,7 +3524,7 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 **正解：イ**
 
-3か月、3100円です。1000→1700→2400→3100と変化し、条件は4回判定します。最後は目標を超えても停止します。
+目標の3000円に達するまで（未満の間）繰り返すため [ a ] は balance ＜ 3000 です。月数を1ずつ加算するため [ b ] は months ＋ 1 です（終了時: 3か月、3100円）。
 
 ### 値の確認（各処理の実行後）
 
@@ -3552,7 +3549,7 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 **正解：エ**
 
-22分です。通常処理6×2＝12分に、追加点検2×5＝10分を加えます。追加点検の日でも通常の2分は必要です。
+毎回の通常処理時間2分を加算するため [ a ] は minutes ＋ 2 です。番号が3の倍数の伝票を判定するため [ b ] は i mod 3 ＝ 0 です（合計22分）。
 
 ### 値の確認（各処理の実行後）
 
@@ -3683,7 +3680,7 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 
 **正解：ア**
 
-count＝2種類、needed＝8個。1番に3個、3番に5個補充します。5個ちょうどの4番は不足していません。
+目標の5個未満である商品を判定するため [ a ] は A[i] ＜ 5 です（5個ちょうどの商品は不足していません）。不足商品の種類数を1増やすため [ b ] は count ＋ 1 です（count＝2、needed＝8）。
 
 表の確認に使う入力：A＝{2,8,0,5}。
 
@@ -3711,7 +3708,7 @@ count＝2種類、needed＝8個。1番に3個、3番に5個補充します。5�
 
 **正解：ウ**
 
-target＝7ならposition＝1。既に見つかったら更新しないため最初の位置が残ります。position＝0を消すと最後の一致位置3になります。target＝6なら未発見の0です。
+targetと一致し、かつ未発見（position ＝ 0）のときだけ更新することで最初に見つかった位置を保持するため [ a ] は A[i] ＝ target and position ＝ 0 です。位置を記録するため [ b ] は添字の i です。
 
 表の確認に使う入力：A＝{7,4,7,9}、target＝7。
 
@@ -3830,7 +3827,7 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 **正解：イ**
 
-各回の(pay,total)は(999,999)、(900,1899)、(1400,3299)。＞1000だと1000円の注文が値引きされず、合計は100円多い3399円です。
+「1000円以上」は1000円自身を含むため条件 [ a ] は pay ≧ 1000 です。＞ 1000 にすると1000円の注文が値引きされなくなります。100円引きを行うため [ b ] は pay − 100 です（合計3299円）。
 
 表の確認に使う入力：A＝{999,1000,1500}。
 
@@ -3857,7 +3854,7 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 **正解：エ**
 
-groupsは1→1→2→2→3で、答えは3まとまりです。{2,2}、{5,5}、{2}と分かれます。番号自体の種類は2種類なので、別の数え方です。
+直前の要素と値が異なる場合に新しいグループとなるため条件 [ a ] は A[i] ≠ A[i − 1] です。グループ数を1増やすため [ b ] は groups ＋ 1 です（groups＝3）。
 
 表の確認に使う入力：A＝{2,2,5,5,2}。
 

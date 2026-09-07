@@ -26,35 +26,35 @@ add('2-E',3,'口座間の資金移動','手数料なしで口座aから口座b�
 add('2-F',3,'担当番号を一つずらす','窓口a、b、cの担当番号を、aには元のb、bには元のc、cには元のaが入るよう更新します。処理後のa、b、cの値を答えてください。',['a ← 10','b ← 20','c ← 30','temp ← a','a ← b','b ← c','c ← temp'],'a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、aにbの値20、bにcの値30、cにtempの値10を代入します。',{a:20,b:30,c:10},{answerFields:['a の値','b の値','c の値'],aiQuestion:'問題2-Fについて質問です。3つの変数の値を順番に入れ替える際、一時変数tempを使って値が上書きされないようにする手順を教えてください。'});
 add('3-A',1,'代金を計算する','',['apple ← 150','orange ← 80','total ← apple × 3 ＋ orange × 4'],'①150、②80、③apple × 3 ＋ orange × 4。450＋320＝770円です。',{total:770},{existing:true});
 add('3-B',2,'消費税込みの金額','',['price ← 1200','rate ← 0.1','taxIncluded ← price × (1 ＋ rate)','表示する(taxIncluded)'],'taxIncluded ← price × (1 ＋ rate)、表示する(taxIncluded)。税込価格は1320です。税額120だけでなく、本体価格1200も含めます。',{taxIncluded:1320},{existing:true});
-add('3-C',1,'入力から出力まで','priceは入力された単価、quantityは入力された個数とします。単価200円、個数3個のとき何が表示されますか。入力・処理・出力に分けて説明してください。',['price ← 200','quantity ← 3','total ← price × quantity','表示する(total)'],'表示は600。入力は単価と個数、処理は掛け算、出力は合計金額の表示です。',{total:600},{answerFields:['表示される値','入力','処理','出力'],aiQuestion:'問題3-Cについて質問です。問題文から入力・処理・出力を整理する際、単価と個数がどれに当たるか確認してください。'});
+add('3-C',1,'入力から出力まで','priceは入力された単価、quantityは入力された個数とします。単価200円、個数3個のとき何が表示されますか。入力・処理・出力に分けて説明してください。',['price ← 200','quantity ← 3','total ← price × quantity','表示する(total)'],'表示は600。入力は単価と個数、処理は掛け算、出力は合計金額の表示です。',{total:600},{answerFields:['表示される値','入力 price（単価）','入力 quantity（個数）','処理','出力'],aiQuestion:'問題3-Cについて質問です。問題文から入力・処理・出力を整理する際、単価と個数がどれに当たるか確認してください。'});
 add('3-D',2,'計算する順番','最後のpriceを求めてください。「割引後に送料を足す」と「送料を足してから割り引く」が同じにならない理由も説明してください。金額は実数型で、小数点以下の丸めは行いません。',['price ← 2000','price ← price × 0.9','price ← price ＋ 300'],'price＝2100。先に送料を足すと2300 × 0.9＝2070です。後者では送料まで割引対象になるため30円違います。',{price:2100},{types:'実数型: price',answerFields:['最後の price','同じにならない理由'],aiQuestion:'問題3-Dについて質問です。「割引後に送料加算」と「送料加算後に割引」で計算結果が一致しない理由を確認してください。'});
-add('3-E',3,'作業時間の見積り','【実践】製品を18個作り、一個に7分、全体の準備に12分かかります。総時間minutes（分）とhours（時間）の組合せとして、適切なものを一つ選んでください。hoursは実数型で、小数点以下を切り捨てません。',['quantity ← 18','perItem ← 7','setup ← 12','minutes ← quantity × perItem ＋ setup','hours ← minutes ÷ 60'],'minutes＝138分、hours＝2.3時間。準備は全体で一回なので、製造時間126分に12分だけ加えます。',{minutes:138,hours:2.3},{types:'整数型: quantity, perItem, setup, minutes\n実数型: hours',aiQuestion:'問題3-Eについて質問です。固定の準備時間と個数ごとの製造時間を合わせた総時間の計算順序を確認してください。'});
-add('3-F',3,'倉庫の一日の記録','【実践】朝の在庫40個に15個入荷し、23個出荷しました。出荷可能な在庫があるものとします。処理後の在庫stockと、翌日の目標50個に対する不足数shortageの組合せとして、適切なものを一つ選んでください。',['stock ← 40','received ← 15','shipped ← 23','stock ← stock ＋ received','stock ← stock − shipped','shortage ← 50 − stock'],'stock＝32、shortage＝18。入荷後は55、出荷後は32です。不足数は、出荷後の値を使って50−32と計算します。',{stock:32,shortage:18},{aiQuestion:'問題3-Fについて質問です。入出荷後の在庫数の推移と、目標に対する不足数の求め方を確認してください。'});
+add('3-E',3,'作業時間の見積り','【実践】製品を18個作り、一個に7分、全体の準備に12分かかります。総時間minutes（分）とhours（時間）を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。hoursは実数型で、小数点以下を切り捨てません。',['quantity ← 18','perItem ← 7','setup ← 12','minutes ← quantity × perItem ＋ setup','hours ← minutes ÷ 60'],'製造時間（quantity × perItem）に全体の準備時間（setup）を加えるため [ a ] は quantity × perItem ＋ setup です。分から時間への換算は60で割るため [ b ] は minutes ÷ 60 です（minutes＝138、hours＝2.3）。',{minutes:138,hours:2.3},{types:'整数型: quantity, perItem, setup, minutes\n実数型: hours',compact:true,displayCode:['quantity ← 18','perItem ← 7','setup ← 12','minutes ← [ a ]','hours ← [ b ]'],aiQuestion:'問題3-Eについて質問です。製造時間と固定の準備時間を合わせた総分数の計算式と、時間への換算方法を確認してください。'});
+add('3-F',3,'倉庫の一日の記録','【実践】朝の在庫40個に15個入荷し、23個出荷しました。出荷可能な在庫があるものとします。処理後の在庫stockと、翌日の目標50個に対する不足数shortageを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',['stock ← 40','received ← 15','shipped ← 23','stock ← stock ＋ received','stock ← stock − shipped','shortage ← 50 − stock'],'入荷時は現在在庫に加算するため [ a ] は stock ＋ received（55個）、出荷時は減算するため [ b ] は stock − shipped（32個）です。不足数は50−32＝18個となります。',{stock:32,shortage:18},{compact:true,displayCode:['stock ← 40','received ← 15','shipped ← 23','stock ← [ a ]','stock ← [ b ]','shortage ← 50 − stock'],aiQuestion:'問題3-Fについて質問です。入出荷後の在庫数の更新式（加算・減算）と、目標に対する不足数の求め方を確認してください。'});
 add('4-A',1,'偶数・奇数を判定する','',[branch('x mod 2 ＝ 0',['result ← "偶数"'],['result ← "奇数"']),'表示する(result)'],'条件はx mod 2 ＝ 0です。余りが0の側だけが偶数になります。x＝8なら偶数、x＝7なら奇数です。',{result:'偶数'},{existing:true,input:{x:8},cases:[[{x:7},{result:'奇数'}]]});
 add('4-B',2,'BMIを判定する','',['bmi ← weight ÷ (height × height)',branch('bmi ＜ 18.5',['result ← "低体重"'],[branch('bmi ＜ 25',['result ← "標準体重"'],['result ← "肥満"'])])],'① bmi ＜ 18.5、② bmi ＜ 25。18.49は低体重、18.50と24.99は標準体重、25.00は肥満です。二つ目へ来た時点で18.5以上は確定しています。',{result:'標準体重'},{existing:true,input:{height:1,weight:18.5},cases:[[{height:1,weight:18.49},{result:'低体重'}],[{height:1,weight:24.99},{result:'標準体重'}],[{height:1,weight:25},{result:'肥満'}]]});
 add('4-C',1,'合格の境目','scoreに59、60をそれぞれ入れたときの表示を答えてください。≧は「以上」を表します。',[branch('score ≧ 60',['result ← "合格"'],['result ← "再挑戦"']),'表示する(result)'],'59は再挑戦、60は合格です。「以上」は境目の60自身も含みます。',{result:'再挑戦'},{input:{score:59},cases:[[{score:60},{result:'合格'}]],types:'整数型: score\n文字列型: result',answerFields:['score＝59 の表示','score＝60 の表示'],aiQuestion:'問題4-Cについて質問です。条件式「score ≧ 60」において、境界値の60自身が含まれるかどうかの判定を確認してください。'});
 add('4-D',2,'二つの条件を満たす','ageは年齢、hasTicketは券ありなら1、なしなら0です。入場には12歳以上かつ券ありが必要です。(age, hasTicket)が(12,1)、(11,1)、(20,0)の結果を答えてください。',[branch('age ≧ 12 and hasTicket ＝ 1',['result ← "入場可"'],['result ← "入場不可"'])],'順に入場可、入場不可、入場不可です。andは両方が真のときだけ真になります。',{result:'入場可'},{input:{age:12,hasTicket:1},cases:[[{age:11,hasTicket:1},{result:'入場不可'}],[{age:20,hasTicket:0},{result:'入場不可'}]],types:'整数型: age, hasTicket\n文字列型: result',answerFields:['(12, 1) の結果','(11, 1) の結果','(20, 0) の結果'],aiQuestion:'問題4-Dについて質問です。「かつ（and）」条件で、両方の条件が成立したときだけ真になる動作を確認してください。'});
-add('4-E',3,'利用料金を判定する','【実践】年齢ageは0以上の整数です。6歳未満は無料、6歳以上18歳未満は400円、18歳以上は900円です。age＝5、6、17、18の順にfeeを並べたものとして、適切なものを一つ選んでください。',[branch('age ＜ 6',['fee ← 0'],[branch('age ＜ 18',['fee ← 400'],['fee ← 900'])])],'順に0、400、400、900円。≦18にすると18歳が400円となり誤りです。境目の直前と境目自身を必ず確認します。',{fee:0},{input:{age:5},cases:[[{age:6},{fee:400}],[{age:17},{fee:400}],[{age:18},{fee:900}]],aiQuestion:'問題4-Eについて質問です。年齢に応じた料金判定で、境界値（6歳、18歳）の条件漏れがないか確認してください。'});
-add('4-F',3,'配送サービスを選ぶ','【実践】冷蔵が必要(cold＝1)なら金額によらず冷蔵便600円。不要(cold＝0)なら購入額amountが5000円以上で送料無料、未満で通常便300円です。(cold, amount)＝(1,6000)、(0,5000)、(0,4999)の順に送料を並べたものとして、適切なものを一つ選んでください。',[branch('cold ＝ 1',['fee ← 600'],[branch('amount ≧ 5000',['fee ← 0'],['fee ← 300'])])],'順に600、0、300円。冷蔵条件を優先します。「5000円以上なら無料」だけを先に適用すると、冷蔵便まで無料にしてしまいます。',{fee:600},{input:{cold:1,amount:6000},cases:[[{cold:0,amount:5000},{fee:0}],[{cold:0,amount:4999},{fee:300}]],aiQuestion:'問題4-Fについて質問です。冷蔵便の指定と購入額による送料無料条件の優先順位について確認してください。'});
+add('4-E',3,'利用料金を判定する','【実践】年齢ageは0以上の整数です。6歳未満は無料（0円）、6歳以上18歳未満は400円、18歳以上は900円です。年齢に応じた料金feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',[branch('age ＜ 6',['fee ← 0'],[branch('age ＜ 18',['fee ← 400'],['fee ← 900'])])],'「6歳未満」は6を含まないため [ a ] は age ＜ 6 です。最初の条件が偽なら6歳以上と確定しているため、続く条件 [ b ] は age ＜ 18 で6歳以上18歳未満を過不足なく判定できます。',{fee:0},{compact:true,displayCode:['if ([ a ])','  fee ← 0','elseif ([ b ])','  fee ← 400','else','  fee ← 900','endif'],input:{age:5},cases:[[{age:6},{fee:400}],[{age:17},{fee:400}],[{age:18},{fee:900}]],aiQuestion:'問題4-Eについて質問です。年齢に応じた料金判定で、境界値（6歳、18歳）の条件式（＜ か ≦ か）を確認してください。'});
+add('4-F',3,'配送サービスを選ぶ','【実践】冷蔵が必要(cold＝1)なら金額によらず冷蔵便600円、不要(cold＝0)なら購入額amountが5000円以上で送料無料（0円）、未満で通常便300円です。送料feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',[branch('cold ＝ 1',['fee ← 600'],[branch('amount ≧ 5000',['fee ← 0'],['fee ← 300'])])],'冷蔵条件（cold ＝ 1）を最優先で600円とし、次に通常便の中で5000円以上（amount ≧ 5000）を無料と判定します。先に購入額を判定すると冷蔵便まで無料にしてしまうため順序が重要です。',{fee:600},{compact:true,displayCode:['if ([ a ])','  fee ← 600','elseif ([ b ])','  fee ← 0','else','  fee ← 300','endif'],input:{cold:1,amount:6000},cases:[[{cold:0,amount:5000},{fee:0}],[{cold:0,amount:4999},{fee:300}]],aiQuestion:'問題4-Fについて質問です。冷蔵便の指定と購入額による送料無料条件の優先順位について確認してください。'});
 add('5-A',2,'合計と平均','',['total ← 0',repeat('i','1','10',['total ← total ＋ i']),'average ← total ÷ 10'],'①0、②1、③10、④total ＋ i、⑤total ÷ 10。合計55、平均5.5です。図はforを初期化・条件判定・更新に分解しています。',{total:55,average:5.5},{existing:true});
 add('5-B',2,'処理回数を数える','',['i ← 1',loop('i ≦ 5',['処理①',branch('i mod 2 ＝ 1',['処理②']),'i ← i ＋ 1'])],'処理①は5回、処理②はi＝1、3、5の3回。終了時i＝6です。i≦5の判定自体は、最後の偽を含め6回行います。',{i:6,'処理①':5,'処理②':3},{existing:true});
 add('5-C',1,'三回足す','最後のtotalを求め、繰返し部分が何回実行されるか答えてください。',['total ← 0',repeat('i','1','3',['total ← total ＋ 2'])],'totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。',{total:6},{answerFields:['最後の total','繰返しの実行回数'],aiQuestion:'問題5-Cについて質問です。繰返し処理の中で変数totalに毎回2を加算していく際の値の変化を確認してください。'});
 add('5-D',1,'最初の判定が偽なら','表示されるiはいくつですか。繰返し内部は何回実行されますか。',['i ← 5',loop('i ＜ 5',['i ← i ＋ 1']),'表示する(i)'],'表示は5、内部は0回です。whileは、実行する前に条件を確かめます。最初から偽なら一度も入りません。',{i:5},{answerFields:['表示される i','内部の実行回数'],aiQuestion:'問題5-Dについて質問です。while文で最初から条件が偽の場合に、ループ内部が実行されない理由を確認してください。'});
-add('5-E',3,'目標金額まで積み立てる','【実践】最初の貯金は1000円、毎月700円を加え、3000円以上になったら終了します。必要な月数、最後の貯金額、whileの条件判定回数の組合せとして、適切なものを一つ選んでください。',['balance ← 1000','months ← 0',loop('balance ＜ 3000',['balance ← balance ＋ 700','months ← months ＋ 1'])],'3か月、3100円です。1000→1700→2400→3100と変化し、条件は4回判定します。最後は目標を超えても停止します。',{months:3,balance:3100},{aiQuestion:'問題5-Eについて質問です。目標額以上になるまで積み立てる処理で、月数と判定回数の数え方を確認してください。'});
-add('5-F',3,'一括処理の所要時間','【実践】1番から6番までの伝票を順に処理します。各伝票に2分、3番と6番には追加点検で各5分かかります。合計時間として、適切なものを一つ選んでください。i mod 3＝0は、番号が3の倍数かを判定します。',['minutes ← 0',repeat('i','1','6',['minutes ← minutes ＋ 2',branch('i mod 3 ＝ 0',['minutes ← minutes ＋ 5'])])],'22分です。通常処理6×2＝12分に、追加点検2×5＝10分を加えます。追加点検の日でも通常の2分は必要です。',{minutes:22},{aiQuestion:'問題5-Fについて質問です。全伝票の基本時間と、3の倍数の伝票にかかる追加時間の計算方法を確認してください。'});
+add('5-E',3,'目標金額まで積み立てる','【実践】最初の貯金は1000円で毎月700円を積み立て、3000円以上になったら終了します。目標達成まで正しく繰り返すように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',['balance ← 1000','months ← 0',loop('balance ＜ 3000',['balance ← balance ＋ 700','months ← months ＋ 1'])],'目標の3000円に達するまで（未満の間）繰り返すため [ a ] は balance ＜ 3000 です。月数を1ずつ加算するため [ b ] は months ＋ 1 です（終了時: 3か月、3100円）。',{months:3,balance:3100},{compact:true,displayCode:['balance ← 1000','months ← 0','while ([ a ])','  balance ← balance ＋ 700','  months ← [ b ]','endwhile'],aiQuestion:'問題5-Eについて質問です。目標額以上になるまで積み立てる処理で、繰返し条件（＜ か ≦ か）と月数の加算式を確認してください。'});
+add('5-F',3,'一括処理の所要時間','【実践】1番から6番までの伝票を順に処理します。各伝票に2分、3番と6番（3の倍数）には追加点検で各5分かかります。合計時間minutesを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',['minutes ← 0',repeat('i','1','6',['minutes ← minutes ＋ 2',branch('i mod 3 ＝ 0',['minutes ← minutes ＋ 5'])])],'毎回の通常処理時間2分を加算するため [ a ] は minutes ＋ 2 です。番号が3の倍数の伝票を判定するため [ b ] は i mod 3 ＝ 0 です（合計22分）。',{minutes:22},{compact:true,displayCode:['minutes ← 0','for (i を 1 から 6 まで 1 ずつ増やす)','  minutes ← [ a ]','  if ([ b ])','    minutes ← minutes ＋ 5','  endif','endfor'],aiQuestion:'問題5-Fについて質問です。全伝票の基本処理時間の加算と、3の倍数を判定する条件式の書き方を確認してください。'});
 add('6-A',2,'10個の合計','',['total ← 0',repeat('i','1','10',['total ← total ＋ A[i]'])],'①0、②1、③10、④total ＋ A[i]。iは位置、A[i]はその位置の値です。例えばAが1〜10なら合計55。実際の合計は与えられた配列で変わります。',{total:55},{existing:true,input:{A:[1,2,3,4,5,6,7,8,9,10]}});
 add('6-B',2,'最大値の変化を追う','',['max ← A[1]',repeat('i','2','10',[branch('A[i] ＞ max',['max ← A[i]'])])],'maxは初期値2から、5→5→9→9→10→10→10→10→10。現在の最大値より大きい場合だけ更新します。',{max:10},{existing:true,input:{A:[2,5,1,9,8,10,7,3,6,4]}});
 add('6-C',1,'添字と値','A＝{8,3,6}で、添字は1から始まります。最後のxとAの内容を求めてください。',['x ← A[2]','A[1] ← x'],'x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定しています。',{x:3,A:[3,3,6]},{input:{A:[8,3,6]},answerFields:['最後の x','処理後の配列 A'],aiQuestion:'問題6-Cについて質問です。配列の添字（位置番号）と、その位置に格納されている値の違いを確認してください。'});
 add('6-D',1,'配列を一つずつ読む','A＝{4,7,2}、添字は1から始まります。表示される順番を書いてください。',
  [repeat('i','1','3',['表示する(A[i])'])],'4、7、2の順です。表示するのは添字1、2、3ではなく、その位置に入っている値です。',{$output:[4,7,2]},{input:{A:[4,7,2]},answerFields:['表示される順番'],aiQuestion:'問題6-Dについて質問です。配列の要素を添字の順に取り出して表示する流れを確認してください。'});
-add('6-E',3,'不足している商品を数える','【実践】4商品の在庫A＝{2,8,0,5}を点検します。各商品は5個以上が目標です。不足している商品の種類数countと、補充する総個数neededの組合せとして、適切なものを一つ選んでください。添字は1からです。',['count ← 0','needed ← 0',repeat('i','1','4',[branch('A[i] ＜ 5',['count ← count ＋ 1','needed ← needed ＋ (5 − A[i])'])])],'count＝2種類、needed＝8個。1番に3個、3番に5個補充します。5個ちょうどの4番は不足していません。',{count:2,needed:8},{input:{A:[2,8,0,5]},aiQuestion:'問題6-Eについて質問です。各商品の在庫数と目標数を比較し、不足商品の種類数と補充個数を集計する考え方を確認してください。'});
-add('6-F',3,'最初に一致する商品を探す','【実践】商品番号A＝{7,4,7,9}からtargetを探します。位置は1から、未発見を0とします。次の三つの場合の最終的なpositionを順に並べたものを一つ選んでください。①このコードでtarget＝7、②条件の「and position＝0」を除いてtarget＝7、③元のコードでtarget＝6。',['position ← 0',repeat('i','1','4',[branch('A[i] ＝ target and position ＝ 0',['position ← i'])])],'target＝7ならposition＝1。既に見つかったら更新しないため最初の位置が残ります。position＝0を消すと最後の一致位置3になります。target＝6なら未発見の0です。',{position:1},{input:{A:[7,4,7,9],target:7},cases:[[{A:[7,4,7,9],target:6},{position:0}]],aiQuestion:'問題6-Fについて質問です。線形探索で最初に一致した位置を記録する条件式（position ＝ 0）の役割を確認してください。'});
+add('6-E',3,'不足している商品を数える','【実践】4商品の在庫A＝{2,8,0,5}を点検します。各商品は5個以上が目標です。不足している商品の種類数countと補充する総個数neededを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。',['count ← 0','needed ← 0',repeat('i','1','4',[branch('A[i] ＜ 5',['count ← count ＋ 1','needed ← needed ＋ (5 − A[i])'])])],'目標の5個未満である商品を判定するため [ a ] は A[i] ＜ 5 です（5個ちょうどの商品は不足していません）。不足商品の種類数を1増やすため [ b ] は count ＋ 1 です（count＝2、needed＝8）。',{count:2,needed:8},{compact:true,displayCode:['count ← 0','needed ← 0','for (i を 1 から 4 まで 1 ずつ増やす)','  if ([ a ])','    count ← [ b ]','    needed ← needed ＋ (5 − A[i])','  endif','endfor'],input:{A:[2,8,0,5]},aiQuestion:'問題6-Eについて質問です。各商品の在庫数と目標数を比較する条件式（＜ か ≦ か）と品目数の加算式を確認してください。'});
+add('6-F',3,'最初に一致する商品を探す','【実践】商品番号配列A＝{7,4,7,9}から目的の値targetを線形探索し、最初に出現した位置（添字i）をpositionに記録します（未発見時は0）。プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。',['position ← 0',repeat('i','1','4',[branch('A[i] ＝ target and position ＝ 0',['position ← i'])])],'targetと一致し、かつ未発見（position ＝ 0）のときだけ更新することで最初に見つかった位置を保持するため [ a ] は A[i] ＝ target and position ＝ 0 です。位置を記録するため [ b ] は添字の i です。',{position:1},{compact:true,displayCode:['position ← 0','for (i を 1 から 4 まで 1 ずつ増やす)','  if ([ a ])','    position ← [ b ]','  endif','endfor'],input:{A:[7,4,7,9],target:7},cases:[[{A:[7,4,7,9],target:6},{position:0}]],aiQuestion:'問題6-Fについて質問です。線形探索で最初に一致した位置を記録する条件式（position ＝ 0）の役割を確認してください。'});
 add('7-A',2,'最初の誤りを見つける','',['total ← 1',repeat('i','1','4',['total ← total × i'])],'最初の誤りはi＝3の行です。2×3＝6なので、その行のtotalは6。次の行は6×4＝24です。誤った5を使い続けないよう、以降も直します。',{total:24},{existing:true});
 add('7-B',1,'実行前と実行後','二行目の実行直前と直後のxを、それぞれ答えてください。',['x ← 3','x ← x ＋ 4'],'直前は3、直後は7です。右辺で使うxは、代入前の3です。',{x:7},{answerFields:['二行目の実行直前の x','二行目の実行直後の x'],aiQuestion:'問題7-Bについて質問です。代入文の実行前と実行後で、変数の値がどのように更新されるかを確認してください。'});
 add('7-C',1,'通らない行を見分ける','実行される代入文だけを順に書き、最後のyを求めてください。',['x ← 2',branch('x ＞ 5',['y ← 10'],['y ← 20'])],'x←2、y←20が実行されます。2＞5は偽なのでy←10は通りません。',{y:20},{answerFields:['実行される代入文','最後の y'],aiQuestion:'問題7-Cについて質問です。分岐条件の真偽によって実行される文と実行されない文の判別方法を確認してください。'});
 add('7-D',2,'繰返しの出口を記録する','判定時のi、条件の真偽、totalを表にしてください。最後のiとtotalはいくつですか。',['i ← 1','total ← 0',loop('i ≦ 3',['total ← total ＋ i','i ← i ＋ 1'])],'判定時の(i,真偽,total)は(1,真,0)、(2,真,1)、(3,真,3)、(4,偽,6)。終了時i＝4、total＝6です。偽になった行も記録します。',{i:4,total:6},{tableTemplate:{headers:['判定時の i','条件 i ≦ 3 の真偽','判定直後の total'],rows:[['1','',''],['2','',''],['3','',''],['4','','']]},answerFields:['最後の i','最後の total'],aiQuestion:'問題7-Dについて質問です。繰返しの終了判定で条件が偽になった行もトレース表に記録する理由を確認してください。'});
-add('7-E',3,'値引き処理の境界を検証する','【実践】一件の注文が1000円以上なら100円引きにします。A＝{999,1000,1500}の3件を処理します。このコードの最終的なtotalと、条件を「pay ＞ 1000」に変えた場合の最終的なtotalの組合せとして、適切なものを一つ選んでください。',['total ← 0',repeat('i','1','3',['pay ← A[i]',branch('pay ≧ 1000',['pay ← pay − 100']),'total ← total ＋ pay'])],'各回の(pay,total)は(999,999)、(900,1899)、(1400,3299)。＞1000だと1000円の注文が値引きされず、合計は100円多い3399円です。',{total:3299},{input:{A:[999,1000,1500]},aiQuestion:'問題7-Eについて質問です。値引き条件の不等号（≧ と ＞）の違いが合計金額に与える影響を確認してください。'});
-add('7-F',3,'連続した記録をまとめる','【実践】同じ番号が連続した部分を一つのまとまりとして数えます。A＝{2,2,5,5,2}です。最初のまとまりを1とし、前の値と違ったときだけ増やします。処理後のgroupsと、配列に含まれる異なる番号の種類数の組合せとして、適切なものを一つ選んでください。',['groups ← 1',repeat('i','2','5',[branch('A[i] ≠ A[i − 1]',['groups ← groups ＋ 1'])])],'groupsは1→1→2→2→3で、答えは3まとまりです。{2,2}、{5,5}、{2}と分かれます。番号自体の種類は2種類なので、別の数え方です。',{groups:3},{input:{A:[2,2,5,5,2]},aiQuestion:'問題7-Fについて質問です。配列の隣接する要素（A[i]とA[i−1]）の比較で、まとまりの数を数える考え方を確認してください。'});
+add('7-E',3,'値引き処理の境界を検証する','【実践】一件の注文が1000円以上なら100円引きにします。注文額の配列A＝{999,1000,1500}の3件を処理するとき、合計金額totalを正しく求めるように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',['total ← 0',repeat('i','1','3',['pay ← A[i]',branch('pay ≧ 1000',['pay ← pay − 100']),'total ← total ＋ pay'])],'「1000円以上」は1000円自身を含むため条件 [ a ] は pay ≧ 1000 です。＞ 1000 にすると1000円の注文が値引きされなくなります。100円引きを行うため [ b ] は pay − 100 です（合計3299円）。',{total:3299},{compact:true,displayCode:['total ← 0','for (i を 1 から 3 まで 1 ずつ増やす)','  pay ← A[i]',  'if ([ a ])',  '  pay ← [ b ]',  'endif',  'total ← total ＋ pay','endfor'],input:{A:[999,1000,1500]},aiQuestion:'問題7-Eについて質問です。値引き条件の不等号（≧ と ＞）の違いが合計金額に与える影響を確認してください。'});
+add('7-F',3,'連続した記録をまとめる','【実践】同じ番号が連続した部分を一つのまとまり（グループ）として数えます。配列A＝{2,2,5,5,2}において、前の値と違ったときだけグループ数を増やすように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。',['groups ← 1',repeat('i','2','5',[branch('A[i] ≠ A[i − 1]',['groups ← groups ＋ 1'])])],'直前の要素と値が異なる場合に新しいグループとなるため条件 [ a ] は A[i] ≠ A[i − 1] です。グループ数を1増やすため [ b ] は groups ＋ 1 です（groups＝3）。',{groups:3},{compact:true,displayCode:['groups ← 1','for (i を 2 から 5 まで 1 ずつ増やす)','  if ([ a ])','    groups ← [ b ]','  endif','endfor'],input:{A:[2,2,5,5,2]},aiQuestion:'問題7-Fについて質問です。配列の隣接する要素（A[i]とA[i−1]）の比較で、まとまりの数を数える条件式を確認してください。'});
 add('8-A',2,'条件に合う値の件数','',['count ← 0',repeat('i','1','10',[branch('A[i] ≧ 5',['count ← count ＋ 1'])])],'①0、②A[i] ≧ 5、③count ← count ＋ 1。条件が真のときだけ1を足します。5自身も対象です。例えばAが1〜10なら6件になります。',{count:6},{existing:true,input:{A:[1,2,3,4,5,6,7,8,9,10]}});
 add('8-B',3,'最大値とその位置','',['max ← A[1]','maxIndex ← 1',repeat('i','2','Aの要素数',[branch('A[i] ＞ max',['max ← A[i]','maxIndex ← i'])]),'表示する(max)','表示する(maxIndex)'],'①A[i] ＞ max、②A[i]、③i。最大値と位置を一緒に更新します。＞を使うため同点では更新されず、最初の位置が残ります。A＝{4,9,9}ならmax＝9、maxIndex＝2です。',{max:9,maxIndex:2},{existing:true,input:{A:[4,9,9]},cases:[[{A:[-3,-5]},{max:-3,maxIndex:1}],[{A:[7]},{max:7,maxIndex:1}]]});
 add('8-C',3,'記号を正方形に表示する','',[repeat('i','1','num',[repeat('j','1','num',['横に表示する("*")']),'改行する()'])],'外側が行、内側が一行の文字を担当します。num＝3なら各行に***を表示し、3行になります。改行は内側の繰返しを終えてから一回だけ行います。',{$text:'***\n***\n***\n'},{existing:true,input:{num:3},cases:[[{num:1},{$text:'*\n'}]]});
@@ -79,91 +79,91 @@ items.find(item => item.id === '8-C').answer = '① `i を 1 から num まで 1
 const choices = {
   "3-E": {
     "options": [
-      "minutes＝126、hours＝2.1",
-      "minutes＝138、hours＝2.3",
-      "minutes＝342、hours＝5.7",
-      "minutes＝138、hours＝2.0"
+      "a: quantity × perItem ／ b: minutes ÷ 60",
+      "a: quantity × perItem ＋ setup ／ b: minutes ÷ 60",
+      "a: (quantity ＋ setup) × perItem ／ b: minutes ÷ 60",
+      "a: quantity × perItem ＋ setup ／ b: minutes × 60"
     ],
     "correct": "イ"
   },
   "3-F": {
     "options": [
-      "stock＝17、shortage＝33",
-      "stock＝55、shortage＝−5",
-      "stock＝32、shortage＝10",
-      "stock＝32、shortage＝18"
+      "a: stock ＋ received ／ b: shipped − stock",
+      "a: received ／ b: stock − shipped",
+      "a: stock − received ／ b: stock ＋ shipped",
+      "a: stock ＋ received ／ b: stock − shipped"
     ],
     "correct": "エ"
   },
   "4-E": {
     "options": [
-      "0円、400円、400円、900円",
-      "0円、0円、400円、900円",
-      "0円、400円、400円、400円",
-      "400円、400円、900円、900円"
+      "a: age ＜ 6 ／ b: age ＜ 18",
+      "a: age ≦ 6 ／ b: age ＜ 18",
+      "a: age ＜ 6 ／ b: age ≦ 18",
+      "a: age ≦ 6 ／ b: age ≦ 18"
     ],
     "correct": "ア"
   },
   "4-F": {
     "options": [
-      "0円、0円、300円",
-      "600円、300円、300円",
-      "600円、0円、300円",
-      "600円、0円、0円"
+      "a: amount ≧ 5000 ／ b: cold ＝ 1",
+      "a: cold ＝ 0 ／ b: amount ≧ 5000",
+      "a: cold ＝ 1 ／ b: amount ≧ 5000",
+      "a: cold ＝ 1 ／ b: amount ＜ 5000"
     ],
     "correct": "ウ"
   },
   "5-E": {
     "options": [
-      "3か月、3100円、3回",
-      "3か月、3100円、4回",
-      "2か月、2400円、3回",
-      "3か月、3000円、4回"
+      "a: balance ≦ 3000 ／ b: months ＋ 1",
+      "a: balance ＜ 3000 ／ b: months ＋ 1",
+      "a: balance ＞ 3000 ／ b: months ＋ 1",
+      "a: balance ＜ 3000 ／ b: balance ＋ 1"
     ],
     "correct": "イ"
   },
   "5-F": {
     "options": [
-      "12分",
-      "18分",
-      "42分",
-      "22分"
+      "a: minutes ＋ 2 ／ b: i mod 2 ＝ 0",
+      "a: 2 ／ b: i mod 3 ＝ 0",
+      "a: minutes ＋ i ／ b: i mod 3 ＝ 0",
+      "a: minutes ＋ 2 ／ b: i mod 3 ＝ 0"
     ],
     "correct": "エ"
   },
   "6-E": {
     "options": [
-      "count＝2、needed＝8",
-      "count＝3、needed＝8",
-      "count＝2、needed＝10",
-      "count＝2、needed＝2"
+      "a: A[i] ＜ 5 ／ b: count ＋ 1",
+      "a: A[i] ≦ 5 ／ b: count ＋ 1",
+      "a: A[i] ＜ 5 ／ b: needed ＋ 1",
+      "a: A[i] ＞ 5 ／ b: count ＋ 1"
     ],
     "correct": "ア"
   },
   "6-F": {
     "options": [
-      "1、1、0",
-      "3、3、0",
-      "1、3、0",
-      "1、3、4"
+      "a: A[i] ＝ target ／ b: i",
+      "a: A[i] ＝ target and position ≠ 0 ／ b: i",
+      "a: A[i] ＝ target and position ＝ 0 ／ b: i",
+      "a: A[i] ＝ target and position ＝ 0 ／ b: A[i]"
     ],
     "correct": "ウ"
   },
   "7-E": {
     "options": [
-      "元の条件：3299円／変更後：3299円",
-      "元の条件：3299円／変更後：3399円",
-      "元の条件：3399円／変更後：3299円",
-      "元の条件：3199円／変更後：3399円"
+      "a: pay ＞ 1000 ／ b: pay − 100",
+      "a: pay ≧ 1000 ／ b: pay − 100",
+      "a: pay ≧ 1000 ／ b: total − 100",
+      "a: pay ＞ 999 ／ b: 100"
     ],
     "correct": "イ"
   },
   "7-F": {
     "options": [
-      "groups＝2、種類数＝2",
-      "groups＝3、種類数＝3",
-      "groups＝5、種類数＝2",
-      "groups＝3、種類数＝2"
+      "a: A[i] ＝ A[i − 1] ／ b: groups ＋ 1",
+      "a: A[i] ≠ A[i − 1] ／ b: i",
+      "a: A[i] ＞ A[i − 1] ／ b: groups ＋ 1",
+      "a: A[i] ≠ A[i − 1] ／ b: groups ＋ 1"
     ],
     "correct": "エ"
   },
