@@ -73,6 +73,11 @@ function verify(item,input,expected) {
 let tests=0;
 for(let chapter=1;chapter<=8;chapter++) for(let level=1;level<=3;level++)
   assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,2);
+for (const item of exercises.filter(e=>e.level===3)) {
+  assert.equal(item.choices.options.length,4,item.id);
+  assert.equal(new Set(item.choices.options).size,4,item.id);
+  assert.match(item.choices.correct,/^[アイウエ]$/,item.id);
+}
 for(const item of exercises) if(!item.natural) {
   verify(item,item.input||{},item.expected);tests++;
   for(const [input,expected] of item.cases||[]) {verify(item,input,expected);tests++;}
@@ -151,6 +156,17 @@ try {
   const toc=JSON.parse(await fs.readFile(path.join(temp,'toc.json'),'utf8'));
   md=md.replace(/(<a href="#([^"]+)"><span>[^<]+<\/span><b>)[^<]*(<\/b>)/g,(full,start,id,end)=>start+(toc[id]||'')+end);
 } catch(e) {if(e.code!=='ENOENT') throw e;}
+function choiceTable(item) {
+  if (!item.choices) return '';
+  return '\n<div class="choice-table" data-exercise="'+item.id+'">\n\n| 選択肢 | 内容 |\n|---|---|\n'+
+    item.choices.options.map((option,i)=>'| '+'アイウエ'[i]+' | '+(item.id==='8-C'?option.replace(' ／ ③','<br>③'):option)+' |').join('\n')+'\n\n</div>\n';
+}
+for (const item of exercises.filter(e=>e.existing&&e.choices)) {
+  const start='<!-- 選択肢開始 '+item.id+' -->', end='<!-- 選択肢終了 '+item.id+' -->';
+  assert(md.includes(start)&&md.includes(end),item.id+'の選択肢位置がありません');
+  const from=md.indexOf(start)+start.length, to=md.indexOf(end,from);
+  md=md.slice(0,from)+'\n'+choiceTable(item)+'\n'+md.slice(to);
+}
 // 生成部分のみを置換するので、本文や既存問題への手修正は保持する。
 md=md.replace(/<!-- 追加演習開始 \d -->[\s\S]*?<!-- 追加演習終了 \d -->\n*/g,'');
 for(let chapter=1;chapter<=8;chapter++) {
@@ -159,14 +175,14 @@ for(let chapter=1;chapter<=8;chapter++) {
     const types=item.natural?'':(item.types||('この問題の変数は整数型です。'+(Number(item.id[0])>=6?'配列の添字は1から始まります。':'')));
     const prereq=item.id==='6-F'?'\n**先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。\n':item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
     if (chapter === 1) {
-      const fields = item.answerFields || ['解答'];
+      const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
       const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
       const answerSheet = `<div class="answer-sheet">\n  <p class="sheet-title">解答欄</p>\n${rows}\n</div>`;
-      const aiBox = `<div class="ai-box">\n  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>\n  <p>本教材の演習${item.id}についてです。私は○○と考えました。○○が分かりません。</p>\n</div>`;
+      const aiBox = `<div class="ai-box">\n  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>\n  <p>問題${item.id}について質問です。私は○○と考えました。○○が分かりません。</p>\n</div>`;
       const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
-      return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
+      return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${choiceTable(item)}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
     }
-    return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types}\n\n${item.natural?'':'```text\n'+code(item.steps).join('\n')+'\n```\n'}\n**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。\n\n> 研修中の質問例：本教材の演習${item.id}についてです。私は○○と考えました。○○が分かりません。\n\n</section>\n`;
+    return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types}\n\n${item.natural?'':'```text\n'+code(item.steps).join('\n')+'\n```\n'}\n${choiceTable(item)}\n**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。\n\n> 研修中の質問例：問題${item.id}について質問です。私は○○と考えました。○○が分かりません。\n\n</section>\n`;
   }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
   const marker=chapter===8?'## 演習後の振り返り':`<div class="page-break"></div>\n\n<a id="chapter-${chapter+1}"></a>`;
   assert(md.includes(marker),marker);md=md.replace(marker,section+marker);
@@ -174,7 +190,7 @@ for(let chapter=1;chapter<=8;chapter++) {
 const answers=exercises.map(item=>{
   const related=sourceMap[item.id];
   const input=item.input?Object.entries(item.input).map(([k,v])=>`${k}＝${Array.isArray(v)?'{'+v.join(',')+'}':v}`).join('、'):'';
-  return `<section class="answer-section">\n\n## 演習${item.id}　解答・解説\n\n${item.answer}\n${input?`\n表の確認に使う入力：${input}。\n`:''}${trace(item)}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。${item.existing?'問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。':''}</p>\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</section>\n`;
+  return `<section class="answer-section">\n\n## 演習${item.id}　解答・解説\n\n${item.choices?`**正解：${item.choices.correct}**\n\n`:''}${item.answer}\n${input?`\n表の確認に使う入力：${input}。\n`:''}${trace(item)}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。${item.existing?'問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。':''}</p>\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</section>\n`;
 }).join('\n');
 md=md.replace(/# 解答・解説[\s\S]*?(?=<div class="page-break"><\/div>\n\n<a id="roadmap">)/,
   '# 解答・解説\n\n自分の答えを書いてから確認します。文章、値の確認表、フローチャートを対応させて読みましょう。図では読みやすさのため、連続する代入を一つの箱にまとめることがあります。\n\n'+answers+'\n');
@@ -210,6 +226,8 @@ try {
   assert(!/<\/?(?:span|strong|small|div|p|br)\b/.test(raw),'HTMLタグが本文に露出しています。');
   assert(!raw.includes('初稿'),'初稿表記が残っています。');
   assert.equal(await page.locator('.exercise-flow img').count(),48);
+  assert.equal(await page.locator('.choice-table').count(),16);
+  assert.equal(await page.locator('.choice-table tbody tr').count(),64);
   assert.equal((raw.match(/難易度 ★/g)||[]).length,48);
   const options={format:'A4',printBackground:true,preferCSSPageSize:true,displayHeaderFooter:true,headerTemplate:'<span></span>',footerTemplate:'<div style="width:100%;text-align:center;font-size:8px;color:#697586;font-family:Meiryo">アルゴリズム入門　｜　<span class="pageNumber"></span></div>',tagged:true,outline:true};
   await page.pdf({...options,path:path.join(temp,'textbook.pdf')});

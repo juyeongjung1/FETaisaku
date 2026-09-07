@@ -18,6 +18,8 @@
 }
 .flow-title { margin: 0 0 2mm; font-weight: bold; color: #1a365d; }
 .flow-caption { margin: 2mm 0 0; font-size: 8pt; color: #526273; }
+.choice-table { break-inside: avoid; }
+.choice-table th:first-child, .choice-table td:first-child { width: 4em; white-space: nowrap; }
 @media print {
   .answer-section { break-before: page; font-size: 10pt; }
   .answer-section h2 { margin: 0 0 3mm; }
@@ -26,6 +28,14 @@
   .answer-section table { margin: 2mm 0; font-size: 8.5pt; }
   .answer-section th, .answer-section td { padding: 1.4mm 2mm; }
   .exercise-question { break-inside: avoid; }
+  .compact-question h2 { margin: 0 0 3mm; }
+  .compact-question h3 { margin: 3mm 0 2mm; }
+  .compact-question p { margin: 2mm 0; }
+  .compact-question pre { margin: 3mm 0; padding: 3mm; line-height: 1.45; }
+  .compact-question table { margin: 3mm 0; }
+  .compact-question th, .compact-question td { padding: 1.5mm 2mm; }
+  .compact-question .ai-box { margin: 3mm 0; padding-top: 2mm; padding-bottom: 2mm; }
+  .compact-question .output-sample { margin: 2mm 0; padding: 2mm 4mm; }
 }
 
 :root {
