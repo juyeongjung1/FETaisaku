@@ -19,7 +19,7 @@
 <path fill="#edf4fc" stroke="#496888" d="M79.44,-103.72C79.44,-103.72 12,-103.72 12,-103.72 6,-103.72 0,-97.72 0,-91.72 0,-91.72 0,-60.28 0,-60.28 0,-54.28 6,-48.28 12,-48.28 12,-48.28 79.44,-48.28 79.44,-48.28 85.44,-48.28 91.44,-54.28 91.44,-60.28 91.44,-60.28 91.44,-91.72 91.44,-91.72 91.44,-97.72 85.44,-103.72 79.44,-103.72"/>
 <text xml:space="preserve" text-anchor="middle" x="45.72" y="-87.7" font-family="Meiryo" font-size="13.00">a ← b</text>
 <text xml:space="preserve" text-anchor="middle" x="45.72" y="-72.1" font-family="Meiryo" font-size="13.00">b ← c</text>
-<text xml:space="preserve" text-anchor="middle" x="45.72" y="-56.5" font-family="Meiryo" font-size="13.00">c ← work</text>
+<text xml:space="preserve" text-anchor="middle" x="45.72" y="-56.5" font-family="Meiryo" font-size="13.00">c ← temp</text>
 </g>
 <!-- n1&#45;&gt;n0 -->
 <g id="edge1" class="edge">
@@ -33,7 +33,7 @@
 <path fill="#edf4fc" stroke="#496888" d="M79.44,-173.16C79.44,-173.16 12,-173.16 12,-173.16 6,-173.16 0,-167.16 0,-161.16 0,-161.16 0,-129.72 0,-129.72 0,-123.72 6,-117.72 12,-117.72 12,-117.72 79.44,-117.72 79.44,-117.72 85.44,-117.72 91.44,-123.72 91.44,-129.72 91.44,-129.72 91.44,-161.16 91.44,-161.16 91.44,-167.16 85.44,-173.16 79.44,-173.16"/>
 <text xml:space="preserve" text-anchor="middle" x="45.72" y="-157.14" font-family="Meiryo" font-size="13.00">b ← 20</text>
 <text xml:space="preserve" text-anchor="middle" x="45.72" y="-141.54" font-family="Meiryo" font-size="13.00">c ← 30</text>
-<text xml:space="preserve" text-anchor="middle" x="45.72" y="-125.94" font-family="Meiryo" font-size="13.00">work ← a</text>
+<text xml:space="preserve" text-anchor="middle" x="45.72" y="-125.94" font-family="Meiryo" font-size="13.00">temp ← a</text>
 </g>
 <!-- n2&#45;&gt;n1 -->
 <g id="edge2" class="edge">

@@ -71,15 +71,15 @@
 <ol class="toc-list">
   <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>5</b></a></li>
   <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>11</b></a></li>
-  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>20</b></a></li>
+  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>19</b></a></li>
   <li><a href="#chapter-3"><span>第3章　順次処理</span><b>29</b></a></li>
-  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>35</b></a></li>
-  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>44</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>53</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>61</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>69</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>75</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>124</b></a></li>
+  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>37</b></a></li>
+  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>47</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>57</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>66</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>75</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>83</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>132</b></a></li>
 </ol>
 
 </div>
@@ -162,7 +162,7 @@
 
 <div class="ai-box">
   <p class="ai-label">研修中の質問例｜問題番号と疑問点を伝える</p>
-  <p>問題2-Bについて質問です。xにyを入れるところは分かりますが、workが必要な理由が分かりません。</p>
+  <p>問題2-Bについて質問です。xにyを入れるところは分かりますが、tempが必要な理由が分かりません。</p>
 </div>
 
 ## 0.4 研修後：別の参考書の問題をAIへ伝える
@@ -457,6 +457,7 @@ c ← a ＋ b
 
 「靴を履く→靴下を履く→外へ出る」をやり直しが起きない順序に直してください。また、このように上から決められた順序で一つずつ進む処理を、三つの基本構造で何と呼びますか。
 
+
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>正しい順序</strong><span></span></div>
@@ -477,6 +478,7 @@ c ← a ＋ b
 <span class="difficulty">難易度 ★☆☆</span>
 
 「雨なら傘を持ち、雨でなければ帽子を持って出発する」のように、条件の成立（はい／いいえ）によって進む処理を切り替える構造を、三つの基本構造で何と呼びますか。
+
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
@@ -500,6 +502,7 @@ c ← a ＋ b
 
 「クラス全員に出席票を1枚ずつ配る」のように、同じ作業を全員分（または条件を満たすまで）何度も行う処理を、三つの基本構造で何と呼びますか。また、この処理が終わるために何が必要ですか。
 
+
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>基本構造の名称</strong><span></span></div>
@@ -521,6 +524,7 @@ c ← a ＋ b
 
 コンピュータに「数字をいい感じに並べて」と指示しても正しく動かないのはなぜですか。アルゴリズムに必要な性質から理由を説明してください。
 
+
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>正しく動かない理由</strong><span></span></div>
@@ -541,22 +545,13 @@ c ← a ＋ b
 
 <span class="difficulty">難易度 ★★★</span>
 
-変数の役割と代入記号「←」の意味の組合せとして、適切なものを一つ選んでください。
+変数の役割と代入記号「←」の意味を、それぞれ説明してください。
 
-<div class="choice-table" data-exercise="1-E">
-
-| 選択肢 | 内容 |
-|---|---|
-| ア | 変数は値を覚える箱／←は左右の値が等しいかの判定 |
-| イ | 変数は値を覚える箱／←は右辺の値を左辺へ入れる動作 |
-| ウ | 変数は処理を繰り返す命令／←は右辺の値を左辺へ入れる動作 |
-| エ | 変数は値を覚える箱／←は左辺の値を右辺へ入れる動作 |
-
-</div>
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
-  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+  <div><strong>変数の役割</strong><span></span></div>
+  <div><strong>代入「←」の意味</strong><span></span></div>
 </div>
 
 <div class="ai-box">
@@ -572,22 +567,13 @@ c ← a ＋ b
 
 <span class="difficulty">難易度 ★★★</span>
 
-「提出された答案用紙を1枚ずつ確認し、60点以上なら合格印、60点未満なら再試印を押し、全員分終わるまで続ける」という作業があります。含まれている基本構造を全て挙げたものを一つ選んでください。
+「提出された答案用紙を1枚ずつ確認し、60点以上なら合格印、60点未満なら再試印を押し、全員分終わるまで続ける」という作業があります。三つの基本構造（順次・選択・繰返し）のうち、どれが含まれていますか。また、どの作業がどの構造に対応しているか説明してください。
 
-<div class="choice-table" data-exercise="1-F">
-
-| 選択肢 | 内容 |
-|---|---|
-| ア | 順次だけ |
-| イ | 順次と選択 |
-| ウ | 順次と繰返し |
-| エ | 順次・選択・繰返し |
-
-</div>
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
-  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+  <div><strong>含まれる基本構造</strong><span></span></div>
+  <div><strong>それぞれの対応関係</strong><span></span></div>
 </div>
 
 <div class="ai-box">
@@ -673,8 +659,8 @@ total ← total ＋ 5
 2. **次に左側の箱へ入れる**：計算した結果の値を、左側の`total`へ代入して上書きする
 
 <div class="important-box">
-  <p class="box-title">【重要】「左辺と右辺が等しい」とは絶対に読みません！</p>
-  <p>数学の授業では「＝」を等しいという意味で使いますが、擬似言語の<code>←</code>は等しいという意味ではありません。<strong>「右辺の計算結果を、左辺の変数に入れる」</strong>という動作の命令です。必ず「右側を計算してから左側の箱へ入れる」という流れで読んでください。</p>
+  <p class="box-title">【重要】代入は「等しい」という意味ではありません！</p>
+  <p>一般的なプログラミング言語（PythonやC言語など）では代入を<code>=</code>と書きますが、数学の「等しい」ではなく「右辺の値を左辺へ入れる」という意味です。基本情報技術者試験の擬似言語では、誤解を防ぐために矢印記号<code>←</code>を使って<strong>「右辺の計算結果を、左辺の箱へ代入する」</strong>と表します。決して「等しい」と読まないように注意しましょう。</p>
 </div>
 
 ### 例：実行前の`total`が3の場合
@@ -705,21 +691,21 @@ a ← 3
 
 `a`に10、`b`に3が入っているとします。二つの値を交換するには、一時的に値を保存する変数が必要です。
 
-二つのコップの飲み物を交換するとき、空のコップが一つ必要なのと同じです。`work`は、値を一時的に避難させる空のコップです。
+二つのコップの飲み物を交換するとき、空のコップが一つ必要なのと同じです。`temp`は、値を一時的に避難させる空のコップです。
 
 <div class="swap-visual">
   <div class="swap-stage">
     <span>最初</span>
     <div class="small-variable"><small>a</small><strong>10</strong></div>
     <div class="small-variable"><small>b</small><strong>3</strong></div>
-    <div class="small-variable empty"><small>work</small><strong>空</strong></div>
+    <div class="small-variable empty"><small>temp</small><strong>空</strong></div>
   </div>
   <b>→</b>
   <div class="swap-stage">
     <span>一時保存</span>
     <div class="small-variable"><small>a</small><strong>10</strong></div>
     <div class="small-variable"><small>b</small><strong>3</strong></div>
-    <div class="small-variable changed"><small>work</small><strong>3</strong></div>
+    <div class="small-variable changed"><small>temp</small><strong>3</strong></div>
   </div>
   <b>→</b>
   <div class="swap-stage">
@@ -730,19 +716,19 @@ a ← 3
 </div>
 
 ```text
-整数型: work
+整数型: temp
 
-work ← b
+temp ← b
 b ← a
-a ← work
+a ← temp
 ```
 
-| 実行後 | `a` | `b` | `work` |
+| 実行後 | `a` | `b` | `temp` |
 |---|---:|---:|---:|
 | 初期状態 | 10 | 3 | 未定義 |
-| `work ← b` | 10 | 3 | 3 |
+| `temp ← b` | 10 | 3 | 3 |
 | `b ← a` | 10 | 10 | 3 |
-| `a ← work` | 3 | 10 | 3 |
+| `a ← temp` | 3 | 10 | 3 |
 
 <div class="mistake-box">
   <p class="box-title">よくある間違い</p>
@@ -780,19 +766,26 @@ total ← total × 2
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-`x`に7、`y`に12が入っています。実行後に`x`が12、`y`が7となるように、空欄を埋めてください。
+`x`に7、`y`に12が入っています。実行後に`x`が12、`y`が7となるように、空欄①〜③を埋めてください。
 
 ```text
-整数型: work
+整数型: temp
 
-work ← [ ① ]
+temp ← [ ① ]
 x ← [ ② ]
 y ← [ ③ ]
 ```
 
-<div class="explain-box">
-  <p class="box-title">自分の言葉で整理してみよう</p>
-  <p>なぜ一時変数<code>work</code>が必要なのか、ノートに自分の言葉で理由を書き出してみましょう。「もしworkを使わずに<code>x ← y</code>と代入したら何が起きてしまうか」を考えると理由が明確になります。</p>
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①</strong><span></span></div>
+  <div><strong>空欄 ②</strong><span></span></div>
+  <div><strong>空欄 ③</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜値の交換が分からないとき</p>
+  <p>問題2-Bについて質問です。一時変数tempが必要な理由と、空欄①〜③の入れ替え順序が分かりません。考え方を教えてください。</p>
 </div>
 
 <!-- 追加演習開始 2 -->
@@ -814,10 +807,24 @@ a ← a ＋ 6
 b ← b ＋ a
 ```
 
+| 実行する処理 | 実行後の a | 実行後の b |
+|---|---:|---:|
+| a ← 4 |  |  |
+| b ← a |  |  |
+| a ← a ＋ 6 |  |  |
+| b ← b ＋ a |  |  |
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
 
-> 研修中の質問例：問題2-Cについて質問です。私は○○と考えました。○○が分かりません。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の a</strong><span></span></div>
+  <div><strong>最後の b</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題2-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -838,10 +845,16 @@ discount ← price × rate
 price ← price − discount
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>割引額 discount</strong><span></span></div>
+  <div><strong>割引後 price</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題2-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題2-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -864,7 +877,6 @@ b ← b ＋ amount
 total ← a ＋ b
 ```
 
-
 <div class="choice-table" data-exercise="2-E">
 
 | 選択肢 | 内容 |
@@ -876,9 +888,15 @@ total ← a ＋ b
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題2-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題2-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -896,12 +914,11 @@ total ← a ＋ b
 a ← 10
 b ← 20
 c ← 30
-work ← a
+temp ← a
 a ← b
 b ← c
-c ← work
+c ← temp
 ```
-
 
 <div class="choice-table" data-exercise="2-F">
 
@@ -914,9 +931,15 @@ c ← work
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題2-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題2-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -995,6 +1018,13 @@ total ← [ ③ ]
 表示する(total)
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①</strong><span></span></div>
+  <div><strong>空欄 ②</strong><span></span></div>
+  <div><strong>空欄 ③</strong><span></span></div>
+</div>
+
 ### 自分の説明
 
 <div class="answer-sheet">
@@ -1026,6 +1056,12 @@ rate ← 0.1
 // ここに処理を書く
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>税込価格の計算式</strong><span></span></div>
+  <div><strong>表示する処理</strong><span></span></div>
+</div>
+
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜式を点検するとき</p>
   <p>問題3-Bについて質問です。私が作った式は○○です。「税額を求めている式」か「税込価格を求めている式」か、考え方を確認してください。</p>
@@ -1050,10 +1086,18 @@ total ← price × quantity
 表示する(total)
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>表示される値</strong><span></span></div>
+  <div><strong>入力</strong><span></span></div>
+  <div><strong>処理</strong><span></span></div>
+  <div><strong>出力</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題3-Cについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題3-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1073,10 +1117,16 @@ price ← price × 0.9
 price ← price ＋ 300
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の price</strong><span></span></div>
+  <div><strong>同じにならない理由</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題3-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題3-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1099,7 +1149,6 @@ minutes ← quantity × perItem ＋ setup
 hours ← minutes ÷ 60
 ```
 
-
 <div class="choice-table" data-exercise="3-E">
 
 | 選択肢 | 内容 |
@@ -1111,9 +1160,15 @@ hours ← minutes ÷ 60
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題3-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題3-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1136,7 +1191,6 @@ stock ← stock − shipped
 shortage ← 50 − stock
 ```
 
-
 <div class="choice-table" data-exercise="3-F">
 
 | 選択肢 | 内容 |
@@ -1148,9 +1202,15 @@ shortage ← 50 − stock
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題3-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題3-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1279,6 +1339,11 @@ else
 endif
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①（条件式）</strong><span></span></div>
+</div>
+
 ## 演習4-B　BMIを判定する
 
 <span class="difficulty">難易度 ★★☆</span>
@@ -1314,6 +1379,12 @@ endif
 
 表示する(result)
 ```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①（条件式）</strong><span></span></div>
+  <div><strong>空欄 ②（条件式）</strong><span></span></div>
+</div>
 
 ### 境界値を確認する
 
@@ -1356,10 +1427,16 @@ endif
 表示する(result)
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>score＝59 の表示</strong><span></span></div>
+  <div><strong>score＝60 の表示</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題4-Cについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題4-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1382,10 +1459,17 @@ else
 endif
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>(12, 1) の結果</strong><span></span></div>
+  <div><strong>(11, 1) の結果</strong><span></span></div>
+  <div><strong>(20, 0) の結果</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題4-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題4-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1411,7 +1495,6 @@ else
 endif
 ```
 
-
 <div class="choice-table" data-exercise="4-E">
 
 | 選択肢 | 内容 |
@@ -1423,9 +1506,15 @@ endif
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題4-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題4-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1451,7 +1540,6 @@ else
 endif
 ```
 
-
 <div class="choice-table" data-exercise="4-F">
 
 | 選択肢 | 内容 |
@@ -1463,9 +1551,15 @@ endif
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題4-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題4-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1645,6 +1739,15 @@ average ← [ ⑤ ]
 表示する(average)
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①</strong><span></span></div>
+  <div><strong>空欄 ②</strong><span></span></div>
+  <div><strong>空欄 ③</strong><span></span></div>
+  <div><strong>空欄 ④</strong><span></span></div>
+  <div><strong>空欄 ⑤</strong><span></span></div>
+</div>
+
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜繰返しを追うとき</p>
   <p>問題5-Aについて質問です。`i`、実行前の`total`、実行後の`total`を記録する空のトレース表を作ってください。最初の二回を私が埋めるので、考え方を確認してください。</p>
@@ -1679,6 +1782,13 @@ endwhile
 | 5 | | | | |
 | 6 | | | | |
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>処理①の実行回数</strong><span></span></div>
+  <div><strong>処理②の実行回数</strong><span></span></div>
+  <div><strong>終了時の i の値</strong><span></span></div>
+</div>
+
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の表を点検するとき</p>
   <p>問題5-Bについて質問です。最後に条件が偽になるときも、判定回数に含めるのでしょうか。私が作成した表を確認し、条件判定と処理実行を混同している箇所がないか教えてください。</p>
@@ -1703,10 +1813,16 @@ for (i を 1 から 3 まで 1 ずつ増やす)
 endfor
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の total</strong><span></span></div>
+  <div><strong>繰返しの実行回数</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題5-Cについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題5-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1728,10 +1844,16 @@ endwhile
 表示する(i)
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>表示される i</strong><span></span></div>
+  <div><strong>内部の実行回数</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題5-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題5-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1754,7 +1876,6 @@ while (balance ＜ 3000)
 endwhile
 ```
 
-
 <div class="choice-table" data-exercise="5-E">
 
 | 選択肢 | 内容 |
@@ -1766,9 +1887,15 @@ endwhile
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題5-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題5-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1792,7 +1919,6 @@ for (i を 1 から 6 まで 1 ずつ増やす)
 endfor
 ```
 
-
 <div class="choice-table" data-exercise="5-F">
 
 | 選択肢 | 内容 |
@@ -1804,9 +1930,15 @@ endfor
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題5-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題5-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -1950,6 +2082,14 @@ endfor
 表示する(total)
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①</strong><span></span></div>
+  <div><strong>空欄 ②</strong><span></span></div>
+  <div><strong>空欄 ③</strong><span></span></div>
+  <div><strong>空欄 ④</strong><span></span></div>
+</div>
+
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜添字と値を整理するとき</p>
   <p>問題6-Aについて質問です。`i`と`A[i]`を混同してしまいます。`i`、`A[i]`、`total`がそれぞれ何を表しているか、私の理解を確認する質問をしてください。</p>
@@ -1978,6 +2118,11 @@ A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
 | 9 | 6 | | | |
 | 10 | 4 | | | |
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最終的な max の値</strong><span></span></div>
+</div>
+
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分のトレースを確認するとき</p>
   <p>問題6-Bについて質問です。私の表で、`max`を更新する必要があるのに更新していない行、または更新する必要がないのに更新した行がないか、確認してください。</p>
@@ -2000,10 +2145,16 @@ x ← A[2]
 A[1] ← x
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の x</strong><span></span></div>
+  <div><strong>処理後の配列 A</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題6-Cについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題6-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2023,10 +2174,15 @@ for (i を 1 から 3 まで 1 ずつ増やす)
 endfor
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>表示される順番</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題6-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題6-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2051,7 +2207,6 @@ for (i を 1 から 4 まで 1 ずつ増やす)
 endfor
 ```
 
-
 <div class="choice-table" data-exercise="6-E">
 
 | 選択肢 | 内容 |
@@ -2063,9 +2218,15 @@ endfor
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題6-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題6-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2090,7 +2251,6 @@ for (i を 1 から 4 まで 1 ずつ増やす)
 endfor
 ```
 
-
 <div class="choice-table" data-exercise="6-F">
 
 | 選択肢 | 内容 |
@@ -2102,9 +2262,15 @@ endfor
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題6-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題6-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2241,6 +2407,13 @@ endfor
 | 3 | 2 | 5 | 5 |
 | 4 | 5 | 20 | 20 |
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最初に誤っている行（i の値）</strong><span></span></div>
+  <div><strong>その行の正しい計算結果</strong><span></span></div>
+  <div><strong>最終的な total の値</strong><span></span></div>
+</div>
+
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の説明をレビューするとき</p>
   <p>問題7-Aについて質問です。私は「○行目の○○が最初の誤り」と考えました。自分の表を添付するので、どの計算を確認し直すべきかヒントをください。</p>
@@ -2263,10 +2436,16 @@ x ← 3
 x ← x ＋ 4
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>二行目の実行直前の x</strong><span></span></div>
+  <div><strong>二行目の実行直後の x</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題7-Bについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題7-Bについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2289,10 +2468,16 @@ else
 endif
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>実行される代入文</strong><span></span></div>
+  <div><strong>最後の y</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題7-Cについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題7-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2315,10 +2500,24 @@ while (i ≦ 3)
 endwhile
 ```
 
+| 判定時の i | 条件 i ≦ 3 の真偽 | 判定直後の total |
+|---|---:|---:|
+| 1 |  |  |
+| 2 |  |  |
+| 3 |  |  |
+| 4 |  |  |
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
 
-> 研修中の質問例：問題7-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の i</strong><span></span></div>
+  <div><strong>最後の total</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題7-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2343,7 +2542,6 @@ for (i を 1 から 3 まで 1 ずつ増やす)
 endfor
 ```
 
-
 <div class="choice-table" data-exercise="7-E">
 
 | 選択肢 | 内容 |
@@ -2355,9 +2553,15 @@ endfor
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題7-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題7-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2382,7 +2586,6 @@ for (i を 2 から 5 まで 1 ずつ増やす)
 endfor
 ```
 
-
 <div class="choice-table" data-exercise="7-F">
 
 | 選択肢 | 内容 |
@@ -2394,9 +2597,15 @@ endfor
 
 </div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-> 研修中の質問例：問題7-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題7-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2442,6 +2651,13 @@ endfor
 
 表示する(count)
 ```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①</strong><span></span></div>
+  <div><strong>空欄 ②</strong><span></span></div>
+  <div><strong>空欄 ③</strong><span></span></div>
+</div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自力で埋めた後</p>
@@ -2492,11 +2708,12 @@ endfor
 
 <!-- 選択肢終了 8-B -->
 
-### 考えるポイント
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
-- 条件を`≧`にすると、最大値が複数ある場合に何が起きるか
-- `max`を更新するタイミングと`maxIndex`を更新するタイミング
-- 繰返しを2から始める理由
+**考えるポイント：** 条件が`≧`の場合の同点時の動作、`max`と`maxIndex`の更新順、繰返し開始位置に注目しましょう。
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜条件の違いを考える</p>
@@ -2527,11 +2744,7 @@ for ([ ① ])
 endfor
 ```
 
-`num`が3の場合の出力：
-
-<div class="output-sample" aria-label="numが3の場合の出力例">
-  <code>***<br>***<br>***</code>
-</div>
+**`num`が3の場合の出力例：** 1行に`***`を表示し、改行して3行出力します。
 
 <!-- 選択肢開始 8-C -->
 
@@ -2547,6 +2760,11 @@ endfor
 </div>
 
 <!-- 選択肢終了 8-C -->
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜入れ子の繰返し</p>
@@ -2574,10 +2792,15 @@ if (A[2] ＞ result)
 endif
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の result</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題8-Dについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題8-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2598,10 +2821,15 @@ for (i を 1 から 2 まで 1 ずつ増やす)
 endfor
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の total</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題8-Eについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題8-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2629,10 +2857,17 @@ endfor
 average ← total ÷ count
 ```
 
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>count</strong><span></span></div>
+  <div><strong>total</strong><span></span></div>
+  <div><strong>average</strong><span></span></div>
+</div>
 
-**自分で書く：** 答えだけでなく、途中の値・条件の真偽・その理由をノートに残してください。
-
-> 研修中の質問例：問題8-Fについて質問です。私は○○と考えました。○○が分かりません。
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
+  <p>問題8-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+</div>
 
 </section>
 
@@ -2717,8 +2952,6 @@ average ← total ÷ count
 
 ## 演習1-E　解答・解説
 
-**正解：イ**
-
 変数は計算結果や入力された値を一時的に覚えておく「名前付きの箱」です。代入「←」は等しいという意味ではなく、「右辺の計算結果を左辺の箱へ入れる」という動作を表します。
 
 <div class="exercise-flow">
@@ -2732,8 +2965,6 @@ average ← total ÷ count
 <section class="answer-section">
 
 ## 演習1-F　解答・解説
-
-**正解：エ**
 
 三つすべてが含まれています。答案を1枚ずつ確認する「繰返し」の中に、点数で印を分ける「選択」があり、一連の作業は上から順に進む「順次」で行われます。
 
@@ -2771,7 +3002,7 @@ average ← total ÷ count
 
 ## 演習2-B　解答・解説
 
-① x、② y、③ work。workに元のxを残すので、xを上書きしても7を取り戻せます。最終値はx＝12、y＝7です。
+① x、② y、③ temp。tempに元のxを残すので、xを上書きしても7を取り戻せます。最終値はx＝12、y＝7です。
 
 ### 値の確認（各処理の実行後）
 
@@ -2779,9 +3010,9 @@ average ← total ÷ count
 |---|---|
 | x ← 7 | x＝7 |
 | y ← 12 | x＝7、y＝12 |
-| work ← x | x＝7、y＝12、work＝7 |
-| x ← y | x＝12、y＝12、work＝7 |
-| y ← work | x＝12、y＝7、work＝7 |
+| temp ← x | x＝7、y＝12、temp＝7 |
+| x ← y | x＝12、y＝12、temp＝7 |
+| y ← temp | x＝12、y＝7、temp＝7 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習2-Bのフローチャート</p>
@@ -2879,10 +3110,10 @@ a＝20、b＝30、c＝10です。最後をc←aにすると、既にaが20なの
 | a ← 10 | a＝10 |
 | b ← 20 | a＝10、b＝20 |
 | c ← 30 | a＝10、b＝20、c＝30 |
-| work ← a | a＝10、b＝20、c＝30、work＝10 |
-| a ← b | a＝20、b＝20、c＝30、work＝10 |
-| b ← c | a＝20、b＝30、c＝30、work＝10 |
-| c ← work | a＝20、b＝30、c＝10、work＝10 |
+| temp ← a | a＝10、b＝20、c＝30、temp＝10 |
+| a ← b | a＝20、b＝20、c＝30、temp＝10 |
+| b ← c | a＝20、b＝30、c＝30、temp＝10 |
+| c ← temp | a＝20、b＝30、c＝10、temp＝10 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習2-Fのフローチャート</p>

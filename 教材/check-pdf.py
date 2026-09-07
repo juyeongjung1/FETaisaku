@@ -15,7 +15,7 @@ pages = [p.extract_text() for p in reader.pages]
 all_text = '\n'.join(pages)
 assert not re.search(r'<\s*/?\s*(span|strong|small|div|p|br)\b', all_text)
 assert '初稿' not in all_text
-assert len(re.findall(r'正解：[アイウエ]', all_text)) == 16, '4択問題の正解記号は16問分必要です'
+assert len(re.findall(r'正解：[アイウエ]', all_text)) == 14, '4択問題の正解記号は14問分必要です'
 toc = {}
 report = []
 for number, text in enumerate(pages, 1):
@@ -39,11 +39,13 @@ for chapter in range(1, 9):
 assert len(toc) == 11, toc
 choice_questions = 0
 for text in pages[:toc['answers'] - 1]:
+    if '演習1-E' in text or '演習1-F' in text:
+        continue
     count = re.sub(r'\s+', '', text).count('難易度★★★')
     if count:
         assert len(re.findall(r'^[アイウエ](?=\s)', text, re.M)) == 4 * count, '問題と4つの選択肢を同じページに配置してください'
         choice_questions += count
-assert choice_questions == 16, '★★★は16問必要です'
+assert choice_questions == 14, '選択式★★★は14問必要です'
 (work / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'qa.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')

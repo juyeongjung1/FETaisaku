@@ -36,6 +36,12 @@
   .compact-question th, .compact-question td { padding: 1.5mm 2mm; }
   .compact-question .ai-box { margin: 3mm 0; padding-top: 2mm; padding-bottom: 2mm; }
   .compact-question .output-sample { margin: 2mm 0; padding: 2mm 4mm; }
+  .compact-question .answer-sheet { margin: 2mm 0; }
+  .compact-question .answer-sheet > div { min-height: 2.2rem; }
+  .compact-question .answer-sheet strong { padding: 0.4em 0.8em; }
+  .compact-question .answer-sheet span { margin: 0.4em 0.8em; }
+  .compact-question ul { margin: 1mm 0 2mm; padding-left: 1.2em; }
+  .compact-question li { margin: 1mm 0; }
 }
 
 :root {
