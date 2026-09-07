@@ -71,15 +71,15 @@
 <ol class="toc-list">
   <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>5</b></a></li>
   <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>11</b></a></li>
-  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>19</b></a></li>
-  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>29</b></a></li>
-  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>37</b></a></li>
-  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>47</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>57</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>66</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>75</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>83</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>132</b></a></li>
+  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>20</b></a></li>
+  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>31</b></a></li>
+  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>39</b></a></li>
+  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>49</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>60</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>70</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>79</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>87</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>136</b></a></li>
 </ol>
 
 </div>
@@ -466,28 +466,29 @@ c ← a ＋ b
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題1-Aについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題1-Aについて質問です。手順の順番を入れ替える考え方と、これが「順次」構造と呼ばれる理由を確認してください。</p>
 </div>
 
 </section>
 
 <section class="exercise-question">
 
-## 演習1-B　雨の日の持ち物
+## 演習1-B　雨の日の準備
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-「雨なら傘を持ち、雨でなければ帽子を持って出発する」のように、条件の成立（はい／いいえ）によって進む処理を切り替える構造を、三つの基本構造で何と呼びますか。
+「出かける前に空を見て、雨なら傘を持ち、晴れなら帽子をかぶる」という処理があります。条件によって進む道を変える処理を、三つの基本構造で何と呼びますか。また、この例での条件は何ですか。
 
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>基本構造の名称</strong><span></span></div>
+  <div><strong>この例での条件</strong><span></span></div>
 </div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題1-Bについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題1-Bについて質問です。天候による行動の分岐が「選択」構造に当たる理由と、条件の整理方法を確認してください。</p>
 </div>
 
 </section>
@@ -496,22 +497,22 @@ c ← a ＋ b
 
 <section class="exercise-question">
 
-## 演習1-C　全員に出席票を配る
+## 演習1-C　同じ作業の繰り返し
 
 <span class="difficulty">難易度 ★★☆</span>
 
-「クラス全員に出席票を1枚ずつ配る」のように、同じ作業を全員分（または条件を満たすまで）何度も行う処理を、三つの基本構造で何と呼びますか。また、この処理が終わるために何が必要ですか。
+「10枚の書類すべてに確認印を押す」という作業があります。三つの基本構造のどれに当たりますか。また、この処理が終わるのはどんな条件のときですか。
 
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>基本構造の名称</strong><span></span></div>
-  <div><strong>終了に必要な条件</strong><span></span></div>
+  <div><strong>終了する条件</strong><span></span></div>
 </div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題1-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題1-Cについて質問です。同じ動作を繰り返す処理の終了条件の捉え方と、「繰返し」構造の役割を確認してください。</p>
 </div>
 
 </section>
@@ -532,7 +533,7 @@ c ← a ＋ b
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題1-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題1-Dについて質問です。「いい感じに並べて」という曖昧な指示ではコンピュータが処理できない理由について確認してください。</p>
 </div>
 
 </section>
@@ -556,7 +557,7 @@ c ← a ＋ b
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題1-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題1-Eについて質問です。変数の「値を保持する役割」と、代入記号「←」が等号ではないことの説明を確認してください。</p>
 </div>
 
 </section>
@@ -578,7 +579,7 @@ c ← a ＋ b
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題1-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題1-Fについて質問です。答案確認の業務手順の中に順次・選択・繰返しがどのように組み合わさっているか確認してください。</p>
 </div>
 
 </section>
@@ -737,11 +738,15 @@ b ← a</code></pre>
   <p>一行目を実行した時点で、`a`に入っていた10が失われます。二行目では、どちらも3になってしまいます。</p>
 </div>
 
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
+
 ## 演習2-A　代入を追う
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-次の処理が終わったとき、`total`の値はいくつですか。
+次の処理が終わったとき、`total`の値はいくつですか。各行の実行後の値を答えてください。
 
 ```text
 整数型: total
@@ -751,16 +756,23 @@ total ← total ＋ 3
 total ← total × 2
 ```
 
-| 実行した文 | 実行後の`total` |
-|---|---:|
-| `total ← 2` | |
-| `total ← total ＋ 3` | |
-| `total ← total × 2` | |
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>total ← 2 実行後</strong><span></span></div>
+  <div><strong>total ← total ＋ 3 実行後</strong><span></span></div>
+  <div><strong>total ← total × 2 実行後（最終値）</strong><span></span></div>
+</div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜値の変化を追えないとき</p>
   <p>問題2-Aについて質問です。右辺のtotalには、どの時点の値を使えばよいのでしょうか。私は各行の実行後の値を○○と考えました。考え方を確認してください。</p>
 </div>
+
+</section>
+
+<div class="page-break"></div>
+
+<section class="exercise-question">
 
 ## 演習2-B　値を交換する
 
@@ -787,6 +799,8 @@ y ← [ ③ ]
   <p class="ai-label">AIへの質問例｜値の交換が分からないとき</p>
   <p>問題2-Bについて質問です。一時変数tempが必要な理由と、空欄①〜③の入れ替え順序が分かりません。考え方を教えてください。</p>
 </div>
+
+</section>
 
 <!-- 追加演習開始 2 -->
 
@@ -823,7 +837,7 @@ b ← b ＋ a
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題2-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題2-Cについて質問です。bへaをコピーしたあと、aの値を更新したときにbの値も連動して変わるのかどうか分かりません。変数の値の保持について確認してください。</p>
 </div>
 
 </section>
@@ -853,7 +867,7 @@ price ← price − discount
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題2-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題2-Dについて質問です。実数型の掛け算（割引額の計算）と引き算（割引後価格の計算）について、小数の計算順序や考え方が合っているか確認してください。</p>
 </div>
 
 </section>
@@ -864,7 +878,7 @@ price ← price − discount
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】手数料なしで口座aから口座bへamount円移します。aの残高は移動額以上とします。処理後のa、b、totalの組合せとして、適切なものを一つ選んでください。
+手数料なしで口座aから口座bへamount円移します。aの残高は移動額以上とします。処理後のa、b、totalの値を答えてください。
 
 この問題の変数は整数型です。
 
@@ -877,25 +891,16 @@ b ← b ＋ amount
 total ← a ＋ b
 ```
 
-<div class="choice-table" data-exercise="2-E">
-
-| 選択肢 | 内容 |
-|---|---|
-| ア | a＝3800、b＝3200、total＝7000 |
-| イ | a＝3800、b＝2000、total＝5800 |
-| ウ | a＝5000、b＝3200、total＝8200 |
-| エ | a＝6200、b＝800、total＝7000 |
-
-</div>
-
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
-  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+  <div><strong>a の値</strong><span></span></div>
+  <div><strong>b の値</strong><span></span></div>
+  <div><strong>total の値</strong><span></span></div>
 </div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題2-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題2-Eについて質問です。口座aからの引き落としと口座bへの入金で、残高の増減が正しく反映されているか、私の計算を確認してください。</p>
 </div>
 
 </section>
@@ -906,7 +911,7 @@ total ← a ＋ b
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】窓口a、b、cの担当番号を、aには元のb、bには元のc、cには元のaが入るよう更新します。処理後の値の組合せとして、適切なものを一つ選んでください。
+窓口a、b、cの担当番号を、aには元のb、bには元のc、cには元のaが入るよう更新します。処理後のa、b、cの値を答えてください。
 
 この問題の変数は整数型です。
 
@@ -920,25 +925,16 @@ b ← c
 c ← temp
 ```
 
-<div class="choice-table" data-exercise="2-F">
-
-| 選択肢 | 内容 |
-|---|---|
-| ア | a＝20、b＝30、c＝20 |
-| イ | a＝30、b＝10、c＝20 |
-| ウ | a＝20、b＝30、c＝10 |
-| エ | a＝10、b＝20、c＝30 |
-
-</div>
-
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
-  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+  <div><strong>a の値</strong><span></span></div>
+  <div><strong>b の値</strong><span></span></div>
+  <div><strong>c の値</strong><span></span></div>
 </div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題2-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題2-Fについて質問です。3つの変数の値を順番に入れ替える際、一時変数tempを使って値が上書きされないようにする手順を教えてください。</p>
 </div>
 
 </section>
@@ -996,10 +992,9 @@ total ← apple × 3 ＋ orange × 4
 | 処理 | 入力を使って行う計算 | 単価×個数、合計 |
 | 出力 | 最後に求めるもの | 合計金額 |
 
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜問題文を整理するとき</p>
-  <p>問題3-Aについて質問です。問題文を入力・処理・出力に分けたいのですが、商品の単価と個数は、どこに当たるのでしょうか。私の整理の仕方を確認してください。</p>
-</div>
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
 
 ## 演習3-A　代金を計算する
 
@@ -1019,25 +1014,23 @@ total ← [ ③ ]
 ```
 
 <div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
+  <p class="sheet-title">解答欄・各変数の役割</p>
   <div><strong>空欄 ①</strong><span></span></div>
   <div><strong>空欄 ②</strong><span></span></div>
   <div><strong>空欄 ③</strong><span></span></div>
+  <div><strong>各変数の役割（自分の言葉で）</strong><span>apple, orange, total の役割を一言で説明</span></div>
 </div>
 
-### 自分の説明
-
-<div class="answer-sheet">
-  <p class="sheet-title">自分の言葉で書く</p>
-  <div><strong>変数 apple の役割</strong><span></span></div>
-  <div><strong>変数 orange の役割</strong><span></span></div>
-  <div><strong>変数 total の役割</strong><span></span></div>
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜問題文を整理するとき</p>
+  <p>問題3-Aについて質問です。商品の単価と個数を入力・処理・出力に整理し、代金を計算する式を作成しました。私の整理と式が合っているか確認してください。</p>
 </div>
 
-<div class="explain-box">
-  <p class="box-title">ペアまたはAIへ説明しよう</p>
-  <p>自分が作った式を、どの部分が「リンゴの代金」「みかんの代金」「全体の合計」なのかに分けて説明してください。聞き手は、答えを教えるのではなく、変数の役割について質問します。</p>
-</div>
+</section>
+
+<div class="page-break"></div>
+
+<section class="exercise-question">
 
 ## 演習3-B　消費税込みの金額
 
@@ -1066,6 +1059,10 @@ rate ← 0.1
   <p class="ai-label">AIへの質問例｜式を点検するとき</p>
   <p>問題3-Bについて質問です。私が作った式は○○です。「税額を求めている式」か「税込価格を求めている式」か、考え方を確認してください。</p>
 </div>
+
+</section>
+
+<div class="page-break"></div>
 
 <!-- 追加演習開始 3 -->
 
@@ -1096,7 +1093,7 @@ total ← price × quantity
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題3-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題3-Cについて質問です。問題文から入力・処理・出力を整理する際、単価と個数がどれに当たるか確認してください。</p>
 </div>
 
 </section>
@@ -1125,7 +1122,7 @@ price ← price ＋ 300
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題3-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題3-Dについて質問です。「割引後に送料加算」と「送料加算後に割引」で計算結果が一致しない理由を確認してください。</p>
 </div>
 
 </section>
@@ -1167,7 +1164,7 @@ hours ← minutes ÷ 60
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題3-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題3-Eについて質問です。固定の準備時間と個数ごとの製造時間を合わせた総時間の計算順序を確認してください。</p>
 </div>
 
 </section>
@@ -1209,7 +1206,7 @@ shortage ← 50 − stock
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題3-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題3-Fについて質問です。入出荷後の在庫数の推移と、目標に対する不足数の求め方を確認してください。</p>
 </div>
 
 </section>
@@ -1325,6 +1322,10 @@ endif</code></pre>
   <p>`score`が90でも、最初の`score ≧ 60`が成立するため「B」と表示されます。</p>
 </div>
 
+<div class="page-break"></div>
+
+<section class="exercise-question">
+
 ## 演習4-A　偶数・奇数を判定する
 
 <span class="difficulty">難易度 ★☆☆</span>
@@ -1344,20 +1345,23 @@ endif
   <div><strong>空欄 ①（条件式）</strong><span></span></div>
 </div>
 
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜偶数・奇数の判定</p>
+  <p>問題4-Aについて質問です。2で割った余り（x mod 2）を使って偶数か奇数を判定する条件式の書き方を確認してください。</p>
+</div>
+
+</section>
+
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
+
 ## 演習4-B　BMIを判定する
 
 <span class="difficulty">難易度 ★★☆</span>
 
-身長`height`（m）と体重`weight`（kg）からBMIを求め、次の基準で結果を表示します。
-
-<div class="criteria-card">
-  <p><strong>BMIの計算式</strong><code>BMI ＝ 体重 ÷ (身長 × 身長)</code></p>
-  <div class="criteria-row">
-    <span><b>18.5未満</b>低体重</span>
-    <span><b>18.5以上25未満</b>標準体重</span>
-    <span><b>25以上</b>肥満</span>
-  </div>
-</div>
+身長`height`（m）と体重`weight`（kg）からBMIを求め、次の基準で結果を表示します。  
+（計算式：`BMI ＝ weight ÷ (height × height)` ／ 基準：18.5未満＝低体重、18.5以上25未満＝標準体重、25以上＝肥満）
 
 ```text
 実数型: height
@@ -1381,29 +1385,21 @@ endif
 ```
 
 <div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
+  <p class="sheet-title">解答欄・境界値確認</p>
   <div><strong>空欄 ①（条件式）</strong><span></span></div>
   <div><strong>空欄 ②（条件式）</strong><span></span></div>
+  <div><strong>BMI 18.49 / 18.50 の期待結果</strong><span>18.49: [　　　　] ／ 18.50: [　　　　]</span></div>
+  <div><strong>BMI 24.99 / 25.00 の期待結果</strong><span>24.99: [　　　　] ／ 25.00: [　　　　]</span></div>
 </div>
-
-### 境界値を確認する
-
-| `bmi` | 期待する結果 |
-|---:|---|
-| 18.49 | |
-| 18.50 | |
-| 24.99 | |
-| 25.00 | |
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜条件漏れを点検するとき</p>
   <p>問題4-Bについて質問です。私が書いた条件は○○です。18.5と25.0の境界値を使って、判定漏れや重複がないか確認してください。</p>
 </div>
 
-<div class="explain-box">
-  <p class="box-title">説明してみよう</p>
-  <p>二つ目の条件を`bmi ＜ 25`だけで書ける理由を説明してください。最初の`if`が成立しなかった時点で、どの条件が分かっているでしょうか。</p>
-</div>
+</section>
+
+<div class="page-break"></div>
 
 <!-- 追加演習開始 4 -->
 
@@ -1435,7 +1431,7 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題4-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題4-Cについて質問です。条件式「score ≧ 60」において、境界値の60自身が含まれるかどうかの判定を確認してください。</p>
 </div>
 
 </section>
@@ -1468,7 +1464,7 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題4-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題4-Dについて質問です。「かつ（and）」条件で、両方の条件が成立したときだけ真になる動作を確認してください。</p>
 </div>
 
 </section>
@@ -1513,7 +1509,7 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題4-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題4-Eについて質問です。年齢に応じた料金判定で、境界値（6歳、18歳）の条件漏れがないか確認してください。</p>
 </div>
 
 </section>
@@ -1558,7 +1554,7 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題4-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題4-Fについて質問です。冷蔵便の指定と購入額による送料無料条件の優先順位について確認してください。</p>
 </div>
 
 </section>
@@ -1716,6 +1712,10 @@ endfor
 
 `count`は、条件が成立した場合だけ1増えます。
 
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
+
 ## 演習5-A　合計と平均
 
 <span class="difficulty">難易度 ★★☆</span>
@@ -1752,6 +1752,12 @@ average ← [ ⑤ ]
   <p class="ai-label">AIへの質問例｜繰返しを追うとき</p>
   <p>問題5-Aについて質問です。`i`、実行前の`total`、実行後の`total`を記録する空のトレース表を作ってください。最初の二回を私が埋めるので、考え方を確認してください。</p>
 </div>
+
+</section>
+
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
 
 ## 演習5-B　処理回数を数える
 
@@ -1794,6 +1800,10 @@ endwhile
   <p>問題5-Bについて質問です。最後に条件が偽になるときも、判定回数に含めるのでしょうか。私が作成した表を確認し、条件判定と処理実行を混同している箇所がないか教えてください。</p>
 </div>
 
+</section>
+
+<div class="page-break"></div>
+
 <!-- 追加演習開始 5 -->
 
 <section class="exercise-question">
@@ -1821,7 +1831,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題5-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題5-Cについて質問です。繰返し処理の中で変数totalに毎回2を加算していく際の値の変化を確認してください。</p>
 </div>
 
 </section>
@@ -1852,7 +1862,7 @@ endwhile
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題5-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題5-Dについて質問です。while文で最初から条件が偽の場合に、ループ内部が実行されない理由を確認してください。</p>
 </div>
 
 </section>
@@ -1894,7 +1904,7 @@ endwhile
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題5-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題5-Eについて質問です。目標額以上になるまで積み立てる処理で、月数と判定回数の数え方を確認してください。</p>
 </div>
 
 </section>
@@ -1937,7 +1947,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題5-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題5-Fについて質問です。全伝票の基本時間と、3の倍数の伝票にかかる追加時間の計算方法を確認してください。</p>
 </div>
 
 </section>
@@ -2062,6 +2072,10 @@ endfor
   <p>配列の値がすべて負の数の場合、0は配列に存在しないのに最大値として残ってしまいます。最初の要素を初期値にすれば、配列内の値から最大値を選べます。</p>
 </div>
 
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
+
 ## 演習6-A　10個の合計
 
 <span class="difficulty">難易度 ★★☆</span>
@@ -2094,6 +2108,12 @@ endfor
   <p class="ai-label">AIへの質問例｜添字と値を整理するとき</p>
   <p>問題6-Aについて質問です。`i`と`A[i]`を混同してしまいます。`i`、`A[i]`、`total`がそれぞれ何を表しているか、私の理解を確認する質問をしてください。</p>
 </div>
+
+</section>
+
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
 
 ## 演習6-B　最大値の変化を追う
 
@@ -2128,6 +2148,10 @@ A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
   <p>問題6-Bについて質問です。私の表で、`max`を更新する必要があるのに更新していない行、または更新する必要がないのに更新した行がないか、確認してください。</p>
 </div>
 
+</section>
+
+<div class="page-break"></div>
+
 <!-- 追加演習開始 6 -->
 
 <section class="exercise-question">
@@ -2153,7 +2177,7 @@ A[1] ← x
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題6-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題6-Cについて質問です。配列の添字（位置番号）と、その位置に格納されている値の違いを確認してください。</p>
 </div>
 
 </section>
@@ -2181,7 +2205,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題6-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題6-Dについて質問です。配列の要素を添字の順に取り出して表示する流れを確認してください。</p>
 </div>
 
 </section>
@@ -2225,7 +2249,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題6-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題6-Eについて質問です。各商品の在庫数と目標数を比較し、不足商品の種類数と補充個数を集計する考え方を確認してください。</p>
 </div>
 
 </section>
@@ -2269,7 +2293,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題6-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題6-Fについて質問です。線形探索で最初に一致した位置を記録する条件式（position ＝ 0）の役割を確認してください。</p>
 </div>
 
 </section>
@@ -2378,8 +2402,12 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜表の設計を確認するとき</p>
-  <p>問題7-Aについて質問です。私はトレース表の列を「i、実行前のtotal、実行後のtotal」と考えました。値の変化を追うために不足している列や、不要な列があれば、その理由を教えてください。</p>
+  <p>トレース表の自作について質問です。私はトレース表の列を「i、実行前のtotal、実行後のtotal」と考えました。値の変化を追うために不足している列や、不要な列があれば、その理由を教えてください。</p>
 </div>
+
+<div class="page-break"></div>
+
+<section class="exercise-question compact-question">
 
 ## 演習7-A　最初の誤りを見つける
 
@@ -2419,6 +2447,10 @@ endfor
   <p>問題7-Aについて質問です。私は「○行目の○○が最初の誤り」と考えました。自分の表を添付するので、どの計算を確認し直すべきかヒントをください。</p>
 </div>
 
+</section>
+
+<div class="page-break"></div>
+
 <!-- 追加演習開始 7 -->
 
 <section class="exercise-question">
@@ -2444,7 +2476,7 @@ x ← x ＋ 4
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題7-Bについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題7-Bについて質問です。代入文の実行前と実行後で、変数の値がどのように更新されるかを確認してください。</p>
 </div>
 
 </section>
@@ -2476,7 +2508,7 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題7-Cについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題7-Cについて質問です。分岐条件の真偽によって実行される文と実行されない文の判別方法を確認してください。</p>
 </div>
 
 </section>
@@ -2516,7 +2548,7 @@ endwhile
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題7-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題7-Dについて質問です。繰返しの終了判定で条件が偽になった行もトレース表に記録する理由を確認してください。</p>
 </div>
 
 </section>
@@ -2560,7 +2592,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題7-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題7-Eについて質問です。値引き条件の不等号（≧ と ＞）の違いが合計金額に与える影響を確認してください。</p>
 </div>
 
 </section>
@@ -2604,7 +2636,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題7-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題7-Fについて質問です。配列の隣接する要素（A[i]とA[i−1]）の比較で、まとまりの数を数える考え方を確認してください。</p>
 </div>
 
 </section>
@@ -2799,7 +2831,7 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題8-Dについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題8-Dについて質問です。初期値より大きい値が見つかった場合のみ変数を更新する処理のトレースを確認してください。</p>
 </div>
 
 </section>
@@ -2828,7 +2860,7 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題8-Eについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題8-Eについて質問です。配列の全要素をループで走査して合計を計算する手順を確認してください。</p>
 </div>
 
 </section>
@@ -2866,7 +2898,7 @@ average ← total ÷ count
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>
-  <p>問題8-Fについて質問です。私は○○と考えました。○○が分かりません。</p>
+  <p>問題8-Fについて質問です。条件を満たす要素のみを集計し、対象件数で割って平均を求める手順を確認してください。</p>
 </div>
 
 </section>
@@ -2896,7 +2928,7 @@ average ← total ÷ count
 
 ## 演習1-A　解答・解説
 
-靴下を履く→靴を履く→外へ出る、の順です。上から一つずつ進む構造は「順次」です。
+靴下を履く→靴を履く→外へ出る。上から順に進む処理は「順次」です。逆に戻ったり飛ばしたりせず、書かれた順番に一行ずつ実行します。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Aのフローチャート</p>
@@ -2910,7 +2942,7 @@ average ← total ÷ count
 
 ## 演習1-B　解答・解説
 
-条件によって進む道を分ける処理は「選択」です。雨の日は「傘を持つ」へ進み、「帽子を持つ」は実行しません。
+条件で分ける処理は「選択」です。条件は「雨が降っているかどうか」です。条件が「真（成立）」か「偽（不成立）」かで、実行する処理を選びます。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Bのフローチャート</p>
@@ -2924,7 +2956,7 @@ average ← total ÷ count
 
 ## 演習1-C　解答・解説
 
-同じ処理を繰り返す構造は「繰返し」です。終わるためには「全員に配り終えたら終了する」という明確な終了条件が必要です。
+同じ処理を繰り返す「繰返し」です。終了条件は「10枚すべてに押し終わったとき（残り0枚）」です。回数が決まっている場合と、条件を満たすまで続ける場合があります。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Cのフローチャート</p>
@@ -3072,9 +3104,7 @@ discount＝250、price＝1000です。0.2を掛けると元の金額の20％に�
 
 ## 演習2-E　解答・解説
 
-**正解：ア**
-
-a＝3800、b＝3200、total＝7000。片方から引いた1200をもう片方へ足すため、合計は移動前と同じです。
+a＝3800、b＝3200、total＝7000。口座aから1200を引き、口座bへ1200を足すため、2口座の合計は移動前（7000）と同じです。
 
 ### 値の確認（各処理の実行後）
 
@@ -3099,9 +3129,7 @@ a＝3800、b＝3200、total＝7000。片方から引いた1200をもう片方へ
 
 ## 演習2-F　解答・解説
 
-**正解：ウ**
-
-a＝20、b＝30、c＝10です。最後をc←aにすると、既にaが20なのでcも20になり、元の10が失われます。
+a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、aにbの値20、bにcの値30、cにtempの値10を代入します。
 
 ### 値の確認（各処理の実行後）
 

@@ -188,7 +188,7 @@ for(let chapter=1;chapter<=8;chapter++) {
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
     const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
     const answerSheet = `<div class="answer-sheet">\n  <p class="sheet-title">解答欄</p>\n${rows}\n</div>`;
-    const aiBox = `<div class="ai-box">\n  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>\n  <p>問題${item.id}について質問です。私は○○と考えました。○○が分かりません。</p>\n</div>`;
+    const aiBox = `<div class="ai-box">\n  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>\n  <p>${item.aiQuestion || `問題${item.id}について質問です。私は○○と考えました。○○が分かりません。`}</p>\n</div>`;
     const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
     return `<section class="exercise-question">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types ? types + '\n\n' : ''}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
   }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
@@ -234,8 +234,8 @@ try {
   assert(!/<\/?(?:span|strong|small|div|p|br)\b/.test(raw),'HTMLタグが本文に露出しています。');
   assert(!raw.includes('初稿'),'初稿表記が残っています。');
   assert.equal(await page.locator('.exercise-flow img').count(),48);
-  assert.equal(await page.locator('.choice-table').count(),14);
-  assert.equal(await page.locator('.choice-table tbody tr').count(),56);
+  assert.equal(await page.locator('.choice-table').count(),12);
+  assert.equal(await page.locator('.choice-table tbody tr').count(),48);
   assert.equal((raw.match(/難易度 ★/g)||[]).length,48);
   const options={format:'A4',printBackground:true,preferCSSPageSize:true,displayHeaderFooter:true,headerTemplate:'<span></span>',footerTemplate:'<div style="width:100%;text-align:center;font-size:8px;color:#697586;font-family:Meiryo">アルゴリズム入門　｜　<span class="pageNumber"></span></div>',tagged:true,outline:true};
   await page.pdf({...options,path:path.join(temp,'textbook.pdf')});
