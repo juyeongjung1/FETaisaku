@@ -1,5 +1,33 @@
 @charset "UTF-8";
 
+.exercise-flow {
+  break-inside: avoid;
+  margin: 4mm 0;
+  padding: 3mm;
+  border: 1px solid #d4d9de;
+  border-radius: 3mm;
+  background: #fafcfe;
+}
+.exercise-flow img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 115mm;
+  margin: 0 auto;
+}
+.flow-title { margin: 0 0 2mm; font-weight: bold; color: #1a365d; }
+.flow-caption { margin: 2mm 0 0; font-size: 8pt; color: #526273; }
+@media print {
+  .answer-section { break-before: page; font-size: 10pt; }
+  .answer-section h2 { margin: 0 0 3mm; }
+  .answer-section h3 { margin: 3mm 0 2mm; font-size: 10pt; }
+  .answer-section p { margin: 2mm 0; }
+  .answer-section table { margin: 2mm 0; font-size: 8.5pt; }
+  .answer-section th, .answer-section td { padding: 1.4mm 2mm; }
+  .exercise-question { break-inside: avoid; }
+}
+
 :root {
   --ink: #252a30;
   --muted: #666f7d;
