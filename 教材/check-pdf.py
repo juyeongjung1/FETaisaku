@@ -15,6 +15,12 @@ pages = [p.extract_text() for p in reader.pages]
 all_text = '\n'.join(pages)
 assert not re.search(r'<\s*/?\s*(span|strong|small|div|p|br)\b', all_text)
 assert '初稿' not in all_text
+compact_text = re.sub(r'\s+', '', all_text)
+assert '問題4-Aについて質問です' in compact_text
+assert 'xmod2＝0」で合っていますか' not in compact_text
+assert '空欄①に入る条件式を答えてください' in compact_text
+assert '①age≧12andhasTicket＝1' in compact_text
+assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 まずwhileで繰返しの仕組みを知る', '5.3 whileを簡潔に書くfor', '合計用の変数を繰返しの中で初期化しない'))
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 toc = {}
 report = []
