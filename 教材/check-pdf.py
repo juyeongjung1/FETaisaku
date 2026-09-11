@@ -45,7 +45,8 @@ for chapter in range(1, 9):
 assert len(toc) == 11, toc
 choice_questions = 0
 for text in pages[:toc['answers'] - 1]:
-    if any(ex in text for ex in ['演習1-E', '演習1-F', '演習2-E', '演習2-F']):
+    # 第2章の実践問題は、受講者が値を書く記述式を維持する。
+    if any(ex in text for ex in ['演習2-E', '演習2-F']):
         continue
     count = re.sub(r'\s+', '', text).count('難易度★★★')
     if count:

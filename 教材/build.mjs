@@ -72,7 +72,7 @@ function verify(item,input,expected) {
 }
 let tests=0;
 for(let chapter=1;chapter<=8;chapter++) for(let level=1;level<=3;level++)
-  assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,2);
+  assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,chapter===1?[2,4,0][level-1]:2);
 for (const item of exercises.filter(e=>e.choices)) {
   assert.equal(item.choices.options.length,4,item.id);
   assert.equal(new Set(item.choices.options).size,4,item.id);
@@ -82,7 +82,7 @@ for(const item of exercises) if(!item.natural) {
   verify(item,item.input||{},item.expected);tests++;
   for(const [input,expected] of item.cases||[]) {verify(item,input,expected);tests++;}
 }
-console.log(`演習48問・各章各難易度2問を確認。検算${tests}ケース成功。`);
+console.log(`演習48問・第1章は★2問と★★4問、第2〜8章は各難易度2問を確認。検算${tests}ケース成功。`);
 
 // 順次を一つの箱にまとめ、分岐・ループは独立した節点で表現する。
 function graph(item) {
@@ -121,6 +121,10 @@ function graph(item) {
 
 function trace(item) {
   if(item.natural) return '';
+  if(item.id==='6-D') {
+    const {output}=run(item);
+    return '\n### 添字と表示される値を確認\n\n| i（添字） | A[i]（その位置の値） | 表示される値 |\n|---|---|---|\n'+output.map((v,i)=>`| ${i+1} | ${item.input.A[i]} | ${v} |`).join('\n')+'\n';
+  }
   if(item.id==='8-C') return '\n### num＝3の表示結果を確認\n\n| 外側のi | 内側で表示する文字 | 内側を終えた後 |\n|---|---|---|\n| 1 | *** | 改行する |\n| 2 | *** | 改行する |\n| 3 | *** | 改行する |\n';
   const {history}=run(item);
   let rows=history;

@@ -30,7 +30,7 @@
 <g id="node3" class="node">
 <title>n2</title>
 <path fill="#edf4fc" stroke="#496888" d="M275.2,-39.84C275.2,-39.84 88.96,-39.84 88.96,-39.84 82.96,-39.84 76.96,-33.84 76.96,-27.84 76.96,-27.84 76.96,-12 76.96,-12 76.96,-6 82.96,0 88.96,0 88.96,0 275.2,0 275.2,0 281.2,0 287.2,-6 287.2,-12 287.2,-12 287.2,-27.84 287.2,-27.84 287.2,-33.84 281.2,-39.84 275.2,-39.84"/>
-<text xml:space="preserve" text-anchor="middle" x="182.08" y="-23.82" font-family="Meiryo" font-size="13.00">balance ← balance ＋ 700</text>
+<text xml:space="preserve" text-anchor="middle" x="182.08" y="-23.82" font-family="Meiryo" font-size="13.00">balance ← balance ＋ 500</text>
 <text xml:space="preserve" text-anchor="middle" x="182.08" y="-8.22" font-family="Meiryo" font-size="13.00">months ← months ＋ 1</text>
 </g>
 <!-- n1&#45;&gt;n2 -->
