@@ -27,6 +27,11 @@
   .answer-section p { margin: 2mm 0; }
   .answer-section table { margin: 2mm 0; font-size: 8.5pt; }
   .answer-section th, .answer-section td { padding: 1.4mm 2mm; }
+  .dense-answer th, .dense-answer td { padding: 0.8mm 2mm; line-height: 1.4; }
+  .dense-answer .exercise-flow { margin: 3mm 0; padding: 2mm; }
+  .dense-answer .exercise-flow img { max-height: 105mm; }
+  .answer-section[data-exercise="7-F"] .exercise-flow img { max-height: 95mm; }
+  .supplement-lesson { break-inside: avoid; }
   .exercise-question { break-inside: avoid; }
   .compact-question h2 { margin: 0 0 3mm; }
   .compact-question h3 { margin: 3mm 0 2mm; }
@@ -34,8 +39,9 @@
   .compact-question pre { margin: 3mm 0; padding: 3mm; line-height: 1.45; }
   .compact-question table { margin: 3mm 0; }
   .compact-question th, .compact-question td { padding: 1.5mm 2mm; }
+  .compact-question .choice-table[data-exercise="8-C"] { line-height: 1.4; }
   .compact-question .ai-box { margin: 3mm 0; padding-top: 2mm; padding-bottom: 2mm; }
-  .compact-question .output-sample { margin: 2mm 0; padding: 2mm 4mm; }
+  .compact-question .output-sample { margin: 2mm 0; padding: 2mm 4mm; line-height: 1.35; }
   .compact-question .answer-sheet { margin: 2mm 0; }
   .compact-question .answer-sheet > div { min-height: 2.2rem; }
   .compact-question .answer-sheet strong { padding: 0.4em 0.8em; }

@@ -42,7 +42,18 @@ for chapter in range(1, 9):
         ident = f'{chapter}-{letter}'
         assert sum(ident in p['answers'] for p in report) == 1, ('解説', ident)
         assert sum(ident in p['flows'] for p in report) == 1, ('図', ident)
+        answer_page = next(p['page'] for p in report if ident in p['answers'])
+        flow_page = next(p['page'] for p in report if ident in p['flows'])
+        assert answer_page == flow_page, ('解説と図を同じページに配置してください', ident)
 assert len(toc) == 11, toc
+assert all('公開問題への接続' not in text or item['answers'] for text, item in zip(pages, report)), '公開問題への参照を解説と同じページに配置してください'
+for chapter in range(1, 9):
+    for letter in 'ABCDEF':
+        ident = f'{chapter}-{letter}'
+        question_pages = [text for text in pages[:toc['answers'] - 1]
+                          if re.search(rf'演習{ident}[ 　]', text)]
+        assert len(question_pages) == 1, ('問題見出し', ident)
+        assert f'問題{ident}について質問です' in re.sub(r'\s+', '', question_pages[0]), ('問題とAIへの質問例を同じページに配置してください', ident)
 choice_questions = 0
 for text in pages[:toc['answers'] - 1]:
     # 第2章の実践問題は、受講者が値を書く記述式を維持する。

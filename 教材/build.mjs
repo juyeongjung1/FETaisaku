@@ -17,6 +17,7 @@ const temp = path.resolve(root,'../tmp/pdfs');
 await fs.mkdir(temp,{recursive:true});
 await fs.mkdir(path.join(root,'images/flowcharts'),{recursive:true});
 const escape = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+const aiLabel = 'AIへの質問例｜自分の考えを伝えてヒントを求める';
 
 function code(steps,depth=0) {
   return steps.flatMap(s => {
@@ -91,9 +92,9 @@ function graph(item) {
     const id='n'+n++;
     label=label.replaceAll(' and ','\nand ');
     const width=Math.max(...label.split('\n').map(line=>[...line].reduce((sum,c)=>sum+(/[\x00-\x7f]/.test(c)?.105:.185),0)))+.35;
-    nodes.push(`${id} [label=${JSON.stringify(label)},width=${(shape==='diamond'?width*1.5:width).toFixed(2)},shape=${shape}${shape==='diamond'?',fillcolor="#fff3db"':''}];`);return id;
+    nodes.push(`${id} [label=${JSON.stringify(label)},width=${(shape==='diamond'?width*1.5:width).toFixed(2)},shape=${shape}${shape==='diamond'?',fillcolor="#fff3db"'+(item.id==='5-B'?',style="filled"':''):''}];`);return id;
   };
-  const edge=(a,b,label='')=>edges.push(`${a} -> ${b} [label=${JSON.stringify(label)}];`);
+  const edge=(a,b,label='',ports='')=>edges.push(`${a} -> ${b} [label=${JSON.stringify(label)}${ports?', '+ports:''}];`);
   const build=(steps,next)=>{
     for(let i=steps.length-1;i>=0;i--) {
       const s=steps[i];
@@ -105,7 +106,8 @@ function graph(item) {
         const cond=node(s.variable?`${s.variable} ≦ ${s.to} ?`:`${s.while} ?`,'diamond');
         let back=cond;
         if(s.variable) {back=node(`${s.variable} ← ${s.variable} ＋ 1`);edge(back,cond,'戻る');}
-        const body=build(s.body,back);edge(cond,body,'はい');edge(cond,next,'いいえ');
+        const body=build(s.body,back);edge(cond,body,'はい');
+        edge(cond,next,'いいえ',item.id==='5-B'&&s.while?'tailport=w,headport=n':'');
         next=cond;
         if(s.variable) {const init=node(`${s.variable} ← ${s.from}`);edge(init,cond);next=init;}
       } else {
@@ -121,6 +123,7 @@ function graph(item) {
 
 function trace(item) {
   if(item.natural) return '';
+  if(item.answerTable) return '\n### 表の完成例\n'+tableTemplate(item,item.answerTable);
   if(item.id==='6-D') {
     const {output}=run(item);
     return '\n### 添字と表示される値を確認\n\n| i（添字） | A[i]（その位置の値） | 表示される値 |\n|---|---|---|\n'+output.map((v,i)=>`| ${i+1} | ${item.input.A[i]} | ${v} |`).join('\n')+'\n';
@@ -132,7 +135,6 @@ function trace(item) {
   if(rows.some(row=>row.label.endsWith('終了'))) {
     rows=history.filter((row,i)=>i===0 || i===history.length-1 || row.label.endsWith('終了'));
   }
-  if(rows.length>7) rows=[...rows.slice(0,3),{label:'…（中間の反復を省略）',values:{}},...rows.slice(-3)];
   if(!rows.length) return '';
   const fmt=v=>Array.isArray(v)?'{'+v.join(', ')+'}':String(v);
   const keys=[...new Set(history.flatMap(r=>Object.keys(r.values)))].filter(k=>k!=='A' || history.some(r=>r.label.startsWith('A[')));
@@ -143,11 +145,11 @@ function trace(item) {
 }
 
 const sourceMap={
-  '2-F':['変数の退避と上書き','https://www.fe-siken.com/kakomon/sample/b1.html'],
-  '4-E':['条件分岐の読み取り','https://www.fe-siken.com/kakomon/sample/b2.html'],
-  '6-F':['探索の考え方（公開問題は二分探索）','https://www.fe-siken.com/kakomon/sample/b13.html'],
-  '7-F':['配列を一行ずつ追う練習','https://www.fe-siken.com/kakomon/sample/b3.html'],
-  '8-B':['配列の位置と上書きに注目する練習','https://www.fe-siken.com/kakomon/08_haru/b1.html']
+  '2-F':['2022年12月サンプル20問セット 問1 変数の退避と上書き','https://www.fe-siken.com/kakomon/sample/b1.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
+  '4-E':['2022年12月サンプル20問セット 問2 条件分岐の読み取り','https://www.fe-siken.com/kakomon/sample/b2.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
+  '6-F':['2022年12月サンプル20問セット 問13 探索の考え方（公開問題は二分探索）','https://www.fe-siken.com/kakomon/sample/b13.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
+  '7-F':['2022年12月サンプル20問セット 問3 配列を一行ずつ追う練習','https://www.fe-siken.com/kakomon/sample/b3.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
+  '8-B':['令和8年度 問1 配列の位置と上書きに注目する練習','https://www.fe-siken.com/kakomon/08_haru/b1.html','https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf']
 };
 for(const item of exercises) {
   const svg=viz.renderString(graph(item),{format:'svg'});
@@ -165,13 +167,23 @@ function choiceTable(item) {
   return '\n<div class="choice-table" data-exercise="'+item.id+'">\n\n| 選択肢 | 内容 |\n|---|---|\n'+
     item.choices.options.map((option,i)=>'| '+'アイウエ'[i]+' | '+(item.id==='8-C'?option.replace(' ／ ③','<br>③'):option)+' |').join('\n')+'\n\n</div>\n';
 }
-function tableTemplate(item) {
-  if (!item.tableTemplate) return '';
-  const {headers, rows} = item.tableTemplate;
+function tableTemplate(item, table=item.tableTemplate) {
+  if (!table) return '';
+  const {headers, rows} = table;
   const headerLine = '| ' + headers.join(' | ') + ' |';
   const sepLine = '|' + headers.map((h, i) => i === 0 ? '---|' : '---:|').join('');
   const rowLines = rows.map(r => '| ' + r.join(' | ') + ' |').join('\n');
   return `\n${headerLine}\n${sepLine}\n${rowLines}\n\n`;
+}
+// 既存問題も生成元のAI例文を使い、再ビルド時の食い違いを防ぐ。
+for (const item of exercises.filter(e=>e.existing)) {
+  const from=md.indexOf('## 演習'+item.id+'　'), to=md.indexOf('</section>',from);
+  assert(from>=0&&to>from,item.id+'の問題位置がありません');
+  const section=md.slice(from,to);
+  const pattern=/(<p class="ai-label">)[^<]*(<\/p>\n\s*<p>)[\s\S]*?(<\/p>)/;
+  assert(pattern.test(section)&&item.aiQuestion,item.id+'のAI例文がありません');
+  const updated=section.replace(pattern,(_,start,middle,end)=>start+aiLabel+middle+escape(item.aiQuestion)+end);
+  md=md.slice(0,from)+updated+md.slice(to);
 }
 for (const item of exercises.filter(e=>e.existing&&e.choices)) {
   const start='<!-- 選択肢開始 '+item.id+' -->', end='<!-- 選択肢終了 '+item.id+' -->';
@@ -192,7 +204,7 @@ for(let chapter=1;chapter<=8;chapter++) {
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
     const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
     const answerSheet = `<div class="answer-sheet">\n  <p class="sheet-title">解答欄</p>\n${rows}\n</div>`;
-    const aiBox = `<div class="ai-box">\n  <p class="ai-label">AIへの質問例｜考え方や疑問点を伝える</p>\n  <p>${item.aiQuestion || `問題${item.id}について質問です。私は○○と考えました。○○が分かりません。`}</p>\n</div>`;
+    const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  <p>${escape(item.aiQuestion)}</p>\n</div>`;
     const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
     const secClass = item.compact ? 'exercise-question compact-question' : 'exercise-question';
     return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types ? types + '\n\n' : ''}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
@@ -203,7 +215,8 @@ for(let chapter=1;chapter<=8;chapter++) {
 const answers=exercises.map(item=>{
   const related=sourceMap[item.id];
   const input=item.input?Object.entries(item.input).map(([k,v])=>`${k}＝${Array.isArray(v)?'{'+v.join(',')+'}':v}`).join('、'):'';
-  return `<section class="answer-section">\n\n## 演習${item.id}　解答・解説\n\n${item.choices?`**正解：${item.choices.correct}**\n\n`:''}${item.answer}\n${input?`\n表の確認に使う入力：${input}。\n`:''}${trace(item)}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。${item.existing?'問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。':''}</p>\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</section>\n`;
+  const secClass=['5-A','6-A','6-B','7-F','8-A'].includes(item.id)?'answer-section dense-answer':'answer-section';
+  return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n${item.choices?`**正解：${item.choices.correct}**\n\n`:''}${item.answer}\n${input?`\n表の確認に使う入力：${input}。\n`:''}${trace(item)}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。${item.existing?'問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。':''}</p>\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</section>\n`;
 }).join('\n');
 md=md.replace(/# 解答・解説[\s\S]*?(?=<div class="page-break"><\/div>\n\n<a id="roadmap">)/,
   '# 解答・解説\n\n自分の答えを書いてから確認します。文章、値の確認表、フローチャートを対応させて読みましょう。図では読みやすさのため、連続する代入を一つの箱にまとめることがあります。\n\n'+answers+'\n');
