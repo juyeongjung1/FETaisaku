@@ -218,8 +218,11 @@ const answers=exercises.map(item=>{
   const secClass=['5-A','6-A','6-B','7-F','8-A'].includes(item.id)?'answer-section dense-answer':'answer-section';
   return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n${item.choices?`**正解：${item.choices.correct}**\n\n`:''}${item.answer}\n${input?`\n表の確認に使う入力：${input}。\n`:''}${trace(item)}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。${item.existing?'問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。':''}</p>\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</section>\n`;
 }).join('\n');
+// 共通の読み方は原稿に残し、各問の解説だけを再生成する。
+const answerIntro=md.match(/^# 解答・解説\n[\s\S]*?(?=<section class="answer-section\b)/m);
+assert(answerIntro,'解答・解説の導入がありません');
 md=md.replace(/# 解答・解説[\s\S]*?(?=<div class="page-break"><\/div>\n\n<a id="roadmap">)/,
-  '# 解答・解説\n\n自分の答えを書いてから確認します。文章、値の確認表、フローチャートを対応させて読みましょう。図では読みやすさのため、連続する代入を一つの箱にまとめることがあります。\n\n'+answers+'\n');
+  answerIntro[0]+answers+'\n');
 await fs.writeFile(source,md);
 
 // 生HTMLの字下げがMarkdownのコードブロックと誤認されないよう正規化。

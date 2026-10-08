@@ -32,6 +32,7 @@
   .dense-answer .exercise-flow img { max-height: 105mm; }
   .answer-section[data-exercise="7-F"] .exercise-flow img { max-height: 95mm; }
   .supplement-lesson { break-inside: avoid; }
+  .example-explanation { break-inside: avoid; }
   .exercise-question { break-inside: avoid; }
   .compact-question h2 { margin: 0 0 3mm; }
   .compact-question h3 { margin: 3mm 0 2mm; }
