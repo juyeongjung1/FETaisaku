@@ -73,7 +73,7 @@ function verify(item,input,expected) {
 }
 let tests=0;
 for(let chapter=1;chapter<=8;chapter++) for(let level=1;level<=3;level++)
-  assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,chapter===1?[2,4,0][level-1]:2);
+  assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,chapter===1?[3,3,0][level-1]:2);
 for (const item of exercises.filter(e=>e.choices)) {
   assert.equal(item.choices.options.length,4,item.id);
   assert.equal(new Set(item.choices.options).size,4,item.id);
@@ -83,7 +83,7 @@ for(const item of exercises) if(!item.natural) {
   verify(item,item.input||{},item.expected);tests++;
   for(const [input,expected] of item.cases||[]) {verify(item,input,expected);tests++;}
 }
-console.log(`演習48問・第1章は★2問と★★4問、第2〜8章は各難易度2問を確認。検算${tests}ケース成功。`);
+console.log(`演習48問・第1章は★3問と★★3問、第2〜8章は各難易度2問を確認。検算${tests}ケース成功。`);
 
 // 順次を一つの箱にまとめ、分岐・ループは独立した節点で表現する。
 function graph(item) {

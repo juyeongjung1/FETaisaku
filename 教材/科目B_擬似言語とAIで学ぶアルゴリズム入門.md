@@ -41,7 +41,7 @@
 
 ## この教材の使い方
 
-第0章は、全員が最初に学ぶ「AIの安全で有効な活用」です。第1〜8章には各6問、合計48問を用意しています。第1章は★を2問、★★を4問、第2〜8章は★・★★・★★★を各2問用意しています。
+第0章は、全員が最初に学ぶ「AIの安全で有効な活用」です。第1〜8章には各6問、合計48問を用意しています。第1章は★を3問、★★を3問、第2〜8章は★・★★・★★★を各2問用意しています。
 
 | 難易度 | 取り組み方 |
 |---|---|
@@ -416,9 +416,9 @@ c ← a ＋ b
 
 <section class="exercise-question">
 
-## 演習1-C　同じ作業の繰り返し
+## 演習1-C　書類への確認印
 
-<span class="difficulty">難易度 ★★☆</span>
+<span class="difficulty">難易度 ★☆☆</span>
 
 「10枚の書類すべてに確認印を押す」という作業があります。三つの基本構造のどれに当たりますか。また、この処理が終わるのはどんな条件のときですか。
 
@@ -461,17 +461,17 @@ c ← a ＋ b
 
 <section class="exercise-question">
 
-## 演習1-E　変数と代入の役割
+## 演習1-E　変数と記号の意味
 
 <span class="difficulty">難易度 ★★☆</span>
 
-変数の役割と代入記号「←」の意味を、それぞれ説明してください。
+変数の役割と記号「←」の意味を、それぞれ説明してください。
 
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>変数の役割</strong><span></span></div>
-  <div><strong>代入「←」の意味</strong><span></span></div>
+  <div><strong>「←」の意味</strong><span></span></div>
 </div>
 
 <div class="ai-box">
