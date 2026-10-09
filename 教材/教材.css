@@ -41,7 +41,10 @@
   .compact-question table { margin: 3mm 0; }
   .compact-question th, .compact-question td { padding: 1.5mm 2mm; }
   .compact-question .choice-table[data-exercise="8-C"] { line-height: 1.4; }
-  .compact-question .ai-box { margin: 3mm 0; padding-top: 2mm; padding-bottom: 2mm; }
+  .compact-question .choice-table[data-exercise="8-C"] th,
+  .compact-question .choice-table[data-exercise="8-C"] td { padding-top: 0.75mm; padding-bottom: 0.75mm; }
+  .compact-question .ai-box { margin: 3mm 0; padding-top: 2mm; padding-bottom: 2mm; line-height: 1.5; }
+  .compact-question .ai-box p { margin: 1mm 0; }
   .compact-question .output-sample { margin: 2mm 0; padding: 2mm 4mm; line-height: 1.35; }
   .compact-question .answer-sheet { margin: 2mm 0; }
   .compact-question .answer-sheet > div { min-height: 2.2rem; }

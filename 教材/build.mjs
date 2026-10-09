@@ -18,6 +18,7 @@ await fs.mkdir(temp,{recursive:true});
 await fs.mkdir(path.join(root,'images/flowcharts'),{recursive:true});
 const escape = s => String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
 const aiLabel = 'AIへの質問例｜自分の考えを伝えてヒントを求める';
+const aiParagraphs = s => s.split('\n\n').map(part=>'<p>'+escape(part).replace(/(分かっていること：|試したこと：|分からないこと：)/g,'<strong>$1</strong>').replaceAll('\n','<br>')+'</p>').join('\n  ');
 
 function code(steps,depth=0) {
   return steps.flatMap(s => {
@@ -72,6 +73,14 @@ function verify(item,input,expected) {
   return result;
 }
 let tests=0;
+for (const item of exercises) {
+  const lines=item.aiQuestion.split('\n');
+  assert.equal(lines[0],`問題${item.id}について質問です。`,item.id);
+  assert.equal(lines[1],'',item.id);
+  assert.equal(lines.length,5,item.id);
+  for (const [i,label] of ['分かっていること：','試したこと：','分からないこと：'].entries())
+    assert(lines[i+2].startsWith(label)&&lines[i+2].length>label.length,item.id+'の'+label);
+}
 for(let chapter=1;chapter<=8;chapter++) for(let level=1;level<=3;level++)
   assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,chapter===1?[3,3,0][level-1]:2);
 for (const item of exercises.filter(e=>e.choices)) {
@@ -180,9 +189,9 @@ for (const item of exercises.filter(e=>e.existing)) {
   const from=md.indexOf('## 演習'+item.id+'　'), to=md.indexOf('</section>',from);
   assert(from>=0&&to>from,item.id+'の問題位置がありません');
   const section=md.slice(from,to);
-  const pattern=/(<p class="ai-label">)[^<]*(<\/p>\n\s*<p>)[\s\S]*?(<\/p>)/;
+  const pattern=/(<div class="ai-box">\n\s*<p class="ai-label">)[^<]*(<\/p>)[\s\S]*?(<\/div>)/;
   assert(pattern.test(section)&&item.aiQuestion,item.id+'のAI例文がありません');
-  const updated=section.replace(pattern,(_,start,middle,end)=>start+aiLabel+middle+escape(item.aiQuestion)+end);
+  const updated=section.replace(pattern,(_,start,middle,end)=>start+aiLabel+middle+'\n  '+aiParagraphs(item.aiQuestion)+'\n'+end);
   md=md.slice(0,from)+updated+md.slice(to);
 }
 for (const item of exercises.filter(e=>e.existing&&e.choices)) {
@@ -204,7 +213,7 @@ for(let chapter=1;chapter<=8;chapter++) {
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
     const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
     const answerSheet = `<div class="answer-sheet">\n  <p class="sheet-title">解答欄</p>\n${rows}\n</div>`;
-    const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  <p>${escape(item.aiQuestion)}</p>\n</div>`;
+    const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  ${aiParagraphs(item.aiQuestion)}\n</div>`;
     const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
     const secClass = item.compact ? 'exercise-question compact-question' : 'exercise-question';
     return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types ? types + '\n\n' : ''}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;

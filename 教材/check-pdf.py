@@ -16,6 +16,10 @@ all_text = '\n'.join(pages)
 assert not re.search(r'<\s*/?\s*(span|strong|small|div|p|br)\b', all_text)
 assert '初稿' not in all_text
 compact_text = re.sub(r'\s+', '', all_text)
+for label in ('分かっていること：', '試したこと：', '分からないこと：'):
+    assert compact_text.count(label) == 51, ('第0章・全48問・第7章補足・巻末の質問例', label)
+    assert '**'+label not in compact_text, ('太字の記法が本文に露出しています', label)
+assert '表を添付' not in compact_text, '質問例に表の添付指示が残っています'
 assert '問題4-Aについて質問です' in compact_text
 assert 'xmod2＝0」で合っていますか' not in compact_text
 assert '空欄①に入る条件式を答えてください' in compact_text
