@@ -425,6 +425,10 @@ pre code {
   border-top: 1px solid #dce5f2;
 }
 
+.answer-sheet > div {
+  grid-template-columns: min(22rem, 48%) minmax(0, 1fr);
+}
+
 .answer-sheet strong,
 .analysis-sheet strong {
   background: #f5f8fc;
