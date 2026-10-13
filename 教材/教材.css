@@ -20,17 +20,25 @@
 .flow-caption { margin: 2mm 0 0; font-size: 8pt; color: #526273; }
 .choice-table { break-inside: avoid; }
 .choice-table th:first-child, .choice-table td:first-child { width: 4em; white-space: nowrap; }
+.solution-table { break-inside: avoid; }
+.solution-table th:first-child, .solution-table td:first-child { width: 46%; }
+.solution-table td:last-child { color: #1a365d; font-weight: 700; }
+.answer-part > h3 { color: #145fc0; }
+.explanation-part > h3 { color: #252a30; }
 @media print {
   .answer-section { break-before: page; font-size: 10pt; }
   .answer-section h2 { margin: 0 0 3mm; }
-  .answer-section h3 { margin: 3mm 0 2mm; font-size: 10pt; }
+  .answer-section h3 { margin: 2mm 0 1mm; font-size: 10pt; }
+  .answer-section h4 { margin: 2mm 0 1mm; font-size: 9pt; }
   .answer-section p { margin: 2mm 0; }
-  .answer-section table { margin: 2mm 0; font-size: 8.5pt; }
-  .answer-section th, .answer-section td { padding: 1.4mm 2mm; }
-  .dense-answer th, .dense-answer td { padding: 0.8mm 2mm; line-height: 1.4; }
-  .dense-answer .exercise-flow { margin: 3mm 0; padding: 2mm; }
-  .dense-answer .exercise-flow img { max-height: 105mm; }
-  .answer-section[data-exercise="7-F"] .exercise-flow img { max-height: 95mm; }
+  .answer-section table { margin: 1.5mm 0; font-size: 8.5pt; }
+  .answer-section th, .answer-section td { padding: 1mm 2mm; line-height: 1.4; }
+  .answer-section .exercise-flow { margin: 2mm 0; padding: 2mm; }
+  .answer-section .flow-title { margin: 0 0 1mm; line-height: 1.4; }
+  .answer-section .flow-caption { margin: 1mm 0 0; line-height: 1.4; }
+  .dense-answer th, .dense-answer td { padding: 0.6mm 2mm; line-height: 1.3; }
+  .dense-answer .exercise-flow img { max-height: 95mm; }
+  .answer-section[data-exercise="5-A"] .exercise-flow img { max-height: 90mm; }
   .supplement-lesson { break-inside: avoid; }
   .example-explanation { break-inside: avoid; }
   .exercise-question { break-inside: avoid; }
@@ -1232,46 +1240,12 @@ td:empty {
   padding: 1em 1.2em 1.2em;
 }
 
-.number-line {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  align-items: center;
-  width: 65%;
-  margin: 1.4em auto 0.5em;
-  border-bottom: 4px solid #8e969d;
-  text-align: center;
-}
-
-.number-line span,
-.boundary-point {
-  padding-bottom: 0.45em;
-}
-
-.boundary-point {
-  position: relative;
-  color: var(--coral-dark);
-  font-size: 1.3rem;
-}
-
-.boundary-point::after {
-  position: absolute;
-  bottom: -9px;
-  left: 50%;
-  width: 14px;
-  height: 14px;
-  transform: translateX(-50%);
-  border-radius: 50%;
-  background: var(--coral);
-  content: "";
-}
-
-.boundary-labels {
-  display: flex;
-  justify-content: space-between;
-  width: 78%;
-  margin: 0.8em auto 0;
-  color: var(--muted);
-  font-size: 0.78rem;
+.boundary-visual svg {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
 }
 
 .logic-gates {
@@ -1822,11 +1796,6 @@ td:empty {
   .choice-branches {
     width: 100%;
     gap: 12px;
-  }
-
-  .number-line,
-  .boundary-labels {
-    width: 100%;
   }
 
   .learning-cycle {

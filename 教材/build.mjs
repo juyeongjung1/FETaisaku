@@ -224,8 +224,20 @@ for(let chapter=1;chapter<=8;chapter++) {
 const answers=exercises.map(item=>{
   const related=sourceMap[item.id];
   const input=item.input?Object.entries(item.input).map(([k,v])=>`${k}＝${Array.isArray(v)?'{'+v.join(',')+'}':v}`).join('、'):'';
+  const from=md.indexOf('## 演習'+item.id+'　'), to=md.indexOf('</section>',from);
+  const sheet=md.slice(from,to).match(/<div class="answer-sheet">[\s\S]*?\n<\/div>/);
+  assert(sheet,item.id+'の解答欄がありません');
+  const fields=[...sheet[0].matchAll(/<strong>([\s\S]*?)<\/strong>/g)].map(m=>m[1]);
+  assert.equal(item.solution.length,fields.length,item.id+'の解答欄と解答の項目数が一致しません');
+  assert(item.solution.every(value=>typeof value==='string'&&value.trim()),item.id+'の解答が空です');
+  if(item.choices) assert.equal(item.solution[0],item.choices.correct,item.id+'の正解記号');
+  const solution=`<div class="solution-table" data-exercise="${item.id}">\n\n| 解答欄の項目 | 解答 |\n|---|---|\n`+
+    fields.map((field,i)=>`| ${field} | ${item.choices?'**正解：'+item.solution[i]+'**':item.solution[i]} |`).join('\n')+'\n\n</div>\n';
+  const tableIsAnswer=Boolean(item.tableTemplate||['5-B','6-B'].includes(item.id));
+  const inputNote=input?`\n表の確認に使う入力：${input}。\n`:'';
+  const tracePart=trace(item).replace(/^### /gm,'#### ');
   const secClass=['5-A','6-A','6-B','7-F','8-A'].includes(item.id)?'answer-section dense-answer':'answer-section';
-  return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n${item.choices?`**正解：${item.choices.correct}**\n\n`:''}${item.answer}\n${input?`\n表の確認に使う入力：${input}。\n`:''}${trace(item)}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。${item.existing?'問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。':''}</p>\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</section>\n`;
+  return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n<div class="answer-part">\n\n### ${item.solutionTitle||'解答'}\n\n${solution}${tableIsAnswer?inputNote+tracePart:''}\n</div>\n\n<div class="explanation-part">\n\n### 解説\n\n${item.answer}\n${tableIsAnswer?'':inputNote+tracePart}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n${item.existing?'<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>':''}\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</div>\n\n</section>\n`;
 }).join('\n');
 // 共通の読み方は原稿に残し、各問の解説だけを再生成する。
 const answerIntro=md.match(/^# 解答・解説\n[\s\S]*?(?=<section class="answer-section\b)/m);
@@ -264,6 +276,9 @@ try {
   assert(!/<\/?(?:span|strong|small|div|p|br)\b/.test(raw),'HTMLタグが本文に露出しています。');
   assert(!raw.includes('初稿'),'初稿表記が残っています。');
   assert.equal(await page.locator('.exercise-flow img').count(),48);
+  assert.equal(await page.locator('.answer-part > h3').count(),48);
+  assert.equal(await page.locator('.explanation-part > h3').count(),48);
+  assert.equal(await page.locator('.solution-table tbody tr').count(),100);
   assert.equal(await page.locator('.choice-table').count(),12);
   assert.equal(await page.locator('.choice-table tbody tr').count(),48);
   assert.equal((raw.match(/難易度 ★/g)||[]).length,48);

@@ -23,7 +23,8 @@ assert '表を添付' not in compact_text, '質問例に表の添付指示が残
 assert '問題4-Aについて質問です' in compact_text
 assert 'xmod2＝0」で合っていますか' not in compact_text
 assert '空欄①に入る条件式を答えてください' in compact_text
-assert '①age≧12andhasTicket＝1' in compact_text
+assert 'age≧12andhasTicket＝1' in compact_text
+assert compact_text.count('解答欄の項目') == 48, '全48問に解答欄と対応する解答表が必要です'
 assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 まずwhileで繰返しの仕組みを知る', '5.3 whileを簡潔に書くfor', '合計用の変数を繰返しの中で初期化しない'))
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 toc = {}
@@ -49,6 +50,7 @@ for chapter in range(1, 9):
         answer_page = next(p['page'] for p in report if ident in p['answers'])
         flow_page = next(p['page'] for p in report if ident in p['flows'])
         assert answer_page == flow_page, ('解説と図を同じページに配置してください', ident)
+        assert '解答欄の項目' in pages[answer_page-1] and re.search(r'^解説\s*$', pages[answer_page-1], re.M), ('解答と解説を分けて同じページに配置してください', ident)
 assert len(toc) == 11, toc
 assert all('公開問題への接続' not in text or item['answers'] for text, item in zip(pages, report)), '公開問題への参照を解説と同じページに配置してください'
 for chapter in range(1, 9):

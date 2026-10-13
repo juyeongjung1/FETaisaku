@@ -1222,14 +1222,28 @@ endif
   <p>キーボード入力でよく使う<code>&gt;=</code>や<code>&lt;=</code>ではなく、試験問題では<code>≧</code>や<code>≦</code>を使います。代入は<code>←</code>、等しいかの比較は<code>＝</code>です。</p>
 </div>
 
-「18より大きい」と「18以上」は異なります。境界となる値を確認しましょう。
+「60点より大きい」と「60点以上」は異なります。「以上」には60点ちょうども含まれます。
 
 <div class="boundary-visual">
-  <p class="visual-title">「60点以上」の境界を見る</p>
-  <div class="number-line">
-    <span>59</span><strong class="boundary-point">60</strong><span>61</span>
-  </div>
-  <div class="boundary-labels"><span>条件を満たさない</span><span>ここから条件を満たす</span></div>
+  <p class="visual-title">条件：score ≧ 60（60点以上）</p>
+  <svg viewBox="0 0 720 150" role="img" aria-label="59点は偽。60点ちょうどを含め、60点から右は真。" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="score-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#145fc0"/></marker></defs>
+    <rect x="40" y="45" width="300" height="65" rx="4" fill="#edf0f3"/>
+    <rect x="340" y="45" width="350" height="65" rx="4" fill="#deecff"/>
+    <g font-family="Meiryo, sans-serif" font-size="18" text-anchor="middle">
+      <text x="170" y="28" fill="#526273">60点未満：偽</text>
+      <text x="515" y="28" fill="#145fc0" font-weight="bold">60点以上：真（60点を含む）</text>
+      <path d="M 55 80 H 340" stroke="#8e969d" stroke-width="4"/>
+      <path d="M 340 80 H 678" stroke="#145fc0" stroke-width="4" marker-end="url(#score-arrow)"/>
+      <path d="M 340 37 V 112" stroke="#145fc0" stroke-width="2" stroke-dasharray="4 4"/>
+      <circle cx="170" cy="80" r="7" fill="#fff" stroke="#8e969d" stroke-width="3"/>
+      <circle cx="340" cy="80" r="9" fill="#145fc0"/>
+      <circle cx="510" cy="80" r="7" fill="#145fc0"/>
+      <text x="170" y="133" fill="#526273">59点</text>
+      <text x="340" y="133" fill="#145fc0" font-weight="bold">60点：ここから真</text>
+      <text x="555" y="133" fill="#145fc0">61点、62点、…</text>
+    </g>
+  </svg>
 </div>
 
 ### 一般的な演算子（% や ++ / --）と擬似言語の表現
@@ -1249,21 +1263,23 @@ endif
 
 ## 4.3 複数の条件
 
-二つ以上の条件を組み合わせるときは、論理演算を使います。
+条件を組み合わせたり、真と偽を反対にしたりするときは、論理演算を使います。
 
 <div class="logic-gates">
   <div><strong>and</strong><p>学生証も必要<br>予約票も必要</p><small>両方そろって通れる</small></div>
   <div><strong>or</strong><p>学生証または<br>運転免許証</p><small>片方でも両方でも通れる</small></div>
-  <div><strong>not</strong><p>「雨ではない」</p><small>条件を反対にする</small></div>
+  <div><strong>not</strong><p>学生証を<br>持っていない</p><small>「持っている」の真偽を反対にする</small></div>
 </div>
 
 | 論理演算 | 成立する条件 |
 |---|---|
 | `and` | 両方の条件が成立 |
 | `or` | 少なくとも一方が成立 |
-| `not` | 条件が成立しない |
+| `not` | 元の条件が偽なら真、真なら偽 |
 
-**小さく確認：** 学生証と運転免許証の両方がある場合も、どちらもない場合も、`or`の条件は同じでしょうか。両方あると真、どちらもないと偽です。また、雨が降っているとき「雨ではない」は偽になります。
+### `else`を省略する場合
+
+条件が成り立つときだけ処理をしたい場合は、`else`を省略できます。次の例では、18歳以上65歳未満のときだけ「対象」を表示します。
 
 ```text
 if (age ≧ 18 and age ＜ 65)
@@ -1271,7 +1287,7 @@ if (age ≧ 18 and age ＜ 65)
 endif
 ```
 
-この例のように、`else`は省略できます。条件が偽なら内側の処理は行わず、`endif`の後へ進みます。
+条件が偽なら内側の処理は行わず、`endif`の後へ進みます。
 
 ## 4.4 三つ以上に分ける
 
@@ -3030,7 +3046,7 @@ average ← total ÷ count
 
 # 解答・解説
 
-自分の答えを書いてから確認します。文章、値の確認表、フローチャートを対応させて読みましょう。
+自分の答えを書いてから確認します。各問の「解答」は、元の解答欄と同じ項目順です。「解説」では、その答えになる理由や処理の進み方を確認します。記述式は、同じ意味を表し、問題の条件を満たす別の書き方でも構いません。
 
 ## 解説のフローチャートの読み方
 
@@ -3051,12 +3067,33 @@ average ← total ÷ count
 
 ## 演習1-A　解答・解説
 
-靴下を履く→靴を履く→外へ出る。上から順に進む処理は「順次」です。逆に戻ったり飛ばしたりせず、書かれた順番に一行ずつ実行します。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="1-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 正しい順序 | 靴下を履く → 靴を履く → 外へ出る |
+| 基本構造の名称 | 順次 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+靴を履く前に靴下を履く必要があります。決めた順番で上から一つずつ進む処理が「順次」です。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Aのフローチャート</p>
 <img src="images/flowcharts/1-A.svg" alt="演習1-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3065,12 +3102,33 @@ average ← total ÷ count
 
 ## 演習1-B　解答・解説
 
-条件で分ける処理は「選択」です。条件は「雨が降っているかどうか」です。条件が「真（成立）」か「偽（不成立）」かで、実行する処理を選びます。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="1-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 基本構造の名称 | 選択 |
+| この例での条件 | 雨が降っているかどうか |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+雨が降っているかを調べ、その結果で持ち物を変えます。条件が真なら傘、偽なら帽子というように、条件によって実行する処理を選びます。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Bのフローチャート</p>
 <img src="images/flowcharts/1-B.svg" alt="演習1-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3079,12 +3137,33 @@ average ← total ÷ count
 
 ## 演習1-C　解答・解説
 
-同じ処理を繰り返す「繰返し」です。終了条件は「10枚すべてに押し終わったとき（残り0枚）」です。回数が決まっている場合と、条件を満たすまで続ける場合があります。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="1-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 基本構造の名称 | 繰返し |
+| 終了する条件 | 10枚すべてに確認印を押し終わったとき（残り0枚） |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+一枚に印を押す処理を、全10枚に対して続けます。まだ印を押していない書類がある間は終わりません。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Cのフローチャート</p>
 <img src="images/flowcharts/1-C.svg" alt="演習1-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3093,12 +3172,32 @@ average ← total ÷ count
 
 ## 演習1-D　解答・解説
 
-「いい感じ」では並べる基準や、比較・交換・終了の手順が決まらないからです。「小さい順」は並べる目標を示しますが、それだけでは実行する手順になりません。アルゴリズムには具体的で実行できる手順が必要です。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="1-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 正しく動かない理由 | 並べる基準や、実行する手順が具体的に決まっていないから。 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+「小さい順」は並べる目標ですが、それだけでは比較・交換・終了の手順が分かりません。コンピュータが実行できる具体的な手順まで決める必要があります。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Dのフローチャート</p>
 <img src="images/flowcharts/1-D.svg" alt="演習1-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3107,12 +3206,33 @@ average ← total ÷ count
 
 ## 演習1-E　解答・解説
 
-変数は計算結果や入力された値を一時的に覚えておく「名前付きの箱」です。代入「←」は等しいという意味ではなく、「右辺の計算結果を左辺の箱へ入れる」という動作を表します。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="1-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 変数の役割 | 入力や計算途中の値を覚える場所。 |
+| 「←」の意味 | 右辺の値を左辺の変数へ入れる。 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+変数を「名前付きの箱」と考えると、名前と中身を分けて考えられます。「←」は数学の等号ではありません。右辺の計算を先に行い、その結果で左辺の中身を更新する動作です。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Eのフローチャート</p>
 <img src="images/flowcharts/1-E.svg" alt="演習1-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3121,12 +3241,33 @@ average ← total ÷ count
 
 ## 演習1-F　解答・解説
 
-三つすべてが含まれています。答案を1枚ずつ確認する「繰返し」の中に、点数で印を分ける「選択」があり、一連の作業は上から順に進む「順次」で行われます。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="1-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 含まれる基本構造 | 順次・選択・繰返し |
+| それぞれの対応関係 | 順次：答案を確認し、点数を調べ、印を押す順に進む。<br>選択：60点以上かどうかで押す印を変える。<br>繰返し：全員分が終わるまで一人分の作業を続ける。 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+全員分を処理する繰返しの内側で、点数に応じた選択を行います。一人分の作業は順次で進みます。このように、三つの基本構造を組み合わせて処理を作ります。
 
 <div class="exercise-flow">
 <p class="flow-title">演習1-Fのフローチャート</p>
 <img src="images/flowcharts/1-F.svg" alt="演習1-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3135,9 +3276,29 @@ average ← total ÷ count
 
 ## 演習2-A　解答・解説
 
-値は2→5→10です。右辺を現在の値で計算してから、左辺を上書きします。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="2-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| total ← 2 実行後 | 2 |
+| total ← total ＋ 3 実行後 | 5 |
+| total ← total × 2 実行後（最終値） | 10 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最初に2を入れます。次の行は、その2に3を足して5へ更新します。最後の行は、現在の5を2倍にして10へ更新します。右辺のtotalには、その行を実行する直前の値を使います。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3148,7 +3309,9 @@ average ← total ÷ count
 <div class="exercise-flow">
 <p class="flow-title">演習2-Aのフローチャート</p>
 <img src="images/flowcharts/2-A.svg" alt="演習2-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3157,9 +3320,29 @@ average ← total ÷ count
 
 ## 演習2-B　解答・解説
 
-① x、② y、③ temp。tempに元のxを残すので、xを上書きしても7を取り戻せます。最終値はx＝12、y＝7です。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="2-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ① | `x` |
+| 空欄 ② | `y` |
+| 空欄 ③ | `temp` |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+先に元のxの値7をtempへ残します。その後でxへyの値12を入れ、最後にyへtempの7を入れます。先にxを上書きしてしまうと、元の7を取り戻せません。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3172,7 +3355,9 @@ average ← total ÷ count
 <div class="exercise-flow">
 <p class="flow-title">演習2-Bのフローチャート</p>
 <img src="images/flowcharts/2-B.svg" alt="演習2-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3181,9 +3366,20 @@ average ← total ÷ count
 
 ## 演習2-C　解答・解説
 
-a＝10、b＝14。bへコピーした4は、aを10に変えても自動では変わりません。最後に4＋10を計算します。
+<div class="answer-part">
 
-### 表の完成例
+### 解答
+
+<div class="solution-table" data-exercise="2-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の a | 10 |
+| 最後の b | 14 |
+
+</div>
+
+#### 表の完成例
 
 | 実行する処理 | 実行後の a | 実行後の b |
 |---|---:|---:|
@@ -3193,10 +3389,20 @@ a＝10、b＝14。bへコピーした4は、aを10に変えても自動では変
 | b ← b ＋ a | 10 | 14 |
 
 
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+bへコピーした4は、aを10に更新しても自動では変わりません。最後の行で、bの4とaの10を足してbを更新します。完成表で、各行の直後に覚えている値を確認してください。
+
 <div class="exercise-flow">
 <p class="flow-title">演習2-Cのフローチャート</p>
 <img src="images/flowcharts/2-C.svg" alt="演習2-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3205,9 +3411,28 @@ a＝10、b＝14。bへコピーした4は、aを10に変えても自動では変
 
 ## 演習2-D　解答・解説
 
-discount＝250、price＝1000です。0.2を掛けると元の金額の20％になります。割引額と支払金額を区別します。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="2-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 割引額 discount | 250 |
+| 割引後 price | 1000 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+0.2を掛けると、元の1250円の20％である250円が求められます。discountは割引額、priceはその割引額を引いた後の支払金額です。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3219,7 +3444,9 @@ discount＝250、price＝1000です。0.2を掛けると元の金額の20％に�
 <div class="exercise-flow">
 <p class="flow-title">演習2-Dのフローチャート</p>
 <img src="images/flowcharts/2-D.svg" alt="演習2-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3228,9 +3455,29 @@ discount＝250、price＝1000です。0.2を掛けると元の金額の20％に�
 
 ## 演習2-E　解答・解説
 
-a＝3800、b＝3200、total＝7000。口座aから1200を引き、口座bへ1200を足すため、2口座の合計は移動前（7000）と同じです。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="2-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| a の値 | 3800 |
+| b の値 | 3200 |
+| total の値 | 7000 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+口座aから1200円を引き、口座bへ同じ1200円を足します。手数料がないため、二つの口座の合計は移動前の7000円から変わりません。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3244,7 +3491,9 @@ a＝3800、b＝3200、total＝7000。口座aから1200を引き、口座bへ1200
 <div class="exercise-flow">
 <p class="flow-title">演習2-Eのフローチャート</p>
 <img src="images/flowcharts/2-E.svg" alt="演習2-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3253,9 +3502,29 @@ a＝3800、b＝3200、total＝7000。口座aから1200を引き、口座bへ1200
 
 ## 演習2-F　解答・解説
 
-a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、aにbの値20、bにcの値30、cにtempの値10を代入します。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="2-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| a の値 | 20 |
+| b の値 | 30 |
+| c の値 | 10 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+aの元の10をtempへ残してから、aへbの20、bへcの30を入れます。最後にcへtempの10を入れるので、上書き前の値を失わずにずらせます。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3270,10 +3539,12 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習2-Fのフローチャート</p>
 <img src="images/flowcharts/2-F.svg" alt="演習2-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
 </div>
 
 公開問題への接続：[2022年12月サンプル20問セット 問1 変数の退避と上書き](https://www.fe-siken.com/kakomon/sample/b1.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
+
+</div>
 
 </section>
 
@@ -3281,11 +3552,30 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習3-A　解答・解説
 
-**空欄の解答例**：① `150`、② `80`、③ `apple × 3 ＋ orange × 4`。
+<div class="answer-part">
 
-**各変数の役割**：appleはりんご一個の単価、orangeはみかん一個の単価を覚えます。totalは計算した合計金額を覚え、表示する処理へ渡します。入力値は単価と個数、処理は450＋320の計算、出力は合計770円の表示です。
+### 解答
 
-### 値の確認（各処理の実行後）
+<div class="solution-table" data-exercise="3-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ① | `150` |
+| 空欄 ② | `80` |
+| 空欄 ③ | `apple × 3 ＋ orange × 4` |
+| 各変数の役割（自分の言葉で） | apple：りんご一個の単価。<br>orange：みかん一個の単価。<br>total：計算した合計金額。 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+単価と個数が入力値、単価×個数を足し合わせる計算が処理、totalを表示する命令が出力です。150 × 3 ＋ 80 × 4＝450 ＋ 320＝770なので、表示する値は770です。金額を覚える処理と、表示する処理を区別します。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3296,7 +3586,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習3-Aのフローチャート</p>
 <img src="images/flowcharts/3-A.svg" alt="演習3-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3305,18 +3597,30 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習3-B　解答・解説
 
+<div class="answer-part">
+
 ### 解答の例の一つ
 
-| 解答欄の項目 | 解答例 |
+<div class="solution-table" data-exercise="3-B">
+
+| 解答欄の項目 | 解答 |
 |---|---|
 | 税込価格を求める処理 | `taxIncluded ← price × (1 ＋ rate)` |
 | 表示する処理 | `表示する(taxIncluded)` |
 
-税率10％は0.1です。元の価格の1倍と税額の0.1倍を足すので、1200 × 1.1＝1320となり、1320が表示されます。
+</div>
 
-**別の正しい書き方**：計算する行を `taxIncluded ← price ＋ price × rate` としても正解です。表示する行は上と同じです。式の書き方は複数あり、与えられた税抜価格と税率から税込価格を正しく求めて表示できれば正解です。
+</div>
 
-### 値の確認（各処理の実行後）
+<div class="explanation-part">
+
+### 解説
+
+税率10％は0.1です。元の価格の1倍と税額の0.1倍を足すので、1200 × 1.1＝1320となります。計算した1320をtaxIncludedへ入れ、その変数を表示します。
+
+計算する行を `taxIncluded ← price ＋ price × rate` としても正解です。表示する行は上の解答例と同じです。与えられた税抜価格と税率から税込価格を正しく求めて表示できれば、別の式でも構いません。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3327,7 +3631,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習3-Bのフローチャート</p>
 <img src="images/flowcharts/3-B.svg" alt="演習3-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3336,17 +3642,31 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習3-C　解答・解説
 
-| 解答欄の項目 | 解答例 |
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="3-C">
+
+| 解答欄の項目 | 解答 |
 |---|---|
 | 表示される値 | 600 |
 | 入力 price（単価） | 200円 |
 | 入力 quantity（個数） | 3個 |
-| 処理 | `total ← price × quantity` で200 × 3を計算し、totalへ600を入れる |
-| 出力 | `表示する(total)` で合計金額600を表示する |
+| 処理 | `total ← price × quantity` で合計金額を計算する。 |
+| 出力 | `表示する(total)` で600を表示する。 |
 
-入力値は計算の材料、処理はその材料から合計を求める作業、出力は外へ示す結果です。言葉による説明は、同じ意味であれば別の書き方でも構いません。
+</div>
 
-### 値の確認（各処理の実行後）
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+入力値の200と3を材料に、200 × 3＝600を計算してtotalへ入れます。ここまでが計算と値を覚える処理です。その後でtotalの600を表示することが出力です。同じ意味を表す説明であれば、言葉の書き方が違っても構いません。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3357,7 +3677,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習3-Cのフローチャート</p>
 <img src="images/flowcharts/3-C.svg" alt="演習3-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3366,11 +3688,28 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習3-D　解答・解説
 
-**最後の price**：2100です。2000 × 0.9＝1800を求め、送料300を足します。
+<div class="answer-part">
 
-**同じにならない理由**：割引を適用する金額が違うからです。「割引後に送料を足す」場合は商品代金2000だけが割引対象で、2000 × 0.9 ＋ 300＝2100です。「送料を足してから割り引く」場合は送料300も割引対象となり、(2000 ＋ 300) × 0.9＝2070です。送料も10％引きになるため、結果が30円違います。
+### 解答
 
-### 値の確認（各処理の実行後）
+<div class="solution-table" data-exercise="3-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の price | 2100 |
+| 同じにならない理由 | 送料まで割引対象に含めるかどうかが異なるから。 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+割引後に送料を足すと、商品代金だけを割り引くため、2000 × 0.9 ＋ 300＝2100です。送料を足してから割り引くと、(2000 ＋ 300) × 0.9＝2070です。後者では送料300も10％引きになるため、結果が30円違います。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3381,7 +3720,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習3-Dのフローチャート</p>
 <img src="images/flowcharts/3-D.svg" alt="演習3-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3390,11 +3731,27 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習3-E　解答・解説
 
-**正解：イ**
+<div class="answer-part">
 
-製造時間（quantity × perItem）に全体の準備時間（setup）を加えるため [ a ] は quantity × perItem ＋ setup です。分から時間への換算は60で割るため [ b ] は minutes ÷ 60 です。138分＝2.3時間＝2時間18分です。小数の0.3時間は0.3 × 60＝18分で、30分ではありません。
+### 解答
 
-### 値の確認（各処理の実行後）
+<div class="solution-table" data-exercise="3-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：イ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+製造時間quantity × perItemに、全体で一回だけ必要な準備時間setupを足します。分を時間に換算するには60で割ります。138分＝2.3時間＝2時間18分です。0.3時間は0.3 × 60＝18分で、30分ではありません。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3407,7 +3764,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習3-Eのフローチャート</p>
 <img src="images/flowcharts/3-E.svg" alt="演習3-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3416,11 +3775,27 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習3-F　解答・解説
 
-**正解：エ**
+<div class="answer-part">
 
-入荷時は現在在庫に加算するため [ a ] は stock ＋ received（55個）、出荷時は減算するため [ b ] は stock − shipped（32個）です。不足数は50−32＝18個となります。
+### 解答
 
-### 値の確認（各処理の実行後）
+<div class="solution-table" data-exercise="3-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：エ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+入荷時は在庫にreceivedを足し、出荷時はshippedを引きます。在庫は40→55→32と変化し、目標50との差は50 − 32＝18です。更新するたびに、現在のstockを使います。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3434,7 +3809,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習3-Fのフローチャート</p>
 <img src="images/flowcharts/3-F.svg" alt="演習3-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3443,14 +3820,34 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習4-A　解答・解説
 
-条件はx mod 2 ＝ 0です。余りが0の側だけが偶数になります。x＝8なら偶数、x＝7なら奇数です。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="4-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ①（条件式） | `x mod 2 ＝ 0` |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+偶数は2で割り切れるので、余りが0になります。x＝8なら条件が真となり「偶数」、x＝7なら偽となり「奇数」を表示します。
 
 表の確認に使う入力：x＝8。
 
 <div class="exercise-flow">
 <p class="flow-title">演習4-Aのフローチャート</p>
 <img src="images/flowcharts/4-A.svg" alt="演習4-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3459,11 +3856,30 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習4-B　解答・解説
 
-59は再挑戦、60は合格です。「以上」は境目の60自身も含みます。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="4-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| score＝59 の表示 | 「再挑戦」 |
+| score＝60 の表示 | 「合格」 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+「60以上」は60点ちょうども含みます。59点は条件が偽なのでelse側へ、60点は真なのでif側へ進みます。
 
 表の確認に使う入力：score＝59。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3472,7 +3888,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習4-Bのフローチャート</p>
 <img src="images/flowcharts/4-B.svg" alt="演習4-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3481,11 +3899,32 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習4-C　解答・解説
 
-① bmi ＜ 18.5、② bmi ＜ 25。18.49は低体重、18.50と24.99は標準体重、25.00は肥満です。二つ目へ来た時点で18.5以上は確定しています。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="4-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ①（条件式） | `bmi ＜ 18.5` |
+| 空欄 ②（条件式） | `bmi ＜ 25` |
+| BMI 18.49 / 18.50 の期待結果 | 18.49：低体重／18.50：標準体重 |
+| BMI 24.99 / 25.00 の期待結果 | 24.99：標準体重／25.00：肥満 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最初の条件が偽でelseifへ来た時点で、BMIは18.5以上と分かっています。そこで25未満かを調べると、18.5以上25未満を判定できます。25ちょうどは二つ目も偽となり、else側へ進みます。
 
 表の確認に使う入力：height＝1、weight＝18.5。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3495,7 +3934,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習4-Cのフローチャート</p>
 <img src="images/flowcharts/4-C.svg" alt="演習4-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3504,11 +3945,32 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習4-D　解答・解説
 
-① age ≧ 12 and hasTicket ＝ 1。結果は順に入場可、入場不可、入場不可です。andは両方が真のときだけ真になります。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="4-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ①（条件式） | `age ≧ 12 and hasTicket ＝ 1` |
+| (12, 1) の結果 | 入場可 |
+| (11, 1) の結果 | 入場不可 |
+| (20, 0) の結果 | 入場不可 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+年齢と券の有無の両方を満たす必要があるため、andでつなぎます。(11,1)は年齢、(20,0)は券の条件を満たしません。一方だけが真でも入場不可です。
 
 表の確認に使う入力：age＝12、hasTicket＝1。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3517,7 +3979,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習4-Dのフローチャート</p>
 <img src="images/flowcharts/4-D.svg" alt="演習4-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3526,13 +3990,29 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習4-E　解答・解説
 
-**正解：ア**
+<div class="answer-part">
 
-「6歳未満」は6を含まないため [ a ] は age ＜ 6 です。最初の条件が偽なら6歳以上と確定しているため、続く条件 [ b ] は age ＜ 18 で6歳以上18歳未満を過不足なく判定できます。
+### 解答
+
+<div class="solution-table" data-exercise="4-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ア** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+6歳未満には6歳を含めません。最初の条件が偽なら6歳以上と分かっているので、次のage ＜ 18で6歳以上18歳未満を判定できます。18歳ちょうどは900円の区分です。
 
 表の確認に使う入力：age＝5。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3541,10 +4021,12 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習4-Eのフローチャート</p>
 <img src="images/flowcharts/4-E.svg" alt="演習4-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
 </div>
 
 公開問題への接続：[2022年12月サンプル20問セット 問2 条件分岐の読み取り](https://www.fe-siken.com/kakomon/sample/b2.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
+
+</div>
 
 </section>
 
@@ -3552,13 +4034,29 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習4-F　解答・解説
 
-**正解：ウ**
+<div class="answer-part">
 
-冷蔵条件（cold ＝ 1）を最優先で600円とし、次に通常便の中で5000円以上（amount ≧ 5000）を無料と判定します。先に購入額を判定すると冷蔵便まで無料にしてしまうため順序が重要です。
+### 解答
+
+<div class="solution-table" data-exercise="4-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ウ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+冷蔵が必要かどうかを最初に調べます。冷蔵が不要な場合だけ、購入額が5000円以上かを調べます。購入額を先に調べると、冷蔵便まで無料になる場合があるので、条件の順序が大切です。
 
 表の確認に使う入力：cold＝1、amount＝6000。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3567,7 +4065,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習4-Fのフローチャート</p>
 <img src="images/flowcharts/4-F.svg" alt="演習4-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3576,9 +4076,31 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習5-A　解答・解説
 
-①0、②1、③10、④total ＋ i、⑤total ÷ 10。合計55、平均5.5です。図はforを初期化・条件判定・更新に分解しています。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="5-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ① | `0` |
+| 空欄 ② | `1` |
+| 空欄 ③ | `10` |
+| 空欄 ④ | `total ＋ i` |
+| 空欄 ⑤ | `total ÷ 10` |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+totalを0から始め、i＝1〜10を順に足します。合計55を10で割ると平均5.5です。表示は1〜10、合計、平均の順です。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3598,7 +4120,9 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 <div class="exercise-flow">
 <p class="flow-title">演習5-Aのフローチャート</p>
 <img src="images/flowcharts/5-A.svg" alt="演習5-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3607,9 +4131,21 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習5-B　解答・解説
 
-処理①は5回、処理②はi＝1、3、5の3回。終了時i＝6です。i≦5の判定自体は、最後の偽を含め6回行います。
+<div class="answer-part">
 
-### 表の完成例
+### 解答
+
+<div class="solution-table" data-exercise="5-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 処理①の実行回数 | 5回 |
+| 処理②の実行回数 | 3回 |
+| 終了時の i の値 | 6 |
+
+</div>
+
+#### 表の完成例
 
 | i | i ≦ 5 | 処理① | i mod 2 ＝ 1 | 処理② |
 |---|---:|---:|---:|---:|
@@ -3621,10 +4157,20 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 | 6 | 偽 | 実行しない | 判定しない | 実行しない |
 
 
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+処理①はi＝1〜5の毎回、処理②は奇数の1・3・5の回だけ実行します。i＝6ではwhileの条件が偽となり、内部を実行せずに終了します。条件の判定自体は、最後の偽を含め6回です。
+
 <div class="exercise-flow">
 <p class="flow-title">演習5-Bのフローチャート</p>
 <img src="images/flowcharts/5-B.svg" alt="演習5-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3633,9 +4179,28 @@ a＝20、b＝30、c＝10です。一時変数tempにaの元値10を退避し、a
 
 ## 演習5-C　解答・解説
 
-totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="5-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の total | 6 |
+| 繰返しの実行回数 | 3回 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+i＝1・2・3の三回、それぞれ2を足します。totalは0→2→4→6と変わります。forの終了値3の回も実行します。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3647,7 +4212,9 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 <div class="exercise-flow">
 <p class="flow-title">演習5-Cのフローチャート</p>
 <img src="images/flowcharts/5-C.svg" alt="演習5-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3656,9 +4223,28 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 ## 演習5-D　解答・解説
 
-表示は5、内部は0回です。whileは、実行する前に条件を確かめます。最初から偽なら一度も入りません。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="5-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 表示される i | 5 |
+| 内部の実行回数 | 0回 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 5が偽なので、一度も内部へ入りません。iは5のままで、繰返しの後の表示命令へ進みます。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3667,7 +4253,9 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 <div class="exercise-flow">
 <p class="flow-title">演習5-Dのフローチャート</p>
 <img src="images/flowcharts/5-D.svg" alt="演習5-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3676,11 +4264,27 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 ## 演習5-E　解答・解説
 
-**正解：イ**
+<div class="answer-part">
 
-目標の3000円に達するまで（未満の間）繰り返すため [ a ] は balance ＜ 3000 です。月数を1ずつ加算するため [ b ] は months ＋ 1 です（終了時: 4か月、3000円）。3000円に達した次の判定は偽になり、そこで止まります。≦にすると3000円でも続行し、5か月・3500円まで積み立ててしまいます。
+### 解答
 
-### 値の確認（各処理の実行後）
+<div class="solution-table" data-exercise="5-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：イ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+残高が3000円未満の間だけ続け、毎回monthsを1増やします。3000円ちょうどになった次の判定は偽となり、4か月で終了します。≦を使うと3000円でも続けてしまいます。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3693,7 +4297,9 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 <div class="exercise-flow">
 <p class="flow-title">演習5-Eのフローチャート</p>
 <img src="images/flowcharts/5-E.svg" alt="演習5-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3702,11 +4308,27 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 ## 演習5-F　解答・解説
 
-**正解：エ**
+<div class="answer-part">
 
-毎回の通常処理時間2分を加算するため [ a ] は minutes ＋ 2 です。番号が3の倍数の伝票を判定するため [ b ] は i mod 3 ＝ 0 です（合計22分）。
+### 解答
 
-### 値の確認（各処理の実行後）
+<div class="solution-table" data-exercise="5-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：エ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+各伝票の通常処理でminutesへ2を足します。3の倍数は、3で割った余りが0かどうかで判定します。通常処理6 × 2＝12分と、二件の追加点検2 × 5＝10分を合わせて22分です。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3721,7 +4343,9 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 <div class="exercise-flow">
 <p class="flow-title">演習5-Fのフローチャート</p>
 <img src="images/flowcharts/5-F.svg" alt="演習5-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3730,11 +4354,32 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 ## 演習6-A　解答・解説
 
-①0、②1、③10、④total ＋ A[i]。iは位置、A[i]はその位置の値です。例えばAが1〜10なら合計55。実際の合計は与えられた配列で変わります。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="6-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ① | `0` |
+| 空欄 ② | `1` |
+| 空欄 ③ | `10` |
+| 空欄 ④ | `total ＋ A[i]` |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+合計へ足すのは位置iではなく、その位置の値A[i]です。確認用の配列が{1,2,…,10}なら合計は55ですが、表示値は与えられた配列によって変わります。
 
 表の確認に使う入力：A＝{1,2,3,4,5,6,7,8,9,10}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3753,7 +4398,9 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 <div class="exercise-flow">
 <p class="flow-title">演習6-Aのフローチャート</p>
 <img src="images/flowcharts/6-A.svg" alt="演習6-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3762,13 +4409,21 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 ## 演習6-B　解答・解説
 
-**最終的な max の値**：10です。
+<div class="answer-part">
 
-初期値2から、各比較後のmaxは5→5→9→9→10→10→10→10→10となります。現在の最大値より大きい場合だけ更新します。下の完成表で、比較前の値・条件の真偽・比較後の値を確認してください。
+### 解答
+
+<div class="solution-table" data-exercise="6-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最終的な max の値 | 10 |
+
+</div>
 
 表の確認に使う入力：A＝{2,5,1,9,8,10,7,3,6,4}。
 
-### 表の完成例
+#### 表の完成例
 
 | i | A[i] | 比較前のmax | A[i] ＞ max | 比較後のmax |
 |---|---:|---:|---:|---:|
@@ -3784,10 +4439,20 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 | 10 | 4 | 10 | 偽 | 10 |
 
 
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+現在のmaxより大きい値が見つかったときだけmaxを更新します。小さい値を見ても、前のmaxを保ちます。完成表では、比較前の値・条件の真偽・比較後の値を分けて確認します。
+
 <div class="exercise-flow">
 <p class="flow-title">演習6-Bのフローチャート</p>
 <img src="images/flowcharts/6-B.svg" alt="演習6-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3796,11 +4461,30 @@ totalは0→2→4→6です。i＝1、2、3の計3回、2を足します。
 
 ## 演習6-C　解答・解説
 
-x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定しています。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="6-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の x | 3 |
+| 処理後の配列 A | {3, 3, 6} |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+A[2]は2番目の場所の値3です。その3をxへコピーし、続いてA[1]へ入れます。変えるのは1番目の値だけで、2番目・3番目は元のままです。
 
 表の確認に使う入力：A＝{8,3,6}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3810,7 +4494,9 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 <div class="exercise-flow">
 <p class="flow-title">演習6-Cのフローチャート</p>
 <img src="images/flowcharts/6-C.svg" alt="演習6-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3819,11 +4505,29 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 
 ## 演習6-D　解答・解説
 
-4、7、2の順です。表示するのは添字1、2、3ではなく、その位置に入っている値です。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="6-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 表示される順番 | 4 → 7 → 2 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+iが1・2・3と変わるたびに、その場所の値A[i]を表示します。添字そのものではなく、配列に入っている値を順に表示します。
 
 表の確認に使う入力：A＝{4,7,2}。
 
-### 添字と表示される値を確認
+#### 添字と表示される値を確認
 
 | i（添字） | A[i]（その位置の値） | 表示される値 |
 |---|---|---|
@@ -3834,7 +4538,9 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 <div class="exercise-flow">
 <p class="flow-title">演習6-Dのフローチャート</p>
 <img src="images/flowcharts/6-D.svg" alt="演習6-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3843,13 +4549,29 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 
 ## 演習6-E　解答・解説
 
-**正解：ア**
+<div class="answer-part">
 
-目標の5個未満である商品を判定するため [ a ] は A[i] ＜ 5 です（5個ちょうどの商品は不足していません）。不足商品の種類数を1増やすため [ b ] は count ＋ 1 です（count＝2、needed＝8）。
+### 解答
+
+<div class="solution-table" data-exercise="6-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ア** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+在庫が5個未満の商品だけが不足です。countは不足する商品の種類数なので一件につき1を足します。neededには各商品の不足個数を足します。種類数2と補充総個数8を区別します。
 
 表の確認に使う入力：A＝{2,8,0,5}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3862,7 +4584,9 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 <div class="exercise-flow">
 <p class="flow-title">演習6-Eのフローチャート</p>
 <img src="images/flowcharts/6-E.svg" alt="演習6-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3871,13 +4595,29 @@ x＝3、A＝{3,3,6}です。A[2]の2は値ではなく位置を指定してい�
 
 ## 演習6-F　解答・解説
 
-**正解：ウ**
+<div class="answer-part">
 
-targetと一致し、かつ未発見（position ＝ 0）のときだけ更新することで最初に見つかった位置を保持するため [ a ] は A[i] ＝ target and position ＝ 0 です。位置を記録するため [ b ] は添字の i です。
+### 解答
+
+<div class="solution-table" data-exercise="6-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ウ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+targetと一致し、まだ見つけていないposition＝0のときだけ記録します。一度記録すると、同じ値が後に現れても更新しません。positionへ入れるのは商品番号ではなく、その位置を表す添字iです。
 
 表の確認に使う入力：A＝{7,4,7,9}、target＝7。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3890,10 +4630,12 @@ targetと一致し、かつ未発見（position ＝ 0）のときだけ更新す
 <div class="exercise-flow">
 <p class="flow-title">演習6-Fのフローチャート</p>
 <img src="images/flowcharts/6-F.svg" alt="演習6-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
 </div>
 
 公開問題への接続：[2022年12月サンプル20問セット 問13 探索の考え方（公開問題は二分探索）](https://www.fe-siken.com/kakomon/sample/b13.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
+
+</div>
 
 </section>
 
@@ -3901,13 +4643,29 @@ targetと一致し、かつ未発見（position ＝ 0）のときだけ更新す
 
 ## 演習7-A　解答・解説
 
-**最初に誤っている行（i の値）**：i＝3です。
+<div class="answer-part">
 
-**その行の正しい計算結果**：2 × 3＝6です。
+### 解答
 
-**最終的な total の値**：24です。i＝4の行も、修正した6を使って6 × 4＝24と計算し直します。最初の誤りを直したら、その値を使う後の行も直します。
+<div class="solution-table" data-exercise="7-A">
 
-### 値の確認（各処理の実行後）
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最初に誤っている行（i の値） | 3 |
+| その行の正しい計算結果 | 6 |
+| 最終的な total の値 | 24 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6を使って6 × 4＝24と計算し直します。最初の誤りを直したら、その値を使う後の行も直します。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3920,7 +4678,9 @@ targetと一致し、かつ未発見（position ＝ 0）のときだけ更新す
 <div class="exercise-flow">
 <p class="flow-title">演習7-Aのフローチャート</p>
 <img src="images/flowcharts/7-A.svg" alt="演習7-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -3929,9 +4689,28 @@ targetと一致し、かつ未発見（position ＝ 0）のときだけ更新す
 
 ## 演習7-B　解答・解説
 
-直前は3、直後は7です。右辺で使うxは、代入前の3です。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="7-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 二行目の実行直前の x | 3 |
+| 二行目の実行直後の x | 7 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+右辺のxには、二行目を実行する直前の3を使います。3 ＋ 4を計算してからxを7へ更新します。実行前と実行後の値を分けて考えます。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3941,7 +4720,9 @@ targetと一致し、かつ未発見（position ＝ 0）のときだけ更新す
 <div class="exercise-flow">
 <p class="flow-title">演習7-Bのフローチャート</p>
 <img src="images/flowcharts/7-B.svg" alt="演習7-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3950,9 +4731,28 @@ targetと一致し、かつ未発見（position ＝ 0）のときだけ更新す
 
 ## 演習7-C　解答・解説
 
-x←2、y←20が実行されます。2＞5は偽なのでy←10は通りません。
+<div class="answer-part">
 
-### 値の確認（各処理の実行後）
+### 解答
+
+<div class="solution-table" data-exercise="7-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 実行される代入文 | `x ← 2` → `y ← 20` |
+| 最後の y | 20 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+x＝2なので、条件2 ＞ 5は偽です。if側のy ← 10を飛ばし、else側のy ← 20だけを実行します。通らない行はyの値を変えません。
+
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3962,7 +4762,9 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 <div class="exercise-flow">
 <p class="flow-title">演習7-Cのフローチャート</p>
 <img src="images/flowcharts/7-C.svg" alt="演習7-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3971,9 +4773,20 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習7-D　解答・解説
 
-判定時の(i,真偽,total)は(1,真,0)、(2,真,1)、(3,真,3)、(4,偽,6)。終了時i＝4、total＝6です。偽になった行も記録します。
+<div class="answer-part">
 
-### 表の完成例
+### 解答
+
+<div class="solution-table" data-exercise="7-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の i | 4 |
+| 最後の total | 6 |
+
+</div>
+
+#### 表の完成例
 
 | 判定時の i | 条件 i ≦ 3 の真偽 | 判定直後の total |
 |---|---:|---:|
@@ -3983,10 +4796,20 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 | 4 | 偽 | 6 |
 
 
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+一周ごとにtotalへ現在のiを足してから、iを1増やします。最後にi＝4で条件を調べると偽なので、内部は実行しません。この終了の判定も表へ記録します。
+
 <div class="exercise-flow">
 <p class="flow-title">演習7-Dのフローチャート</p>
 <img src="images/flowcharts/7-D.svg" alt="演習7-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -3995,13 +4818,29 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習7-E　解答・解説
 
-**正解：イ**
+<div class="answer-part">
 
-「1000円以上」は1000円自身を含むため条件 [ a ] は pay ≧ 1000 です。＞ 1000 にすると1000円の注文が値引きされなくなります。100円引きを行うため [ b ] は pay − 100 です（合計3299円）。
+### 解答
+
+<div class="solution-table" data-exercise="7-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：イ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+1000円以上には1000円ちょうどを含めます。値引きは現在のpayから100を引く処理です。999円はそのまま、1000円は900円、1500円は1400円となり、合計は3299円です。
 
 表の確認に使う入力：A＝{999,1000,1500}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -4013,7 +4852,9 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 <div class="exercise-flow">
 <p class="flow-title">演習7-Eのフローチャート</p>
 <img src="images/flowcharts/7-E.svg" alt="演習7-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -4022,9 +4863,25 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習7-F　解答・解説
 
-**正解：エ**
+<div class="answer-part">
 
-前の値と違ったときに新しいグループとなるため [ a ] は A[i] ≠ A[i − 1]、一つ増やす [ b ] は groups ＋ 1です。グループは「2,2」「5,5」「2」の三つです。アも最後のgroupsは偶然3になりますが、同じ値のときに増やすため仕様に合いません。途中の値を比べて確認しましょう。
+### 解答
+
+<div class="solution-table" data-exercise="7-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：エ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+前の値と違ったときに新しいグループが始まるので、A[i] ≠ A[i − 1]を調べ、そのときだけgroupsを1増やします。グループは「2,2」「5,5」「2」の三つです。アも最後は偶然3になりますが、同じ値のときに増やすため仕様に合いません。
 
 | 選択肢 | i＝2後 | i＝3後 | i＝4後 | i＝5後 |
 |---|---:|---:|---:|---:|
@@ -4035,7 +4892,7 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 表の確認に使う入力：A＝{2,2,5,5,2}。
 
-### 表の完成例
+#### 表の完成例
 
 | i | A[i − 1] | A[i] | 前の値と違うか | 実行後のgroups |
 |---|---:|---:|---:|---:|
@@ -4049,10 +4906,12 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 <div class="exercise-flow">
 <p class="flow-title">演習7-Fのフローチャート</p>
 <img src="images/flowcharts/7-F.svg" alt="演習7-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
 </div>
 
 公開問題への接続：[2022年12月サンプル20問セット 問3 配列を一行ずつ追う練習](https://www.fe-siken.com/kakomon/sample/b3.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
+
+</div>
 
 </section>
 
@@ -4060,11 +4919,31 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習8-A　解答・解説
 
-①0、②A[i] ≧ 5、③count ← count ＋ 1。条件が真のときだけ1を足します。5自身も対象です。例えばAが1〜10なら6件になります。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 空欄 ① | `0` |
+| 空欄 ② | `A[i] ≧ 5` |
+| 空欄 ③ | `count ← count ＋ 1` |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+countは件数を覚えるので0から始めます。条件が真のときだけ1を足し、偽なら前の値を保ちます。5ちょうども対象です。以下の確認用入力が1〜10なら6件になります。
 
 表の確認に使う入力：A＝{1,2,3,4,5,6,7,8,9,10}。
 
-### 表の完成例
+#### 表の完成例
 
 | i | A[i] | A[i] ≧ 5 | 実行後のcount |
 |---|---:|---:|---:|
@@ -4083,7 +4962,9 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 <div class="exercise-flow">
 <p class="flow-title">演習8-Aのフローチャート</p>
 <img src="images/flowcharts/8-A.svg" alt="演習8-Aの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -4092,13 +4973,29 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習8-B　解答・解説
 
-**正解：ア**
+<div class="answer-part">
 
-①A[i] ＞ max、②A[i]、③i。最大値と位置を一緒に更新します。＞を使うため同点では更新されず、最初の位置が残ります。A＝{4,9,9}ならmax＝9、maxIndex＝2です。
+### 解答
+
+<div class="solution-table" data-exercise="8-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ア** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最大値を更新するときは、同じ条件の内側で位置も更新します。＞を使うと、同じ最大値では更新せず、最初の位置を残せます。A＝{4,9,9}ならmax＝9、maxIndex＝2です。
 
 表の確認に使う入力：A＝{4,9,9}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -4109,10 +5006,12 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 <div class="exercise-flow">
 <p class="flow-title">演習8-Bのフローチャート</p>
 <img src="images/flowcharts/8-B.svg" alt="演習8-Bの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
 </div>
 
 公開問題への接続：[令和8年度 問1 配列の位置と上書きに注目する練習](https://www.fe-siken.com/kakomon/08_haru/b1.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
+
+</div>
 
 </section>
 
@@ -4120,13 +5019,29 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習8-C　解答・解説
 
-**正解：ウ**
+<div class="answer-part">
 
-① `i を 1 から num まで 1 ずつ増やす`、② `j を 1 から num まで 1 ずつ増やす`、③ `横に表示する("*")`、④ `改行する()`。外側が行、内側が一行の文字を担当します。改行は内側を終えてから一回だけです。num＝3なら、各行に`***`を表示して3行になります。
+### 解答
+
+<div class="solution-table" data-exercise="8-C">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ウ** |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+外側のiは行、内側のjは一行の文字を担当します。どちらも1からnumまでのnum回です。内側では横に文字を表示し、内側を終えた後で一回だけ改行します。num＝3なら、一行に***を表示して3行になります。
 
 表の確認に使う入力：num＝3。
 
-### num＝3の表示結果を確認
+#### num＝3の表示結果を確認
 
 | 外側のi | 内側で表示する文字 | 内側を終えた後 |
 |---|---|---|
@@ -4137,7 +5052,9 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 <div class="exercise-flow">
 <p class="flow-title">演習8-Cのフローチャート</p>
 <img src="images/flowcharts/8-C.svg" alt="演習8-Cの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。問題で与えられる入力を使い、空欄があれば埋めた処理を示しています。</p>
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
 </div>
 
 </section>
@@ -4146,11 +5063,29 @@ x←2、y←20が実行されます。2＞5は偽なのでy←10は通りませ�
 
 ## 演習8-D　解答・解説
 
-result＝6です。初期値2よりA[2]の6が大きいので更新します。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-D">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の result | 6 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最初はA[1]の2をresultへ入れます。A[2]の6の方が大きいので、条件が真となってresultを6へ更新します。
 
 表の確認に使う入力：A＝{2,6}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -4160,7 +5095,9 @@ result＝6です。初期値2よりA[2]の6が大きいので更新します。
 <div class="exercise-flow">
 <p class="flow-title">演習8-Dのフローチャート</p>
 <img src="images/flowcharts/8-D.svg" alt="演習8-Dの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -4169,11 +5106,29 @@ result＝6です。初期値2よりA[2]の6が大きいので更新します。
 
 ## 演習8-E　解答・解説
 
-totalは0→3→8です。二つの要素を一回ずつ加算します。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の total | 8 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最初のtotalは0です。一周目で3、二周目で5を足すので、0→3→8と変わります。前の合計を使って次の値を足します。
 
 表の確認に使う入力：A＝{3,5}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -4184,7 +5139,9 @@ totalは0→3→8です。二つの要素を一回ずつ加算します。
 <div class="exercise-flow">
 <p class="flow-title">演習8-Eのフローチャート</p>
 <img src="images/flowcharts/8-E.svg" alt="演習8-Eの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
@@ -4193,11 +5150,31 @@ totalは0→3→8です。二つの要素を一回ずつ加算します。
 
 ## 演習8-F　解答・解説
 
-count＝2、total＝13、average＝6.5。対象の8と5だけを足し、配列全体の4個ではなく対象の2個で割ります。
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| count | 2 |
+| total | 13 |
+| average | 6.5 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+対象は5以上の8と5です。二つを足して13、対象の件数は2なので、平均は13 ÷ 2＝6.5です。配列全体の4個ではなく、条件に合った2個で割ります。
 
 表の確認に使う入力：A＝{3,8,5,1}。
 
-### 値の確認（各処理の実行後）
+#### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -4211,7 +5188,9 @@ count＝2、total＝13、average＝6.5。対象の8と5だけを足し、配列�
 <div class="exercise-flow">
 <p class="flow-title">演習8-Fのフローチャート</p>
 <img src="images/flowcharts/8-F.svg" alt="演習8-Fの処理順・分岐・繰返し">
-<p class="flow-caption">ひし形は条件判定。「はい」は真、「いいえ」は偽です。矢印の戻り先も確認しましょう。</p>
+
+</div>
+
 </div>
 
 </section>
