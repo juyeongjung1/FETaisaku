@@ -25,6 +25,28 @@
 .solution-table td:last-child { color: #1a365d; font-weight: 700; }
 .answer-part > h3 { color: #145fc0; }
 .explanation-part > h3 { color: #252a30; }
+.example-task,
+.exercise-task {
+  margin: 1em 0 0.35em;
+  color: #1a365d;
+  break-after: avoid;
+}
+.code-example { break-inside: avoid; }
+.code-example pre { margin: 0.6em 0; }
+.display-result {
+  break-inside: avoid;
+  margin: 0.6em 0 1.2em;
+  border: 1px solid #b9cee2;
+  border-left: 4px solid #496888;
+  border-radius: 5px;
+  padding: 0.6em 1em;
+  background: #f3f7fc;
+}
+.display-result .result-title { margin: 0 0 0.35em; font-weight: 700; color: #1a365d; }
+.result-case { margin: 0.3em 0; }
+.result-label { display: block; margin-bottom: 0.2em; color: #526273; font-size: 0.9em; }
+.result-lines { display: block; font-family: var(--mono); line-height: 1.35; }
+.trace-with-result { display: grid; grid-template-columns: 4fr 1fr; gap: 4mm; align-items: start; break-inside: avoid; }
 @media print {
   .answer-section { break-before: page; font-size: 10pt; }
   .answer-section h2 { margin: 0 0 3mm; }
@@ -36,6 +58,19 @@
   .answer-section .exercise-flow { margin: 2mm 0; padding: 2mm; }
   .answer-section .flow-title { margin: 0 0 1mm; line-height: 1.4; }
   .answer-section .flow-caption { margin: 1mm 0 0; line-height: 1.4; }
+  .example-task, .exercise-task { margin: 2mm 0 1mm; }
+  .code-example pre { margin: 2mm 0; padding: 3mm 4mm; }
+  .code-example .example-task { line-height: 1.5; }
+  .display-result { margin: 2mm 0 3mm; padding: 2mm 3mm; font-size: 10pt; }
+  .answer-section .display-result { margin: 1.5mm 0; font-size: 9pt; }
+  .answer-section .result-title { margin: 0 0 1mm; }
+  .answer-section .result-lines { line-height: 1.2; }
+  .answer-part .display-result:has(.result-case + .result-case) { display: grid; grid-template-columns: 1fr 1fr; gap: 1mm 4mm; }
+  .answer-part .display-result:has(.result-case + .result-case) .result-title { grid-column: 1 / -1; }
+  .compact-question.fit-question pre { margin: 2mm 0; padding: 2.5mm; line-height: 1.35; }
+  .compact-question.fit-question th, .compact-question.fit-question td { padding: 1mm 2mm; }
+  .compact-question.fit-question .ai-box { margin: 2mm 0; }
+  .compact-question.fit-question .exercise-task { margin: 1mm 0; line-height: 1.45; }
   .dense-answer th, .dense-answer td { padding: 0.6mm 2mm; line-height: 1.3; }
   .dense-answer .exercise-flow img { max-height: 95mm; }
   .answer-section[data-exercise="5-A"] .exercise-flow img { max-height: 90mm; }

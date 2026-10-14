@@ -73,15 +73,15 @@
 <ol class="toc-list">
   <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>5</b></a></li>
   <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>9</b></a></li>
-  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>19</b></a></li>
+  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>20</b></a></li>
   <li><a href="#chapter-3"><span>第3章　順次処理</span><b>30</b></a></li>
   <li><a href="#chapter-4"><span>第4章　選択処理</span><b>38</b></a></li>
-  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>49</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>63</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>73</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>82</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>90</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>139</b></a></li>
+  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>50</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>65</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>75</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>85</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>93</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>142</b></a></li>
 </ol>
 
 </div>
@@ -275,6 +275,9 @@
 
 ここでは、`price`、`count`、`total`を**変数**と呼びます。変数とは、値を覚えておくための「名前付きの箱」です。英単語そのものを暗記する必要はありません。何を入れている箱かを考えて読んでください。
 
+<div class="code-example" data-example="1">
+<p class="example-task"><strong>例の課題：</strong>一つ150円の商品を3個買うときの合計金額を計算し、表示する。</p>
+
 ```text
 整数型: price
 整数型: count
@@ -285,6 +288,13 @@ count ← 3
 total ← price × count
 表示する(total)
 ```
+
+<div class="display-result" data-example="1">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">450</samp></div>
+</div>
+
+</div>
 
 上から一行ずつ実行すると、`total` には450が入り、450が表示されます。
 
@@ -306,6 +316,7 @@ total ← price × count
 <div class="note-box">
   <p class="box-title">※ 画面への表示と値の入力</p>
   <p>本書では、画面に値を表示する操作を<code>表示する(値)</code>、外部から値を受け取る操作を<code>入力する()</code>と表記します。実際の試験でも、問題文の指示に合わせて同様の表現が使われます。</p>
+  <p>本書の<code>表示する</code>は、値を表示した後に改行するものとします。複数回表示すると、それぞれ別の行になります。</p>
 </div>
 
 ## 1.3 処理を作る三つの基本構造
@@ -337,11 +348,16 @@ total ← price × count
 
 上から下へ、決められた順番で一つずつ処理を行います。
 
+<div class="code-example" data-example="2">
+<p class="example-task"><strong>例の課題：</strong>aに5、bに10を入れ、二つを足した値をcへ入れる。</p>
+
 ```text
 a ← 5
 b ← 10
 c ← a ＋ b
 ```
+
+</div>
 
 1行ずつ順番に実行され、前の処理が終わってから次の処理へ進みます。
 
@@ -536,10 +552,15 @@ c ← a ＋ b
   </div>
 </div>
 
+<div class="code-example" data-example="3">
+<p class="example-task"><strong>例の課題：</strong>合計を覚える整数型の変数totalを用意し、最初の値として0を入れる。</p>
+
 ```text
 整数型: total
 total ← 0
 ```
+
+</div>
 
 この例では、整数を保存する変数`total`を用意し、最初の値として0を入れています。宣言だけで自動的に0が入るわけではありません。
 
@@ -577,9 +598,14 @@ total ← 0
 
 代入とは、計算結果や値を変数へ入れる操作です。矢印記号`←`を使って表します。
 
+<div class="code-example" data-example="4">
+<p class="example-task"><strong>例の課題：</strong>現在のtotalが3のとき、5を足した値でtotalを更新する。</p>
+
 ```text
 total ← total ＋ 5
 ```
+
+</div>
 
 コンピュータは、この処理を次の順番で実行します。
 
@@ -601,10 +627,15 @@ total ← total ＋ 5
 
 変数へ新しい値を代入すると、以前の値は失われます。
 
+<div class="code-example" data-example="5">
+<p class="example-task"><strong>例の課題：</strong>aに10を入れた後で3を入れ直し、箱の中身がどう変わるか確認する。</p>
+
 ```text
 a ← 10
 a ← 3
 ```
+
+</div>
 
 実行後の`a`は3です。最初に入れた10は残りません。
 
@@ -645,6 +676,9 @@ a ← 3
   </div>
 </div>
 
+<div class="code-example" data-example="6">
+<p class="example-task"><strong>例の課題：</strong>a＝10、b＝3の状態から、二つの値を交換する。</p>
+
 ```text
 整数型: temp
 
@@ -652,6 +686,8 @@ temp ← b
 b ← a
 a ← temp
 ```
+
+</div>
 
 | 実行後 | `a` | `b` | `temp` |
 |---|---:|---:|---:|
@@ -662,12 +698,15 @@ a ← temp
 
 <div class="mistake-box">
   <p class="box-title">よくある間違い</p>
-  <pre><code>a ← b
+  <div class="code-example" data-example="7">
+<p class="example-task"><strong>例の課題：</strong>a＝10、b＝3を交換したいとき、次の誤った手順で元の値が失われることを確かめる。</p>
+
+<pre><code>a ← b
 b ← a</code></pre>
+
+</div>
   <p>一行目を実行した時点で、`a`に入っていた10が失われます。二行目では、どちらも3になってしまいます。</p>
 </div>
-
-<div class="page-break"></div>
 
 <section class="exercise-question compact-question">
 
@@ -676,6 +715,8 @@ b ← a</code></pre>
 <span class="difficulty">難易度 ★☆☆</span>
 
 次の処理が終わったとき、`total`の値はいくつですか。各行の実行後の値を答えてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>同じ変数totalを順に更新し、各行の実行後の値を求める。</p>
 
 ```text
 整数型: total
@@ -709,6 +750,8 @@ total ← total × 2
 <span class="difficulty">難易度 ★☆☆</span>
 
 `x`に7、`y`に12が入っています。実行後に`x`が12、`y`が7となるように、空欄①〜③を埋めてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>x＝7、y＝12の二つの値を交換する。</p>
 
 ```text
 整数型: temp
@@ -744,6 +787,8 @@ y ← [ ③ ]
 最後のaとbを答え、各行の実行後の値を表にしてください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>aとbを順に更新し、各行の実行後の値を表にする。</p>
 
 ```text
 a ← 4
@@ -784,6 +829,8 @@ price、rate、discountは実数型です。割引額discountと割引後のpric
 
 実数型: price, rate, discount
 
+<p class="exercise-task"><strong>このコードの課題：</strong>1250円の20％を割引額とし、割引後の金額を求める。</p>
+
 ```text
 price ← 1250
 rate ← 0.2
@@ -814,6 +861,8 @@ price ← price − discount
 手数料なしで口座aから口座bへamount円移します。aの残高は移動額以上とします。処理後のa、b、totalの値を答えてください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>口座aから口座bへ1200円を移し、移動後の残高と合計を求める。</p>
 
 ```text
 a ← 5000
@@ -848,6 +897,8 @@ total ← a ＋ b
 窓口a、b、cの担当番号を、aには元のb、bには元のc、cには元のaが入るよう更新します。処理後のa、b、cの値を答えてください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>三つの窓口の担当番号を、指定された方向に一つずらす。</p>
 
 ```text
 a ← 10
@@ -886,6 +937,9 @@ c ← temp
 
 順次処理は、文を上から下へ一度ずつ実行する、最も基本的な構造です。
 
+<div class="code-example" data-example="8">
+<p class="example-task"><strong>例の課題：</strong>一つ150円のリンゴを3個、一つ80円のみかんを4個買うときの合計金額を表示する。</p>
+
 ```text
 整数型: apple
 整数型: orange
@@ -896,6 +950,13 @@ orange ← 80
 total ← apple × 3 ＋ orange × 4
 表示する(total)
 ```
+
+<div class="display-result" data-example="8">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">770</samp></div>
+</div>
+
+</div>
 
 <div class="vertical-sequence">
   <div><span>1</span><p>リンゴの単価を150円として覚える</p></div>
@@ -947,6 +1008,8 @@ total ← apple × 3 ＋ orange × 4
 
 一つ150円のリンゴを3個、一つ80円のみかんを4個買います。合計金額を計算して表示するように、空欄を埋めてください。また、apple、orange、totalの役割も、自分の言葉で説明してください。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>リンゴ3個とみかん4個の合計金額を計算し、表示する。</p>
+
 ```text
 整数型: apple
 整数型: orange
@@ -983,6 +1046,8 @@ total ← [ ③ ]
 <span class="difficulty">難易度 ★★☆</span>
 
 商品の税抜価格`price`と税率`rate`が与えられています。税率10％を、小数では0.1と表します。税込価格を求める処理と、その値を表示する処理を作成してください。式の書き方は複数あり、同じ意味の別の書き方でも構いません。小数点以下の扱いは考えず、実数型で計算します。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>税抜価格1200円と税率10％から税込価格を求め、表示する。</p>
 
 ```text
 実数型: price
@@ -1023,6 +1088,8 @@ priceは入力された単価、quantityは入力された個数とします。�
 
 この問題の変数は整数型です。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>単価200円、個数3個から代金を計算し、表示する。</p>
+
 ```text
 price ← 200
 quantity ← 3
@@ -1057,6 +1124,8 @@ total ← price × quantity
 
 実数型: price
 
+<p class="exercise-task"><strong>このコードの課題：</strong>2000円を10％引きにした後で送料300円を足す。</p>
+
 ```text
 price ← 2000
 price ← price × 0.9
@@ -1087,6 +1156,8 @@ price ← price ＋ 300
 
 整数型: quantity, perItem, setup, minutes
 実数型: hours
+
+<p class="exercise-task"><strong>このコードの課題：</strong>製品18個の製造と準備にかかる総時間を、分と時間で求める。</p>
 
 ```text
 quantity ← 18
@@ -1129,6 +1200,8 @@ hours ← [ b ]
 【実践】ある倉庫で商品の受払（在庫管理）を行います。朝の業務開始時点の在庫は40個（stock）です。日中に15個が入荷（received）し、その後23個を出荷（shipped）しました。一日の業務終了後、翌日の目標在庫数50個（target）に対して何個不足しているか（shortage）を計算します。在庫数の増減と不足数を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。※出荷できる十分な在庫があるものとします。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>在庫40個に入荷15個と出荷23個を反映し、目標50個との差を求める。</p>
 
 ```text
 stock ← 40
@@ -1188,6 +1261,9 @@ shortage ← 50 − stock
 
 擬似言語では、英語の `if`（もし〜なら）、`else`（そうでなければ）、`endif`（ifの終わり）を使って次のように記述します。
 
+<div class="code-example" data-example="9">
+<p class="example-task"><strong>例の課題：</strong>点数scoreが60点以上なら「合格」、60点未満なら「不合格」を表示する。</p>
+
 ```text
 if (score ≧ 60)
   表示する("合格")
@@ -1195,6 +1271,14 @@ else
   表示する("不合格")
 endif
 ```
+
+<div class="display-result" data-example="9">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">score＝60の場合</span><samp class="result-lines">合格</samp></div>
+  <div class="result-case"><span class="result-label">score＝59の場合</span><samp class="result-lines">不合格</samp></div>
+</div>
+
+</div>
 
 ### `if` 文の基本構文と読み方
 
@@ -1212,11 +1296,22 @@ endif
 
 条件が成り立つときだけ処理をしたい場合は、`else`を省略できます。次の例では、60点以上のときだけ「合格」を表示します。
 
+<div class="code-example" data-example="10">
+<p class="example-task"><strong>例の課題：</strong>点数scoreが60点以上のときだけ「合格」を表示する。</p>
+
 ```text
 if (score ≧ 60)
   表示する("合格")
 endif
 ```
+
+<div class="display-result" data-example="10">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">score＝60の場合</span><samp class="result-lines">合格</samp></div>
+  <div class="result-case"><span class="result-label">score＝59の場合</span><span class="no-display">何も表示されません。</span></div>
+</div>
+
+</div>
 
 条件が偽なら内側の処理は行わず、`endif`の後へ進みます。
 
@@ -1225,6 +1320,9 @@ endif
 `elseif`（エルスイフ）は「それまでの条件が成立しなかった場合に、別の条件を調べる」という意味です。`if`で最初の条件を調べ、成立しなければ`elseif`へ進みます。`else`は、どの条件にも当てはまらなかった場合の処理です。`elseif`と違い、`else`には条件を書きません。
 
 次の例では、まず80点以上かを調べます。そうでなければ60点以上かを調べ、どちらでもなければCを表示します。
+
+<div class="code-example" data-example="11">
+<p class="example-task"><strong>例の課題：</strong>点数scoreが80点以上ならA、60点以上80点未満ならB、60点未満ならCを表示する。</p>
 
 ```text
 if (score ≧ 80)
@@ -1235,6 +1333,15 @@ else
   表示する("C")
 endif
 ```
+
+<div class="display-result" data-example="11">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">score＝90の場合</span><samp class="result-lines">A</samp></div>
+  <div class="result-case"><span class="result-label">score＝70の場合</span><samp class="result-lines">B</samp></div>
+  <div class="result-case"><span class="result-label">score＝50の場合</span><samp class="result-lines">C</samp></div>
+</div>
+
+</div>
 
 上から条件を確認し、最初に成立した処理だけを実行します。そのため、条件を書く順番が重要です。
 
@@ -1248,11 +1355,21 @@ endif
 
 <div class="mistake-box">
   <p class="box-title">順番を逆にするとどうなるか</p>
-  <pre><code>if (score ≧ 60)
+  <div class="code-example" data-example="12">
+<p class="example-task"><strong>例の課題：</strong>90点ならAを表示したい場面で、次の誤った条件の順序だと何が表示されるか確認する。</p>
+
+<pre><code>if (score ≧ 60)
   表示する("B")
 elseif (score ≧ 80)
   表示する("A")
 endif</code></pre>
+
+<div class="display-result" data-example="12">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">score＝90の場合（誤った例）</span><samp class="result-lines">B</samp></div>
+</div>
+
+</div>
   <p>`score`が90でも、最初の`score ≧ 60`が成立するため「B」と表示されます。</p>
 </div>
 
@@ -1342,6 +1459,8 @@ endif</code></pre>
 整数`x`が偶数なら「偶数」、そうでなければ「奇数」と表示します。空欄を埋めてください。  
 ※ヒント：`x`を2で割った余りが、どうなれば偶数で、どうなれば奇数でしょうか？
 
+<p class="exercise-task"><strong>このコードの課題：</strong>x＝8が偶数か奇数かを調べ、結果を表示する。</p>
+
 ```text
 if ([ ① ])
   表示する("偶数")
@@ -1372,6 +1491,8 @@ endif
 <span class="difficulty">難易度 ★☆☆</span>
 
 scoreに59、60をそれぞれ入れたときの表示を答えてください。≧は「以上」を表します。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>60点以上なら「合格」、未満なら「再挑戦」を表示する。</p>
 
 ```text
 整数型: score
@@ -1416,6 +1537,8 @@ endif
 実数型: height, weight, bmi
 文字列型: result
 
+<p class="exercise-task"><strong>このコードの課題：</strong>BMIを計算し、指定された三つの区分のどれに当たるかを表示する。</p>
+
 ```text
 height ← 入力する()
 weight ← 入力する()
@@ -1455,6 +1578,8 @@ endif
 
 ageは年齢、hasTicketは券ありなら1、なしなら0です。入場には12歳以上かつ券ありが必要です。空欄①に入る条件式を答えてください。また、(age, hasTicket)が(12,1)、(11,1)、(20,0)のときの結果も答えてください。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>年齢と券の有無から、入場できるかを判定する。</p>
+
 ```text
 整数型: age, hasTicket
 文字列型: result
@@ -1491,6 +1616,8 @@ endif
 年齢ageは0以上の整数です。6歳未満は無料（0円）、6歳以上18歳未満は400円、18歳以上は900円です。年齢に応じた料金feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>年齢に応じて、0円・400円・900円の料金を判定する。</p>
 
 ```text
 if ([ a ])
@@ -1535,6 +1662,8 @@ endif
 【実践】冷蔵が必要(cold＝1)なら金額によらず冷蔵便600円、不要(cold＝0)なら購入額amountが5000円以上で送料無料（0円）、未満で通常便300円です。送料feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>冷蔵の必要性と購入額から、送料を判定する。</p>
 
 ```text
 if ([ a ])
@@ -1604,6 +1733,9 @@ endif
 </div>
 
 <div class="loop-example">
+<div class="code-example" data-example="13">
+<p class="example-task"><strong>例の課題：</strong>5人分の受付番号を、1から5まで一つずつ表示する。</p>
+
 <pre><code>整数型: i
 
 <span class="loop-role loop-init">i ← 1                  // ① 初期化</span>
@@ -1611,6 +1743,13 @@ endif
   表示する(i)
 <span class="loop-role loop-update">  i ← i ＋ 1            // ③ 更新</span>
 endwhile</code></pre>
+
+<div class="display-result" data-example="13">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1<br>2<br>3<br>4<br>5</samp></div>
+</div>
+
+</div>
 </div>
 
 `//`から右側は、人が読むための説明（コメント）で、実行する命令ではありません。`endwhile`は繰り返す範囲の終わりです。字下げした二行が、一回ごとに行う処理です。
@@ -1620,7 +1759,7 @@ endwhile</code></pre>
 | 必要な部分 | この例 | 役割 |
 |---|---|---|
 | <strong class="loop-role loop-init">① 初期化</strong> | `i ← 1` | 最初に一度だけ、数え始める値を入れる。 |
-| <strong class="loop-role loop-test">② 継続条件</strong> | `while (i ≦ 5)` | 処理の前に「まだ続けてよいか」を調べる。真なら続行、偽なら終了。<br><strong>※ 回数の目安：</strong>毎回`i`を1ずつ増やし、ほかでは変えない場合、1から始めて`i ≦ n`、または0から始めて`i ＜ n`なら、処理本体はちょうどn回。nは繰り返したい回数（0以上の整数）。 |
+| <strong class="loop-role loop-test">② 継続条件</strong> | `while (i ≦ 5)` | 処理の前に「まだ続けてよいか」を調べる。真なら続行、偽なら終了。 |
 | <strong class="loop-role loop-update">③ 更新</strong> | `i ← i ＋ 1` | 一回の処理を終えたら、次の番号へ進める。 |
 
 </div>
@@ -1647,7 +1786,7 @@ endwhile</code></pre>
 
 #### 1から数えても、0から数えても、5回にできる
 
-n＝5で比べると、次のようになります。**0も一つの値として数える**ため、0・1・2・3・4で五つです。
+5回繰り返す場合を比べると、次のようになります。**0も一つの値として数える**ため、0・1・2・3・4で五つです。
 
 | ①の数え始め | ②の継続条件 | 処理中のiの順番 | 処理本体の回数 |
 |---|---|---|---|
@@ -1664,6 +1803,9 @@ n＝5で比べると、次のようになります。**0も一つの値として
 
 `while`では、三つの要素を別々の場所に書きます。
 
+<div class="code-example" data-example="14">
+<p class="example-task"><strong>例の課題：</strong>whileを使って、1から5までの番号を一つずつ表示する。</p>
+
 ```text
 i ← 1                  // ① 初期化
 while (i ≦ 5)          // ② 継続条件
@@ -1672,15 +1814,32 @@ while (i ≦ 5)          // ② 継続条件
 endwhile
 ```
 
+<div class="display-result" data-example="14">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1<br>2<br>3<br>4<br>5</samp></div>
+</div>
+
+</div>
+
 <div class="example-explanation">
 
 `for`では、同じ内容を一行にまとめます。
+
+<div class="code-example" data-example="15">
+<p class="example-task"><strong>例の課題：</strong>forを使って、1から5までの番号を一つずつ表示する。</p>
 
 ```text
 for (i を 1 から 5 まで 1 ずつ増やす)
   表示する(i)
 endfor
 ```
+
+<div class="display-result" data-example="15">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1<br>2<br>3<br>4<br>5</samp></div>
+</div>
+
+</div>
 
 </div>
 
@@ -1705,8 +1864,6 @@ endfor
   <p><b>for：</b>「名簿の10人を順に確認する」のように、回数や範囲が最初から分かっているとき</p>
 </div>
 
-<div class="page-break"></div>
-
 ## 5.3 繰返しで解く定番の課題
 
 構文を使って何をしたいかに着目します。入力のやり直し・合計・件数・平均は、繰返しを活用する代表的な課題です。
@@ -1714,6 +1871,9 @@ endfor
 ### 正しい入力になるまで、入力をやり直す
 
 注文する個数を1〜5個に限定する例です。`quantity`は、入力された個数を覚える変数です。ここでは整数が入力されるものとします。まず一回入力し、範囲外なら注意を表示して、もう一度入力します。
+
+<div class="code-example" data-example="16">
+<p class="example-task"><strong>例の課題：</strong>注文個数を入力し、1〜5の範囲外なら入力をやり直す。正しい個数になったら、その個数を表示する。</p>
 
 ```text
 整数型: quantity
@@ -1726,6 +1886,13 @@ endwhile
 表示する(quantity)
 ```
 
+<div class="display-result" data-example="16">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">0 → 8 → 3と入力した場合</span><samp class="result-lines">1〜5の整数を入力してください<br>1〜5の整数を入力してください<br>3</samp></div>
+</div>
+
+</div>
+
 0 → 8 → 3と入力したなら、0と8は範囲外なので入力をやり直します。3を入力した後の判定は偽になり、繰返しを終えます。最初から3なら、やり直しは0回です。**何回やり直すかは、入力によって変わります。**
 
 ここでの更新は「iを1増やす」ではなく、**新しい入力をquantityへ入れること**です。入力を更新しなければ、同じ誤った値を調べ続けてしまいます。
@@ -1734,31 +1901,13 @@ endwhile
 
 1から5までの合計を求めます。
 
-ここで最も大切なのは、**合計を覚える変数を繰返しの前に用意し、初期値0を入れておくこと**です。この例では、`整数型: total`が変数の宣言、`total ← 0`が初期化です。
-
-```text
-整数型: total    // 合計用の変数を宣言する
-total ← 0        // 繰返しの前に一度だけ0を入れる
-```
-
-<div class="important-box">
-  <p class="box-title">合計用の変数を繰返しの中で初期化しない</p>
-  <p><code>total ← 0</code>を繰返しの中に書くと、1周するたびに合計が0へ戻ります。前の周までに足した値が消えるため、合計を蓄積できません。変数名を<code>sum</code>にした場合も同じで、<code>sum ← 0</code>は繰返しの前に書きます。</p>
-</div>
-
-次の書き方は誤りです。
-
-```text
-for (i を 1 から 5 まで 1 ずつ増やす)
-  total ← 0              // 毎回0に戻ってしまう
-  total ← total ＋ i
-endfor
-```
-
 <div class="piggy-bank">
   <p class="visual-title">`total`は、数字を貯める貯金箱</p>
   <div><span>0</span><b>＋1</b><span>1</span><b>＋2</b><span>3</span><b>＋3</b><span>6</span><b>＋4</b><span>10</span><b>＋5</b><span class="final">15</span></div>
 </div>
+
+<div class="code-example" data-example="17">
+<p class="example-task"><strong>例の課題：</strong>1から5までの整数を順に足し、合計を表示する。</p>
 
 ```text
 整数型: i
@@ -1773,6 +1922,15 @@ endfor
 表示する(total)
 ```
 
+<div class="display-result" data-example="17">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">15</samp></div>
+</div>
+
+</div>
+
+ここで最も大切なのは、**合計を覚える変数を繰返しの前に用意し、初期値0を入れておくこと**です。この例では、`整数型: total`が変数の宣言、`total ← 0`が初期化です。
+
 | `i` | 実行前の`total` | `total ＋ i` | 実行後の`total` |
 |---:|---:|---:|---:|
 | 1 | 0 | 1 | 1 |
@@ -1786,6 +1944,25 @@ endfor
   <p>`total`のように、繰返しのたびに値を加えていく変数を累積用の変数として使います。合計の初期値は通常0です。</p>
 </div>
 
+<div class="important-box">
+  <p class="box-title">合計用の変数を繰返しの中で初期化しない</p>
+  <p><code>total ← 0</code>を繰返しの中に書くと、1周するたびに合計が0へ戻ります。前の周までに足した値が消えるため、合計を蓄積できません。変数名を<code>sum</code>にした場合も同じで、<code>sum ← 0</code>は繰返しの前に書きます。</p>
+</div>
+
+次の書き方は誤りです。
+
+<div class="code-example" data-example="18">
+<p class="example-task"><strong>例の課題：</strong>1から5までの合計を求めたい場面で、毎回totalを0に戻す次の誤った手順を確認する。</p>
+
+```text
+for (i を 1 から 5 まで 1 ずつ増やす)
+  total ← 0              // 毎回0に戻ってしまう
+  total ← total ＋ i
+endfor
+```
+
+</div>
+
 ### 件数を数える
 
 1から10までの整数のうち、偶数の件数を数えます。
@@ -1795,6 +1972,9 @@ endfor
   <div><span>1</span><span class="hit">2</span><span>3</span><span class="hit">4</span><span>5</span><span class="hit">6</span><span>7</span><span class="hit">8</span><span>9</span><span class="hit">10</span></div>
   <p>色の付いた偶数だけで、カウンターを1増やす</p>
 </div>
+
+<div class="code-example" data-example="19">
+<p class="example-task"><strong>例の課題：</strong>1から10までの整数のうち、偶数がいくつあるかを数え、件数を表示する。</p>
 
 ```text
 整数型: i
@@ -1811,6 +1991,13 @@ endfor
 表示する(count)
 ```
 
+<div class="display-result" data-example="19">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">5</samp></div>
+</div>
+
+</div>
+
 ### 合計から平均を求める
 
 平均は「合計 ÷ 件数」で求めます。例えば2、4、9の平均は、合計15を3個で割った5です。割り切れない場合は小数になるため、平均を覚える変数には実数型を使います。件数が0のときは0で割れないので、平均を計算できません。
@@ -1820,6 +2007,9 @@ endfor
 ### 二重ループ：繰返しの内側で、もう一度繰り返す
 
 繰返しの内側に別の繰返しを書くことを、**二重ループ**（繰返しの入れ子）といいます。例えば、2段の棚に各3個の箱がある場合、「段を選ぶ」外側の繰返しの中で、「その段の箱を順に確認する」内側の繰返しを行います。
+
+<div class="code-example" data-example="20">
+<p class="example-task"><strong>例の課題：</strong>2段の棚に各3個の箱がある。各箱の段番号iと位置jを、この順に1行ずつ表示する。</p>
 
 ```text
 整数型: i, j
@@ -1831,6 +2021,13 @@ for (i を 1 から 2 まで 1 ずつ増やす)
   endfor
 endfor
 ```
+
+<div class="display-result" data-example="20">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1<br>1<br>1<br>2<br>1<br>3<br>2<br>1<br>2<br>2<br>2<br>3</samp></div>
+</div>
+
+</div>
 
 | 外側のi（段） | 内側のj（箱の位置）が進む順番 | 箱を確認する回数 |
 |---|---|---|
@@ -1848,6 +2045,8 @@ endfor
 <span class="difficulty">難易度 ★★☆</span>
 
 1から10までの整数を順番に表示し、最後に合計と平均を表示します。空欄を埋めてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>1から10を表示し、その後に合計と平均を表示する。</p>
 
 ```text
 整数型: i
@@ -1885,13 +2084,15 @@ average ← [ ⑤ ]
 
 <div class="page-break"></div>
 
-<section class="exercise-question compact-question">
+<section class="exercise-question compact-question fit-question">
 
 ## 演習5-B　処理回数を数える
 
 <span class="difficulty">難易度 ★★☆</span>
 
 処理①・②は、詳細を省略した命令です。表を埋め、各処理の実行回数と終了時のiを答えてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>iを1から5まで変え、処理①と処理②の実行回数を数える。</p>
 
 ```text
 整数型: i
@@ -1945,6 +2146,8 @@ endwhile
 
 この問題の変数は整数型です。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>totalへ2を3回足し、合計と繰り返した回数を求める。</p>
+
 ```text
 total ← 0
 for (i を 1 から 3 まで 1 ずつ増やす)
@@ -1975,6 +2178,8 @@ endfor
 表示されるiはいくつですか。繰返し内部は何回実行されますか。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>最初のiが5のとき、繰返しの実行回数と表示される値を求める。</p>
 
 ```text
 i ← 5
@@ -2007,6 +2212,8 @@ endwhile
 【実践】最初の貯金は1000円で毎月500円を積み立て、3000円以上になったら終了します。目標達成まで正しく繰り返すように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>毎月500円を積み立て、貯金が3000円以上になるまで続ける。</p>
 
 ```text
 balance ← 1000
@@ -2050,6 +2257,8 @@ endwhile
 【実践】1番から6番までの伝票を順に処理します。各伝票に2分、3番と6番（3の倍数）には追加点検で各5分かかります。合計時間minutesを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>6枚の伝票の処理時間に、3の倍数の伝票の点検時間を加える。</p>
 
 ```text
 minutes ← 0
@@ -2109,9 +2318,14 @@ endfor
   <p>配列名は建物の名前、添字はロッカー番号、値は中に入っている荷物です。</p>
 </div>
 
+<div class="code-example" data-example="21">
+<p class="example-task"><strong>例の課題：</strong>5、10、3の三つの整数を、配列Aへこの順に入れる。</p>
+
 ```text
 整数型の配列: A ← {5, 10, 3}
 ```
+
+</div>
 
 この例では、配列の要素番号を1から始めます。
 
@@ -2128,6 +2342,9 @@ endfor
 
 ## 6.2 繰返しで配列の要素を読む
 
+<div class="code-example" data-example="22">
+<p class="example-task"><strong>例の課題：</strong>配列A＝{3, 8, 2, 5}の値を、先頭から一つずつ表示する。</p>
+
 ```text
 整数型: i
 整数型の配列: A ← {3, 8, 2, 5}
@@ -2136,6 +2353,13 @@ for (i を 1 から 4 まで 1 ずつ増やす)
   表示する(A[i])
 endfor
 ```
+
+<div class="display-result" data-example="22">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">3<br>8<br>2<br>5</samp></div>
+</div>
+
+</div>
 
 `i`が1、2、3、4と変化するため、`A[1]`、`A[2]`、`A[3]`、`A[4]`を順番に参照します。
 
@@ -2153,6 +2377,9 @@ endfor
 
 ### 配列の合計
 
+<div class="code-example" data-example="23">
+<p class="example-task"><strong>例の課題：</strong>配列A＝{3, 8, 2, 5}の全要素を足し、合計を表示する。</p>
+
 ```text
 整数型: i
 整数型: total
@@ -2167,6 +2394,13 @@ endfor
 表示する(total)
 ```
 
+<div class="display-result" data-example="23">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">18</samp></div>
+</div>
+
+</div>
+
 | `i` | `A[i]` | 実行前の`total` | 実行後の`total` |
 |---:|---:|---:|---:|
 | 1 | 3 | 0 | 3 |
@@ -2179,6 +2413,9 @@ endfor
 </div>
 
 ### 配列の最大値
+
+<div class="code-example" data-example="24">
+<p class="example-task"><strong>例の課題：</strong>配列A＝{2, 5, 1, 9, 8, 10, 7, 3, 6, 4}から最大値を探し、表示する。</p>
 
 ```text
 整数型: i
@@ -2195,6 +2432,13 @@ endfor
 
 表示する(max)
 ```
+
+<div class="display-result" data-example="24">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">10</samp></div>
+</div>
+
+</div>
 
 最初の要素`A[1]`を、現在の最大値として`max`へ入れます。その後、残りの要素を一つずつ比較します。
 
@@ -2222,6 +2466,8 @@ endfor
 <span class="difficulty">難易度 ★★☆</span>
 
 配列`A`には、添字1から10までの10個の整数が入っています。合計を求めるように空欄を埋めてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの10個の値をすべて足し、合計を表示する。</p>
 
 ```text
 整数型: i
@@ -2260,6 +2506,8 @@ endfor
 <span class="difficulty">難易度 ★★☆</span>
 
 6.4の最大値を求めるコードを使い、次の配列でトレース表を埋めてください。最終的なmaxの値も答えてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの10個の値から最大値を探し、表示する。</p>
 
 ```text
 A ← {2, 5, 1, 9, 8, 10, 7, 3, 6, 4}
@@ -2305,6 +2553,8 @@ A＝{8,3,6}で、添字は1から始まります。最後のxとAの内容を求
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの値を変数と別の要素へ入れ、更新後の値を求める。</p>
+
 ```text
 x ← A[2]
 A[1] ← x
@@ -2334,6 +2584,8 @@ A＝{4,7,2}、添字は1から始まります。表示される順番を書い�
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{4, 7, 2}の値を先頭から順に表示する。</p>
+
 ```text
 for (i を 1 から 3 まで 1 ずつ増やす)
   表示する(A[i])
@@ -2362,6 +2614,8 @@ endfor
 【実践】4商品の在庫A＝{2,8,0,5}を点検します。各商品は5個以上が目標です。不足している商品の種類数countと補充する総個数neededを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>在庫が5個に満たない商品の種類数と、補充する総個数を求める。</p>
 
 ```text
 count ← 0
@@ -2409,6 +2663,8 @@ endfor
 **先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aから目的の商品番号を探し、最初に見つかった位置を記録する。</p>
 
 ```text
 position ← 0
@@ -2493,6 +2749,9 @@ endfor
 
 #### 例：実行前と実行後を別の列にする
 
+<div class="code-example" data-example="25">
+<p class="example-task"><strong>例の課題：</strong>1、2、3をそれぞれ2倍して足す。各回の加算前と加算後のtotalを表で確認する。</p>
+
 ```text
 整数型: i
 整数型: total
@@ -2503,6 +2762,8 @@ for (i を 1 から 3 まで 1 ずつ増やす)
   total ← total ＋ i × 2
 endfor
 ```
+
+</div>
 
 | `i` | `i × 2` | 実行前の`total` | 実行後の`total` |
 |---:|---:|---:|---:|
@@ -2523,6 +2784,9 @@ endfor
 
 選択処理や繰返しでは、処理本体だけでなく条件判定も行われます。
 
+<div class="code-example" data-example="26">
+<p class="example-task"><strong>例の課題：</strong>1から3までの番号を表示し、最後に条件が偽になるところまで表で追う。</p>
+
 ```text
 i ← 1
 
@@ -2531,6 +2795,13 @@ while (i ≦ 3)
   i ← i ＋ 1
 endwhile
 ```
+
+<div class="display-result" data-example="26">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1<br>2<br>3</samp></div>
+</div>
+
+</div>
 
 `i`が4になったときも、条件`i ≦ 3`は一度判定されます。ただし、処理本体は実行されません。
 
@@ -2544,6 +2815,8 @@ endwhile
 ### 掛け算を繰り返す場合の初期値
 
 値を繰り返し掛ける問題では、合計との初期値の違いにも注意します。足し算は0から始めますが、掛け算は1から始めます。例えば2と3を順に掛けるなら1→2→6です。0から始めると何を掛けても0のままになります。
+
+<section class="example-explanation">
 
 ## 7.3 AIにトレースさせる前に
 
@@ -2561,6 +2834,8 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
   <p><strong>分かっていること：</strong>一行ごとに変数の値を記録します。<br><strong>試したこと：</strong>i、実行前のtotal、実行後のtotalを列にしました。<br><strong>分からないこと：</strong>条件の真偽も列に必要か迷います。判断するヒントを一つください。</p>
 </div>
 
+</section>
+
 <div class="page-break"></div>
 
 <section class="exercise-question compact-question">
@@ -2570,6 +2845,8 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
 <span class="difficulty">難易度 ★★☆</span>
 
 次の処理を考えます。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>1から4までを順に掛け、totalを追った表の最初の誤りを見つける。</p>
 
 ```text
 整数型: i
@@ -2620,6 +2897,8 @@ endfor
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>二行目の計算を行う直前と直後のxを求める。</p>
+
 ```text
 x ← 3
 x ← x ＋ 4
@@ -2648,6 +2927,8 @@ x ← x ＋ 4
 実行される代入文だけを順に書き、最後のyを求めてください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>条件によって実行する代入文を選び、最後のyを求める。</p>
 
 ```text
 x ← 2
@@ -2681,6 +2962,8 @@ endif
 判定時のi、条件の真偽、totalを表にしてください。最後のiとtotalはいくつですか。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>各条件判定時のiとtotalを表で追い、最後の値を求める。</p>
 
 ```text
 i ← 1
@@ -2722,6 +3005,8 @@ endwhile
 【実践】一件の注文が1000円以上なら100円引きにします。注文額の配列A＝{999,1000,1500}の3件を処理するとき、合計金額totalを正しく求めるように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>1000円以上の注文を100円引きにし、3件の支払額の合計を求める。</p>
 
 ```text
 total ← 0
@@ -2769,6 +3054,8 @@ endfor
 **先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列の同じ番号が連続する部分を、一つのグループとして数える。</p>
 
 ```text
 groups ← 1
@@ -2832,6 +3119,8 @@ endfor
 
 配列`A`には10個の整数が入っています。5以上の値がいくつあるかを数えて表示します。空欄を埋めてください。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aのうち5以上の値を数え、件数を表示する。</p>
+
 ```text
 整数型: i
 整数型: count
@@ -2863,7 +3152,7 @@ endfor
 
 </section>
 
-<section class="exercise-question compact-question">
+<section class="exercise-question compact-question fit-question">
 
 ## 演習8-B　最大値とその位置
 
@@ -2872,6 +3161,8 @@ endfor
 配列`A`の最大値と、その値が入っている添字を表示します。配列には少なくとも一つの要素があり、添字は1から始まります。最大値が複数ある場合は、最初に現れる位置を表示します。
 
 空欄①〜③に入れる内容の組合せとして、適切なものを一つ選んでください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの最大値と、その値が最初に現れる位置を順に表示する。</p>
 
 ```text
 整数型: i, max, maxIndex
@@ -2920,7 +3211,7 @@ endfor
 
 </section>
 
-<section class="exercise-question compact-question">
+<section class="exercise-question compact-question fit-question">
 
 ## 演習8-C　記号を正方形に表示する
 
@@ -2929,6 +3220,8 @@ endfor
 1以上の整数`num`が入力されます。`num`行、各行に`num`個の`*`を表示し、正方形を作ります。改行せずに文字を表示する処理を`横に表示する()`、改行する処理を`改行する()`とします。
 
 空欄①〜④に入れる内容の組合せとして、適切なものを一つ選んでください。選択肢の「i：1～num」は「i を 1 から num まで 1 ずつ増やす」の略記です。他の範囲も同じように1ずつ増やし、両端を含みます。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>num行、各行にnum個の「*」を表示し、正方形を作る。</p>
 
 ```text
 整数型: num, i, j
@@ -2986,6 +3279,8 @@ A＝{2,6}です。最後のresultを答えてください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
+<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{2, 6}の二つの値を比べ、大きい方をresultへ残す。</p>
+
 ```text
 result ← A[1]
 if (A[2] ＞ result)
@@ -3015,6 +3310,8 @@ endif
 A＝{3,5}です。最後のtotalを答えてください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{3, 5}の二つの値を順に足す。</p>
 
 ```text
 total ← 0
@@ -3047,6 +3344,8 @@ A＝{3,8,5,1}から5以上の値だけを集計します。count、total、avera
 整数型: count, total, i
 実数型: average
 整数型の配列: A
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの5以上の値だけを集計し、件数・合計・平均を求める。</p>
 
 ```text
 count ← 0
@@ -3615,6 +3914,11 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </div>
 
+<div class="display-result" data-exercise="3-A">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">770</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -3656,6 +3960,11 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 | 税込価格を求める処理 | `taxIncluded ← price × (1 ＋ rate)` |
 | 表示する処理 | `表示する(taxIncluded)` |
 
+</div>
+
+<div class="display-result" data-exercise="3-B">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1320</samp></div>
 </div>
 
 </div>
@@ -3704,6 +4013,11 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 | 処理 | `total ← price × quantity` で合計金額を計算する。 |
 | 出力 | `表示する(total)` で600を表示する。 |
 
+</div>
+
+<div class="display-result" data-exercise="3-C">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">600</samp></div>
 </div>
 
 </div>
@@ -3880,6 +4194,11 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </div>
 
+<div class="display-result" data-exercise="4-A">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">x＝8の場合</span><samp class="result-lines">偶数</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -3887,8 +4206,6 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 ### 解説
 
 偶数は2で割り切れるので、余りが0になります。x＝8なら条件が真となり「偶数」、x＝7なら偽となり「奇数」を表示します。
-
-表の確認に使う入力：x＝8。
 
 <div class="exercise-flow">
 <p class="flow-title">演習4-Aのフローチャート</p>
@@ -3917,6 +4234,12 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </div>
 
+<div class="display-result" data-exercise="4-B">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">score＝59の場合</span><samp class="result-lines">再挑戦</samp></div>
+  <div class="result-case"><span class="result-label">score＝60の場合</span><samp class="result-lines">合格</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -3925,9 +4248,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 「60以上」は60点ちょうども含みます。59点は条件が偽なのでelse側へ、60点は真なのでif側へ進みます。
 
-表の確認に使う入力：score＝59。
-
-#### 値の確認（各処理の実行後）
+#### 値の確認（score＝59の場合）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -3943,7 +4264,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </section>
 
-<section class="answer-section" data-exercise="4-C">
+<section class="answer-section dense-answer" data-exercise="4-C">
 
 ## 演習4-C　解答・解説
 
@@ -3962,6 +4283,14 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </div>
 
+<div class="display-result" data-exercise="4-C">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">BMI＝18.49の場合</span><samp class="result-lines">低体重</samp></div>
+  <div class="result-case"><span class="result-label">BMI＝18.50の場合</span><samp class="result-lines">標準体重</samp></div>
+  <div class="result-case"><span class="result-label">BMI＝24.99の場合</span><samp class="result-lines">標準体重</samp></div>
+  <div class="result-case"><span class="result-label">BMI＝25.00の場合</span><samp class="result-lines">肥満</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -3970,9 +4299,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 最初の条件が偽でelseifへ来た時点で、BMIは18.5以上と分かっています。そこで25未満かを調べると、18.5以上25未満を判定できます。25ちょうどは二つ目も偽となり、else側へ進みます。
 
-表の確認に使う入力：height＝1、weight＝18.5。
-
-#### 値の確認（各処理の実行後）
+#### 値の確認（BMI＝18.50の場合）
 
 | 実行した処理 | その直後の値 |
 |---|---|
@@ -4148,6 +4475,9 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 totalを0から始め、i＝1〜10を順に足します。合計55を10で割ると平均5.5です。表示は1〜10、合計、平均の順です。
 
+<div class="trace-with-result">
+<div>
+
 #### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
@@ -4164,6 +4494,15 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 | i＝9の回を終了 | total＝45、i＝9 |
 | i＝10の回を終了 | total＝55、i＝10 |
 | average ← total ÷ 10 | total＝55、i＝11、average＝5.5 |
+
+</div>
+
+<div class="display-result" data-exercise="5-A">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>55<br>5.5</samp></div>
+</div>
+
+</div>
 
 <div class="exercise-flow">
 <p class="flow-title">演習5-Aのフローチャート</p>
@@ -4282,6 +4621,11 @@ i＝1・2・3の三回、それぞれ2を足します。totalは0→2→4→6と
 | 表示される i | 5 |
 | 内部の実行回数 | 0回 |
 
+</div>
+
+<div class="display-result" data-exercise="5-D">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">5</samp></div>
 </div>
 
 </div>
@@ -4425,7 +4769,8 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 合計へ足すのは位置iではなく、その位置の値A[i]です。確認用の配列が{1,2,…,10}なら合計は55ですが、表示値は与えられた配列によって変わります。
 
-表の確認に使う入力：A＝{1,2,3,4,5,6,7,8,9,10}。
+<div class="trace-with-result">
+<div>
 
 #### 値の確認（各処理の実行後）
 
@@ -4442,6 +4787,15 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 | i＝8の回を終了 | total＝36、i＝8 |
 | i＝9の回を終了 | total＝45、i＝9 |
 | i＝10の回を終了 | total＝55、i＝10 |
+
+</div>
+
+<div class="display-result" data-exercise="6-A">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">確認用：A＝{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}の場合</span><samp class="result-lines">55</samp></div>
+</div>
+
+</div>
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Aのフローチャート</p>
@@ -4469,7 +4823,10 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 </div>
 
-表の確認に使う入力：A＝{2,5,1,9,8,10,7,3,6,4}。
+<div class="display-result" data-exercise="6-B">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">A＝{2, 5, 1, 9, 8, 10, 7, 3, 6, 4}の場合</span><samp class="result-lines">10</samp></div>
+</div>
 
 #### 表の完成例
 
@@ -4565,6 +4922,11 @@ A[2]は2番目の場所の値3です。その3をxへコピーし、続いてA[1
 
 </div>
 
+<div class="display-result" data-exercise="6-D">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">A＝{4, 7, 2}の場合</span><samp class="result-lines">4<br>7<br>2</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -4572,8 +4934,6 @@ A[2]は2番目の場所の値3です。その3をxへコピーし、続いてA[1
 ### 解説
 
 iが1・2・3と変わるたびに、その場所の値A[i]を表示します。添字そのものではなく、配列に入っている値を順に表示します。
-
-表の確認に使う入力：A＝{4,7,2}。
 
 #### 添字と表示される値を確認
 
@@ -4989,7 +5349,8 @@ x＝2なので、条件2 ＞ 5は偽です。if側のy ← 10を飛ばし、else
 
 countは件数を覚えるので0から始めます。条件が真のときだけ1を足し、偽なら前の値を保ちます。5ちょうども対象です。以下の確認用入力が1〜10なら6件になります。
 
-表の確認に使う入力：A＝{1,2,3,4,5,6,7,8,9,10}。
+<div class="trace-with-result">
+<div>
 
 #### 表の完成例
 
@@ -5006,6 +5367,15 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 | 9 | 9 | 真 | 5 |
 | 10 | 10 | 真 | 6 |
 
+
+</div>
+
+<div class="display-result" data-exercise="8-A">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">確認用：A＝{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}の場合</span><samp class="result-lines">6</samp></div>
+</div>
+
+</div>
 
 <div class="exercise-flow">
 <p class="flow-title">演習8-Aのフローチャート</p>
@@ -5033,6 +5403,11 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 
 </div>
 
+<div class="display-result" data-exercise="8-B">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">確認用：A＝{4, 9, 9}の場合</span><samp class="result-lines">9<br>2</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -5040,8 +5415,6 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 ### 解説
 
 最大値を更新するときは、同じ条件の内側で位置も更新します。＞を使うと、同じ最大値では更新せず、最初の位置を残せます。A＝{4,9,9}ならmax＝9、maxIndex＝2です。
-
-表の確認に使う入力：A＝{4,9,9}。
 
 #### 値の確認（各処理の実行後）
 
@@ -5079,6 +5452,11 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 
 </div>
 
+<div class="display-result" data-exercise="8-C">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">num＝3の場合</span><samp class="result-lines">***<br>***<br>***</samp></div>
+</div>
+
 </div>
 
 <div class="explanation-part">
@@ -5086,8 +5464,6 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 ### 解説
 
 外側のiは行、内側のjは一行の文字を担当します。どちらも1からnumまでのnum回です。内側では横に文字を表示し、内側を終えた後で一回だけ改行します。num＝3なら、一行に***を表示して3行になります。
-
-表の確認に使う入力：num＝3。
 
 #### num＝3の表示結果を確認
 
@@ -5269,6 +5645,9 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 
 関数の名前の前の`○`は、ここから関数を定義する目印です。`○整数型: addOne(整数型: x)`は「整数xを受け取り、整数を返すaddOneという関数」の意味です。addOneは名前で、英単語を暗記する必要はありません。
 
+<div class="code-example" data-example="27">
+<p class="example-task"><strong>例の課題：</strong>受け取った値に1を足して返す関数を作る。3を渡し、受け取った結果を表示する。</p>
+
 ```text
 ○整数型: addOne(整数型: x)
   return x ＋ 1
@@ -5277,6 +5656,13 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 result ← addOne(3)
 表示する(result)
 ```
+
+<div class="display-result" data-example="27">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">4</samp></div>
+</div>
+
+</div>
 
 定義を読むだけでは、関数の中は実行されません。呼び出す行に来たら、次の順で進みます。
 

@@ -28,6 +28,10 @@ assert 'age≧12andhasTicket＝1' in compact_text
 assert compact_text.count('解答欄の項目') == 48, '全48問に解答欄と対応する解答表が必要です'
 assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 繰返しの基本構文', 'while：条件が成り立つ間、繰り返す', 'for：回数や範囲が決まっている繰返し', '5.3 繰返しで解く定番の課題', '合計用の変数を繰返しの中で初期化しない'))
 assert 'ホワイル' not in compact_text and 'while（ワイル）' in compact_text
+assert '回数の目安' not in compact_text, '削除した抽象的な回数の補足が残っています'
+assert compact_text.count('例の課題：') == 27, '説明用コード全27例の課題が必要です'
+assert compact_text.count('このコードの課題：') == 42, '演習のコード全42例の課題が必要です'
+assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 32, '説明用18枠・演習14枠の表示結果が必要です'
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
 assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
