@@ -200,7 +200,8 @@ body {
 
 h1,
 h2,
-h3 {
+h3,
+h4 {
   color: var(--ink);
   font-family: var(--sans);
   line-height: 1.4;
@@ -228,6 +229,12 @@ h3 {
   margin: 1.9em 0 0.65em;
   color: #30363c;
   font-size: 1.16rem;
+  font-weight: 700;
+}
+
+h4 {
+  margin: 1.3em 0 0.6em;
+  font-size: 1rem;
   font-weight: 700;
 }
 
@@ -312,6 +319,8 @@ code {
   font-size: 0.9em;
   word-break: break-all;
 }
+
+code.syntax-keyword { white-space: nowrap; }
 
 pre {
   position: relative;
@@ -1344,6 +1353,21 @@ td:empty {
   text-align: center;
 }
 
+.loop-role {
+  display: inline-block;
+  padding: 0.08em 0.3em;
+  border-radius: 0.2em;
+  font-weight: 800;
+}
+
+.loop-init { color: #1d3994; background: #edf4ff; }
+.loop-test { color: #9e321c; background: #fff1ec; }
+.loop-update { color: #287853; background: #edf8f2; }
+.loop-pattern th:first-child,
+.loop-pattern td:first-child { width: 18%; }
+.loop-pattern th:nth-child(2),
+.loop-pattern td:nth-child(2) { width: 29%; }
+
 .loop-counter,
 .piggy-bank > div,
 .array-sum-strip {
@@ -1882,6 +1906,11 @@ td:empty {
   h3 {
     break-after: avoid;
     font-size: 12.5pt;
+  }
+
+  h4 {
+    break-after: avoid;
+    font-size: 11pt;
   }
 
   p,

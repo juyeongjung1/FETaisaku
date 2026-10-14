@@ -270,6 +270,8 @@ try {
       for(const part of parts) {if(part.startsWith('`')&&part.endsWith('`')) {const c=document.createElement('code');c.textContent=part.slice(1,-1);frag.append(c);} else frag.append(document.createTextNode(part));}
       node.replaceWith(frag);
     }
+    for(const node of document.querySelectorAll('code'))
+      if(/^(if|else|elseif|endif|while|endwhile|for|endfor)$/.test(node.textContent)) node.classList.add('syntax-keyword');
     // 固定ページ番号はPDFの検査後、実ページに更新する。
     for(const b of document.querySelectorAll('.toc-list b')) b.textContent='';
   });

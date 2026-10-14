@@ -15,6 +15,7 @@ pages = [p.extract_text() for p in reader.pages]
 all_text = '\n'.join(pages)
 assert not re.search(r'<\s*/?\s*(span|strong|small|div|p|br)\b', all_text)
 assert '初稿' not in all_text
+assert not re.search(r'(?<!\*)\*\*(?!\*)', all_text), '太字の記法が本文に露出しています'
 compact_text = re.sub(r'\s+', '', all_text)
 for label in ('分かっていること：', '試したこと：', '分からないこと：'):
     assert compact_text.count(label) == 51, ('第0章・全48問・第7章補足・巻末の質問例', label)
@@ -25,7 +26,8 @@ assert 'xmod2＝0」で合っていますか' not in compact_text
 assert '空欄①に入る条件式を答えてください' in compact_text
 assert 'age≧12andhasTicket＝1' in compact_text
 assert compact_text.count('解答欄の項目') == 48, '全48問に解答欄と対応する解答表が必要です'
-assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 まずwhileで繰返しの仕組みを知る', '5.3 whileを簡潔に書くfor', '合計用の変数を繰返しの中で初期化しない'))
+assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 繰返しの基本構文', 'while：条件が成り立つ間、繰り返す', 'for：回数や範囲が決まっている繰返し', '5.3 繰返しで解く定番の課題', '合計用の変数を繰返しの中で初期化しない'))
+assert 'ホワイル' not in compact_text and 'while（ワイル）' in compact_text
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
 assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
