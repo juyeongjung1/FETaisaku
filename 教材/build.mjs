@@ -82,7 +82,7 @@ for (const item of exercises) {
     assert(lines[i+2].startsWith(label)&&lines[i+2].length>label.length,item.id+'の'+label);
 }
 for(let chapter=1;chapter<=8;chapter++) for(let level=1;level<=3;level++)
-  assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,chapter===1?[3,3,0][level-1]:2);
+  assert.equal(exercises.filter(e=>e.id.startsWith(chapter+'-')&&e.level===level).length,(chapter===1?[3,3,0]:chapter===4?[2,3,1]:[2,2,2])[level-1]);
 for (const item of exercises.filter(e=>e.choices)) {
   assert.equal(item.choices.options.length,4,item.id);
   assert.equal(new Set(item.choices.options).size,4,item.id);
@@ -92,7 +92,7 @@ for(const item of exercises) if(!item.natural) {
   verify(item,item.input||{},item.expected);tests++;
   for(const [input,expected] of item.cases||[]) {verify(item,input,expected);tests++;}
 }
-console.log(`演習48問・第1章は★3問と★★3問、第2〜8章は各難易度2問を確認。検算${tests}ケース成功。`);
+console.log(`演習48問・第1章は★3問と★★3問、第4章は★2問・★★3問・★★★1問、ほかの章は各難易度2問を確認。検算${tests}ケース成功。`);
 
 // 順次を一つの箱にまとめ、分岐・ループは独立した節点で表現する。
 function graph(item) {
@@ -206,8 +206,9 @@ for(let chapter=1;chapter<=8;chapter++) {
   const extra=exercises.filter(e=>e.id.startsWith(chapter+'-')&&!e.existing);
   const section=`<!-- 追加演習開始 ${chapter} -->\n\n`+extra.map(item=>{
     const types=item.natural?'':(item.types||('この問題の変数は整数型です。'+(Number(item.id[0])>=6?'配列の添字は1から始まります。':'')));
+    const typesInCode = item.id === '4-D';
     const prereq=item.id==='6-F'?'\n**先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。\n':item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
-    const codeBlock = item.natural ? '' : ('```text\n' + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
+    const codeBlock = item.natural ? '' : ('```text\n' + (typesInCode ? types + '\n\n' : '') + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
     const tablePart = tableTemplate(item);
     const choicePart = choiceTable(item);
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
@@ -216,7 +217,7 @@ for(let chapter=1;chapter<=8;chapter++) {
     const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  ${aiParagraphs(item.aiQuestion)}\n</div>`;
     const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
     const secClass = item.compact ? 'exercise-question compact-question' : 'exercise-question';
-    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types ? types + '\n\n' : ''}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
+    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types && !typesInCode ? types + '\n\n' : ''}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
   }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
   const marker=chapter===8?'## 演習後の振り返り':`<div class="page-break"></div>\n\n<a id="chapter-${chapter+1}"></a>`;
   assert(md.includes(marker),marker);md=md.replace(marker,section+marker);

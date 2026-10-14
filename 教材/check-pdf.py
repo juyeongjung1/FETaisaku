@@ -27,6 +27,8 @@ assert 'age≧12andhasTicket＝1' in compact_text
 assert compact_text.count('解答欄の項目') == 48, '全48問に解答欄と対応する解答表が必要です'
 assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 まずwhileで繰返しの仕組みを知る', '5.3 whileを簡潔に書くfor', '合計用の変数を繰返しの中で初期化しない'))
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
+choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
+assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
 toc = {}
 report = []
 for number, text in enumerate(pages, 1):
@@ -60,16 +62,8 @@ for chapter in range(1, 9):
                           if re.search(rf'演習{ident}[ 　]', text)]
         assert len(question_pages) == 1, ('問題見出し', ident)
         assert f'問題{ident}について質問です' in re.sub(r'\s+', '', question_pages[0]), ('問題とAIへの質問例を同じページに配置してください', ident)
-choice_questions = 0
-for text in pages[:toc['answers'] - 1]:
-    # 第2章の実践問題は、受講者が値を書く記述式を維持する。
-    if any(ex in text for ex in ['演習2-E', '演習2-F']):
-        continue
-    count = re.sub(r'\s+', '', text).count('難易度★★★')
-    if count:
-        assert len(re.findall(r'^[アイウエ](?=\s)', text, re.M)) == 4 * count, '問題と4つの選択肢を同じページに配置してください'
-        choice_questions += count
-assert choice_questions == 12, '選択式★★★は12問必要です'
+        if ident in choice_ids:
+            assert len(re.findall(r'^[アイウエ](?=\s)', question_pages[0], re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください', ident)
 (work / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'qa.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')
