@@ -47,6 +47,10 @@
 .result-label { display: block; margin-bottom: 0.2em; color: #526273; font-size: 0.9em; }
 .result-lines { display: block; font-family: var(--mono); line-height: 1.35; }
 .trace-with-result { display: grid; grid-template-columns: 4fr 1fr; gap: 4mm; align-items: start; break-inside: avoid; }
+.trace-practice { break-inside: avoid; }
+.trace-title { font-weight: 700; color: #1a365d; }
+.completed-trace { break-inside: avoid; }
+.nested-trace { break-inside: avoid; }
 @media print {
   .answer-section { break-before: page; font-size: 10pt; }
   .answer-section h2 { margin: 0 0 3mm; }
@@ -71,6 +75,19 @@
   .compact-question.fit-question th, .compact-question.fit-question td { padding: 1mm 2mm; }
   .compact-question.fit-question .ai-box { margin: 2mm 0; }
   .compact-question.fit-question .exercise-task { margin: 1mm 0; line-height: 1.45; }
+  .trace-worksheet { break-before: page; break-inside: avoid; }
+  .trace-worksheet + .exercise-question { break-before: page; }
+  .trace-practice .trace-title { margin: 2mm 0 1mm; }
+  .trace-practice .trace-guide { margin: 1mm 0 2mm; font-size: 9.5pt; line-height: 1.5; }
+  .trace-practice table { margin: 1.5mm 0; font-size: 9pt; }
+  .trace-practice th, .trace-practice td { padding: 1mm 2mm; line-height: 1.4; }
+  .trace-practice td { height: 6.5mm; }
+  .trace-worksheet .trace-practice table { font-size: 10pt; }
+  .trace-worksheet .trace-practice td { height: 10mm; }
+  .nested-example pre { line-height: 1.35; }
+  .nested-example .result-lines { line-height: 1.2; }
+  .nested-trace table { margin: 2mm 0; font-size: 9pt; }
+  .nested-trace th, .nested-trace td { padding: 1mm 2mm; line-height: 1.4; }
   .dense-answer th, .dense-answer td { padding: 0.6mm 2mm; line-height: 1.3; }
   .dense-answer .exercise-flow img { max-height: 95mm; }
   .answer-section[data-exercise="5-A"] .exercise-flow img { max-height: 90mm; }

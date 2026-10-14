@@ -29,12 +29,15 @@ assert compact_text.count('解答欄の項目') == 48, '全48問に解答欄と�
 assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 繰返しの基本構文', 'while：条件が成り立つ間、繰り返す', 'for：回数や範囲が決まっている繰返し', '5.3 繰返しで解く定番の課題', '合計用の変数を繰返しの中で初期化しない'))
 assert 'ホワイル' not in compact_text and 'while（ワイル）' in compact_text
 assert '回数の目安' not in compact_text, '削除した抽象的な回数の補足が残っています'
-assert compact_text.count('例の課題：') == 27, '説明用コード全27例の課題が必要です'
+assert compact_text.count('例の課題：') == 28, '説明用コード全28例の課題が必要です'
 assert compact_text.count('このコードの課題：') == 42, '演習のコード全42例の課題が必要です'
-assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 32, '説明用18枠・演習14枠の表示結果が必要です'
+assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 33, '説明用19枠・演習14枠の表示結果が必要です'
+assert compact_text.count('トレース表（記入用）') == 7, '第6章全6問と8-Cに記入用の表が必要です'
+assert '6.4の最大値' not in compact_text and '6.4のコード' not in compact_text, '最大値の節番号が古いままです'
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
 assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
+worksheet_ids = re.findall(r'<section class="trace-worksheet" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
 toc = {}
 report = []
 for number, text in enumerate(pages, 1):
@@ -70,6 +73,9 @@ for chapter in range(1, 9):
         assert f'問題{ident}について質問です' in re.sub(r'\s+', '', question_pages[0]), ('問題とAIへの質問例を同じページに配置してください', ident)
         if ident in choice_ids:
             assert len(re.findall(r'^[アイウエ](?=\s)', question_pages[0], re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください', ident)
+        if ident in worksheet_ids:
+            question_page = pages.index(question_pages[0])
+            assert f'演習{ident}の記入用トレース表' in re.sub(r'\s+', '', pages[question_page+1]), ('記入用の表を問題の次ページに配置してください', ident)
 (work / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'qa.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')
