@@ -276,7 +276,7 @@
 ここでは、`price`、`count`、`total`を**変数**と呼びます。変数とは、値を覚えておくための「名前付きの箱」です。英単語そのものを暗記する必要はありません。何を入れている箱かを考えて読んでください。
 
 <div class="code-example" data-example="1">
-<p class="example-task"><strong>例の課題：</strong>一つ150円の商品を3個買うときの合計金額を計算し、表示する。</p>
+<p class="example-task"><strong>問題：</strong>一つ150円の商品を3個買うときの合計金額を計算し、表示する。</p>
 
 ```text
 整数型: price
@@ -349,7 +349,7 @@ total ← price × count
 上から下へ、決められた順番で一つずつ処理を行います。
 
 <div class="code-example" data-example="2">
-<p class="example-task"><strong>例の課題：</strong>aに5、bに10を入れ、二つを足した値をcへ入れる。</p>
+<p class="example-task"><strong>問題：</strong>aに5、bに10を入れ、二つを足した値をcへ入れる。</p>
 
 ```text
 a ← 5
@@ -553,7 +553,7 @@ c ← a ＋ b
 </div>
 
 <div class="code-example" data-example="3">
-<p class="example-task"><strong>例の課題：</strong>合計を覚える整数型の変数totalを用意し、最初の値として0を入れる。</p>
+<p class="example-task"><strong>問題：</strong>合計を覚える整数型の変数totalを用意し、最初の値として0を入れる。</p>
 
 ```text
 整数型: total
@@ -599,7 +599,7 @@ total ← 0
 代入とは、計算結果や値を変数へ入れる操作です。矢印記号`←`を使って表します。
 
 <div class="code-example" data-example="4">
-<p class="example-task"><strong>例の課題：</strong>現在のtotalが3のとき、5を足した値でtotalを更新する。</p>
+<p class="example-task"><strong>問題：</strong>現在のtotalが3のとき、5を足した値でtotalを更新する。</p>
 
 ```text
 total ← total ＋ 5
@@ -628,7 +628,7 @@ total ← total ＋ 5
 変数へ新しい値を代入すると、以前の値は失われます。
 
 <div class="code-example" data-example="5">
-<p class="example-task"><strong>例の課題：</strong>aに10を入れた後で3を入れ直し、箱の中身がどう変わるか確認する。</p>
+<p class="example-task"><strong>問題：</strong>aに10を入れた後で3を入れ直し、箱の中身がどう変わるか確認する。</p>
 
 ```text
 a ← 10
@@ -677,7 +677,7 @@ a ← 3
 </div>
 
 <div class="code-example" data-example="6">
-<p class="example-task"><strong>例の課題：</strong>a＝10、b＝3の状態から、二つの値を交換する。</p>
+<p class="example-task"><strong>問題：</strong>a＝10、b＝3の状態から、二つの値を交換する。</p>
 
 ```text
 整数型: temp
@@ -699,7 +699,7 @@ a ← temp
 <div class="mistake-box">
   <p class="box-title">よくある間違い</p>
   <div class="code-example" data-example="7">
-<p class="example-task"><strong>例の課題：</strong>a＝10、b＝3を交換したいとき、次の誤った手順で元の値が失われることを確かめる。</p>
+<p class="example-task"><strong>問題：</strong>a＝10、b＝3を交換したいとき、次の誤った手順で元の値が失われることを確かめる。</p>
 
 <pre><code>a ← b
 b ← a</code></pre>
@@ -938,7 +938,7 @@ c ← temp
 順次処理は、文を上から下へ一度ずつ実行する、最も基本的な構造です。
 
 <div class="code-example" data-example="8">
-<p class="example-task"><strong>例の課題：</strong>一つ150円のリンゴを3個、一つ80円のみかんを4個買うときの合計金額を表示する。</p>
+<p class="example-task"><strong>問題：</strong>一つ150円のリンゴを3個、一つ80円のみかんを4個買うときの合計金額を表示する。</p>
 
 ```text
 整数型: apple
@@ -1262,7 +1262,7 @@ shortage ← 50 − stock
 擬似言語では、英語の `if`（もし〜なら）、`else`（そうでなければ）、`endif`（ifの終わり）を使って次のように記述します。
 
 <div class="code-example" data-example="9">
-<p class="example-task"><strong>例の課題：</strong>点数scoreが60点以上なら「合格」、60点未満なら「不合格」を表示する。</p>
+<p class="example-task"><strong>問題：</strong>点数scoreが60点以上なら「合格」、60点未満なら「不合格」を表示する。</p>
 
 ```text
 if (score ≧ 60)
@@ -1297,7 +1297,7 @@ endif
 条件が成り立つときだけ処理をしたい場合は、`else`を省略できます。次の例では、60点以上のときだけ「合格」を表示します。
 
 <div class="code-example" data-example="10">
-<p class="example-task"><strong>例の課題：</strong>点数scoreが60点以上のときだけ「合格」を表示する。</p>
+<p class="example-task"><strong>問題：</strong>点数scoreが60点以上のときだけ「合格」を表示する。</p>
 
 ```text
 if (score ≧ 60)
@@ -1322,7 +1322,7 @@ endif
 次の例では、まず80点以上かを調べます。そうでなければ60点以上かを調べ、どちらでもなければCを表示します。
 
 <div class="code-example" data-example="11">
-<p class="example-task"><strong>例の課題：</strong>点数scoreが80点以上ならA、60点以上80点未満ならB、60点未満ならCを表示する。</p>
+<p class="example-task"><strong>問題：</strong>点数scoreが80点以上ならA、60点以上80点未満ならB、60点未満ならCを表示する。</p>
 
 ```text
 if (score ≧ 80)
@@ -1356,7 +1356,7 @@ endif
 <div class="mistake-box">
   <p class="box-title">順番を逆にするとどうなるか</p>
   <div class="code-example" data-example="12">
-<p class="example-task"><strong>例の課題：</strong>90点ならAを表示したい場面で、次の誤った条件の順序だと何が表示されるか確認する。</p>
+<p class="example-task"><strong>問題：</strong>90点ならAを表示したい場面で、次の誤った条件の順序だと何が表示されるか確認する。</p>
 
 <pre><code>if (score ≧ 60)
   表示する("B")
@@ -1734,7 +1734,7 @@ endif
 
 <div class="loop-example">
 <div class="code-example" data-example="13">
-<p class="example-task"><strong>例の課題：</strong>5人分の受付番号を、1から5まで一つずつ表示する。</p>
+<p class="example-task"><strong>問題：</strong>5人分の受付番号を、1から5まで一つずつ表示する。</p>
 
 <pre><code>整数型: i
 
@@ -1804,7 +1804,7 @@ endwhile</code></pre>
 `while`では、三つの要素を別々の場所に書きます。
 
 <div class="code-example" data-example="14">
-<p class="example-task"><strong>例の課題：</strong>whileを使って、1から5までの番号を一つずつ表示する。</p>
+<p class="example-task"><strong>問題：</strong>whileを使って、1から5までの番号を一つずつ表示する。</p>
 
 ```text
 i ← 1                  // ① 初期化
@@ -1826,7 +1826,7 @@ endwhile
 `for`では、同じ内容を一行にまとめます。
 
 <div class="code-example" data-example="15">
-<p class="example-task"><strong>例の課題：</strong>forを使って、1から5までの番号を一つずつ表示する。</p>
+<p class="example-task"><strong>問題：</strong>forを使って、1から5までの番号を一つずつ表示する。</p>
 
 ```text
 for (i を 1 から 5 まで 1 ずつ増やす)
@@ -1873,7 +1873,7 @@ endfor
 注文する個数を1〜5個に限定する例です。`quantity`は、入力された個数を覚える変数です。ここでは整数が入力されるものとします。まず一回入力し、範囲外なら注意を表示して、もう一度入力します。
 
 <div class="code-example" data-example="16">
-<p class="example-task"><strong>例の課題：</strong>注文個数を入力し、1〜5の範囲外なら入力をやり直す。正しい個数になったら、その個数を表示する。</p>
+<p class="example-task"><strong>問題：</strong>注文個数を入力し、1〜5の範囲外なら入力をやり直す。正しい個数になったら、その個数を表示する。</p>
 
 ```text
 整数型: quantity
@@ -1907,7 +1907,7 @@ endwhile
 </div>
 
 <div class="code-example" data-example="17">
-<p class="example-task"><strong>例の課題：</strong>1から5までの整数を順に足し、合計を表示する。</p>
+<p class="example-task"><strong>問題：</strong>1から5までの整数を順に足し、合計を表示する。</p>
 
 ```text
 整数型: i
@@ -1952,7 +1952,7 @@ endfor
 次の書き方は誤りです。
 
 <div class="code-example" data-example="18">
-<p class="example-task"><strong>例の課題：</strong>1から5までの合計を求めたい場面で、毎回totalを0に戻す次の誤った手順を確認する。</p>
+<p class="example-task"><strong>問題：</strong>1から5までの合計を求めたい場面で、毎回totalを0に戻す次の誤った手順を確認する。</p>
 
 ```text
 for (i を 1 から 5 まで 1 ずつ増やす)
@@ -1974,7 +1974,7 @@ endfor
 </div>
 
 <div class="code-example" data-example="19">
-<p class="example-task"><strong>例の課題：</strong>1から10までの整数のうち、偶数がいくつあるかを数え、件数を表示する。</p>
+<p class="example-task"><strong>問題：</strong>1から10までの整数のうち、偶数がいくつあるかを数え、件数を表示する。</p>
 
 ```text
 整数型: i
@@ -2003,7 +2003,7 @@ endfor
 平均は「合計 ÷ 件数」で求めます。直前と同じ1から5までを使い、合計を求めた後で、足した数の個数で割ります。
 
 <div class="code-example" data-example="28">
-<p class="example-task"><strong>例の課題：</strong>1から5までの整数の合計と平均を求め、合計、平均の順に表示する。</p>
+<p class="example-task"><strong>問題：</strong>1から5までの整数の合計と平均を求め、合計、平均の順に表示する。</p>
 
 ```text
 整数型: i, total, count
@@ -2056,7 +2056,7 @@ average ← total ÷ count
 </div>
 
 <div class="code-example nested-example" data-example="20">
-<p class="example-task"><strong>例の課題：</strong>2段の棚に各3個の箱がある。各箱の段番号iと位置jを、この順に1行ずつ表示する。</p>
+<p class="example-task"><strong>問題：</strong>2段の棚に各3個の箱がある。各箱の段番号iと位置jを、この順に1行ずつ表示する。</p>
 
 ```text
 整数型: i, j
@@ -2382,7 +2382,7 @@ endfor
 </div>
 
 <div class="code-example" data-example="21">
-<p class="example-task"><strong>例の課題：</strong>5、10、3の三つの整数を、配列Aへこの順に入れる。</p>
+<p class="example-task"><strong>問題：</strong>5、10、3の三つの整数を、配列Aへこの順に入れる。</p>
 
 ```text
 整数型の配列: A ← {5, 10, 3}
@@ -2427,7 +2427,7 @@ endfor
 </div>
 
 <div class="code-example" data-example="22">
-<p class="example-task"><strong>例の課題：</strong>配列A＝{3, 8, 2, 5}の値を、先頭から一つずつ表示する。</p>
+<p class="example-task"><strong>問題：</strong>配列A＝{3, 8, 2, 5}の値を、先頭から一つずつ表示する。</p>
 
 ```text
 整数型: i
@@ -2463,7 +2463,7 @@ endfor
 ### 配列の合計
 
 <div class="code-example" data-example="23">
-<p class="example-task"><strong>例の課題：</strong>配列A＝{3, 8, 2, 5}の全要素を足し、合計を表示する。</p>
+<p class="example-task"><strong>問題：</strong>配列A＝{3, 8, 2, 5}の全要素を足し、合計を表示する。</p>
 
 ```text
 整数型: i
@@ -2506,7 +2506,7 @@ endfor
 </div>
 
 <div class="code-example" data-example="24">
-<p class="example-task"><strong>例の課題：</strong>配列A＝{2, 5, 1, 9, 8, 10, 7, 3, 6, 4}から最大値を探し、表示する。</p>
+<p class="example-task"><strong>問題：</strong>配列A＝{2, 5, 1, 9, 8, 10, 7, 3, 6, 4}から最大値を探し、表示する。</p>
 
 ```text
 整数型: i
@@ -2971,7 +2971,7 @@ endfor
 #### 例：実行前と実行後を別の列にする
 
 <div class="code-example" data-example="25">
-<p class="example-task"><strong>例の課題：</strong>1、2、3をそれぞれ2倍して足す。各回の加算前と加算後のtotalを表で確認する。</p>
+<p class="example-task"><strong>問題：</strong>1、2、3をそれぞれ2倍して足す。各回の加算前と加算後のtotalを表で確認する。</p>
 
 ```text
 整数型: i
@@ -3006,7 +3006,7 @@ endfor
 選択処理や繰返しでは、処理本体だけでなく条件判定も行われます。
 
 <div class="code-example" data-example="26">
-<p class="example-task"><strong>例の課題：</strong>1から3までの番号を表示し、最後に条件が偽になるところまで表で追う。</p>
+<p class="example-task"><strong>問題：</strong>1から3までの番号を表示し、最後に条件が偽になるところまで表で追う。</p>
 
 ```text
 i ← 1
@@ -5939,7 +5939,7 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 関数の名前の前の`○`は、ここから関数を定義する目印です。`○整数型: addOne(整数型: x)`は「整数xを受け取り、整数を返すaddOneという関数」の意味です。addOneは名前で、英単語を暗記する必要はありません。
 
 <div class="code-example" data-example="27">
-<p class="example-task"><strong>例の課題：</strong>受け取った値に1を足して返す関数を作る。3を渡し、受け取った結果を表示する。</p>
+<p class="example-task"><strong>問題：</strong>受け取った値に1を足して返す関数を作る。3を渡し、受け取った結果を表示する。</p>
 
 ```text
 ○整数型: addOne(整数型: x)
