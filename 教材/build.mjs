@@ -126,15 +126,25 @@ console.log(`演習48問・第1章は★3問と★★3問、第4章は★2問・
 const traceExercises=exercises.filter(item=>item.traceGuide);
 assert.equal(traceExercises.length,7);
 console.log(`記入用トレース表7問・完成表${traceExercises.reduce((n,item)=>n+verifyTraceTable(item),0)}行の全値を実行結果と照合。`);
+const countExercise=exercises.find(item=>item.id==='5-B');
+const countRun=run(countExercise);let previous=countRun.history[0].values;
+const countRows=countRun.history.filter(row=>row.label==='繰返し一回分を終了').map(row=>{
+  const first=(row.values['処理①']||0)>(previous['処理①']||0)?'○':'×';
+  const second=(row.values['処理②']||0)>(previous['処理②']||0)?'○':'×';
+  const result=[String(previous.i),'○',first,second,second];previous=row.values;return result;
+});
+countRows.push([String(countRun.env.i),'×','×','―','×']);
+assert.deepEqual(countExercise.answerTable.rows,countRows,'5-Bの○・×・―の完成表');
 
 // 順次を一つの箱にまとめ、分岐・ループは独立した節点で表現する。
 function graph(item) {
-  let n=0;const nodes=[],edges=[];
+  let n=0,loopNumber=0;const nodes=[],edges=[];
   const node=(label,shape='box')=>{
     const id='n'+n++;
     label=label.replaceAll(' and ','\nand ');
     const width=Math.max(...label.split('\n').map(line=>[...line].reduce((sum,c)=>sum+(/[\x00-\x7f]/.test(c)?.105:.185),0)))+.35;
-    nodes.push(`${id} [label=${JSON.stringify(label)},width=${(shape==='diamond'?width*1.5:width).toFixed(2)},shape=${shape}${shape==='diamond'?',fillcolor="#fff3db"'+(item.id==='5-B'?',style="filled"':''):''}];`);return id;
+    const loop=shape==='loopstart'||shape==='loopend';
+    nodes.push(`${id} [label=${JSON.stringify(label)},width=${(shape==='diamond'?width*1.5:width).toFixed(2)},shape=${loop?'box':shape}${loop?`,class="${shape}",style="filled",fillcolor="#e8f3ee",color="#28704a"`:shape==='diamond'?',fillcolor="#fff3db"'+(item.id==='5-B'?',style="filled"':''):''}];`);return id;
   };
   const edge=(a,b,label='',ports='')=>edges.push(`${a} -> ${b} [label=${JSON.stringify(label)}${ports?', '+ports:''}];`);
   const build=(steps,next)=>{
@@ -145,13 +155,11 @@ function graph(item) {
         while(i>0&&typeof steps[i-1]==='string'&&block.length<3) block.unshift(steps[--i]);
         const id=node(block.join('\n'));edge(id,next);next=id;
       } else if(s.variable||s.while) {
-        const cond=node(s.variable?`${s.variable} ≦ ${s.to} ?`:`${s.while} ?`,'diamond');
-        let back=cond;
-        if(s.variable) {back=node(`${s.variable} ← ${s.variable} ＋ 1`);edge(back,cond,'戻る');}
-        const body=build(s.body,back);edge(cond,body,'はい');
-        edge(cond,next,'いいえ',item.id==='5-B'&&s.while?'tailport=w,headport=n':'');
-        next=cond;
-        if(s.variable) {const init=node(`${s.variable} ← ${s.from}`);edge(init,cond);next=init;}
+        const name=s.variable?`${s.variable}の繰返し`:`繰返し${++loopNumber}`;
+        const end=node(name,'loopend');edge(end,next);
+        const body=build(s.body,end);
+        const begin=node(name+'\n'+(s.variable?`${s.from}から${s.to}まで、1ずつ増やす`:`継続条件：${s.while}`),'loopstart');
+        edge(begin,body);next=begin;
       } else {
         const cond=node(`${s.test} ?`,'diamond');
         edge(cond,build(s.yes,next),'はい');edge(cond,build(s.no,next),'いいえ');next=cond;
@@ -161,6 +169,18 @@ function graph(item) {
   };
   const end=node('終了','oval');const first=build(item.steps,end);const start=node('開始','oval');edge(start,first);
   return `digraph { graph [rankdir=TB,bgcolor="transparent",nodesep=.24,ranksep=.20,pad=.12]; node [fontname="Meiryo",fontsize=13,height=.38,style="rounded,filled",fillcolor="#edf4fc",color="#496888",margin=".16,.06"]; edge [fontname="Meiryo",fontsize=12,color="#496888",arrowsize=.65]; ${nodes.join('\n')} ${edges.join('\n')} }`;
+}
+
+function loopSymbols(svg) {
+  return svg.replace(/(class="node (loopstart|loopend)"[\s\S]*?<polygon[^>]*points=")([^"]+)(")/g,(_,before,kind,points,after)=>{
+    const coordinates=points.trim().split(/\s+/).map(pair=>pair.split(',').map(Number));
+    const xs=coordinates.map(p=>p[0]),ys=coordinates.map(p=>p[1]);
+    const left=Math.min(...xs),right=Math.max(...xs),top=Math.min(...ys),bottom=Math.max(...ys);
+    const cut=Math.min((right-left)*.12,(bottom-top)*.35);
+    const corners=kind==='loopstart'?[[left,bottom],[left,top+cut],[left+cut,top],[right-cut,top],[right,top+cut],[right,bottom]]:
+      [[left,top],[right,top],[right,bottom-cut],[right-cut,bottom],[left+cut,bottom],[left,bottom-cut]];
+    return before+corners.map(pair=>pair.map(v=>v.toFixed(2)).join(',')).join(' ')+after;
+  });
 }
 
 function trace(item) {
@@ -193,7 +213,9 @@ const sourceMap={
   '8-B':['令和8年度 問1 配列の位置と上書きに注目する練習','https://www.fe-siken.com/kakomon/08_haru/b1.html','https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf']
 };
 for(const item of exercises) {
-  const svg=viz.renderString(graph(item),{format:'svg'});
+  const svg=loopSymbols(viz.renderString(graph(item),{format:'svg'}));
+  const count=steps=>steps.reduce((n,s)=>n+(typeof s==='string'?0:s.variable||s.while?1+count(s.body):count(s.yes)+count(s.no)),0);
+  for(const kind of ['loopstart','loopend']) assert.equal((svg.match(new RegExp(`class="node ${kind}"`,'g'))||[]).length,count(item.steps),item.id+'のループ端');
   const flowPath=path.join(root,`images/flowcharts/${item.id}.svg`);
   const previous=await fs.readFile(flowPath,'utf8').catch(error=>error.code==='ENOENT'?'':Promise.reject(error));
   if (previous!==svg) await fs.writeFile(flowPath,svg);
@@ -316,6 +338,21 @@ const answerIntro=md.match(/^# 解答・解説\n[\s\S]*?(?=<section class="answe
 assert(answerIntro,'解答・解説の導入がありません');
 md=md.replace(/# 解答・解説[\s\S]*?(?=<div class="page-break"><\/div>\n\n<a id="roadmap">)/,
   answerIntro[0]+answers+'\n');
+let sectionNumber='',subheading=0,detail=0,inCode=false;
+md=md.split('\n').map(line=>{
+  if(line.startsWith('```')) inCode=!inCode;
+  if(inCode) return line;
+  if(/^#{1,2} /.test(line)) {
+    sectionNumber=line.match(/^## (\d+\.\d+)\s/)?.[1]||'';subheading=0;detail=0;
+  } else if(sectionNumber&&/^### /.test(line)) {
+    subheading++;detail=0;
+    return `### ${sectionNumber}.${subheading} `+line.slice(4).replace(/^\d+(?:\.\d+){2,}\s+/, '');
+  } else if(sectionNumber&&/^#### /.test(line)) {
+    assert(subheading,sectionNumber+'の小見出しの階層');detail++;
+    return `#### ${sectionNumber}.${subheading}.${detail} `+line.slice(5).replace(/^\d+(?:\.\d+){2,}\s+/, '');
+  }
+  return line;
+}).join('\n');
 await fs.writeFile(source,md);
 
 // 生HTMLの字下げがMarkdownのコードブロックと誤認されないよう正規化。
@@ -343,6 +380,16 @@ try {
     }
     for(const node of document.querySelectorAll('code'))
       if(/^(if|else|elseif|endif|while|endwhile|for|endfor)$/.test(node.textContent)) node.classList.add('syntax-keyword');
+    for(const heading of document.querySelectorAll('h3,h4'))
+      if(!heading.closest('.answer-section,.exercise-question,.trace-worksheet')) heading.classList.add(heading.tagName==='H3'?'lesson-subheading':'lesson-detailheading');
+    for(const node of document.querySelectorAll('.nested-lesson code'))
+      if(/^[ij](?:$|[ ＝←])/.test(node.textContent)) node.classList.add('loop-'+node.textContent[0]);
+    const nestedCode=document.querySelector('.nested-example pre code');
+    nestedCode.innerHTML=nestedCode.textContent.split('\n').map(line=>{
+      const safe=line.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;');
+      const variable=/for \(i|表示する\(i\)|^endfor/.test(line)?'i':/for \(j|表示する\(j\)|^  endfor/.test(line)?'j':'';
+      return variable?`<span class="loop-${variable}">${safe}</span>`:safe;
+    }).join('\n');
     // 固定ページ番号はPDFの検査後、実ページに更新する。
     for(const b of document.querySelectorAll('.toc-list b')) b.textContent='';
   });
@@ -358,6 +405,9 @@ try {
   assert.equal(await page.locator('.code-example > .example-task').count(),28);
   assert.equal(await page.locator('.exercise-question > .exercise-task').count(),42);
   assert.equal(await page.locator('.code-example > .display-result').count(),19);
+  assert.equal(await page.locator('.nested-example .result-lines .loop-i').count(),6);
+  assert.equal(await page.locator('.nested-example .result-lines .loop-j').count(),6);
+  assert.deepEqual(await page.locator('.nested-example .result-lines span').allTextContents(),['1','1','1','2','1','3','2','1','2','2','2','3']);
   assert.equal(await page.locator('.answer-section .display-result').count(),14);
   assert.equal(await page.locator('.trace-practice').count(),7);
   assert.equal(await page.locator('.completed-trace').count(),7);
