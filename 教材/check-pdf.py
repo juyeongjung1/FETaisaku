@@ -29,6 +29,7 @@ assert compact_text.count('解答欄の項目') == 48, '全48問に解答欄と�
 assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 繰返しの基本構文', 'while：条件が成り立つ間、繰り返す', 'for：回数や範囲が決まっている繰返し', '5.3 繰返しで解く定番の課題', '合計用の変数を繰返しの中で初期化しない'))
 assert 'ホワイル' not in compact_text and 'while（ワイル）' in compact_text
 assert '回数の目安' not in compact_text, '削除した抽象的な回数の補足が残っています'
+assert '初心者の取り組' not in compact_text, '削除した章別の取り組み順が残っています'
 assert all(term in compact_text for term in ('5.3.1正しい入力', '5.3.2合計を求める', '5.3.3件数を数える', '5.3.4合計から平均を求める', '5.4.1.1トレース表を一行ずつ書く'))
 assert '繰返しもひし形' not in compact_text and 'ループ端（上下一組）' in compact_text
 assert compact_text.count('問題：') == 28, '説明用コード全28例の課題が必要です'

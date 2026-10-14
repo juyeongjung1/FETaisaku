@@ -77,11 +77,11 @@
   <li><a href="#chapter-3"><span>第3章　順次処理</span><b>30</b></a></li>
   <li><a href="#chapter-4"><span>第4章　選択処理</span><b>38</b></a></li>
   <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>50</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>66</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>80</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>90</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>99</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>148</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>67</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>82</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>92</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>101</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>150</b></a></li>
 </ol>
 
 </div>
@@ -2064,7 +2064,7 @@ average ← total ÷ count
 
 繰返しの内側に別の繰返しを書くことを、**二重ループ**（繰返しの入れ子）といいます。2段の棚に各3個の箱がある場合、外側の`i`で段を選び、内側の`j`でその段の箱を順に確認します。
 
-<p class="nested-key"><span class="loop-i">青：i＝段（外側）</span><span class="loop-j">橙：j＝箱の位置（内側）</span></p>
+<p class="nested-key"><span class="loop-i">青：i＝段（外側）</span><span class="loop-j">赤：j＝箱の位置（内側）</span></p>
 
 <div class="important-box">
   <p class="box-title">二重繰返しは、iとjを表で追う</p>
@@ -2088,7 +2088,7 @@ endfor
 
 <div class="display-result" data-example="20">
   <p class="result-title">表示結果</p>
-  <p class="result-label">色は学習用の目印です。青はi、橙はjの値です。</p>
+  <p class="result-label">色は学習用の目印です。青はi、赤はjの値です。</p>
   <div class="result-case"><samp class="result-lines"><span class="loop-i">1</span><br><span class="loop-j">1</span><br><span class="loop-i">1</span><br><span class="loop-j">2</span><br><span class="loop-i">1</span><br><span class="loop-j">3</span><br><span class="loop-i">2</span><br><span class="loop-j">1</span><br><span class="loop-i">2</span><br><span class="loop-j">2</span><br><span class="loop-i">2</span><br><span class="loop-j">3</span></samp></div>
 </div>
 
@@ -2297,22 +2297,25 @@ endwhile
 
 <section class="exercise-question compact-question">
 
-## 演習5-E　目標金額まで積み立てる
+## 演習5-E　目標額と月数の上限
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】最初の貯金は1000円で毎月500円を積み立て、3000円以上になったら終了します。目標達成まで正しく繰り返すように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
+【実践】貯金balanceは1000円から始め、毎月500円を積み立てます。積み立てた月数monthsは0から数え、3・6・9…か月目には追加で200円を加えます。目標額target以上になるか、月数が上限limitに達したら終了します。ここではtarget＝4000、limit＝5です。空欄 [ a ]、[ b ] に入る組合せを一つ選んでください。
 
 この問題の変数は整数型です。
 
-<p class="exercise-task"><strong>このコードの課題：</strong>毎月500円を積み立て、貯金が3000円以上になるまで続ける。</p>
+<p class="exercise-task"><strong>このコードの課題：</strong>目標額と月数の上限を確認し、3か月ごとに追加額を加えて積み立てる。</p>
 
 ```text
 balance ← 1000
 months ← 0
 while ([ a ])
+  months ← months ＋ 1
   balance ← balance ＋ 500
-  months ← [ b ]
+  if ([ b ])
+    balance ← balance ＋ 200
+  endif
 endwhile
 ```
 
@@ -2320,10 +2323,10 @@ endwhile
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | a: balance ≦ 3000 ／ b: months ＋ 1 |
-| イ | a: balance ＜ 3000 ／ b: months ＋ 1 |
-| ウ | a: balance ＞ 3000 ／ b: months ＋ 1 |
-| エ | a: balance ＜ 3000 ／ b: balance ＋ 1 |
+| ア | a: balance ＜ target or months ＜ limit ／ b: months mod 3 ＝ 0 |
+| イ | a: balance ＜ target and months ＜ limit ／ b: months mod 3 ＝ 0 |
+| ウ | a: balance ＜ target and months ≦ limit ／ b: months mod 3 ＝ 0 |
+| エ | a: balance ＜ target and months ＜ limit ／ b: months mod 3 ＝ 1 |
 
 </div>
 
@@ -2335,7 +2338,7 @@ endwhile
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題5-Eについて質問です。</p>
-  <p><strong>分かっていること：</strong>3000円以上になったら積立てを終えます。<br><strong>試したこと：</strong>残高が3000円のときの条件を考えました。<br><strong>分からないこと：</strong>続ける条件と終える条件をどう区別するか分かりません。ヒントを一つください。</p>
+  <p><strong>分かっていること：</strong>目標額か月数の上限に達したら終了します。<br><strong>試したこと：</strong>monthsとbalanceを表の別々の列に書きました。<br><strong>分からないこと：</strong>続ける条件をandとorのどちらで結ぶか迷います。ヒントを一つください。</p>
 </div>
 
 </section>
@@ -2394,8 +2397,6 @@ endfor
 
 # 第6章　配列
 
-**初心者の取り組む順：** C→D→A→B→E→F。まず★の問題で基本を確認してから、応用・実践へ進みます。
-
 ## 6.1 配列は同じ型の値をまとめる
 
 配列は、同じデータ型の複数の値を、一つの名前で管理する仕組みです。例えば、10人分の点数を一つずつ別の変数に入れる代わりに、`A`という一つの配列にまとめます。
@@ -2412,8 +2413,6 @@ endfor
   <p>配列名は建物の名前、添字はロッカー番号、値は中に入っている荷物です。</p>
 </div>
 
-`整数型の配列: A`は、整数を入れる配列Aを用意する書き方です。`{5, 10, 3}`の波括弧は配列に入れる値の並びを表し、カンマで区切った値を左から順に入れます。
-
 <div class="code-example" data-example="21">
 <p class="example-task"><strong>問題：</strong>5、10、3の三つの整数を、配列Aへこの順に入れる。</p>
 
@@ -2422,6 +2421,8 @@ endfor
 ```
 
 </div>
+
+`整数型の配列: A`は、整数を入れる配列Aを用意する書き方です。`{5, 10, 3}`の波括弧は配列に入れる値の並びを表し、カンマで区切った値を左から順に入れます。
 
 この例では、配列の要素番号を1から始めます。
 
@@ -2434,18 +2435,11 @@ endfor
   <p>試験問題では、「配列の要素番号は1から始まる」のように開始位置が示されます。<code>A[1]</code>を先頭と決めつけず、問題文の指定を確認します。</p>
 </div>
 
-<div class="important-box">
-  <p class="box-title">配列は、位置と値を別々の列に書く</p>
-  <p>この章の繰返しで使う<code>i</code>は読む位置、<code>A[i]</code>はその位置に入っている値です。この二つを混同しないために、必ずトレース表で分けて記録します。合計や最大値の変数も別の列にし、値が変わらない回も書きましょう。</p>
-  <ol>
-    <li>最初の配列と、変数の初期値を確認する。</li>
-    <li>一回ずつ進め、使う位置と、その位置の値を書く。</li>
-    <li>計算の前後や条件の真偽を記録する。次の行へ前の値を引き継ぐ。</li>
-    <li>全行を追ってから、最後の値や表示結果を答える。</li>
-  </ol>
-</div>
-
 ## 6.2 繰返しで配列の要素を読む
+
+配列の値を全部表示するには、「一つの要素を読む・表示する」という作業を、読む位置だけ変えて繰り返します。ロッカーを1番、2番、3番と順に開けるイメージです。
+
+読む位置を変数`i`へ入れます。`i`が1なら`A[i]`は`A[1]`、2なら`A[2]`です。`i`を一つずつ増やすと、同じ`A[i]`という書き方で、次の位置の値を読めます。**`i`は位置の番号、`A[i]`はそこに入っている値**です。
 
 <div class="array-pointer">
   <div class="array-cells">
@@ -2476,7 +2470,7 @@ endfor
 
 </div>
 
-`i`が1、2、3、4と変化するため、`A[1]`、`A[2]`、`A[3]`、`A[4]`を順番に参照します。
+この`for`は、4個の要素に合わせて`i`を1から4まで変えます。最初の回は`i＝1`なので、`表示する(A[i])`で1番の値3を表示します。次の回は`i＝2`となり、2番の値8を表示します。同じ命令で3番の2、4番の5も表示したら、繰返しを終えます。存在しない5番の要素は読みません。
 
 ### 6.2.1 読む位置と表示される値のトレース表
 
@@ -2488,6 +2482,17 @@ endfor
 | 4 | 5 | 5 |
 
 表示するのは位置の番号ではなく、その位置にある値です。表の表示の列を上から読むと、表示結果の3、8、2、5になります。
+
+<div class="important-box">
+  <p class="box-title">配列は、位置と値を別々の列に書く</p>
+  <p>この章の繰返しで使う<code>i</code>は読む位置、<code>A[i]</code>はその位置に入っている値です。この二つを混同しないために、必ずトレース表で分けて記録します。合計や最大値の変数も別の列にし、値が変わらない回も書きましょう。</p>
+  <ol>
+    <li>最初の配列と、変数の初期値を確認する。</li>
+    <li>一回ずつ進め、使う位置と、その位置の値を書く。</li>
+    <li>計算の前後や条件の真偽を記録する。次の行へ前の値を引き継ぐ。</li>
+    <li>全行を追ってから、最後の値や表示結果を答える。</li>
+  </ol>
+</div>
 
 ## 6.3 配列を使う定番の課題
 
@@ -2959,8 +2964,6 @@ endfor
 
 # 第7章　トレースの技術
 
-**初心者の取り組む順：** B→C→A→D→E→F。まず★の問題で基本を確認してから、応用・実践へ進みます。
-
 ## 7.1 コードを眺めるだけでは解けない
 
 科目Bでは、擬似言語を見て「何となく分かった」と感じても、選択肢を正しく選べないことがあります。値の変化を紙に書き、処理を実行した結果を確認する必要があります。
@@ -3349,8 +3352,6 @@ endfor
 <a id="chapter-8"></a>
 
 # 第8章　総合演習
-
-**初心者の取り組む順：** D→E→A→F→B→C。まず★の問題で基本を確認してから、応用・実践へ進みます。
 
 この章では、複数の知識を組み合わせます。最初からAIへ入力せず、問題ごとに次の欄を埋めてください。
 
@@ -4958,7 +4959,9 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 ### 解説
 
-残高が3000円未満の間だけ続け、毎回monthsを1増やします。3000円ちょうどになった次の判定は偽となり、4か月で終了します。≦を使うと3000円でも続けてしまいます。
+続けるには「目標額未満」と「月数が上限未満」の両方を満たす必要があるので、andで結びます。どちらかが満たされなくなれば終了します。月数を1増やした後で3の倍数かを調べると、3・6・9…か月目だけ追加の200円を加えられます。表では3か月目が2700円、5か月目が3700円です。4000円には届いていませんが、上限の5か月に達したので終了します。orにすると上限を超えて続け、months ≦ limitでも6か月目へ進んでしまいます。
+
+表の確認に使う入力：target＝4000、limit＝5。
 
 #### 値の確認（各処理の実行後）
 
@@ -4967,8 +4970,9 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 | balance ← 1000 | balance＝1000 |
 | 繰返し一回分を終了 | balance＝1500、months＝1 |
 | 繰返し一回分を終了 | balance＝2000、months＝2 |
-| 繰返し一回分を終了 | balance＝2500、months＝3 |
-| 繰返し一回分を終了 | balance＝3000、months＝4 |
+| 繰返し一回分を終了 | balance＝2700、months＝3 |
+| 繰返し一回分を終了 | balance＝3200、months＝4 |
+| 繰返し一回分を終了 | balance＝3700、months＝5 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習5-Eのフローチャート</p>
