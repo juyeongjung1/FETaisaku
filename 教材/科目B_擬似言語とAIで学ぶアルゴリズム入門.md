@@ -78,10 +78,10 @@
   <li><a href="#chapter-4"><span>第4章　選択処理</span><b>38</b></a></li>
   <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>50</b></a></li>
   <li><a href="#chapter-6"><span>第6章　配列</span><b>67</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>82</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>92</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>101</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>150</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>84</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>94</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>103</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>152</b></a></li>
 </ol>
 
 </div>
@@ -2535,10 +2535,13 @@ endfor
 
 ### 6.3.2 配列の最大値
 
-<div class="champion-visual">
-  <p class="visual-title">`max`は「暫定チャンピオン」</p>
-  <div><span>2</span><b>→</b><span class="winner">5</span><b>→</b><span>1</span><b>→</b><span class="winner">9</span><b>→</b><span>8</span><b>→</b><span class="winner final">10</span></div>
-  <p>今のチャンピオンより大きい値が現れたときだけ、`max`を交代する</p>
+<div class="array-visual max-start">
+  <p class="visual-title">最初の一つを暫定1位にして、残りと比べる</p>
+  <div class="array-cells">
+    <div><small>① 1番目のA[1]を使う</small><strong>max ← 2</strong></div>
+    <div><small>② 2番目から比較する</small><strong>iは2から開始</strong></div>
+  </div>
+  <p>最初の暫定1位は、<code>A[1]</code>に入っている2です。残りの9個を、2番目から順に比べます。</p>
 </div>
 
 <div class="code-example" data-example="24">
@@ -2567,11 +2570,19 @@ endfor
 
 </div>
 
-最初の要素`A[1]`を、現在の最大値として`max`へ入れます。その後、残りの要素を一つずつ比較します。
+<div class="example-explanation">
+
+**コードの読み方：初期値と、比較の開始位置を分ける**
+
+`max ← A[1]`で、**1番目の要素の値2を、最初の暫定1位として覚えます。** `A[1]`の1は位置の番号で、`max`へ入る値は2です。ここでは、まだ配列全体の最大値だとは決まっていません。
+
+**1番目は初期値として使ったので、比較するのは2番目以降です。** そのため、`for`の`i`を2から始め、`A[2]`から`A[10]`までの残り9個と比べます。最初の比較は、`A[2]`の5と`max`の2です。
+
+`A[i] ＞ max`が真なら、より大きい`A[i]`へ暫定1位を交代します。偽なら、今の`max`をそのまま残します。最後まで比べ終わると、`max`に配列全体の最大値10が残ります。
+
+</div>
 
 #### 6.3.2.1 比較の前後を、トレース表で確認する
-
-「比較前のmax」には前の行の「比較後のmax」を引き継ぎます。条件が偽でも、その回のmaxを表に書きます。
 
 | i | A[i] | 比較前のmax | A[i] ＞ max | 比較後のmax |
 |---|---:|---:|---|---:|
@@ -2586,8 +2597,7 @@ endfor
 | 9 | 6 | 10 | 偽 | 10 |
 | 10 | 4 | 10 | 偽 | 10 |
 
-
-
+最初の「初期化」の行は、`A[1]`の2を`max`へ入れた記録です。比較は次の`i＝2`の行から始まります。「比較前のmax」には前の行の「比較後のmax」を引き継ぎ、条件が偽でも同じ値を書きます。例えば`i＝3`では、1は5より大きくないので、`max`は5のままです。
 <div class="note-box">
   <p class="box-title">なぜ最大値の初期値を0にしないのか</p>
   <p>配列の値がすべて負の数の場合、0は配列に存在しないのに最大値として残ってしまいます。最初の要素を初期値にすれば、配列内の値から最大値を選べます。</p>
@@ -2595,9 +2605,63 @@ endfor
 
 ### 6.3.3 配列を先頭から探す
 
-配列を先頭から一つずつ調べ、目的の値を探す方法を<strong>線形探索（せんけいたんさく）</strong>といいます。例えばA＝{6,2,9}から2を探すなら、A[1]の6と比べ、次にA[2]の2を見て一致を確認します。「探した値」は2、「見つかった位置」もこの例では2ですが、別のものです。9を探した場合は値が9、位置は3です。
+<div class="array-pointer">
+  <p class="visual-title">9を探して、最初に見つかった位置を覚える</p>
+  <div class="array-cells">
+    <div><small>A[1]</small><strong>6</strong></div>
+    <div class="selected"><small>A[2]</small><strong>9</strong></div>
+    <div><small>A[3]</small><strong>2</strong></div>
+    <div><small>A[4]</small><strong>9</strong></div>
+  </div>
+  <p>探す値は9、最初に見つかった位置は2です。4番目にも9がありますが、最初の位置2を残します。</p>
+</div>
 
-見つかった位置を変数に記録する場合、添字が1から始まる配列では、位置として使わない0を「まだ見つかっていない」という目印にできます。同じ値が何度も現れる場合は、最初の位置と最後の位置のどちらを求めるかを確認します。
+<div class="code-example" data-example="29">
+<p class="example-task"><strong>問題：</strong>配列A＝{6, 9, 2, 9}から9を探し、最初に見つかった位置を表示する。見つからない場合は0を表示する。要素番号は1から始まる。</p>
+
+```text
+整数型: i, target, position
+整数型の配列: A ← {6, 9, 2, 9}
+
+target ← 9
+position ← 0
+
+for (i を 1 から 4 まで 1 ずつ増やす)
+  if (A[i] ＝ target and position ＝ 0)
+    position ← i
+  endif
+endfor
+
+表示する(position)
+```
+
+<div class="display-result" data-example="29">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">上のコード（target＝9）</span><samp class="result-lines">2</samp></div>
+  <div class="result-case"><span class="result-label">target ← 7に変えた場合（7は配列にない）</span><samp class="result-lines">0</samp></div>
+</div>
+
+</div>
+
+配列を先頭から一つずつ調べ、目的の値を探す方法を<strong>線形探索（せんけいたんさく）</strong>といいます。このコードでは、`target`に探す値9、`position`に見つかった位置を覚えます。
+
+`position ← 0`は「まだ見つかっていない」という目印です。この配列の位置は1〜4なので、0は実際の位置と区別できます。探索では**1番目も調べる必要があるため、`i`を1から始めます。** 最大値の例で2から始めた理由とは異なります。
+
+条件の前半`A[i] ＝ target`は「値が一致するか」、後半`position ＝ 0`は「まだ見つかっていないか」です。両方が成り立つときだけ、`position ← i`でその位置を記録します。この例は途中で繰返しを抜けず、4番目まで調べますが、一度記録した位置は上書きしません。
+
+#### 6.3.3.1 最初に見つかった位置を、トレース表で確認する
+
+| i | A[i] | 調べる前のposition | 値が一致し、未発見か | 調べた後のposition |
+|---|---:|---:|---|---:|
+| 初期化 | ― | ― | ― | 0 |
+| 1 | 6 | 0 | 偽 | 0 |
+| 2 | 9 | 0 | 真 | 2 |
+| 3 | 2 | 2 | 偽 | 2 |
+| 4 | 9 | 2 | 偽 | 2 |
+
+`i＝2`で初めて9が見つかり、位置2を記録します。`i＝4`でも値は9ですが、`position`はすでに2なので「未発見か」が偽となり、最初の位置を保ちます。表示するのは探した値9ではなく、記録した位置2です。
+
+`target`を7に変えると、一致する要素がないため一度も位置を記録せず、最後も0のままです。問題が「最初の位置」と「最後の位置」のどちらを求めているかも確認しましょう。
 
 <section class="exercise-question compact-question">
 

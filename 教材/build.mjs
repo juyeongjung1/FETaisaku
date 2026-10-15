@@ -402,9 +402,9 @@ try {
   assert.equal(await page.locator('.solution-table tbody tr').count(),100);
   assert.equal(await page.locator('.choice-table').count(),12);
   assert.equal(await page.locator('.choice-table tbody tr').count(),48);
-  assert.equal(await page.locator('.code-example > .example-task').count(),28);
+  assert.equal(await page.locator('.code-example > .example-task').count(),29);
   assert.equal(await page.locator('.exercise-question > .exercise-task').count(),42);
-  assert.equal(await page.locator('.code-example > .display-result').count(),19);
+  assert.equal(await page.locator('.code-example > .display-result').count(),20);
   assert.equal(await page.locator('.nested-example .result-lines .loop-i').count(),6);
   assert.equal(await page.locator('.nested-example .result-lines .loop-j').count(),6);
   assert.deepEqual(await page.locator('.nested-example .result-lines span').allTextContents(),['1','1','1','2','1','3','2','1','2','2','2','3']);

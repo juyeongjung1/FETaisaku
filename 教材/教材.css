@@ -1511,6 +1511,10 @@ td:empty {
   border-right-width: 2px;
 }
 
+.max-start .array-cells > div {
+  padding: .4em .8em;
+}
+
 .array-cells small,
 .array-cells strong {
   display: block;

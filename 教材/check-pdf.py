@@ -32,9 +32,9 @@ assert '回数の目安' not in compact_text, '削除した抽象的な回数の
 assert '初心者の取り組' not in compact_text, '削除した章別の取り組み順が残っています'
 assert all(term in compact_text for term in ('5.3.1正しい入力', '5.3.2合計を求める', '5.3.3件数を数える', '5.3.4合計から平均を求める', '5.4.1.1トレース表を一行ずつ書く'))
 assert '繰返しもひし形' not in compact_text and 'ループ端（上下一組）' in compact_text
-assert compact_text.count('問題：') == 28, '説明用コード全28例の課題が必要です'
+assert compact_text.count('問題：') == 29, '説明用コード全29例の課題が必要です'
 assert compact_text.count('このコードの課題：') == 42, '演習のコード全42例の課題が必要です'
-assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 33, '説明用19枠・演習14枠の表示結果が必要です'
+assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 34, '説明用20枠・演習14枠の表示結果が必要です'
 assert compact_text.count('トレース表（記入用）') == 7, '第6章全6問と8-Cに記入用の表が必要です'
 assert '6.4の最大値' not in compact_text and '6.4のコード' not in compact_text, '最大値の節番号が古いままです'
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
