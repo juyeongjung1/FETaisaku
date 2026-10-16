@@ -30,6 +30,30 @@ function code(steps,depth=0) {
   });
 }
 
+function declaredVariables(text,label) {
+  const declared=new Map(),functions=new Set();
+  const add=line=>{
+    const match=line.trim().match(/^(整数型|実数型|文字型|文字列型|論理型)(の配列)?:\s*(.+)$/);
+    if(!match) return;
+    for(const name of match[3].split(' ← ')[0].split(',').map(name=>name.trim())) {
+      assert.match(name,/^[A-Za-z][A-Za-z0-9]*$/,label+'の変数名');
+      assert(!declared.has(name),label+'で宣言が重複しています：'+name);
+      declared.set(name,{type:match[1],array:Boolean(match[2])});
+    }
+  };
+  for(const line of text.split('\n')) {
+    const fn=line.match(/^○(?:整数型|実数型|文字型|文字列型|論理型):\s*(\w+)\((.*)\)/);
+    if(fn) {functions.add(fn[1]);fn[2].split(',').forEach(add);}
+    else add(line);
+  }
+  const body=text.replace(/^○.*$/gm,'').replace(/^(?:整数型|実数型|文字型|文字列型|論理型)(?:の配列)?:.*$/gm,'')
+    .replace(/\/\/[^\n]*/g,'').replace(/"[^"\n]*"|'[^'\n]*'/g,'').replace(/\[\s*[a-d①-⑳]\s*\]/g,'');
+  const keywords=new Set(['if','elseif','else','endif','for','endfor','while','endwhile','and','or','not','mod','true','false','return']);
+  for(const name of new Set(body.match(/[A-Za-z][A-Za-z0-9]*/g)||[]))
+    assert(declared.has(name)||keywords.has(name)||functions.has(name),label+'の宣言がありません：'+name);
+  return declared;
+}
+
 // 本教材の限定した擬似言語のみを実行する検算器。入力はリポジトリの演習データに限定。
 function run(item,input=item.input||{}) {
   const env=structuredClone(input), history=[], output=[];
@@ -70,6 +94,14 @@ function run(item,input=item.input||{}) {
 function verify(item,input,expected) {
   const result=run(item,input);
   for(const [k,v] of Object.entries(expected)) assert.deepEqual(k==='$output'?result.output:k==='$text'?result.text:result.env[k],v,`${item.id}: ${k}`);
+  const declared=declaredVariables(item.types,item.id);
+  for(const values of [input,...result.history.map(row=>row.values),result.env]) for(const [name,value] of Object.entries(values)) {
+    if(!/^[A-Za-z][A-Za-z0-9]*$/.test(name)) continue;
+    const declaration=declared.get(name);
+    assert(declaration,item.id+'の宣言がありません：'+name);
+    const matches=value=>declaration.type==='整数型'?Number.isInteger(value):declaration.type==='実数型'?typeof value==='number'&&Number.isFinite(value):declaration.type==='論理型'?typeof value==='boolean':typeof value==='string'&&(declaration.type!=='文字型'||[...value].length===1);
+    assert(declaration.array?Array.isArray(value)&&value.every(matches):!Array.isArray(value)&&matches(value),item.id+'の宣言した型と値が一致しません：'+name);
+  }
   return result;
 }
 function verifyTraceTable(item) {
@@ -115,6 +147,10 @@ for (const item of exercises.filter(e=>e.choices)) {
 }
 for(const item of exercises) if(!item.natural) {
   assert(item.codeTask,item.id+'のコードの課題がありません');
+  assert(item.types,item.id+'の変数宣言がありません');
+  declaredVariables(item.types+'\n'+code(item.steps).join('\n')+'\n'+(item.displayCode||[]).join('\n'),item.id);
+  for(const initial of item.types.matchAll(/^整数型の配列: (\w+) ← \{([^}]+)\}/gm))
+    assert.deepEqual(initial[2].split(',').map(Number),item.input[initial[1]],item.id+'の掲載コードと配列の初期値');
   verify(item,item.input||{},item.expected);tests++;
   for(const [input,expected] of item.cases||[]) {verify(item,input,expected);tests++;}
 }
@@ -283,10 +319,9 @@ md=md.replace(/<!-- 追加演習開始 \d -->[\s\S]*?<!-- 追加演習終了 \d 
 for(let chapter=1;chapter<=8;chapter++) {
   const extra=exercises.filter(e=>e.id.startsWith(chapter+'-')&&!e.existing);
   const section=`<!-- 追加演習開始 ${chapter} -->\n\n`+extra.map(item=>{
-    const types=item.natural?'':(item.types||('この問題の変数は整数型です。'+(Number(item.id[0])>=6?'配列の添字は1から始まります。':'')));
-    const typesInCode = ['4-D','6-C','6-D','6-E','6-F','7-C'].includes(item.id);
+    const types=item.natural?'':item.types;
     const prereq=item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
-    const codeBlock = item.natural ? '' : (`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n` + '```text\n' + (typesInCode ? types + '\n\n' : '') + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
+    const codeBlock = item.natural ? '' : (`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n` + '```text\n' + types + '\n\n' + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
     const tablePart = item.traceGuide?(item.traceWorksheet?'':tracePractice(item)):tableTemplate(item,item.tableTemplate||item.questionTable);
     const choicePart = choiceTable(item);
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
@@ -295,7 +330,7 @@ for(let chapter=1;chapter<=8;chapter++) {
     const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  ${aiParagraphs(item.aiQuestion)}\n</div>`;
     const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
     const secClass = item.traceGuide?'exercise-question compact-question fit-question':item.compact ? 'exercise-question compact-question' : 'exercise-question';
-    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${types && !typesInCode ? types + '\n\n' : ''}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${item.traceWorksheet?traceWorksheet(item):''}${breakTag}`;
+    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${item.traceWorksheet?traceWorksheet(item):''}${breakTag}`;
   }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
   const marker=chapter===8?'## 演習後の振り返り':`<div class="page-break"></div>\n\n<a id="chapter-${chapter+1}"></a>`;
   assert(md.includes(marker),marker);md=md.replace(marker,section+marker);
@@ -398,6 +433,15 @@ try {
     for(const b of document.querySelectorAll('.toc-list b')) b.textContent='';
   });
   const raw=await page.locator('body').innerText();
+  const snippets=await page.locator('pre').allTextContents();
+  assert.equal(snippets.length,71);
+  snippets.forEach((snippet,index)=>declaredVariables(snippet,'掲載コード'+(index+1)));
+  assert(!raw.includes('この問題の変数は整数型です。'),'変数名を省略した型の説明が残っています。');
+  for(const item of exercises.filter(item=>!item.natural)) {
+    const snippet=await page.locator('.exercise-question').filter({has:page.getByRole('heading',{name:`演習${item.id}　${item.title}`,exact:true})}).locator('pre').innerText();
+    assert.deepEqual(declaredVariables(snippet,item.id),declaredVariables(item.types,item.id),item.id+'の掲載コードと生成元の宣言');
+  }
+  console.log(`全42演習と本文29例の使用変数・宣言、および検算${tests}ケースの型の一致を確認。`);
   assert(!/<\/?(?:span|strong|small|div|p|br)\b/.test(raw),'HTMLタグが本文に露出しています。');
   assert(!raw.includes('初稿'),'初稿表記が残っています。');
   assert.equal(await page.locator('.exercise-flow img').count(),48);

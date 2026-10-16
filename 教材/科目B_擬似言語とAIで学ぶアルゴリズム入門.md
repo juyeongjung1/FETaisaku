@@ -73,15 +73,15 @@
 <ol class="toc-list">
   <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>5</b></a></li>
   <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>9</b></a></li>
-  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>19</b></a></li>
-  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>30</b></a></li>
-  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>38</b></a></li>
-  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>50</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>67</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>81</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>91</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>100</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>149</b></a></li>
+  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>20</b></a></li>
+  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>31</b></a></li>
+  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>39</b></a></li>
+  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>51</b></a></li>
+  <li><a href="#chapter-6"><span>第6章　配列</span><b>68</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>82</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>92</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>101</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>150</b></a></li>
 </ol>
 
 </div>
@@ -348,6 +348,8 @@ total ← price × count
 <p class="example-task"><strong>問題：</strong>aに5、bに10を入れ、二つを足した値をcへ入れる。</p>
 
 ```text
+整数型: a, b, c
+
 a ← 5
 b ← 10
 c ← a ＋ b
@@ -602,6 +604,8 @@ total ← 0
 <p class="example-task"><strong>問題：</strong>現在のtotalが3のとき、5を足した値でtotalを更新する。</p>
 
 ```text
+整数型: total
+
 total ← total ＋ 5
 ```
 
@@ -631,6 +635,8 @@ total ← total ＋ 5
 <p class="example-task"><strong>問題：</strong>aに10を入れた後で3を入れ直し、箱の中身がどう変わるか確認する。</p>
 
 ```text
+整数型: a
+
 a ← 10
 a ← 3
 ```
@@ -680,7 +686,7 @@ a ← 3
 <p class="example-task"><strong>問題：</strong>a＝10、b＝3の状態から、二つの値を交換する。</p>
 
 ```text
-整数型: temp
+整数型: a, b, temp
 
 temp ← b
 b ← a
@@ -701,11 +707,13 @@ a ← temp
   <div class="code-example" data-example="7">
 <p class="example-task"><strong>問題：</strong>a＝10、b＝3を交換したいとき、次の誤った手順で元の値が失われることを確かめる。</p>
 
-<pre><code>a ← b
+<pre><code>整数型: a, b
+
+a ← b
 b ← a</code></pre>
 
 </div>
-  <p>一行目を実行した時点で、`a`に入っていた10が失われます。二行目では、どちらも3になってしまいます。</p>
+  <p>`a ← b`を実行した時点で、`a`に入っていた10が失われます。次の`b ← a`では、どちらも3になってしまいます。</p>
 </div>
 
 <section class="exercise-question compact-question">
@@ -754,7 +762,7 @@ total ← total × 2
 <p class="exercise-task"><strong>このコードの課題：</strong>x＝7、y＝12の二つの値を交換する。</p>
 
 ```text
-整数型: temp
+整数型: x, y, temp
 
 temp ← [ ① ]
 x ← [ ② ]
@@ -786,11 +794,11 @@ y ← [ ③ ]
 
 処理がすべて終わったときのaとbの値を、それぞれ解答欄へ書いてください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>aとbを順に更新し、最後に覚えている値を求める。</p>
 
 ```text
+整数型: a, b
+
 a ← 4
 b ← a
 a ← a ＋ 6
@@ -819,11 +827,11 @@ b ← b ＋ a
 
 price、rate、discountは実数型です。割引額discountと割引後のpriceを答えてください。rate＝0.2は20％を表します。
 
-実数型: price, rate, discount
-
 <p class="exercise-task"><strong>このコードの課題：</strong>1250円の20％を割引額とし、割引後の金額を求める。</p>
 
 ```text
+実数型: price, rate, discount
+
 price ← 1250
 rate ← 0.2
 discount ← price × rate
@@ -852,11 +860,11 @@ price ← price − discount
 
 手数料なしで口座aから口座bへamount円移します。aの残高は移動額以上とします。処理後のa、b、totalの値を答えてください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>口座aから口座bへ1200円を移し、移動後の残高と合計を求める。</p>
 
 ```text
+整数型: a, b, amount, total
+
 a ← 5000
 b ← 2000
 amount ← 1200
@@ -888,11 +896,11 @@ total ← a ＋ b
 
 窓口a、b、cの担当番号を、aには元のb、bには元のc、cには元のaが入るよう更新します。処理後のa、b、cの値を答えてください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>三つの窓口の担当番号を、指定された方向に一つずらす。</p>
 
 ```text
+整数型: a, b, c, temp
+
 a ← 10
 b ← 20
 c ← 30
@@ -1089,11 +1097,11 @@ rate ← 0.1
 
 priceは入力された単価、quantityは入力された個数とします。ここでは入力済みの値を200と3の代入で再現しています。入力操作そのものを書く場合は入力する()を使います。単価200円、個数3個のとき何が表示されますか。入力・処理・出力に分けて説明してください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>単価200円、個数3個から代金を計算し、表示する。</p>
 
 ```text
+整数型: price, quantity, total
+
 price ← 200
 quantity ← 3
 total ← price × quantity
@@ -1125,11 +1133,11 @@ total ← price × quantity
 
 最後のpriceを求めてください。0.9倍は元の金額の90％、つまり10％引きを表します。「割引後に送料を足す」と「送料を足してから割り引く」が同じにならない理由も説明してください。金額は実数型で、小数点以下の丸めは行いません。
 
-実数型: price
-
 <p class="exercise-task"><strong>このコードの課題：</strong>2000円を10％引きにした後で送料300円を足す。</p>
 
 ```text
+実数型: price
+
 price ← 2000
 price ← price × 0.9
 price ← price ＋ 300
@@ -1157,12 +1165,12 @@ price ← price ＋ 300
 
 【実践】ある工場で製品を18個製造します。作業開始前の機械の準備・点検（全体の準備時間）として12分かかり、その後製品1個あたり7分の加工時間がかかります。全体の作業にかかる総所要時間 minutes（分）と、それを時間に換算した hours（時間）を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。hoursは実数型で、小数点以下を切り捨てません。
 
-整数型: quantity, perItem, setup, minutes
-実数型: hours
-
 <p class="exercise-task"><strong>このコードの課題：</strong>製品18個の製造と準備にかかる総時間を、分と時間で求める。</p>
 
 ```text
+整数型: quantity, perItem, setup, minutes
+実数型: hours
+
 quantity ← 18
 perItem ← 7
 setup ← 12
@@ -1202,11 +1210,11 @@ hours ← [ b ]
 
 【実践】ある倉庫で商品の受払（在庫管理）を行います。朝の業務開始時点の在庫は40個（stock）です。日中に15個が入荷（received）し、その後23個を出荷（shipped）しました。一日の業務終了後、翌日の目標在庫数50個（target）に対して何個不足しているか（shortage）を計算します。在庫数の増減と不足数を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。※出荷できる十分な在庫があるものとします。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>在庫40個に入荷15個と出荷23個を反映し、目標50個との差を求める。</p>
 
 ```text
+整数型: stock, received, shipped, shortage
+
 stock ← 40
 received ← 15
 shipped ← 23
@@ -1268,6 +1276,8 @@ shortage ← 50 − stock
 <p class="example-task"><strong>問題：</strong>点数scoreが60点以上なら「合格」、60点未満なら「不合格」を表示する。</p>
 
 ```text
+整数型: score
+
 if (score ≧ 60)
   表示する("合格")
 else
@@ -1303,6 +1313,8 @@ endif
 <p class="example-task"><strong>問題：</strong>点数scoreが60点以上のときだけ「合格」を表示する。</p>
 
 ```text
+整数型: score
+
 if (score ≧ 60)
   表示する("合格")
 endif
@@ -1328,6 +1340,8 @@ endif
 <p class="example-task"><strong>問題：</strong>点数scoreが80点以上ならA、60点以上80点未満ならB、60点未満ならCを表示する。</p>
 
 ```text
+整数型: score
+
 if (score ≧ 80)
   表示する("A")
 elseif (score ≧ 60)
@@ -1361,7 +1375,9 @@ endif
   <div class="code-example" data-example="12">
 <p class="example-task"><strong>問題：</strong>90点ならAを表示したい場面で、次の誤った条件の順序だと何が表示されるか確認する。</p>
 
-<pre><code>if (score ≧ 60)
+<pre><code>整数型: score
+
+if (score ≧ 60)
   表示する("B")
 elseif (score ≧ 80)
   表示する("A")
@@ -1467,6 +1483,8 @@ endif</code></pre>
 <p class="exercise-task"><strong>このコードの課題：</strong>x＝8が偶数か奇数かを調べ、結果を表示する。</p>
 
 ```text
+整数型: x
+
 if ([ ① ])
   表示する("偶数")
 else
@@ -1539,12 +1557,12 @@ endif
 （計算式：BMI ＝ weight ÷ (height × height) ／ 基準：18.5未満＝低体重、18.5以上25未満＝標準体重、25以上＝肥満）
 空欄①・②に入る条件式を答えてください。また、BMIが18.49、18.50、24.99、25.00となったときの表示を、それぞれ答えてください。
 
-実数型: height, weight, bmi
-文字列型: result
-
 <p class="exercise-task"><strong>このコードの課題：</strong>BMIを計算し、指定された三つの区分のどれに当たるかを表示する。</p>
 
 ```text
+実数型: height, weight, bmi
+文字列型: result
+
 height ← 入力する()
 weight ← 入力する()
 bmi ← weight ÷ (height × height)
@@ -1620,11 +1638,11 @@ endif
 
 年齢ageは0以上の整数です。6歳未満は無料（0円）、6歳以上18歳未満は400円、18歳以上は900円です。年齢に応じた料金feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>年齢に応じて、0円・400円・900円の料金を判定する。</p>
 
 ```text
+整数型: age, fee
+
 if ([ a ])
   fee ← 0
 elseif ([ b ])
@@ -1666,11 +1684,11 @@ endif
 
 【実践】冷蔵が必要(cold＝1)なら金額によらず冷蔵便600円、不要(cold＝0)なら購入額amountが5000円以上で送料無料（0円）、未満で通常便300円です。送料feeを正しく判定するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>冷蔵の必要性と購入額から、送料を判定する。</p>
 
 ```text
+整数型: cold, amount, fee
+
 if ([ a ])
   fee ← 600
 elseif ([ b ])
@@ -1812,6 +1830,8 @@ endwhile</code></pre>
 <p class="example-task"><strong>問題：</strong>whileを使って、1から5までの番号を一つずつ表示する。</p>
 
 ```text
+整数型: i
+
 i ← 1                  // ① 初期化
 while (i ≦ 5)          // ② 継続条件
   表示する(i)
@@ -1834,6 +1854,8 @@ endwhile
 <p class="example-task"><strong>問題：</strong>forを使って、1から5までの番号を一つずつ表示する。</p>
 
 ```text
+整数型: i
+
 for (i を 1 から 5 まで 1 ずつ増やす)
   表示する(i)
 endfor
@@ -1960,6 +1982,8 @@ endfor
 <p class="example-task"><strong>問題：</strong>1から5までの合計を求めたい場面で、毎回totalを0に戻す次の誤った手順を確認する。</p>
 
 ```text
+整数型: i, total
+
 for (i を 1 から 5 まで 1 ずつ増やす)
   total ← 0              // 毎回0に戻ってしまう
   total ← total ＋ i
@@ -2212,11 +2236,11 @@ endwhile
 
 最後のtotalを求め、繰返し部分が何回実行されるか答えてください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>totalへ2を3回足し、合計と繰り返した回数を求める。</p>
 
 ```text
+整数型: i, total
+
 total ← 0
 for (i を 1 から 3 まで 1 ずつ増やす)
   total ← total ＋ 2
@@ -2245,11 +2269,11 @@ endfor
 
 表示されるiはいくつですか。繰返し内部は何回実行されますか。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>最初のiが5のとき、繰返しの実行回数と表示される値を求める。</p>
 
 ```text
+整数型: i
+
 i ← 5
 while (i ＜ 5)
   i ← i ＋ 1
@@ -2279,11 +2303,11 @@ endwhile
 
 【実践】貯金balanceは1000円から始め、毎月500円を積み立てます。積み立てた月数monthsは0から数え、3・6・9…か月目には追加で200円を加えます。目標額target以上になるか、月数が上限limitに達したら終了します。ここではtarget＝4000、limit＝5です。空欄 [ a ]、[ b ] に入る組合せを一つ選んでください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>目標額と月数の上限を確認し、3か月ごとに追加額を加えて積み立てる。</p>
 
 ```text
+整数型: balance, months, target, limit
+
 balance ← 1000
 months ← 0
 while ([ a ])
@@ -2327,11 +2351,11 @@ endwhile
 
 【実践】1番から6番までの伝票を順に処理します。各伝票に2分、3番と6番（3の倍数）には追加点検で各5分かかります。合計時間minutesを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
-この問題の変数は整数型です。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>6枚の伝票の処理時間に、3の倍数の伝票の点検時間を加える。</p>
 
 ```text
+整数型: i, minutes
+
 minutes ← 0
 for (i を 1 から 6 まで 1 ずつ増やす)
   minutes ← [ a ]
@@ -2652,11 +2676,12 @@ endfor
 
 A＝{8,3,6}で、添字は1から始まります。最後のxとAの内容を、それぞれ解答欄へ書いてください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>配列Aの値を変数と別の要素へ入れ、更新後の値を求める。</p>
 
 ```text
+整数型: x
+整数型の配列: A ← {8, 3, 6}
+
 x ← A[2]
 A[1] ← x
 ```
@@ -2683,11 +2708,12 @@ A[1] ← x
 
 A＝{4,7,2}、添字は1から始まります。表示される値を、表示順に解答欄へ書いてください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{4, 7, 2}の値を先頭から順に表示する。</p>
 
 ```text
+整数型: i
+整数型の配列: A ← {4, 7, 2}
+
 for (i を 1 から 3 まで 1 ずつ増やす)
   表示する(A[i])
 endfor
@@ -2961,6 +2987,8 @@ endfor
 <p class="example-task"><strong>問題：</strong>1から3までの番号を表示し、最後に条件が偽になるところまで表で追う。</p>
 
 ```text
+整数型: i
+
 i ← 1
 
 while (i ≦ 3)
@@ -3019,27 +3047,27 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-二行目の実行直前と直後のxを、それぞれ答えてください。
+x ← x ＋ 4を実行する直前と直後のxを、それぞれ答えてください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>二行目の計算を行う直前と直後のxを求める。</p>
+<p class="exercise-task"><strong>このコードの課題：</strong>x ← x ＋ 4を実行する直前と直後のxを求める。</p>
 
 ```text
+整数型: x
+
 x ← 3
 x ← x ＋ 4
 ```
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
-  <div><strong>二行目の実行直前の x</strong><span></span></div>
-  <div><strong>二行目の実行直後の x</strong><span></span></div>
+  <div><strong>更新直前の x</strong><span></span></div>
+  <div><strong>更新直後の x</strong><span></span></div>
 </div>
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題7-Aについて質問です。</p>
-  <p><strong>分かっていること：</strong>二行目ではxに4を足します。<br><strong>試したこと：</strong>二行目を実行する前と後の値を書きました。<br><strong>分からないこと：</strong>右辺のxにどちらの値を使うか迷います。確認するヒントを一つください。</p>
+  <p><strong>分かっていること：</strong>x ← x ＋ 4ではxに4を足します。<br><strong>試したこと：</strong>xを更新する前と後の値を書きました。<br><strong>分からないこと：</strong>右辺のxにどちらの値を使うか迷います。確認するヒントを一つください。</p>
 </div>
 
 </section>
@@ -3052,11 +3080,11 @@ x ← x ＋ 4
 
 コードの下のトレース表を完成させてください。その表を使い、実行される代入文だけを順に書き、最後のyを求めてください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>条件分岐の動きを表に記録し、実行される代入文と最後のyを求める。</p>
 
 ```text
+整数型: x, y
+
 x ← 2
 if (x ＞ 5)
   y ← 10
@@ -3067,7 +3095,7 @@ endif
 
 <div class="trace-practice" data-exercise="7-B">
 <p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">表はコードに書かれた順です。「判定・実行」は条件の行に真／偽、代入の行に実行する／実行しないと記入します。まだ値のない変数は「未定義」、値が変わらない欄は前の値を書きます。</p>
+<p class="trace-guide">宣言の後の処理を、コードに書かれた順に確認します。「判定・実行」は条件の行に真／偽、代入の行に実行する／実行しないと記入します。まだ値のない変数は「未定義」、値が変わらない欄は前の値を書きます。</p>
 
 | 確認する行 | 判定・実行 | その時のx | その時のy |
 |---|---:|---:|---:|
@@ -3143,11 +3171,11 @@ endfor
 
 判定時のi、条件の真偽、totalを表にしてください。最後のiとtotalはいくつですか。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>各条件判定時のiとtotalを表で追い、最後の値を求める。</p>
 
 ```text
+整数型: i, total
+
 i ← 1
 total ← 0
 while (i ≦ 3)
@@ -3186,11 +3214,12 @@ endwhile
 
 【実践】一件の注文が1000円以上なら100円引きにします。注文額の配列A＝{999,1000,1500}の3件を処理するとき、合計金額totalを正しく求めるように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>1000円以上の注文を100円引きにし、3件の支払額の合計を求める。</p>
 
 ```text
+整数型: i, pay, total
+整数型の配列: A ← {999, 1000, 1500}
+
 total ← 0
 for (i を 1 から 3 まで 1 ずつ増やす)
   pay ← A[i]
@@ -3235,11 +3264,12 @@ endfor
 
 **先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>配列の同じ番号が連続する部分を、一つのグループとして数える。</p>
 
 ```text
+整数型: i, groups
+整数型の配列: A ← {2, 2, 5, 5, 2}
+
 groups ← 1
 for (i を 2 から 5 まで 1 ずつ増やす)
   if ([ a ])
@@ -3488,11 +3518,12 @@ endfor
 
 A＝{2,6}です。最後のresultを答えてください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{2, 6}の二つの値を比べ、大きい方をresultへ残す。</p>
 
 ```text
+整数型: result
+整数型の配列: A ← {2, 6}
+
 result ← A[1]
 if (A[2] ＞ result)
   result ← A[2]
@@ -3520,11 +3551,12 @@ endif
 
 A＝{3,5}です。最後のtotalを答えてください。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
 <p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{3, 5}の二つの値を順に足す。</p>
 
 ```text
+整数型: i, total
+整数型の配列: A ← {3, 5}
+
 total ← 0
 for (i を 1 から 2 まで 1 ずつ増やす)
   total ← total ＋ A[i]
@@ -3552,13 +3584,13 @@ endfor
 
 A＝{3,8,5,1}から5以上の値だけを集計します。count、total、averageを求めてください。averageは実数型です。この配列では対象が必ず一つ以上あります。
 
-整数型: count, total, i
-実数型: average
-整数型の配列: A
-
 <p class="exercise-task"><strong>このコードの課題：</strong>配列Aの5以上の値だけを集計し、件数・合計・平均を求める。</p>
 
 ```text
+整数型: count, total, i
+実数型: average
+整数型の配列: A ← {3, 8, 5, 1}
+
 count ← 0
 total ← 0
 for (i を 1 から 4 まで 1 ずつ増やす)
@@ -5267,8 +5299,8 @@ A[1]の4をmaxへ入れた後、まだ比べていない2番目から調べま�
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 二行目の実行直前の x | 3 |
-| 二行目の実行直後の x | 7 |
+| 更新直前の x | 3 |
+| 更新直後の x | 7 |
 
 </div>
 
@@ -5278,7 +5310,7 @@ A[1]の4をmaxへ入れた後、まだ比べていない2番目から調べま�
 
 ### 解説
 
-右辺のxには、二行目を実行する直前の3を使います。3 ＋ 4を計算してからxを7へ更新します。実行前と実行後の値を分けて考えます。
+右辺のxには、x ← x ＋ 4を実行する直前の3を使います。3 ＋ 4を計算してからxを7へ更新します。実行前と実行後の値を分けて考えます。
 
 #### 値の確認（各処理の実行後）
 

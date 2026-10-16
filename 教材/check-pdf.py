@@ -21,6 +21,7 @@ for label in ('分かっていること：', '試したこと：', '分からな
     assert compact_text.count(label) == 51, ('第0章・全48問・第7章補足・巻末の質問例', label)
     assert '**'+label not in compact_text, ('太字の記法が本文に露出しています', label)
 assert '表を添付' not in compact_text, '質問例に表の添付指示が残っています'
+assert 'この問題の変数は整数型です' not in compact_text, '変数の宣言を説明文で代用しないでください'
 assert '問題4-Aについて質問です' in compact_text
 assert 'xmod2＝0」で合っていますか' not in compact_text
 assert '空欄①に入る条件式を答えてください' in compact_text
