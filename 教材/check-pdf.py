@@ -30,24 +30,25 @@ assert all(re.sub(r'\s+', '', term) in compact_text for term in ('5.2 繰返し�
 assert 'ホワイル' not in compact_text and 'while（ワイル）' in compact_text
 assert '回数の目安' not in compact_text, '削除した抽象的な回数の補足が残っています'
 assert '初心者の取り組' not in compact_text, '削除した章別の取り組み順が残っています'
-assert all(term in compact_text for term in ('5.3.1正しい入力', '5.3.2合計を求める', '5.3.3件数を数える', '5.3.4合計から平均を求める', '5.4.1.1トレース表を一行ずつ書く'))
+assert all(term in compact_text for term in ('5.3.1正しい入力', '5.3.2合計を求める', '5.3.3件数を数える', '5.3.4合計から平均を求める', '5.4.1.1iとjが変わる順を確かめる'))
 assert '繰返しもひし形' not in compact_text and 'ループ端（上下一組）' in compact_text
 assert compact_text.count('問題：') == 29, '説明用コード全29例の課題が必要です'
 assert compact_text.count('このコードの課題：') == 42, '演習のコード全42例の課題が必要です'
 assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 34, '説明用20枠・演習14枠の表示結果が必要です'
-assert compact_text.count('トレース表（記入用）') == 7, '第6章全6問と8-Cに記入用の表が必要です'
+assert compact_text.count('トレース表（記入用）') == 1, '記入用の専用表は8-Cに配置します'
 assert '6.4の最大値' not in compact_text and '6.4のコード' not in compact_text, '最大値の節番号が古いままです'
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
 assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
 worksheet_ids = re.findall(r'<section class="trace-worksheet" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
+assert worksheet_ids == ['8-C'], '第6章までに記入用紙を置かないでください'
 toc = {}
 report = []
 for number, text in enumerate(pages, 1):
     compact = re.sub(r'\s+', '', text)
     for chapter in range(9):
         heading = re.search(rf'^第{chapter}章[\s　]+[^\n]*', text, re.M)
-        if heading and len(re.findall(r'第\d章', text)) == 1:
+        if heading and len(re.findall(r'^第\d章[\s　]+[^\n]*', text, re.M)) == 1:
             toc.setdefault(f'chapter-{chapter}', number)
     if compact.startswith('解答・解説'):
         toc.setdefault('answers', number)
@@ -66,6 +67,7 @@ for chapter in range(1, 9):
         assert answer_page == flow_page, ('解説と図を同じページに配置してください', ident)
         assert '解答欄の項目' in pages[answer_page-1] and re.search(r'^解説\s*$', pages[answer_page-1], re.M), ('解答と解説を分けて同じページに配置してください', ident)
 assert len(toc) == 11, toc
+assert all('トレース' not in text for text in pages[toc['chapter-0']-1:toc['chapter-7']-1]), 'トレースの説明は第7章で初めて導入してください'
 assert all('公開問題への接続' not in text or item['answers'] for text, item in zip(pages, report)), '公開問題への参照を解説と同じページに配置してください'
 for chapter in range(1, 9):
     for letter in 'ABCDEF':

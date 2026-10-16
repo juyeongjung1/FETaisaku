@@ -73,25 +73,10 @@ function verify(item,input,expected) {
   return result;
 }
 function verifyTraceTable(item) {
-  const result=run(item), {A=[],target,num}=item.input||{};
+  const result=run(item), {num}=item.input||{};
   const turns=variable=>result.history.filter(row=>row.label.startsWith(variable+'＝')&&row.label.endsWith('の回を終了')).map(row=>row.values);
-  const first=result.history[0]?.values;
   let rows;
-  if(item.id==='6-A') {
-    let previous=first.total;
-    rows=[['初期化','―','―',String(previous)],...turns('i').map(v=>{const row=[v.i,A[v.i-1],previous,v.total].map(String);previous=v.total;return row;})];
-  } else if(item.id==='6-B') {
-    let previous=first.max;
-    rows=[['初期化',String(A[0]),'―','―',String(previous)],...turns('i').map(v=>{const row=[String(v.i),String(A[v.i-1]),String(previous),A[v.i-1]>previous?'真':'偽',String(v.max)];previous=v.max;return row;})];
-  } else if(item.id==='6-C') rows=[['初期状態','―',...A.map(String)],...result.history.map(r=>[r.label,String(r.values.x),...r.values.A.map(String)])];
-  else if(item.id==='6-D') rows=turns('i').map((v,i)=>[v.i,A[v.i-1],result.output[i]].map(String));
-  else if(item.id==='6-E') {
-    const initial=result.history.find(row=>row.label==='needed ← 0').values;
-    rows=[['初期化','―','―',String(initial.count),String(initial.needed)],...turns('i').map(v=>[String(v.i),String(A[v.i-1]),A[v.i-1]<5?'真':'偽',String(v.count),String(v.needed)])];
-  } else if(item.id==='6-F') {
-    let previous=first.position;
-    rows=[['初期化','―','―',String(previous)],...turns('i').map(v=>{const row=[String(v.i),String(A[v.i-1]),A[v.i-1]===target&&previous===0?'真':'偽',String(v.position)];previous=v.position;return row;})];
-  } else if(item.id==='8-C') {
+  if(item.id==='8-C') {
     const characters=[...result.text.replaceAll('\n','')];
     rows=turns('j').map((v,i)=>[String(i+1),String(v.i),String(v.j),characters[i],v.j===num?'する':'しない']);
   }
@@ -124,8 +109,15 @@ for(const item of exercises) if(!item.natural) {
 }
 console.log(`演習48問・第1章は★3問と★★3問、第4章は★2問・★★3問・★★★1問、ほかの章は各難易度2問を確認。検算${tests}ケース成功。`);
 const traceExercises=exercises.filter(item=>item.traceGuide);
-assert.equal(traceExercises.length,7);
-console.log(`記入用トレース表7問・完成表${traceExercises.reduce((n,item)=>n+verifyTraceTable(item),0)}行の全値を実行結果と照合。`);
+assert.equal(traceExercises.length,1);
+assert(exercises.filter(item=>Number(item.id[0])<=6).every(item=>!item.tableTemplate&&!item.traceGuide&&!/表に|表を|トレース/.test(item.question+item.aiQuestion)), '第6章までは表への記入を求めません。');
+for(const id of ['6-C','6-D','6-E','6-F']) {
+  const item=exercises.find(item=>item.id===id);
+  const initial=item.types.match(/整数型の配列: A ← \{([^}]+)\}/);
+  assert(initial,id+'の配列の宣言・初期値がありません');
+  assert.deepEqual(initial[1].split(',').map(Number),item.input.A,id+'の掲載コードと入力配列');
+}
+console.log(`記入用トレース表1問・完成表${traceExercises.reduce((n,item)=>n+verifyTraceTable(item),0)}行の全値を実行結果と照合。第1〜6章の演習に表の記入指定がないことを確認。`);
 const countExercise=exercises.find(item=>item.id==='5-B');
 const countRun=run(countExercise);let previous=countRun.history[0].values;
 const countRows=countRun.history.filter(row=>row.label==='繰返し一回分を終了').map(row=>{
@@ -186,7 +178,7 @@ function loopSymbols(svg) {
 function trace(item) {
   if(item.natural) return '';
   if(item.answerTable) {
-    const table='\n### 表の完成例\n'+tableTemplate(item,item.answerTable);
+    const table='\n### '+(Number(item.id[0])<=6?'値の確認':'表の完成例')+'\n'+tableTemplate(item,item.answerTable);
     return item.traceGuide?`\n<div class="completed-trace" data-exercise="${item.id}">\n${table}\n</div>\n`:table;
   }
   const {history}=run(item);
@@ -280,8 +272,8 @@ for(let chapter=1;chapter<=8;chapter++) {
   const extra=exercises.filter(e=>e.id.startsWith(chapter+'-')&&!e.existing);
   const section=`<!-- 追加演習開始 ${chapter} -->\n\n`+extra.map(item=>{
     const types=item.natural?'':(item.types||('この問題の変数は整数型です。'+(Number(item.id[0])>=6?'配列の添字は1から始まります。':'')));
-    const typesInCode = item.id === '4-D';
-    const prereq=item.id==='6-F'?'\n**先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。\n':item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
+    const typesInCode = ['4-D','6-C','6-D','6-E','6-F'].includes(item.id);
+    const prereq=item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
     const codeBlock = item.natural ? '' : (`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n` + '```text\n' + (typesInCode ? types + '\n\n' : '') + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
     const tablePart = item.traceGuide?(item.traceWorksheet?'':tracePractice(item)):tableTemplate(item);
     const choicePart = choiceTable(item);
@@ -323,14 +315,14 @@ const answers=exercises.map(item=>{
   if(item.choices) assert.equal(item.solution[0],item.choices.correct,item.id+'の正解記号');
   const solution=`<div class="solution-table" data-exercise="${item.id}">\n\n| 解答欄の項目 | 解答 |\n|---|---|\n`+
     fields.map((field,i)=>`| ${field} | ${item.choices?'**正解：'+item.solution[i]+'**':item.solution[i]} |`).join('\n')+'\n\n</div>\n';
-  const tableIsAnswer=Boolean(item.tableTemplate||['5-B','6-B'].includes(item.id));
+  const tableIsAnswer=Boolean(item.tableTemplate);
   const outputPart=displayResult(item);
-  const besideTrace=['5-A','6-A','8-A'].includes(item.id);
+  const besideTrace=['5-A','6-C','8-A'].includes(item.id);
   const answerPart=solution+(besideTrace?'':outputPart);
   const inputNote=input&&!outputPart?`\n表の確認に使う入力：${input}。\n`:'';
   const tablePart=trace(item).replace(/^### /gm,'#### ');
   const tracePart=besideTrace?`\n<div class="trace-with-result">\n<div>\n${tablePart}\n</div>\n${outputPart}\n</div>\n`:tablePart;
-  const secClass=['4-C','5-A','6-A','6-B','7-F','8-A','8-C'].includes(item.id)?'answer-section dense-answer':'answer-section';
+  const secClass=['4-C','5-A','6-C','6-D','7-F','8-A','8-C'].includes(item.id)?'answer-section dense-answer':'answer-section';
   return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n<div class="answer-part">\n\n### ${item.solutionTitle||'解答'}\n\n${answerPart}${tableIsAnswer?inputNote+tracePart:''}\n</div>\n\n<div class="explanation-part">\n\n### 解説\n\n${item.answer}\n${tableIsAnswer?'':inputNote+tracePart}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n${item.existing?'<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>':''}\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</div>\n\n</section>\n`;
 }).join('\n');
 // 共通の読み方は原稿に残し、各問の解説だけを再生成する。
@@ -409,10 +401,12 @@ try {
   assert.equal(await page.locator('.nested-example .result-lines .loop-j').count(),6);
   assert.deepEqual(await page.locator('.nested-example .result-lines span').allTextContents(),['1','1','1','2','1','3','2','1','2','2','2','3']);
   assert.equal(await page.locator('.answer-section .display-result').count(),14);
-  assert.equal(await page.locator('.trace-practice').count(),7);
-  assert.equal(await page.locator('.completed-trace').count(),7);
-  assert.equal(await page.locator('.trace-practice tbody tr').count(),46);
-  assert.equal(await page.locator('.completed-trace tbody tr').count(),46);
+  assert.equal(await page.locator('.trace-practice').count(),1);
+  assert.equal(await page.locator('.completed-trace').count(),1);
+  assert.equal(await page.locator('.trace-practice tbody tr').count(),9);
+  assert.equal(await page.locator('.completed-trace tbody tr').count(),9);
+  assert(await page.evaluate(()=>[...document.querySelectorAll('.exercise-question')].filter(section=>/^演習[1-6]-/.test(section.querySelector('h2').innerText)).every(section=>
+    [...section.querySelectorAll('table')].every(table=>table.closest('.choice-table')))), '第6章までの演習は通常の解答欄を使用してください。');
   assert(await page.evaluate(()=>[...document.querySelectorAll('.trace-practice')].every(blank=>{
     const full=document.querySelector('.completed-trace[data-exercise="'+blank.dataset.exercise+'"]');
     return [...blank.querySelectorAll('th')].map(cell=>cell.innerText).join('|')===[...full.querySelectorAll('th')].map(cell=>cell.innerText).join('|')

@@ -4,7 +4,7 @@
   <img class="cover-logo" src="images/trainocate-logo.png" alt="TRAINOCATE">
   <p class="cover-label">基本情報技術者試験　科目B対策</p>
   <h1>擬似言語とAIで学ぶ<br>アルゴリズム入門</h1>
-  <p class="cover-subtitle">はじめての変数から、配列のトレースまで</p>
+  <p class="cover-subtitle">はじめての変数から、配列の活用まで</p>
   <div class="cover-rule"></div>
   <p class="cover-message">「答えを聞く」のではなく、<br>「分からない場所を見つける」ためにAIを使おう。</p>
   <p class="edition">基本情報技術者試験　科目B対策教材</p>
@@ -24,16 +24,16 @@
 
 本研修では、処理の基本となる**順次・選択・繰返し**を擬似言語で学びます。各演習の解説には、処理の進み方を矢印で示すフローチャートも掲載します。コードの一行と図の一つの処理を対応させて読みましょう。
 
-**トレース**とは、処理を一行ずつたどり、その時の値を紙に記録することです。変数は値を覚える場所、配列は複数の値を順に並べて覚える場所です。詳しい仕組みは第1〜6章で学びます。
+変数は値を覚える場所、配列は複数の値を順に並べて覚える場所です。第1〜6章では基本の書き方と動きを学び、第7章では、その動きをより正確に確かめる方法を学びます。
 
-また、本書では生成AIへ質問するための例文を紹介します。AIに正解を直接聞くのではなく、考え方の整理、ヒント、トレースの確認、間違いの発見に利用します。
+また、本書では生成AIへ質問するための例文を紹介します。AIに正解を直接聞くのではなく、考え方の整理、ヒント、計算や判断の確認、間違いの発見に利用します。
 
 <div class="goal-box">
   <p class="box-title">本研修の到達目標</p>
   <ul>
     <li>変数・代入・配列を説明できる</li>
     <li>選択処理と繰返し処理を読める</li>
-    <li>短い擬似言語をトレースできる</li>
+    <li>短い擬似言語の動きを説明できる</li>
     <li>合計・件数・最大値を求める処理を理解できる</li>
     <li>AIを使って、自分で学習を続けられる</li>
   </ul>
@@ -78,10 +78,10 @@
   <li><a href="#chapter-4"><span>第4章　選択処理</span><b>38</b></a></li>
   <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>50</b></a></li>
   <li><a href="#chapter-6"><span>第6章　配列</span><b>67</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>84</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>94</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>103</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>152</b></a></li>
+  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>81</b></a></li>
+  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>91</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>100</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>149</b></a></li>
 </ol>
 
 </div>
@@ -784,11 +784,11 @@ y ← [ ③ ]
 
 <span class="difficulty">難易度 ★★☆</span>
 
-最後のaとbを答え、各行の実行後の値を表にしてください。
+処理がすべて終わったときのaとbの値を、それぞれ解答欄へ書いてください。
 
 この問題の変数は整数型です。
 
-<p class="exercise-task"><strong>このコードの課題：</strong>aとbを順に更新し、各行の実行後の値を表にする。</p>
+<p class="exercise-task"><strong>このコードの課題：</strong>aとbを順に更新し、最後に覚えている値を求める。</p>
 
 ```text
 a ← 4
@@ -796,14 +796,6 @@ b ← a
 a ← a ＋ 6
 b ← b ＋ a
 ```
-
-| 実行する処理 | 実行後の a | 実行後の b |
-|---|---:|---:|
-| a ← 4 |  |  |
-| b ← a |  |  |
-| a ← a ＋ 6 |  |  |
-| b ← b ＋ a |  |  |
-
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
@@ -2067,9 +2059,8 @@ average ← total ÷ count
 <p class="nested-key"><span class="loop-i">青：i＝段（外側）</span><span class="loop-j">赤：j＝箱の位置（内側）</span></p>
 
 <div class="important-box">
-  <p class="box-title">二重繰返しは、iとjを表で追う</p>
-  <p>コードを一行ずつ実行したつもりで、値の変化を書き出すことを<strong>トレース</strong>といいます。二つの繰返しを頭の中だけで追うと、どの段・どの箱を処理しているかを取り違えやすくなります。</p>
-  <p><code>i</code>と<code>j</code>を別々の列へ書き、内側の処理を一回行うたびに一行記録します。次のコードと、その下の完成表で書き方を確認しましょう。</p>
+  <p class="box-title">一つの段の箱を全部確認してから、次の段へ進む</p>
+  <p>外側の<code>i</code>が一つの段を選ぶ間、内側の<code>j</code>はその段の箱を1番から3番まで確認します。内側が終わってから外側が次の段へ進み、<code>j</code>はまた1から始まります。</p>
 </div>
 
 <div class="code-example nested-example" data-example="20">
@@ -2096,14 +2087,14 @@ endfor
 
 <div class="nested-trace">
 
-#### 5.4.1.1 トレース表を一行ずつ書く
+#### 5.4.1.1 iとjが変わる順を確かめる
 
 1. 外側の繰返しを始め、最初の段として`i＝1`を覚えます。
-2. 内側を始めると`j＝1`です。表の1行目へ、`i＝1`と`j＝1`を別々に書きます。
-3. 内側の次の回では`j＝2`、その次は`j＝3`です。`i`は1のままなので、表の2・3行目にも1を書きます。
-4. 次の段へ進むと`i＝2`になり、内側の`j`は1から再開します。表の4〜6行目を同じように書きます。
+2. 内側を始めると`j＝1`です。最初に`i`の1を表示し、次に`j`の1を表示します。
+3. 内側の次の回では`j＝2`、その次は`j＝3`です。その間、外側の`i`は1のままです。
+4. 次の段へ進むと`i＝2`になり、内側の`j`は1から再開します。2段目でも、1番・2番・3番の箱を順に確認します。
 
-**このコードを追った表の完成例**です。表の一行でiとjを一回ずつ表示するため、表示結果の二行に対応します。
+**下の表は、表示する値の組合せを示した説明用の表です。** 一組につきiとjを一回ずつ表示するため、表の一行が表示結果の二行に対応します。
 
 | 何組目か | 外側のi（段） | 内側のj（箱の位置） | 最初に表示するi | 次に表示するj |
 |---:|---:|---:|---:|---:|
@@ -2176,7 +2167,7 @@ average ← [ ⑤ ]
 
 <span class="difficulty">難易度 ★★☆</span>
 
-処理①・②は、詳細を省略した命令です。表を埋め、各処理の実行回数と終了時のiを答えてください。
+処理①・②は、詳細を省略した命令です。各処理の実行回数と終了時のiを、解答欄へ書いてください。
 
 <p class="exercise-task"><strong>このコードの課題：</strong>iを1から5まで変え、処理①と処理②の実行回数を数える。</p>
 
@@ -2193,21 +2184,6 @@ while (i ≦ 5)
   i ← i ＋ 1
 endwhile
 ```
-
-条件の欄：成り立つ○、成り立たない×、調べない―。処理の欄：実行○、実行しない×。
-
-<div class="count-trace">
-
-| `i` | `i ≦ 5` | 処理① | `i mod 2 ＝ 1` | 処理② |
-|---:|---|---|---|---|
-| 1 | | | | |
-| 2 | | | | |
-| 3 | | | | |
-| 4 | | | | |
-| 5 | | | | |
-| 6 | | | | |
-
-</div>
 
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
@@ -2338,7 +2314,7 @@ endwhile
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題5-Eについて質問です。</p>
-  <p><strong>分かっていること：</strong>目標額か月数の上限に達したら終了します。<br><strong>試したこと：</strong>monthsとbalanceを表の別々の列に書きました。<br><strong>分からないこと：</strong>続ける条件をandとorのどちらで結ぶか迷います。ヒントを一つください。</p>
+  <p><strong>分かっていること：</strong>目標額か月数の上限に達したら終了します。<br><strong>試したこと：</strong>3か月目までの月数と残高を計算しました。<br><strong>分からないこと：</strong>続ける条件をandとorのどちらで結ぶか迷います。ヒントを一つください。</p>
 </div>
 
 </section>
@@ -2472,7 +2448,7 @@ endfor
 
 この`for`は、4個の要素に合わせて`i`を1から4まで変えます。最初の回は`i＝1`なので、`表示する(A[i])`で1番の値3を表示します。次の回は`i＝2`となり、2番の値8を表示します。同じ命令で3番の2、4番の5も表示したら、繰返しを終えます。存在しない5番の要素は読みません。
 
-### 6.2.1 読む位置と表示される値のトレース表
+### 6.2.1 読む位置と表示される値の対応
 
 | i（位置） | A[i]（その位置の値） | 表示される値 |
 |---:|---:|---:|
@@ -2484,14 +2460,8 @@ endfor
 表示するのは位置の番号ではなく、その位置にある値です。表の表示の列を上から読むと、表示結果の3、8、2、5になります。
 
 <div class="important-box">
-  <p class="box-title">配列は、位置と値を別々の列に書く</p>
-  <p>この章の繰返しで使う<code>i</code>は読む位置、<code>A[i]</code>はその位置に入っている値です。この二つを混同しないために、必ずトレース表で分けて記録します。合計や最大値の変数も別の列にし、値が変わらない回も書きましょう。</p>
-  <ol>
-    <li>最初の配列と、変数の初期値を確認する。</li>
-    <li>一回ずつ進め、使う位置と、その位置の値を書く。</li>
-    <li>計算の前後や条件の真偽を記録する。次の行へ前の値を引き継ぐ。</li>
-    <li>全行を追ってから、最後の値や表示結果を答える。</li>
-  </ol>
+  <p class="box-title">配列は、位置と値を区別して読む</p>
+  <p><code>i</code>は読む位置、<code>A[i]</code>はその位置に入っている値です。たとえば<code>i＝2</code>なら、表示する値は2ではなく<code>A[2]</code>の8です。合計や最大値を求める場合も、計算に使うのは位置の番号ではなく、その位置の値です。</p>
 </div>
 
 ## 6.3 配列を使う定番の課題
@@ -2582,7 +2552,7 @@ endfor
 
 </div>
 
-#### 6.3.2.1 比較の前後を、トレース表で確認する
+#### 6.3.2.1 比較の前後の値を確認する
 
 | i | A[i] | 比較前のmax | A[i] ＞ max | 比較後のmax |
 |---|---:|---:|---|---:|
@@ -2627,10 +2597,8 @@ target ← 9
 position ← 0
 
 for (i を 1 から 4 まで 1 ずつ増やす)
-  if (A[i] ＝ target)
-    if (position ＝ 0)
-      position ← i
-    endif
+  if (A[i] ＝ target and position ＝ 0)
+    position ← i
   endif
 endfor
 
@@ -2649,167 +2617,40 @@ endfor
 
 `position ← 0`は、変数`position`へ0を入れる**初期化**です。0を「まだ見つかっていない」という目印にします。この配列の位置は1〜4なので、0は実際の位置と区別できます。探索では**1番目も調べる必要があるため、`i`を1から始めます。** 最大値の例で2から始めた理由とは異なります。
 
-**`＝`は比較、`←`は代入です。** `if (position ＝ 0)`は「今の値が0か」を調べるだけで、値を変えません。見つかった位置を実際に入れるのは、その下の`position ← i`です。
+**`＝`は比較、`←`は代入です。** 条件内の`position ＝ 0`は「今の値が0か」を調べるだけで、値を変えません。繰返しの前の`position ← 0`は初期化、条件の下の`position ← i`は位置を記録する代入です。
 
-二つの`if`を、次の順に読みます。
+`if`の条件は、次の二つの比較を`and`で結んでいます。
 
-1. **外側のif：値が一致するか。** `A[i] ＝ target`を調べます。偽なら、内側の条件も調べず、次の要素へ進みます。
-2. **内側のif：まだ未発見か。** 値が一致したときだけ`position ＝ 0`を調べます。真なら`position ← i`で位置を記録し、偽なら、すでに記録した最初の位置を残します。
+1. **`A[i] ＝ target`：値が一致するか。** 今見ている要素が、探している9かを調べます。
+2. **`position ＝ 0`：まだ未発見か。** それまでに位置を記録していないかを調べます。
 
-字下げは、どの`if`の内側かを表します。二つの`endif`は、内側、外側の順に`if`の範囲を閉じています。この例は途中で繰返しを抜けず、4番目まで調べます。値の一致と未発見の確認を二段階に分け、両方を満たしたときだけ位置を記録しています。
+**両方が真のときだけ**、内側の`position ← i`で位置を記録します。どちらかが偽なら、`position`を変えずに次の要素へ進みます。たとえば一度位置2を記録すると、`position ＝ 0`が偽になるので、その後に9があっても最初の位置を上書きしません。この例は途中で繰返しを抜けず、4番目まで調べます。
 
-#### 6.3.3.1 最初に見つかった位置を、トレース表で確認する
+#### 6.3.3.1 最初に見つかった位置を確認する
+
+次の表は、二つの比較が表す真偽と、記録した位置の変化を示す説明用の表です。①と②の両方が真の行だけ、位置を記録します。
 
 | i | A[i] | 判定前のposition | ① 値が一致 | ② 未発見 | 判定後のposition |
 |---|---:|---:|---|---|---:|
 | 初期化 | ― | ― | ― | ― | 0 |
-| 1 | 6 | 0 | 偽 | ― | 0 |
+| 1 | 6 | 0 | 偽 | 真 | 0 |
 | 2 | 9 | 0 | 真 | 真 | 2 |
-| 3 | 2 | 2 | 偽 | ― | 2 |
+| 3 | 2 | 2 | 偽 | 偽 | 2 |
 | 4 | 9 | 2 | 真 | 偽 | 2 |
 
-表の①は外側、②は内側の判定です。①が偽の回は②を調べないため、「―」と書いています。`i＝2`では両方が真になり、位置2を記録します。`i＝4`でも①は真ですが、`position`はすでに2なので②は偽となり、最初の位置を保ちます。表示するのは探した値9ではなく、記録した位置2です。
+`i＝2`では両方が真になり、位置2を記録します。`i＝4`でも①は真ですが、`position`はすでに2なので②は偽となり、最初の位置を保ちます。表示するのは探した値9ではなく、記録した位置2です。初期化の行の「―」は、まだ比較を行っていないことを表します。
 
 `target`を7に変えると、一致する要素がないため一度も位置を記録せず、最後も0のままです。問題が「最初の位置」と「最後の位置」のどちらを求めているかも確認しましょう。
 
-<section class="exercise-question compact-question">
-
-## 演習6-A　10個の合計
-
-<span class="difficulty">難易度 ★★☆</span>
-
-配列`A＝{3, 8, 2, 5, 1, 4, 6, 7, 9, 10}`で、添字は1から始まります。表を使って値を追い、合計を求めるように空欄を埋めてください。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>配列の合計を表示する。次ページの表で一回ずつ値を追う。</p>
-
-```text
-整数型: i
-整数型: total
-整数型の配列: A ← {3, 8, 2, 5, 1, 4, 6, 7, 9, 10}
-
-total ← [ ① ]
-
-for (i を [ ② ] から [ ③ ] まで 1 ずつ増やす)
-  total ← [ ④ ]
-endfor
-
-表示する(total)
-```
-
-<!-- トレース表開始 6-A -->
-<!-- トレース表終了 6-A -->
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>空欄 ①</strong><span></span></div>
-  <div><strong>空欄 ②</strong><span></span></div>
-  <div><strong>空欄 ③</strong><span></span></div>
-  <div><strong>空欄 ④</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題6-Aについて質問です。</p>
-  <p><strong>分かっていること：</strong>配列の位置と値は別のものです。<br><strong>試したこと：</strong>トレース表にiとA[i]を書き、最初の二回のtotalを計算しました。<br><strong>分からないこと：</strong>次の回の加算前に使うtotalが分かりません。表のどの欄を見ればよいか、一つ教えてください。</p>
-</div>
-
-</section>
-
-<!-- トレース用紙開始 6-A -->
-
-<section class="trace-worksheet" data-exercise="6-A">
-
-### 演習6-Aの記入用トレース表
-
-前のページのコードと見比べながら、表に書き込んでください。
-
-<div class="trace-practice" data-exercise="6-A">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">空欄を埋めたら、初期化後の値から表を完成させてください。各回で使うA[i]と、足す前・足した後のtotalを別々に記録します。使わない欄は「―」とします。</p>
-
-| i | A[i] | 加算前のtotal | 加算後のtotal |
-|---|---:|---:|---:|
-| 初期化 |  |  |  |
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-| 5 |  |  |  |
-| 6 |  |  |  |
-| 7 |  |  |  |
-| 8 |  |  |  |
-| 9 |  |  |  |
-| 10 |  |  |  |
-
-
-</div>
-
-</section>
-
-<!-- トレース用紙終了 6-A -->
-
-<section class="exercise-question compact-question">
-
-## 演習6-B　最大値の変化を追う
-
-<span class="difficulty">難易度 ★★☆</span>
-
-6.3「配列の最大値」のコードでAの初期値を次の配列に置き換え、表を埋めてください。最後のmaxも答えてください。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>最大値を探すコードの、配列Aの初期値を次の値に置き換える。</p>
-
-```text
-A ← {4, 2, 9, 6, 3, 8, 1, 7, 5, 10}
-```
-
-<!-- トレース表開始 6-B -->
-
-<div class="trace-practice" data-exercise="6-B">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">各回で使うA[i]、比較前のmax、条件の真偽、比較後のmaxを記入してください。更新しない回も、比較後のmaxを省略せずに書きます。使わない欄は「―」とします。</p>
-
-| i | A[i] | 比較前のmax | A[i] ＞ max | 比較後のmax |
-|---|---:|---:|---:|---:|
-| 初期化 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
-| 6 |  |  |  |  |
-| 7 |  |  |  |  |
-| 8 |  |  |  |  |
-| 9 |  |  |  |  |
-| 10 |  |  |  |  |
-
-
-</div>
-
-<!-- トレース表終了 6-B -->
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>最終的な max の値</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題6-Bについて質問です。</p>
-  <p><strong>分かっていること：</strong>maxは現在の最大値を覚えます。<br><strong>試したこと：</strong>6.3「配列の最大値」のコードで、最初の二回を表に書きました。<br><strong>分からないこと：</strong>条件が偽の回にmaxの欄へ何を書くか迷います。確認するヒントを一つください。</p>
-</div>
-
-</section>
-
-<div class="page-break"></div>
-
 <!-- 追加演習開始 6 -->
 
-<section class="exercise-question compact-question fit-question">
+<section class="exercise-question">
 
-## 演習6-C　添字と値
+## 演習6-A　添字と値
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-A＝{8,3,6}で、添字は1から始まります。最後のxとAの内容を求めてください。
+A＝{8,3,6}で、添字は1から始まります。最後のxとAの内容を、それぞれ解答欄へ書いてください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
@@ -2820,19 +2661,6 @@ x ← A[2]
 A[1] ← x
 ```
 
-<div class="trace-practice" data-exercise="6-C">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">初期状態から一行ずつ実行し、xとA[1]・A[2]・A[3]をそれぞれ別の列へ記入してください。値が変わらない欄も前の値を書きます。まだ値を入れていないxの初期欄は「―」とします。</p>
-
-| 実行した処理 | x | A[1] | A[2] | A[3] |
-|---|---:|---:|---:|---:|
-| 初期状態 |  |  |  |  |
-| x ← A[2] |  |  |  |  |
-| A[1] ← x |  |  |  |  |
-
-
-</div>
-
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>最後の x</strong><span></span></div>
@@ -2841,19 +2669,19 @@ A[1] ← x
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題6-Cについて質問です。</p>
-  <p><strong>分かっていること：</strong>A[2]の2は位置を表します。<br><strong>試したこと：</strong>xとAの三つの要素を、表の別々の列に書きました。<br><strong>分からないこと：</strong>一つの要素を更新した後、他の要素も変わるのか迷います。確認する点を一つ教えてください。</p>
+  <p>問題6-Aについて質問です。</p>
+  <p><strong>分かっていること：</strong>A[2]の2は位置を表します。<br><strong>試したこと：</strong>2番目の値をxへ入れた後、次の行を考えました。<br><strong>分からないこと：</strong>一つの要素を更新した後、他の要素も変わるのか迷います。確認する点を一つ教えてください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question compact-question fit-question">
+<section class="exercise-question">
 
-## 演習6-D　配列を一つずつ読む
+## 演習6-B　配列を一つずつ読む
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-A＝{4,7,2}、添字は1から始まります。表示される順番を書いてください。
+A＝{4,7,2}、添字は1から始まります。表示される値を、表示順に解答欄へ書いてください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
@@ -2865,19 +2693,6 @@ for (i を 1 から 3 まで 1 ずつ増やす)
 endfor
 ```
 
-<div class="trace-practice" data-exercise="6-D">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">繰返しを一回ずつ進め、i、その位置のA[i]、表示される値を記入してください。表の表示の列を上から読むと、表示される順番になります。</p>
-
-| i | A[i] | 表示される値 |
-|---|---:|---:|
-| 1 |  |  |
-| 2 |  |  |
-| 3 |  |  |
-
-
-</div>
-
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>表示される順番</strong><span></span></div>
@@ -2885,31 +2700,105 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題6-Dについて質問です。</p>
-  <p><strong>分かっていること：</strong>iは読む位置を表します。<br><strong>試したこと：</strong>i＝1・2・3のときのA[i]を表に書きました。<br><strong>分からないこと：</strong>添字と表示する値のどちらを表示の列へ書くか迷います。ヒントを一つください。</p>
+  <p>問題6-Bについて質問です。</p>
+  <p><strong>分かっていること：</strong>iは読む位置を表します。<br><strong>試したこと：</strong>i＝1・2・3のときに参照する要素を考えました。<br><strong>分からないこと：</strong>添字とその位置の値のどちらを表示するか迷います。ヒントを一つください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question compact-question fit-question">
+<section class="exercise-question compact-question">
 
-## 演習6-E　不足している商品を数える
+## 演習6-C　10個の合計
+
+<span class="difficulty">難易度 ★★☆</span>
+
+配列Aの10個の値を合計して表示するように、空欄①〜④に入る値や式を解答欄へ書いてください。添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの10個の値を合計して表示する。</p>
+
+```text
+整数型: i, total
+整数型の配列: A ← {3, 8, 2, 5, 1, 4, 6, 7, 9, 10}
+
+total ← [ ① ]
+for (i を [ ② ] から [ ③ ] まで 1 ずつ増やす)
+  total ← [ ④ ]
+endfor
+表示する(total)
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>空欄 ①</strong><span></span></div>
+  <div><strong>空欄 ②</strong><span></span></div>
+  <div><strong>空欄 ③</strong><span></span></div>
+  <div><strong>空欄 ④</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題6-Cについて質問です。</p>
+  <p><strong>分かっていること：</strong>配列の位置と値は別のものです。<br><strong>試したこと：</strong>最初の二回で、3と8を足すことを確認しました。<br><strong>分からないこと：</strong>前の回の合計を使う式が分かりません。考えるヒントを一つください。</p>
+</div>
+
+</section>
+
+<section class="exercise-question compact-question">
+
+## 演習6-D　配列の最大値を求める
+
+<span class="difficulty">難易度 ★★☆</span>
+
+次のコードは、6.3.2と同じ手順で5個の値から最大値を求めます。処理がすべて終わったときのmaxを解答欄へ書いてください。添字は1から始まります。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの5個の値を比べ、最大値を表示する。</p>
+
+```text
+整数型: i, max
+整数型の配列: A ← {4, 2, 9, 6, 3}
+
+max ← A[1]
+for (i を 2 から 5 まで 1 ずつ増やす)
+  if (A[i] ＞ max)
+    max ← A[i]
+  endif
+endfor
+表示する(max)
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の max</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題6-Dについて質問です。</p>
+  <p><strong>分かっていること：</strong>maxは現在の最大値を覚えます。<br><strong>試したこと：</strong>最初の4と、次の2・9を順に比べました。<br><strong>分からないこと：</strong>条件が偽の回にmaxがどうなるか迷います。確認するヒントを一つください。</p>
+</div>
+
+</section>
+
+<section class="exercise-question compact-question">
+
+## 演習6-E　駐車料金を集計する
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】4商品の在庫A＝{2,8,0,5}を点検します。各商品は5個以上が目標です。不足している商品の種類数countと補充する総個数neededを正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。
+【実践】4台の車の駐車時間を、1時間単位の整数で配列A＝{1,4,2,5}に入れます。2時間までは無料、2時間を超えた分は1時間につき200円です。料金がかかる台数countと、4台の料金の合計totalを求めるように、空欄 [ a ]、[ b ] に入る組合せを一つ選んでください。添字は1からです。
 
-この問題の変数は整数型です。配列の添字は1から始まります。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>不足する商品の種類数と補充個数を求める。次ページの表も埋める。</p>
+<p class="exercise-task"><strong>このコードの課題：</strong>2時間を超えた車の台数と、超過分の駐車料金の合計を求める。</p>
 
 ```text
+整数型: i, count, total
+整数型の配列: A ← {1, 4, 2, 5}
+
 count ← 0
-needed ← 0
+total ← 0
 for (i を 1 から 4 まで 1 ずつ増やす)
   if ([ a ])
-    count ← [ b ]
-    needed ← needed ＋ (5 − A[i])
+    count ← count ＋ 1
+    total ← [ b ]
   endif
 endfor
 ```
@@ -2918,10 +2807,10 @@ endfor
 
 | 選択肢 | 内容 |
 |---|---|
-| ア | a: A[i] ＜ 5 ／ b: count ＋ 1 |
-| イ | a: A[i] ≦ 5 ／ b: count ＋ 1 |
-| ウ | a: A[i] ＜ 5 ／ b: needed ＋ 1 |
-| エ | a: A[i] ＞ 5 ／ b: count ＋ 1 |
+| ア | a: A[i] ≧ 2 ／ b: total ＋ (A[i] − 2) × 200 |
+| イ | a: A[i] ＞ 2 ／ b: total ＋ (A[i] − 2) × 200 |
+| ウ | a: A[i] ＞ 2 ／ b: total ＋ A[i] × 200 |
+| エ | a: A[i] ＞ 2 ／ b: (A[i] − 2) × 200 |
 
 </div>
 
@@ -2933,48 +2822,26 @@ endfor
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題6-Eについて質問です。</p>
-  <p><strong>分かっていること：</strong>countは種類数、neededは補充する個数です。<br><strong>試したこと：</strong>各在庫を条件に当てはめ、最初の二回を表に書きました。<br><strong>分からないこと：</strong>条件が偽の回にcountとneededをどう記録するか迷います。ヒントを一つください。</p>
-</div>
-
-</section>
-<section class="trace-worksheet" data-exercise="6-E">
-
-### 演習6-Eの記入用トレース表
-
-前のページのコードと見比べながら、表に書き込んでください。
-
-<div class="trace-practice" data-exercise="6-E">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">空欄を埋めてから、初期化と各回の値を表へ記入してください。条件が偽の回も記録し、countとneededが前の値を保つことを確かめます。使わない欄は「―」とします。</p>
-
-| i | A[i] | 条件aの真偽 | 実行後のcount | 実行後のneeded |
-|---|---:|---:|---:|---:|
-| 初期化 |  |  |  |  |
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-
-
+  <p><strong>分かっていること：</strong>2時間までは無料で、超えた分だけ料金がかかります。<br><strong>試したこと：</strong>4時間の車の料金を400円と計算しました。<br><strong>分からないこと：</strong>複数台の料金を足し合わせる式が分かりません。考えるヒントを一つください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question compact-question fit-question">
+<section class="exercise-question compact-question">
 
 ## 演習6-F　最初に一致する商品を探す
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】商品番号配列A＝{7,4,7,9}から目的の値target＝7を線形探索し、最初に出現した位置（添字i）をpositionに記録します（未発見時は0）。プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。添字は1からです。
+【実践】商品番号配列Aから、targetと同じ値を先頭から探します。最初に出現した位置をpositionに記録し、見つからない場合は0を残します。空欄 [ a ]、[ b ] に入る組合せを一つ選んでください。添字は1からです。
 
-**先に確認：** 探索とは、目的の値を探す処理です。position（ポジション）は位置を覚える変数で、0は「未発見」の目印です。本問は先頭から一つずつ見る方法です。
-
-この問題の変数は整数型です。配列の添字は1から始まります。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>最初に見つかる位置を記録する。次ページの表も埋める。</p>
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aから7を探し、最初に見つかる位置を記録する。</p>
 
 ```text
+整数型: i, target, position
+整数型の配列: A ← {7, 4, 7, 9}
+
+target ← 7
 position ← 0
 for (i を 1 から 4 まで 1 ずつ増やす)
   if ([ a ])
@@ -3002,29 +2869,7 @@ endfor
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題6-Fについて質問です。</p>
-  <p><strong>分かっていること：</strong>targetは探す値、positionは見つかった位置です。<br><strong>試したこと：</strong>target＝7で、各回のpositionを表に書きました。<br><strong>分からないこと：</strong>同じ値が再び出たとき、前の位置をどう扱うか迷います。確認するヒントを一つください。</p>
-</div>
-
-</section>
-<section class="trace-worksheet" data-exercise="6-F">
-
-### 演習6-Fの記入用トレース表
-
-前のページのコードと見比べながら、表に書き込んでください。
-
-<div class="trace-practice" data-exercise="6-F">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">空欄を埋めたら、target＝7として、初期化と四回の比較を表へ記入してください。条件の真偽と実行後のpositionを追い、同じ値が再び出た場合も記録します。使わない欄は「―」とします。</p>
-
-| i | A[i] | 条件aの真偽 | 実行後のposition |
-|---|---:|---:|---:|
-| 初期化 |  |  |  |
-| 1 |  |  |  |
-| 2 |  |  |  |
-| 3 |  |  |  |
-| 4 |  |  |  |
-
-
+  <p><strong>分かっていること：</strong>targetは探す値、positionは見つかった位置です。<br><strong>試したこと：</strong>target＝7が1番目と3番目にあることを確認しました。<br><strong>分からないこと：</strong>同じ値が再び出たとき、前の位置をどう扱うか迷います。確認するヒントを一つください。</p>
 </div>
 
 </section>
@@ -3039,9 +2884,9 @@ endfor
 
 ## 7.1 コードを眺めるだけでは解けない
 
-科目Bでは、擬似言語を見て「何となく分かった」と感じても、選択肢を正しく選べないことがあります。値の変化を紙に書き、処理を実行した結果を確認する必要があります。
+第6章までは、短いコードを読み、最後の値や表示結果を考えてきました。繰返しや条件が増えると、「今の値はいくつか」「どの処理まで進んだか」を頭の中だけで覚えるのは難しくなります。
 
-この作業を**トレース**といいます。
+ここからは、処理を一行ずつたどり、その時の値を紙に記録する**トレース**を学びます。値の変化を表に整理すると、途中の計算や判断を見直せるため、より正確に答えを求められます。
 
 <div class="trace-visual">
   <div class="trace-code">
@@ -4084,23 +3929,22 @@ average ← total ÷ count
 
 </div>
 
-#### 表の完成例
-
-| 実行する処理 | 実行後の a | 実行後の b |
-|---|---:|---:|
-| a ← 4 | 4 | 未定義 |
-| b ← a | 4 | 4 |
-| a ← a ＋ 6 | 10 | 4 |
-| b ← b ＋ a | 10 | 14 |
-
-
 </div>
 
 <div class="explanation-part">
 
 ### 解説
 
-bへコピーした4は、aを10に更新しても自動では変わりません。最後の行で、bの4とaの10を足してbを更新します。完成表で、各行の直後に覚えている値を確認してください。
+bへコピーした4は、aを10に更新しても自動では変わりません。最後の行で、bの4とaの10を足してbを14へ更新します。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| a ← 4 | a＝4 |
+| b ← a | a＝4、b＝4 |
+| a ← a ＋ 6 | a＝10、b＝4 |
+| b ← b ＋ a | a＝10、b＝14 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習2-Cのフローチャート</p>
@@ -4890,7 +4734,15 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 
 </div>
 
-#### 表の完成例
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+処理①はi＝1・2・3・4・5の5回、処理②は奇数のi＝1・3・5の3回実行します。iを5から6へ増やした後、whileの条件が偽になって終了します。終了時のiは6です。下の確認表では、条件が真・処理を実行する場合は○、条件が偽・実行しない場合は×、条件を調べない場合は―で示しています。
+
+#### 値の確認
 
 | i | i ≦ 5 | 処理① | i mod 2 ＝ 1 | 処理② |
 |---|---:|---:|---:|---:|
@@ -4901,14 +4753,6 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 | 5 | ○ | ○ | ○ | ○ |
 | 6 | × | × | ― | × |
 
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-表では、条件が真・処理を実行するときは○、条件が偽・処理を実行しないときは×です。条件を調べない欄は―とします。処理①の○は5個、処理②の○は3個です。i＝6ではwhileの条件が偽となるため、内側の条件も調べません。条件の判定自体は、最後の×を含め6回です。
 
 <div class="exercise-flow">
 <p class="flow-title">演習5-Bのフローチャート</p>
@@ -5103,7 +4947,7 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 </section>
 
-<section class="answer-section dense-answer" data-exercise="6-A">
+<section class="answer-section" data-exercise="6-A">
 
 ## 演習6-A　解答・解説
 
@@ -5115,43 +4959,8 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 空欄 ① | `0` |
-| 空欄 ② | `1` |
-| 空欄 ③ | `10` |
-| 空欄 ④ | `total ＋ A[i]` |
-
-</div>
-
-<div class="trace-with-result">
-<div>
-
-<div class="completed-trace" data-exercise="6-A">
-
-#### 表の完成例
-
-| i | A[i] | 加算前のtotal | 加算後のtotal |
-|---|---:|---:|---:|
-| 初期化 | ― | ― | 0 |
-| 1 | 3 | 0 | 3 |
-| 2 | 8 | 3 | 11 |
-| 3 | 2 | 11 | 13 |
-| 4 | 5 | 13 | 18 |
-| 5 | 1 | 18 | 19 |
-| 6 | 4 | 19 | 23 |
-| 7 | 6 | 23 | 29 |
-| 8 | 7 | 29 | 36 |
-| 9 | 9 | 36 | 45 |
-| 10 | 10 | 45 | 55 |
-
-
-</div>
-
-</div>
-
-<div class="display-result" data-exercise="6-A">
-  <p class="result-title">表示結果</p>
-  <div class="result-case"><span class="result-label">A＝{3, 8, 2, 5, 1, 4, 6, 7, 9, 10}の場合</span><samp class="result-lines">55</samp></div>
-</div>
+| 最後の x | 3 |
+| 処理後の配列 A | {3, 3, 6} |
 
 </div>
 
@@ -5161,19 +4970,28 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 ### 解説
 
-表では、位置iと、その位置に入っているA[i]を分けます。一回目に足すのはiの1ではなくA[1]の3です。次の回では前の回の加算後のtotalを引き継ぎます。合計は0→3→11→13→18→19→23→29→36→45→55です。最後の55を表示します。
+x ← A[2]では、2番目の値3をxへ入れ、配列は変えません。次の行でxの3をA[1]へ入れます。A[2]とA[3]は元の値を保つので、最後の配列は{3, 3, 6}です。
+
+表の確認に使う入力：A＝{8,3,6}。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| x ← A[2] | A＝{8, 3, 6}、x＝3 |
+| A[1] ← x | A＝{3, 3, 6}、x＝3 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Aのフローチャート</p>
 <img src="images/flowcharts/6-A.svg" alt="演習6-Aの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+
 </div>
 
 </div>
 
 </section>
 
-<section class="answer-section dense-answer" data-exercise="6-B">
+<section class="answer-section" data-exercise="6-B">
 
 ## 演習6-B　解答・解説
 
@@ -5185,33 +5003,13 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 最終的な max の値 | 10 |
+| 表示される順番 | 4 → 7 → 2 |
 
 </div>
 
 <div class="display-result" data-exercise="6-B">
   <p class="result-title">表示結果</p>
-  <div class="result-case"><span class="result-label">A＝{4, 2, 9, 6, 3, 8, 1, 7, 5, 10}の場合</span><samp class="result-lines">10</samp></div>
-</div>
-
-<div class="completed-trace" data-exercise="6-B">
-
-#### 表の完成例
-
-| i | A[i] | 比較前のmax | A[i] ＞ max | 比較後のmax |
-|---|---:|---:|---:|---:|
-| 初期化 | 4 | ― | ― | 4 |
-| 2 | 2 | 4 | 偽 | 4 |
-| 3 | 9 | 4 | 真 | 9 |
-| 4 | 6 | 9 | 偽 | 9 |
-| 5 | 3 | 9 | 偽 | 9 |
-| 6 | 8 | 9 | 偽 | 9 |
-| 7 | 1 | 9 | 偽 | 9 |
-| 8 | 7 | 9 | 偽 | 9 |
-| 9 | 5 | 9 | 偽 | 9 |
-| 10 | 10 | 9 | 真 | 10 |
-
-
+  <div class="result-case"><span class="result-label">A＝{4, 7, 2}の場合</span><samp class="result-lines">4<br>7<br>2</samp></div>
 </div>
 
 </div>
@@ -5220,19 +5018,27 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 ### 解説
 
-まずA[1]の4をmaxへ入れます。表の「比較前のmax」には前の行の「比較後のmax」を引き継ぎます。A[i]がそれより大きいときだけ更新し、偽の行では前のmaxを保ちます。途中で9へ更新した後も残りを比較し、最後の要素10でmaxが10になることを確認します。
+iは読む位置、A[i]はその位置にある値です。i＝1・2・3で参照するのは4・7・2なので、この順に表示します。表示するのは添字の1・2・3ではありません。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| i＝1の回を終了 | i＝1 |
+| i＝2の回を終了 | i＝2 |
+| i＝3の回を終了 | i＝3 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Bのフローチャート</p>
 <img src="images/flowcharts/6-B.svg" alt="演習6-Bの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+
 </div>
 
 </div>
 
 </section>
 
-<section class="answer-section" data-exercise="6-C">
+<section class="answer-section dense-answer" data-exercise="6-C">
 
 ## 演習6-C　解答・解説
 
@@ -5244,23 +5050,10 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 最後の x | 3 |
-| 処理後の配列 A | {3, 3, 6} |
-
-</div>
-
-表の確認に使う入力：A＝{8,3,6}。
-
-<div class="completed-trace" data-exercise="6-C">
-
-#### 表の完成例
-
-| 実行した処理 | x | A[1] | A[2] | A[3] |
-|---|---:|---:|---:|---:|
-| 初期状態 | ― | 8 | 3 | 6 |
-| x ← A[2] | 3 | 8 | 3 | 6 |
-| A[1] ← x | 3 | 3 | 3 | 6 |
-
+| 空欄 ① | `0` |
+| 空欄 ② | `1` |
+| 空欄 ③ | `10` |
+| 空欄 ④ | `total ＋ A[i]` |
 
 </div>
 
@@ -5270,7 +5063,35 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 ### 解説
 
-表の最初の行へ配列の8・3・6を記録します。x ← A[2]では、2番目の値3をxへ入れ、配列は変えません。次の行でxの3をA[1]へ入れます。表で更新される列を確認すると、A[2]とA[3]は元の値を保つことが分かります。
+位置iではなく、その位置にあるA[i]を足します。一回目はA[1]の3、二回目はA[2]の8を足すので、totalは0→3→11と変わります。前の回の合計を引き継いで10個すべてを足すと55になり、最後に55を表示します。
+
+<div class="trace-with-result">
+<div>
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| total ← 0 | total＝0 |
+| i＝1の回を終了 | total＝3、i＝1 |
+| i＝2の回を終了 | total＝11、i＝2 |
+| i＝3の回を終了 | total＝13、i＝3 |
+| i＝4の回を終了 | total＝18、i＝4 |
+| i＝5の回を終了 | total＝19、i＝5 |
+| i＝6の回を終了 | total＝23、i＝6 |
+| i＝7の回を終了 | total＝29、i＝7 |
+| i＝8の回を終了 | total＝36、i＝8 |
+| i＝9の回を終了 | total＝45、i＝9 |
+| i＝10の回を終了 | total＝55、i＝10 |
+
+</div>
+
+<div class="display-result" data-exercise="6-C">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">A＝{3, 8, 2, 5, 1, 4, 6, 7, 9, 10}の場合</span><samp class="result-lines">55</samp></div>
+</div>
+
+</div>
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Cのフローチャート</p>
@@ -5282,7 +5103,7 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 </section>
 
-<section class="answer-section" data-exercise="6-D">
+<section class="answer-section dense-answer" data-exercise="6-D">
 
 ## 演習6-D　解答・解説
 
@@ -5294,26 +5115,13 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 表示される順番 | 4 → 7 → 2 |
+| 最後の max | 9 |
 
 </div>
 
 <div class="display-result" data-exercise="6-D">
   <p class="result-title">表示結果</p>
-  <div class="result-case"><span class="result-label">A＝{4, 7, 2}の場合</span><samp class="result-lines">4<br>7<br>2</samp></div>
-</div>
-
-<div class="completed-trace" data-exercise="6-D">
-
-#### 表の完成例
-
-| i | A[i] | 表示される値 |
-|---|---:|---:|
-| 1 | 4 | 4 |
-| 2 | 7 | 7 |
-| 3 | 2 | 2 |
-
-
+  <div class="result-case"><span class="result-label">A＝{4, 2, 9, 6, 3}の場合</span><samp class="result-lines">9</samp></div>
 </div>
 
 </div>
@@ -5322,7 +5130,17 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 ### 解説
 
-表のiは位置、A[i]はその位置にある値です。i＝1・2・3で参照するのは4・7・2なので、表示の列も4・7・2となります。添字の1・2・3と、実際に表示する値を別々に書いて確かめます。
+A[1]の4をmaxへ入れた後、まだ比べていない2番目から調べます。2は4より大きくないので4のまま、9は4より大きいので9へ更新します。残りの6と3は9より大きくないため、最後のmaxは9です。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| max ← A[1] | max＝4 |
+| i＝2の回を終了 | max＝4、i＝2 |
+| i＝3の回を終了 | max＝9、i＝3 |
+| i＝4の回を終了 | max＝9、i＝4 |
+| i＝5の回を終了 | max＝9、i＝5 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Dのフローチャート</p>
@@ -5346,24 +5164,7 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 選択肢（ア〜エ） | **正解：ア** |
-
-</div>
-
-表の確認に使う入力：A＝{2,8,0,5}。
-
-<div class="completed-trace" data-exercise="6-E">
-
-#### 表の完成例
-
-| i | A[i] | 条件aの真偽 | 実行後のcount | 実行後のneeded |
-|---|---:|---:|---:|---:|
-| 初期化 | ― | ― | 0 | 0 |
-| 1 | 2 | 真 | 1 | 3 |
-| 2 | 8 | 偽 | 1 | 3 |
-| 3 | 0 | 真 | 2 | 8 |
-| 4 | 5 | 偽 | 2 | 8 |
-
+| 選択肢（ア〜エ） | **正解：イ** |
 
 </div>
 
@@ -5373,7 +5174,19 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 ### 解説
 
-表の初期化の行ではcountとneededが0です。在庫2なら3個不足するのでcountを1、neededを3にします。在庫8の回は条件が偽で、両方の値を保ちます。在庫0でcountを2、neededを8に更新し、在庫5では更新しません。表の最後は2種類、補充8個です。
+2時間ちょうどは無料なので、条件はA[i] ＞ 2です。4時間の車は(4 − 2) × 200＝400円、5時間の車は(5 − 2) × 200＝600円です。空欄bでは、今までのtotalにその車の料金を足します。料金だけを代入すると、前の車の料金が消えてしまいます。最後はcount＝2台、total＝1000円です。
+
+表の確認に使う入力：A＝{1,4,2,5}。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| count ← 0 | count＝0 |
+| i＝1の回を終了 | count＝0、total＝0、i＝1 |
+| i＝2の回を終了 | count＝1、total＝400、i＝2 |
+| i＝3の回を終了 | count＝1、total＝400、i＝3 |
+| i＝4の回を終了 | count＝2、total＝1000、i＝4 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Eのフローチャート</p>
@@ -5401,30 +5214,25 @@ whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 
 
 </div>
 
-表の確認に使う入力：A＝{7,4,7,9}、target＝7。
-
-<div class="completed-trace" data-exercise="6-F">
-
-#### 表の完成例
-
-| i | A[i] | 条件aの真偽 | 実行後のposition |
-|---|---:|---:|---:|
-| 初期化 | ― | ― | 0 |
-| 1 | 7 | 真 | 1 |
-| 2 | 4 | 偽 | 1 |
-| 3 | 7 | 偽 | 1 |
-| 4 | 9 | 偽 | 1 |
-
-
-</div>
-
 </div>
 
 <div class="explanation-part">
 
 ### 解説
 
-初期化でpositionは未発見の目印0になります。一回目はA[1]がtargetの7と一致し、まだ未発見なので位置1を記録します。三回目も値は7ですが、すでにpositionは1です。表で前の行の値を引き継ぐと、最初の位置を残すには「未発見か」の条件も必要だと分かります。
+初期化でpositionは未発見の目印0になります。一回目はA[1]がtargetの7と一致し、まだ未発見なので位置1を記録します。三回目も値は7ですが、すでにpositionは1です。最初の位置を残すには「未発見か」の条件も必要です。記録するのは商品番号A[i]ではなく、位置iです。
+
+表の確認に使う入力：A＝{7,4,7,9}、target＝7。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| position ← 0 | position＝0 |
+| i＝1の回を終了 | position＝1、i＝1 |
+| i＝2の回を終了 | position＝1、i＝2 |
+| i＝3の回を終了 | position＝1、i＝3 |
+| i＝4の回を終了 | position＝1、i＝4 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Fのフローチャート</p>
