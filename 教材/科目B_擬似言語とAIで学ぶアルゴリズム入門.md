@@ -3002,56 +3002,9 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
 5. 最後に解説と照合する
 
 <div class="ai-box">
-  <p class="ai-label">AIへの質問例｜表の設計を確認するとき</p>
-  <p>問題○○について質問です。</p>
-  <p><strong>分かっていること：</strong>一行ごとに変数の値を記録します。<br><strong>試したこと：</strong>i、実行前のtotal、実行後のtotalを列にしました。<br><strong>分からないこと：</strong>条件の真偽も列に必要か迷います。判断するヒントを一つください。</p>
-</div>
-
-</section>
-
-<div class="page-break"></div>
-
-<section class="exercise-question compact-question">
-
-## 演習7-A　最初の誤りを見つける
-
-<span class="difficulty">難易度 ★★☆</span>
-
-次の処理を考えます。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>1から4までを順に掛け、totalを追った表の最初の誤りを見つける。</p>
-
-```text
-整数型: i
-整数型: total
-
-total ← 1
-
-for (i を 1 から 4 まで 1 ずつ増やす)
-  total ← total × i
-endfor
-```
-
-ある受講者が次の表を作りました。最初に誤っている行のiと、その行の正しい計算結果を答えてください。続く行も計算し直し、最終的なtotalの値を求めてください。
-
-| `i` | 実行前の`total` | `total × i` | 実行後の`total` |
-|---:|---:|---:|---:|
-| 1 | 1 | 1 | 1 |
-| 2 | 1 | 2 | 2 |
-| 3 | 2 | 5 | 5 |
-| 4 | 5 | 20 | 20 |
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>最初に誤っている行（i の値）</strong><span></span></div>
-  <div><strong>その行の正しい計算結果</strong><span></span></div>
-  <div><strong>最終的な total の値</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題7-Aについて質問です。</p>
-  <p><strong>分かっていること：</strong>totalにiを掛ける処理です。<br><strong>試したこと：</strong>教材の表を上から一行ずつ計算し直しました。<br><strong>分からないこと：</strong>前の行の誤りが後の行にどう影響するか分かりません。確認するヒントを一つください。</p>
+  <p class="ai-label">AIへの質問例｜トレース表を書くヒントを求める</p>
+  <p>問題○○について質問です。トレース表を自分で書くためのヒントがほしいです。</p>
+  <p><strong>分かっていること：</strong>一行ごとに変数の値を記録します。<br><strong>試したこと：</strong>i、実行前のtotal、実行後のtotalを列にしました。<br><strong>分からないこと：</strong>条件の真偽も列に必要か迷います。列を決めるときの考え方を、一つ教えてください。</p>
 </div>
 
 </section>
@@ -3062,7 +3015,7 @@ endfor
 
 <section class="exercise-question">
 
-## 演習7-B　実行前と実行後
+## 演習7-A　実行前と実行後
 
 <span class="difficulty">難易度 ★☆☆</span>
 
@@ -3085,23 +3038,23 @@ x ← x ＋ 4
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題7-Bについて質問です。</p>
+  <p>問題7-Aについて質問です。</p>
   <p><strong>分かっていること：</strong>二行目ではxに4を足します。<br><strong>試したこと：</strong>二行目を実行する前と後の値を書きました。<br><strong>分からないこと：</strong>右辺のxにどちらの値を使うか迷います。確認するヒントを一つください。</p>
 </div>
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question fit-question">
 
-## 演習7-C　通らない行を見分ける
+## 演習7-B　通らない行を見分ける
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-実行される代入文だけを順に書き、最後のyを求めてください。
+コードの下のトレース表を完成させてください。その表を使い、実行される代入文だけを順に書き、最後のyを求めてください。
 
 この問題の変数は整数型です。配列の添字は1から始まります。
 
-<p class="exercise-task"><strong>このコードの課題：</strong>条件によって実行する代入文を選び、最後のyを求める。</p>
+<p class="exercise-task"><strong>このコードの課題：</strong>条件分岐の動きを表に記録し、実行される代入文と最後のyを求める。</p>
 
 ```text
 x ← 2
@@ -3112,6 +3065,20 @@ else
 endif
 ```
 
+<div class="trace-practice" data-exercise="7-B">
+<p class="trace-title">トレース表（記入用）</p>
+<p class="trace-guide">表はコードに書かれた順です。「判定・実行」は条件の行に真／偽、代入の行に実行する／実行しないと記入します。まだ値のない変数は「未定義」、値が変わらない欄は前の値を書きます。</p>
+
+| 確認する行 | 判定・実行 | その時のx | その時のy |
+|---|---:|---:|---:|
+| x ← 2 |  |  |  |
+| if (x ＞ 5) |  |  |  |
+| y ← 10 |  |  |  |
+| y ← 20 |  |  |  |
+
+
+</div>
+
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>実行される代入文</strong><span></span></div>
@@ -3120,8 +3087,50 @@ endif
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題7-Bについて質問です。</p>
+  <p><strong>分かっていること：</strong>条件によって実行する行が変わります。<br><strong>試したこと：</strong>x＝2を条件に当てはめ、判定の行まで表に書きました。<br><strong>分からないこと：</strong>実行しない代入の行に、xとyをどう書くか迷います。表を埋めるヒントを一つください。</p>
+</div>
+
+</section>
+
+<section class="exercise-question compact-question">
+
+## 演習7-C　最初の誤りを見つける
+
+<span class="difficulty">難易度 ★★☆</span>
+
+1から4を順に掛ける処理を、ある受講者が下の表に記録しました。最初に誤っている行のiと、その行の正しい計算結果を答えてください。続く行も計算し直し、最終的なtotalの値を求めてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>1から4までを順に掛け、totalを追った表の最初の誤りを見つける。</p>
+
+```text
+整数型: i, total
+
+total ← 1
+for (i を 1 から 4 まで 1 ずつ増やす)
+  total ← total × i
+endfor
+```
+
+| i | 実行前のtotal | total × i | 実行後のtotal |
+|---|---:|---:|---:|
+| 1 | 1 | 1 | 1 |
+| 2 | 1 | 2 | 2 |
+| 3 | 2 | 5 | 5 |
+| 4 | 5 | 20 | 20 |
+
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最初に誤っている行（i の値）</strong><span></span></div>
+  <div><strong>その行の正しい計算結果</strong><span></span></div>
+  <div><strong>最終的な total の値</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題7-Cについて質問です。</p>
-  <p><strong>分かっていること：</strong>条件によって実行する行が変わります。<br><strong>試したこと：</strong>x＝2を条件x ＞ 5に当てはめました。<br><strong>分からないこと：</strong>実行しない行の値も最後のyに影響するか迷います。ヒントを一つください。</p>
+  <p><strong>分かっていること：</strong>totalにiを掛ける処理です。<br><strong>試したこと：</strong>教材の表を上から一行ずつ計算し直しました。<br><strong>分からないこと：</strong>前の行の誤りが後の行にどう影響するか分かりません。確認するヒントを一つください。</p>
 </div>
 
 </section>
@@ -5258,52 +5267,6 @@ A[1]の4をmaxへ入れた後、まだ比べていない2番目から調べま�
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 最初に誤っている行（i の値） | 3 |
-| その行の正しい計算結果 | 6 |
-| 最終的な total の値 | 24 |
-
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6を使って6 × 4＝24と計算し直します。最初の誤りを直したら、その値を使う後の行も直します。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| total ← 1 | total＝1 |
-| i＝1の回を終了 | total＝1、i＝1 |
-| i＝2の回を終了 | total＝2、i＝2 |
-| i＝3の回を終了 | total＝6、i＝3 |
-| i＝4の回を終了 | total＝24、i＝4 |
-
-<div class="exercise-flow">
-<p class="flow-title">演習7-Aのフローチャート</p>
-<img src="images/flowcharts/7-A.svg" alt="演習7-Aの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="7-B">
-
-## 演習7-B　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="7-B">
-
-| 解答欄の項目 | 解答 |
-|---|---|
 | 二行目の実行直前の x | 3 |
 | 二行目の実行直後の x | 7 |
 
@@ -5323,6 +5286,55 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 |---|---|
 | x ← 3 | x＝3 |
 | x ← x ＋ 4 | x＝7 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習7-Aのフローチャート</p>
+<img src="images/flowcharts/7-A.svg" alt="演習7-Aの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section" data-exercise="7-B">
+
+## 演習7-B　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="7-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 実行される代入文 | `x ← 2` → `y ← 20` |
+| 最後の y | 20 |
+
+</div>
+
+<div class="completed-trace" data-exercise="7-B">
+
+#### 表の完成例
+
+| 確認する行 | 判定・実行 | その時のx | その時のy |
+|---|---:|---:|---:|
+| x ← 2 | 実行する | 2 | 未定義 |
+| if (x ＞ 5) | 偽 | 2 | 未定義 |
+| y ← 10 | 実行しない | 2 | 未定義 |
+| y ← 20 | 実行する | 2 | 20 |
+
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+x＝2なので、条件2 ＞ 5は偽です。if側のy ← 10を飛ばし、else側のy ← 20だけを実行します。実行しない行でも、表には変わらない値を書きます。y ← 10の行ではyにまだ値が入っていないため「未定義」です。最後のy ← 20で初めてyが20になります。
 
 <div class="exercise-flow">
 <p class="flow-title">演習7-Bのフローチャート</p>
@@ -5346,8 +5358,9 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 
 | 解答欄の項目 | 解答 |
 |---|---|
-| 実行される代入文 | `x ← 2` → `y ← 20` |
-| 最後の y | 20 |
+| 最初に誤っている行（i の値） | 3 |
+| その行の正しい計算結果 | 6 |
+| 最終的な total の値 | 24 |
 
 </div>
 
@@ -5357,14 +5370,17 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 
 ### 解説
 
-x＝2なので、条件2 ＞ 5は偽です。if側のy ← 10を飛ばし、else側のy ← 20だけを実行します。通らない行はyの値を変えません。
+i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6を使って6 × 4＝24と計算し直します。最初の誤りを直したら、その値を使う後の行も直します。
 
 #### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
-| x ← 2 | x＝2 |
-| y ← 20 | x＝2、y＝20 |
+| total ← 1 | total＝1 |
+| i＝1の回を終了 | total＝1、i＝1 |
+| i＝2の回を終了 | total＝2、i＝2 |
+| i＝3の回を終了 | total＝6、i＝3 |
+| i＝4の回を終了 | total＝24、i＝4 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習7-Cのフローチャート</p>

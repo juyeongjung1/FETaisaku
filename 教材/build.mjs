@@ -76,7 +76,18 @@ function verifyTraceTable(item) {
   const result=run(item), {num}=item.input||{};
   const turns=variable=>result.history.filter(row=>row.label.startsWith(variable+'＝')&&row.label.endsWith('の回を終了')).map(row=>row.values);
   let rows;
-  if(item.id==='8-C') {
+  if(item.id==='7-B') {
+    const condition=item.steps[1];
+    let current=result.history[0].values;
+    const state=(label,judgement)=>[label,judgement,String(current.x),current.y===undefined?'未定義':String(current.y)];
+    const matched=condition.yes.some(action=>result.history.some(row=>row.label===action));
+    rows=[state(item.steps[0],'実行する'),state(`if (${condition.test})`,matched?'真':'偽')];
+    for(const action of [...condition.yes,...condition.no]) {
+      const record=result.history.find(row=>row.label===action);
+      if(record) current=record.values;
+      rows.push(state(action,record?'実行する':'実行しない'));
+    }
+  } else if(item.id==='8-C') {
     const characters=[...result.text.replaceAll('\n','')];
     rows=turns('j').map((v,i)=>[String(i+1),String(v.i),String(v.j),characters[i],v.j===num?'する':'しない']);
   }
@@ -109,7 +120,8 @@ for(const item of exercises) if(!item.natural) {
 }
 console.log(`演習48問・第1章は★3問と★★3問、第4章は★2問・★★3問・★★★1問、ほかの章は各難易度2問を確認。検算${tests}ケース成功。`);
 const traceExercises=exercises.filter(item=>item.traceGuide);
-assert.equal(traceExercises.length,1);
+assert.equal(traceExercises.length,2);
+assert.deepEqual(exercises.filter(item=>item.id.startsWith('7-')).map(item=>item.id),['7-A','7-B','7-C','7-D','7-E','7-F']);
 assert(exercises.filter(item=>Number(item.id[0])<=6).every(item=>!item.tableTemplate&&!item.traceGuide&&!/表に|表を|トレース/.test(item.question+item.aiQuestion)), '第6章までは表への記入を求めません。');
 for(const id of ['6-C','6-D','6-E','6-F']) {
   const item=exercises.find(item=>item.id===id);
@@ -117,7 +129,7 @@ for(const id of ['6-C','6-D','6-E','6-F']) {
   assert(initial,id+'の配列の宣言・初期値がありません');
   assert.deepEqual(initial[1].split(',').map(Number),item.input.A,id+'の掲載コードと入力配列');
 }
-console.log(`記入用トレース表1問・完成表${traceExercises.reduce((n,item)=>n+verifyTraceTable(item),0)}行の全値を実行結果と照合。第1〜6章の演習に表の記入指定がないことを確認。`);
+console.log(`記入用トレース表2問・完成表${traceExercises.reduce((n,item)=>n+verifyTraceTable(item),0)}行の全値を実行結果と照合。第1〜6章の演習に表の記入指定がないことを確認。`);
 const countExercise=exercises.find(item=>item.id==='5-B');
 const countRun=run(countExercise);let previous=countRun.history[0].values;
 const countRows=countRun.history.filter(row=>row.label==='繰返し一回分を終了').map(row=>{
@@ -272,10 +284,10 @@ for(let chapter=1;chapter<=8;chapter++) {
   const extra=exercises.filter(e=>e.id.startsWith(chapter+'-')&&!e.existing);
   const section=`<!-- 追加演習開始 ${chapter} -->\n\n`+extra.map(item=>{
     const types=item.natural?'':(item.types||('この問題の変数は整数型です。'+(Number(item.id[0])>=6?'配列の添字は1から始まります。':'')));
-    const typesInCode = ['4-D','6-C','6-D','6-E','6-F'].includes(item.id);
+    const typesInCode = ['4-D','6-C','6-D','6-E','6-F','7-C'].includes(item.id);
     const prereq=item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
     const codeBlock = item.natural ? '' : (`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n` + '```text\n' + (typesInCode ? types + '\n\n' : '') + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
-    const tablePart = item.traceGuide?(item.traceWorksheet?'':tracePractice(item)):tableTemplate(item);
+    const tablePart = item.traceGuide?(item.traceWorksheet?'':tracePractice(item)):tableTemplate(item,item.tableTemplate||item.questionTable);
     const choicePart = choiceTable(item);
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
     const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
@@ -401,10 +413,12 @@ try {
   assert.equal(await page.locator('.nested-example .result-lines .loop-j').count(),6);
   assert.deepEqual(await page.locator('.nested-example .result-lines span').allTextContents(),['1','1','1','2','1','3','2','1','2','2','2','3']);
   assert.equal(await page.locator('.answer-section .display-result').count(),14);
-  assert.equal(await page.locator('.trace-practice').count(),1);
-  assert.equal(await page.locator('.completed-trace').count(),1);
-  assert.equal(await page.locator('.trace-practice tbody tr').count(),9);
-  assert.equal(await page.locator('.completed-trace tbody tr').count(),9);
+  assert.equal(await page.locator('.trace-practice').count(),2);
+  assert.equal(await page.locator('.completed-trace').count(),2);
+  assert.equal(await page.locator('.trace-practice tbody tr').count(),13);
+  assert.equal(await page.locator('.completed-trace tbody tr').count(),13);
+  assert(await page.locator('.trace-practice[data-exercise="7-B"]').evaluate(table=>table.previousElementSibling.tagName==='PRE'&&table.nextElementSibling.classList.contains('answer-sheet')), '7-Bの記入表はコードの直後、解答欄の前に配置してください。');
+  assert.deepEqual((await page.locator('.exercise-question > h2').allTextContents()).filter(title=>title.startsWith('演習7-')).map(title=>title.slice(2,5)),['7-A','7-B','7-C','7-D','7-E','7-F']);
   assert(await page.evaluate(()=>[...document.querySelectorAll('.exercise-question')].filter(section=>/^演習[1-6]-/.test(section.querySelector('h2').innerText)).every(section=>
     [...section.querySelectorAll('table')].every(table=>table.closest('.choice-table')))), '第6章までの演習は通常の解答欄を使用してください。');
   assert(await page.evaluate(()=>[...document.querySelectorAll('.trace-practice')].every(blank=>{

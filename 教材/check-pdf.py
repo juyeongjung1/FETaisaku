@@ -35,7 +35,8 @@ assert '繰返しもひし形' not in compact_text and 'ループ端（上下一
 assert compact_text.count('問題：') == 29, '説明用コード全29例の課題が必要です'
 assert compact_text.count('このコードの課題：') == 42, '演習のコード全42例の課題が必要です'
 assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 34, '説明用20枠・演習14枠の表示結果が必要です'
-assert compact_text.count('トレース表（記入用）') == 1, '記入用の専用表は8-Cに配置します'
+assert compact_text.count('トレース表（記入用）') == 2, '記入用の表は7-Bと8-Cに配置します'
+assert 'トレース表を自分で書くためのヒントがほしいです' in compact_text, '第7章のAI例に表を書くためのヒントを求める内容が必要です'
 assert '6.4の最大値' not in compact_text and '6.4のコード' not in compact_text, '最大値の節番号が古いままです'
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
@@ -78,6 +79,8 @@ for chapter in range(1, 9):
         assert f'問題{ident}について質問です' in re.sub(r'\s+', '', question_pages[0]), ('問題とAIへの質問例を同じページに配置してください', ident)
         if ident in choice_ids:
             assert len(re.findall(r'^[アイウエ](?=\s)', question_pages[0], re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください', ident)
+        if ident == '7-B':
+            assert 'トレース表（記入用）' in question_pages[0], '7-Bの問題と記入表を同じページに配置してください'
         if ident in worksheet_ids:
             question_page = pages.index(question_pages[0])
             assert f'演習{ident}の記入用トレース表' in re.sub(r'\s+', '', pages[question_page+1]), ('記入用の表を問題の次ページに配置してください', ident)
