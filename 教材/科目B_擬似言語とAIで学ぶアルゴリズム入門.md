@@ -80,8 +80,8 @@
   <li><a href="#chapter-6"><span>第6章　配列</span><b>68</b></a></li>
   <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>82</b></a></li>
   <li><a href="#chapter-8"><span>第8章　総合演習</span><b>92</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>101</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>150</b></a></li>
+  <li><a href="#answers"><span>解答・解説</span><b>100</b></a></li>
+  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>149</b></a></li>
 </ol>
 
 </div>
@@ -3310,24 +3310,28 @@ endfor
 
 # 第8章　総合演習
 
-この章では、複数の知識を組み合わせます。最初からAIへ入力せず、問題ごとに次の欄を埋めてください。
+この章では、複数の知識を組み合わせます。各問題の「問題を解く前の確認欄」で、確認できた項目にチェックを付けてから解き始めましょう。まず自分で考え、迷ったところをAIへ質問します。
 
-<div class="analysis-sheet">
-  <p class="sheet-title">問題を解く前の確認欄</p>
-  <div><strong>使われている変数</strong><span></span></div>
-  <div><strong>使われている配列</strong><span></span></div>
-  <div><strong>選択処理</strong><span></span></div>
-  <div><strong>繰返し処理</strong><span></span></div>
-  <div><strong>求めている結果</strong><span></span></div>
-</div>
-
-<section class="exercise-question">
+<section class="exercise-question compact-question fit-question">
 
 ## 演習8-A　条件に合う値の件数
 
 <span class="difficulty">難易度 ★★☆</span>
 
 配列`A`には10個の整数が入っています。5以上の値がいくつあるかを数えて表示します。空欄を埋めてください。
+
+<!-- 確認欄開始 8-A -->
+
+<div class="analysis-sheet" data-exercise="8-A">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 変数と配列の役割</li>
+<li>□ 対象とする値の条件</li>
+<li>□ 件数を増やすタイミング</li>
+</ul>
+</div>
+
+<!-- 確認欄終了 8-A -->
 
 <p class="exercise-task"><strong>このコードの課題：</strong>配列Aのうち5以上の値を数え、件数を表示する。</p>
 
@@ -3372,6 +3376,19 @@ endfor
 
 空欄①〜③に入れる内容の組合せとして、適切なものを一つ選んでください。`Aの要素数`は、配列Aに入っている値の個数です。例えばA＝{4, 9, 9}なら3です。
 
+<!-- 確認欄開始 8-B -->
+
+<div class="analysis-sheet" data-exercise="8-B">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 同点時の条件（＞と≧）</li>
+<li>□ 値と位置を更新する場所</li>
+<li>□ 比較を始める位置</li>
+</ul>
+</div>
+
+<!-- 確認欄終了 8-B -->
+
 <p class="exercise-task"><strong>このコードの課題：</strong>配列Aの最大値と、その値が最初に現れる位置を順に表示する。</p>
 
 ```text
@@ -3411,8 +3428,6 @@ endfor
   <div><strong>選択肢（ア〜エ）</strong><span></span></div>
 </div>
 
-**考えるポイント：** 条件が`≧`の場合の同点時の動作、最大値を更新するときに、その位置も同じ条件の内側で更新すること、繰返し開始位置に注目しましょう。
-
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題8-Bについて質問です。</p>
@@ -3421,7 +3436,7 @@ endfor
 
 </section>
 
-<section class="exercise-question compact-question fit-question">
+<section class="exercise-question compact-question fit-question two-page-question">
 
 ## 演習8-C　記号を正方形に表示する
 
@@ -3431,7 +3446,20 @@ endfor
 
 空欄①〜④に入る組合せを一つ選んでください。選択肢の「i：1～num」は「i を 1 から num まで 1 ずつ増やす」の略記です。どの範囲も1ずつ増やし、両端を含みます。
 
-<p class="exercise-task"><strong>このコードの課題：</strong>正方形を表示し、次ページの表で動きを追う。</p>
+<!-- 確認欄開始 8-C -->
+
+<div class="analysis-sheet" data-exercise="8-C">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 二つの繰返しの担当</li>
+<li>□ 一文字の表示と改行</li>
+<li>□ 入力値と行・文字数の関係</li>
+</ul>
+</div>
+
+<!-- 確認欄終了 8-C -->
+
+<p class="exercise-task"><strong>このコードの課題：</strong>num行、各行にnum個の「*」を表示する。</p>
 
 ```text
 整数型: num, i, j
@@ -3444,6 +3472,35 @@ for ([ ① ])
   [ ④ ]
 endfor
 ```
+
+<!-- トレース表開始 8-C -->
+
+<div class="trace-practice" data-exercise="8-C">
+<p class="trace-title">トレース表（記入用）</p>
+<p class="trace-guide">次ページの選択肢から組合せを選び、num＝3で一文字表示するたびに一行記入します。その文字の後、次の文字を表示するか処理を終えるまでに改行するかを「する／しない」で記録し、3行・各行3文字になるか確認してください。</p>
+
+| 表示順 | 外側のi | 内側のj | 表示する文字 | 表示後の改行 |
+|---|---:|---:|---:|---:|
+| 1 |  |  |  |  |
+| 2 |  |  |  |  |
+| 3 |  |  |  |  |
+| 4 |  |  |  |  |
+| 5 |  |  |  |  |
+| 6 |  |  |  |  |
+| 7 |  |  |  |  |
+| 8 |  |  |  |  |
+| 9 |  |  |  |  |
+
+
+</div>
+
+<!-- トレース表終了 8-C -->
+
+<div class="question-continuation">
+
+<p class="continuation-title">8-Cの続き｜選択肢と解答欄</p>
+
+前のページのコードとトレース表を使い、表示が次の例と一致する組合せを選んでください。
 
 **`num`が3の場合の出力例：** 1行に`***`を表示し、改行して3行出力します。
 
@@ -3475,42 +3532,13 @@ endfor
   <p><strong>分かっていること：</strong>iとjは別の繰返しで使います。<br><strong>試したこと：</strong>num＝3で、一行目のiとjを表に書きました。<br><strong>分からないこと：</strong>次の行のjと改行のタイミングが分かりません。ヒントを一つください。</p>
 </div>
 
-</section>
-
-<!-- トレース用紙開始 8-C -->
-
-<section class="trace-worksheet" data-exercise="8-C">
-
-### 演習8-Cの記入用トレース表
-
-前のページのコードと見比べながら、表に書き込んでください。
-
-<div class="trace-practice" data-exercise="8-C">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">選んだ組合せをコードへ入れ、num＝3で一文字表示するたびに一行記入してください。iとjを別々の列へ書き、その文字の後、次の文字を表示するか処理を終えるまでに改行するかを「する／しない」で記録します。9個の文字で3行の正方形になるか確認し、合わなければ空欄を見直してください。</p>
-
-| 表示順 | 外側のi | 内側のj | 表示する文字 | 表示後の改行 |
-|---|---:|---:|---:|---:|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
-| 6 |  |  |  |  |
-| 7 |  |  |  |  |
-| 8 |  |  |  |  |
-| 9 |  |  |  |  |
-
-
 </div>
 
 </section>
 
-<!-- トレース用紙終了 8-C -->
-
 <!-- 追加演習開始 8 -->
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習8-D　条件付きの更新
 
@@ -3518,6 +3546,15 @@ endfor
 
 A＝{2,6}です。最後のresultを答えてください。
 
+
+<div class="analysis-sheet" data-exercise="8-D">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 初めにresultへ入る値</li>
+<li>□ 比較する二つの値</li>
+<li>□ 条件が真のときの更新</li>
+</ul>
+</div>
 <p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{2, 6}の二つの値を比べ、大きい方をresultへ残す。</p>
 
 ```text
@@ -3543,7 +3580,7 @@ endif
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習8-E　二つの値の合計
 
@@ -3551,6 +3588,15 @@ endif
 
 A＝{3,5}です。最後のtotalを答えてください。
 
+
+<div class="analysis-sheet" data-exercise="8-E">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ totalの初期値</li>
+<li>□ 配列を読む順番</li>
+<li>□ 前の合計に足す値</li>
+</ul>
+</div>
 <p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{3, 5}の二つの値を順に足す。</p>
 
 ```text
@@ -3576,7 +3622,7 @@ endfor
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習8-F　条件を満たした値だけ合計する
 
@@ -3584,6 +3630,15 @@ endfor
 
 A＝{3,8,5,1}から5以上の値だけを集計します。count、total、averageを求めてください。averageは実数型です。この配列では対象が必ず一つ以上あります。
 
+
+<div class="analysis-sheet" data-exercise="8-F">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 対象となる値の条件</li>
+<li>□ 件数と合計の更新</li>
+<li>□ 平均を求めるときの個数</li>
+</ul>
+</div>
 <p class="exercise-task"><strong>このコードの課題：</strong>配列Aの5以上の値だけを集計し、件数・合計・平均を求める。</p>
 
 ```text

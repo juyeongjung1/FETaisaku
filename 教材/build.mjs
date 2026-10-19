@@ -281,8 +281,9 @@ function tableTemplate(item, table=item.tableTemplate) {
 function tracePractice(item) {
   return `\n<div class="trace-practice" data-exercise="${item.id}">\n<p class="trace-title">トレース表（記入用）</p>\n<p class="trace-guide">${escape(item.traceGuide)}</p>\n${tableTemplate(item)}\n</div>\n`;
 }
-function traceWorksheet(item) {
-  return `<section class="trace-worksheet" data-exercise="${item.id}">\n\n### 演習${item.id}の記入用トレース表\n\n前のページのコードと見比べながら、表に書き込んでください。\n${tracePractice(item)}\n</section>\n`;
+function precheck(item) {
+  if(!item.prechecks) return '';
+  return `\n<div class="analysis-sheet" data-exercise="${item.id}">\n<p class="sheet-title">問題を解く前の確認欄</p>\n<ul class="precheck-items">\n${item.prechecks.map(label=>`<li>□ ${escape(label)}</li>`).join('\n')}\n</ul>\n</div>\n`;
 }
 // 既存問題も生成元のAI例文を使い、再ビルド時の食い違いを防ぐ。
 for (const item of exercises.filter(e=>e.existing)) {
@@ -294,19 +295,19 @@ for (const item of exercises.filter(e=>e.existing)) {
   const updated=section.replace(pattern,(_,start,middle,end)=>start+aiLabel+middle+'\n  '+aiParagraphs(item.aiQuestion)+'\n'+end);
   let withTask=updated.replace(/<p class="exercise-task">[^\n]*<\/p>\n\n/g,'')
     .replace('```text',`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n\`\`\`text`);
-  if(item.traceGuide&&!item.traceWorksheet) {
+  if(item.prechecks) {
+    const start='<!-- 確認欄開始 '+item.id+' -->',end='<!-- 確認欄終了 '+item.id+' -->';
+    const a=withTask.indexOf(start)+start.length,b=withTask.indexOf(end,a);
+    assert(withTask.includes(start)&&b>a,item.id+'の確認欄の生成位置がありません');
+    withTask=withTask.slice(0,a)+'\n'+precheck(item)+'\n'+withTask.slice(b);
+  }
+  if(item.traceGuide) {
     const start='<!-- トレース表開始 '+item.id+' -->',end='<!-- トレース表終了 '+item.id+' -->';
     const a=withTask.indexOf(start)+start.length,b=withTask.indexOf(end,a);
     assert(withTask.includes(start)&&b>a,item.id+'の表の生成位置がありません');
     withTask=withTask.slice(0,a)+'\n'+tracePractice(item)+'\n'+withTask.slice(b);
   }
   md=md.slice(0,from)+withTask+md.slice(to);
-}
-for(const item of exercises.filter(e=>e.existing&&e.traceWorksheet)) {
-  const start='<!-- トレース用紙開始 '+item.id+' -->',end='<!-- トレース用紙終了 '+item.id+' -->';
-  const a=md.indexOf(start)+start.length,b=md.indexOf(end,a);
-  assert(md.includes(start)&&b>a,item.id+'の用紙の生成位置がありません');
-  md=md.slice(0,a)+'\n\n'+traceWorksheet(item)+'\n'+md.slice(b);
 }
 for (const item of exercises.filter(e=>e.existing&&e.choices)) {
   const start='<!-- 選択肢開始 '+item.id+' -->', end='<!-- 選択肢終了 '+item.id+' -->';
@@ -322,15 +323,15 @@ for(let chapter=1;chapter<=8;chapter++) {
     const types=item.natural?'':item.types;
     const prereq=item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
     const codeBlock = item.natural ? '' : (`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n` + '```text\n' + types + '\n\n' + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
-    const tablePart = item.traceGuide?(item.traceWorksheet?'':tracePractice(item)):tableTemplate(item,item.tableTemplate||item.questionTable);
+    const tablePart = item.traceGuide?tracePractice(item):tableTemplate(item,item.tableTemplate||item.questionTable);
     const choicePart = choiceTable(item);
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
     const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
     const answerSheet = `<div class="answer-sheet">\n  <p class="sheet-title">解答欄</p>\n${rows}\n</div>`;
     const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  ${aiParagraphs(item.aiQuestion)}\n</div>`;
     const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
-    const secClass = item.traceGuide?'exercise-question compact-question fit-question':item.compact ? 'exercise-question compact-question' : 'exercise-question';
-    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${item.traceWorksheet?traceWorksheet(item):''}${breakTag}`;
+    const secClass = item.traceGuide?'exercise-question compact-question fit-question':item.compact||item.prechecks ? 'exercise-question compact-question' : 'exercise-question';
+    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${precheck(item)}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
   }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
   const marker=chapter===8?'## 演習後の振り返り':`<div class="page-break"></div>\n\n<a id="chapter-${chapter+1}"></a>`;
   assert(md.includes(marker),marker);md=md.replace(marker,section+marker);
@@ -420,7 +421,7 @@ try {
     for(const node of document.querySelectorAll('code'))
       if(/^(if|else|elseif|endif|while|endwhile|for|endfor)$/.test(node.textContent)) node.classList.add('syntax-keyword');
     for(const heading of document.querySelectorAll('h3,h4'))
-      if(!heading.closest('.answer-section,.exercise-question,.trace-worksheet')) heading.classList.add(heading.tagName==='H3'?'lesson-subheading':'lesson-detailheading');
+      if(!heading.closest('.answer-section,.exercise-question')) heading.classList.add(heading.tagName==='H3'?'lesson-subheading':'lesson-detailheading');
     for(const node of document.querySelectorAll('.nested-lesson code'))
       if(/^[ij](?:$|[ ＝←])/.test(node.textContent)) node.classList.add('loop-'+node.textContent[0]);
     const nestedCode=document.querySelector('.nested-example pre code');
@@ -462,6 +463,13 @@ try {
   assert.equal(await page.locator('.trace-practice tbody tr').count(),13);
   assert.equal(await page.locator('.completed-trace tbody tr').count(),13);
   assert(await page.locator('.trace-practice[data-exercise="7-B"]').evaluate(table=>table.previousElementSibling.tagName==='PRE'&&table.nextElementSibling.classList.contains('answer-sheet')), '7-Bの記入表はコードの直後、解答欄の前に配置してください。');
+  assert(await page.locator('.trace-practice[data-exercise="8-C"]').evaluate(table=>table.previousElementSibling.tagName==='PRE'&&Boolean(table.nextElementSibling.querySelector('.choice-table'))), '8-Cの記入表はコードの直後、選択肢の前に配置してください。');
+  assert.equal(await page.locator('.analysis-sheet').count(),6);
+  for(const item of exercises.filter(item=>item.prechecks)) {
+    const sheet=page.locator(`.analysis-sheet[data-exercise="${item.id}"]`);
+    assert.deepEqual(await sheet.locator('li').allTextContents(),item.prechecks.map(label=>'□ '+label),item.id+'の確認項目');
+    assert(await sheet.evaluate(sheet=>sheet.nextElementSibling.classList.contains('exercise-task')&&sheet.closest('.exercise-question').querySelector('h2').innerText.startsWith('演習'+sheet.dataset.exercise+'　')),item.id+'の確認欄を問題文の後・コードの前に配置してください。');
+  }
   assert.deepEqual((await page.locator('.exercise-question > h2').allTextContents()).filter(title=>title.startsWith('演習7-')).map(title=>title.slice(2,5)),['7-A','7-B','7-C','7-D','7-E','7-F']);
   assert(await page.evaluate(()=>[...document.querySelectorAll('.exercise-question')].filter(section=>/^演習[1-6]-/.test(section.querySelector('h2').innerText)).every(section=>
     [...section.querySelectorAll('table')].every(table=>table.closest('.choice-table')))), '第6章までの演習は通常の解答欄を使用してください。');

@@ -70,6 +70,9 @@
 .trace-title { font-weight: 700; color: #1a365d; }
 .completed-trace { break-inside: avoid; }
 .nested-trace { break-inside: avoid; }
+.analysis-sheet .precheck-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5em; margin: 0; padding: 0.7em 1em; list-style: none; font-size: 0.9em; }
+.analysis-sheet .precheck-items li { margin: 0; }
+.continuation-title { font-weight: 800; color: var(--navy); }
 @media print {
   .lesson-subheading { margin: 4mm 0 6mm; padding: 1.6mm 2.5mm; line-height: 1.3; }
   .lesson-detailheading { margin: 3mm 0 6mm; line-height: 1.4; }
@@ -100,15 +103,19 @@
   .compact-question.fit-question .count-trace th,
   .compact-question.fit-question .count-trace td { padding: .6mm 2mm; line-height: 1.35; }
   .compact-question.fit-question .count-trace td { height: 5.5mm; }
-  .trace-worksheet { break-before: page; break-inside: avoid; }
-  .trace-worksheet + .exercise-question { break-before: page; }
+  .two-page-question { break-inside: auto; }
+  .question-continuation { break-before: page; break-inside: avoid; }
+  .exercise-question .analysis-sheet { margin: 2mm 0; }
+  .exercise-question .analysis-sheet .sheet-title { margin: 0; padding: 1mm 2mm; }
+  .analysis-sheet .precheck-items { padding: 1.5mm 2mm; font-size: 9.5pt; }
+  .analysis-sheet .precheck-items li { margin: 0; line-height: 1.5; }
   .trace-practice .trace-title { margin: 2mm 0 1mm; }
   .trace-practice .trace-guide { margin: 1mm 0 2mm; font-size: 9.5pt; line-height: 1.5; }
   .trace-practice table { margin: 1.5mm 0; font-size: 9pt; }
   .trace-practice th, .trace-practice td { padding: 1mm 2mm; line-height: 1.4; }
   .trace-practice td { height: 6.5mm; }
-  .trace-worksheet .trace-practice table { font-size: 10pt; }
-  .trace-worksheet .trace-practice td { height: 10mm; }
+  .two-page-question .trace-practice table { font-size: 10pt; }
+  .two-page-question .trace-practice td { height: 10mm; }
   .nested-example pre { line-height: 1.35; }
   .nested-example .result-lines { line-height: 1.2; }
   .nested-trace table { margin: 2mm 0; font-size: 9pt; }

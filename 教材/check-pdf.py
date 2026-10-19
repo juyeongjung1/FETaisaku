@@ -42,8 +42,8 @@ assert '6.4の最大値' not in compact_text and '6.4のコード' not in compac
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
 choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
 assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
-worksheet_ids = re.findall(r'<section class="trace-worksheet" data-exercise="(\d-[A-F])">', (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'))
-assert worksheet_ids == ['8-C'], '第6章までに記入用紙を置かないでください'
+assert 'class="trace-worksheet"' not in (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'), '記入表は問題内のコード直後へ配置してください'
+assert len(re.findall(r'^問題を解く前の確認欄\s*$', all_text, re.M)) == 6, '第8章の各問題に確認欄が必要です'
 toc = {}
 report = []
 for number, text in enumerate(pages, 1):
@@ -77,14 +77,22 @@ for chapter in range(1, 9):
         question_pages = [text for text in pages[:toc['answers'] - 1]
                           if re.search(rf'演習{ident}[ 　]', text)]
         assert len(question_pages) == 1, ('問題見出し', ident)
-        assert f'問題{ident}について質問です' in re.sub(r'\s+', '', question_pages[0]), ('問題とAIへの質問例を同じページに配置してください', ident)
+        response_text = question_pages[0]
+        if ident == '8-C':
+            question_page = pages.index(question_pages[0])
+            response_text = pages[question_page+1]
+            assert '8-Cの続き｜選択肢と解答欄' in re.sub(r'\s+', '', response_text), '8-Cの選択肢は問題の直後のページへ続けてください'
+            assert 'トレース表（記入用）' in question_pages[0], '8-Cのコードと記入表を同じページに配置してください'
+            layout_text = reader.pages[question_page].extract_text(extraction_mode='layout')
+            assert layout_text.rfind('endfor') < layout_text.index('トレース表（記入用）'), '8-Cの表をコードの後に配置してください'
+            assert 'トレース表（記入用）' not in response_text, '8-Cの表は選択肢より前へ配置してください'
+        assert f'問題{ident}について質問です' in re.sub(r'\s+', '', response_text), ('問題とAIへの質問例を同じページに配置してください（8-Cは直後の続きページ）', ident)
+        if chapter == 8:
+            assert '問題を解く前の確認欄' in question_pages[0], ('第8章は各問題に確認欄を配置してください', ident)
         if ident in choice_ids:
-            assert len(re.findall(r'^[アイウエ](?=\s)', question_pages[0], re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください', ident)
+            assert len(re.findall(r'^[アイウエ](?=\s)', response_text, re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください（8-Cは直後の続きページ）', ident)
         if ident == '7-B':
             assert 'トレース表（記入用）' in question_pages[0], '7-Bの問題と記入表を同じページに配置してください'
-        if ident in worksheet_ids:
-            question_page = pages.index(question_pages[0])
-            assert f'演習{ident}の記入用トレース表' in re.sub(r'\s+', '', pages[question_page+1]), ('記入用の表を問題の次ページに配置してください', ident)
 (work / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'qa.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')
