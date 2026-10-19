@@ -31,7 +31,7 @@
 .index-references a { color: #111; text-decoration: none; }
 .index-references a:not([hidden]) ~ a:not([hidden])::before { content: ", "; }
 @media print {
-  @page chapter-opening { size: A4; margin: 0; }
+  @page chapter-opening { size: A4; margin: 0; @bottom-center { content: none; } }
   .chapter-opening, .parity-blank { height: 263mm; min-height: 0; break-before: page; break-after: page; break-inside: avoid; }
   .chapter-opening { page: chapter-opening; height: 296mm; padding: 93mm 28mm 0; }
   .chapter-number { top: 0; right: 0; }
@@ -242,89 +242,62 @@ body {
 }
 
 .cover {
-  position: relative;
-  display: flex;
-  min-height: 820px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: -72px -78px 72px;
-  padding: 100px 90px 120px;
-  overflow: hidden;
-  color: var(--ink);
-  text-align: center;
+  box-sizing: border-box;
+  min-height: 296mm;
+  margin: 0;
+  padding: 92mm 30mm 0;
+  color: #111;
+  text-align: left;
   background: #fff;
 }
 
-.cover-logo {
-  position: absolute;
-  top: 34px;
-  right: 42px;
-  width: 190px;
-  height: auto;
-}
-
-.cover::before {
-  width: 62px;
-  height: 8px;
-  margin-bottom: 42px;
-  border-radius: 999px;
-  background: var(--coral);
-  content: "";
-}
-
 .cover-label {
-  margin: 0 0 34px;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
+  margin: 0 0 4mm;
+  font-size: 11pt;
 }
 
 .cover h1 {
-  max-width: 720px;
   margin: 0;
   border: 0;
-  padding: 0;
-  color: var(--navy);
+  border-bottom: .5pt solid #111;
+  padding: 0 0 4mm;
+  color: #111;
   font-family: var(--sans);
-  font-size: 3.25rem;
+  font-size: 28pt;
   font-weight: 800;
-  letter-spacing: 0.01em;
-  line-height: 1.38;
+  line-height: 1.45;
 }
 
-.cover-subtitle {
-  margin: 30px 0 0;
-  color: #707070;
-  font-size: 1.3rem;
-  font-weight: 400;
-}
-
-.cover-rule {
-  width: 76%;
-  height: 1px;
-  margin: 18px 0 38px;
-  background: #d5d9dd;
-}
-
-.cover-message {
-  margin: 0;
-  color: #59636c;
-  font-size: 0.98rem;
-  font-weight: 500;
-  line-height: 1.9;
-}
-
-.edition {
-  position: absolute;
-  bottom: 52px;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  color: #8b9298;
-  font-size: 0.74rem;
-}
+.course-front, .course-guide { padding: 0 14mm; }
+.front-running-head { margin: 0; border-bottom: .5pt solid #111; text-align: center; font-size: 10pt; line-height: 1.5; }
+.course-front > h1, .course-guide > h1 { margin: 9mm 0 4mm; padding: 0; border: 0; font-size: 16pt; color: #111; }
+.slide-card { box-sizing: border-box; width: 130mm; height: 97.5mm; margin: 0 auto 9mm; padding: 1.5mm; border: .7pt solid #111; position: relative; color: #555; }
+.slide-card::after { content: ""; position: absolute; left: 1.5mm; right: 1.5mm; bottom: 3mm; border-bottom: .5pt solid #f45125; }
+.slide-heading { display: flex; justify-content: space-between; align-items: center; padding: 0 1.5mm 1mm 4mm; border-bottom: 2pt solid #f45125; height: 7mm; font-size: 11pt; }
+.brand-mark { display: block; flex: 0 0 6.4mm; width: 6.4mm; height: 6.4mm; overflow: hidden; }
+.brand-mark img { display: block; height: 6.4mm; width: auto; max-width: none; }
+.course-goals-list { margin: 2mm 0 0; padding-left: 9mm; list-style-type: square; font-size: 13pt; line-height: 1.75; font-weight: 700; }
+.course-goals-list li { margin: 1mm 0; }
+.course-chapter-list { margin: 2mm 0 0; padding: 0 4mm; list-style: none; font-size: 12.5pt; line-height: 1.5; font-weight: 700; }
+.course-chapter-list li { margin: .7mm 0; }
+.front-notes { border-top: .5pt solid #111; padding: 4mm; font-size: 10.5pt; line-height: 1.9; }
+.front-notes p { margin: 2mm 0 4mm; }
+.course-guide { font-size: 10pt; }
+.course-guide .learning-cycle strong { font-size: 9pt; }
+.course-guide .learning-cycle small { font-size: 8pt; }
+.colophon { box-sizing: border-box; min-height: 263mm; padding: 155mm 8mm 0; color: #111; font-size: 9.5pt; line-height: 1.4; }
+.colophon-heading { display: grid; grid-template-columns: 1.15fr 1fr; gap: 7mm; align-items: center; padding: 0 1.5mm 5mm; border-bottom: .5pt solid #111; }
+.colophon-heading h1 { margin: 0; padding: 0; border: 0; color: #111; font-size: 11pt; line-height: 1.5; }
+.rights-notice strong { text-decoration: underline; }
+.rights-notice p, .publisher p, .colophon-footer p { margin: 0; }
+.publication-details { display: grid; grid-template-columns: 1fr 1.25fr; gap: 7mm; min-height: 57mm; padding: 4mm 1.5mm 6mm; }
+.publication-date { margin: 0; white-space: nowrap; }
+.publisher { display: grid; grid-template-columns: auto 1fr; column-gap: 3mm; }
+.publisher-label { white-space: nowrap; }
+.publisher > div > p + p { margin-top: 2mm; }
+.publisher > div > .publisher-url { margin-top: 7mm; }
+.publisher a { color: #111; text-decoration: none; }
+.colophon-footer { border-top: .5pt solid #111; padding: 4mm 1.5mm 0; }
 
 h1,
 h2,
@@ -1817,20 +1790,11 @@ td:empty {
 
   .cover {
     min-height: 86vh;
-    margin: -38px -22px 54px;
-    padding: 64px 28px 80px;
+    padding: 100px 28px 80px;
   }
 
   .cover h1 {
     font-size: 2.3rem;
-  }
-
-  .cover-rule {
-    width: 92%;
-  }
-
-  .edition {
-    bottom: 32px;
   }
 
   .input-methods,
@@ -1917,7 +1881,17 @@ td:empty {
   @page {
     size: A4;
     margin: 15mm 16mm 18mm;
+    @bottom-center {
+      content: "アルゴリズム入門　｜　" counter(page);
+      font-family: Meiryo, sans-serif;
+      font-size: 6pt;
+      color: #697586;
+      vertical-align: bottom;
+      padding-bottom: 5mm;
+    }
   }
+  @page textbook-cover { size: A4; margin: 0; @bottom-center { content: none; } }
+  @page colophon { @bottom-center { content: none; } }
 
   html {
     background: #fff;
@@ -1935,29 +1909,21 @@ td:empty {
   }
 
   .cover {
-    width: 178mm;
-    min-height: 264mm;
-    margin: -15mm -16mm -18mm;
-    padding: 38mm 24mm 45mm;
+    page: textbook-cover;
+    height: 296mm;
+    min-height: 0;
+    break-after: page;
     print-color-adjust: exact;
     -webkit-print-color-adjust: exact;
   }
 
   .cover h1 {
-    font-size: 30pt;
+    font-size: 28pt;
   }
 
-  .cover-logo {
-    top: 25mm;
-    right: auto;
-    left: 50%;
-    width: 52mm;
-    transform: translateX(-50%);
-  }
-
-  .edition {
-    bottom: 22mm;
-  }
+  .course-front, .course-guide { break-before: page; break-after: page; }
+  .course-front { height: 263mm; break-inside: avoid; }
+  .colophon { page: colophon; height: 263mm; min-height: 0; break-before: page; break-inside: avoid; }
 
   h1 {
     margin-top: 0;

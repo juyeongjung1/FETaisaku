@@ -1,45 +1,48 @@
 <link rel="stylesheet" href="教材.css">
 
 <div class="cover">
-  <img class="cover-logo" src="images/trainocate-logo.png" alt="TRAINOCATE">
   <p class="cover-label">基本情報技術者試験　科目B対策</p>
   <h1>擬似言語とAIで学ぶ<br>アルゴリズム入門</h1>
-  <p class="cover-subtitle">はじめての変数から、配列の活用まで</p>
-  <div class="cover-rule"></div>
-  <p class="cover-message">「答えを聞く」のではなく、<br>「分からない場所を見つける」ためにAIを使おう。</p>
-  <p class="edition">基本情報技術者試験　科目B対策教材</p>
 </div>
 
-<div class="page-break"></div>
-
-# はじめに
-
-この教材は、基本情報技術者試験の科目Bで出題されるアルゴリズムとプログラミングを、プログラミング未経験者が擬似言語から学ぶための入門書です。
-
-科目Bの問題を解くために、難しいプログラム言語を最初から覚える必要はありません。まず必要なのは、次の三つの力です。
-
-1. 擬似言語を上から順番に読む力
-2. 変数や配列の値がどう変化するかを追う力
-3. 分からない箇所を言葉にして、質問する力
-
-本研修では、処理の基本となる**順次・選択・繰返し**を擬似言語で学びます。各演習の解説には、処理の進み方を矢印で示すフローチャートも掲載します。コードの一行と図の一つの処理を対応させて読みましょう。
-
-変数は値を覚える場所、配列は複数の値を順に並べて覚える場所です。第1〜6章では基本の書き方と動きを学び、第7章では、その動きをより正確に確かめる方法を学びます。
-
-また、本書では生成AIへ質問するための例文を紹介します。AIに正解を直接聞くのではなく、考え方の整理、ヒント、計算や判断の確認、間違いの発見に利用します。
-
-<div class="goal-box">
-  <p class="box-title">本研修の到達目標</p>
-  <ul>
-    <li>変数・代入・配列を説明できる</li>
-    <li>選択処理と繰返し処理を読める</li>
-    <li>短い擬似言語の動きを説明できる</li>
-    <li>合計・件数・最大値を求める処理を理解できる</li>
-    <li>AIを使って、自分で学習を続けられる</li>
+<section class="course-front" id="course-goals">
+<p class="front-running-head">はじめに</p>
+<h1>研修の目標</h1>
+<div class="slide-card">
+  <div class="slide-heading"><strong>研修の目標</strong><span class="brand-mark"><img src="images/trainocate-logo.png" alt="TRAINOCATE"></span></div>
+  <ul class="course-goals-list">
+    <li>変数・代入・配列の役割を説明できる。</li>
+    <li>選択処理と繰返し処理を読み取れる。</li>
+    <li>短い擬似言語の動きを説明できる。</li>
+    <li>合計・件数・最大値を求められる。</li>
+    <li>AIに質問し、自分で確かめながら学べる。</li>
   </ul>
 </div>
+<div class="front-notes">
+<p>この研修は、プログラミングを初めて学ぶ人が、基本情報技術者試験の科目Bにつながる考え方を身に付けるための入門研修です。プログラミングの予備知識は不要です。</p>
+<p>まず、擬似言語を上から順番に読み、変数や配列の値がどう変わるかを自分で確かめます。分からない箇所は言葉にし、AIにヒントを求めてから、もう一度自力で解きます。</p>
+<p>短い処理を自分の言葉で説明できることを大切にします。科目Bの公開問題へ進む際は、巻末の学習ロードマップで、これから学ぶ内容を確認しましょう。</p>
+</div>
+</section>
 
-## この教材の使い方
+<section class="course-front" id="course-overview">
+<p class="front-running-head">はじめに</p>
+<h1>研修の概要</h1>
+<div class="slide-card">
+  <div class="slide-heading"><strong>研修の概要</strong><span class="brand-mark"><img src="images/trainocate-logo.png" alt="TRAINOCATE"></span></div>
+  <ol class="course-chapter-list"><!-- 章題は本文から生成します。 --></ol>
+</div>
+<div class="front-notes">
+<p>最初にAIへの質問の仕方を確認し、順次・選択・繰返しの基本構造から、配列を使う処理へ進みます。第1〜6章は、具体的な数値を使って基本の書き方と動きを学ぶ段階です。</p>
+<p>第7章では、処理をより正確に確かめるためにトレース表を学びます。第8章では、それまでの知識を組み合わせ、総合演習に取り組みます。</p>
+<p>第1〜8章には各6問、合計48問の演習があります。巻末の解答・解説では、答えに加えて、処理の進み方をフローチャートでも確認できます。</p>
+</div>
+</section>
+
+<section class="course-guide" id="course-guide">
+<p class="front-running-head">はじめに</p>
+
+# この教材の使い方
 
 第0章は、全員が最初に学ぶ「AIの安全で有効な活用」です。第1〜8章には各6問、合計48問を用意しています。第1章は★を3問、★★を3問、第4章は★を2問、★★を3問、★★★を1問、ほかの章は★・★★・★★★を各2問用意しています。
 
@@ -65,6 +68,8 @@
   <p class="box-title">大切なルール</p>
   <p>AIの説明は、いつも正しいとは限りません。本書の解説や公式資料と照合し、自分で値を追って検証しましょう。「AIが言ったから正しい」ではなく、「自分でも同じ結果を確かめられたから正しい」と判断します。</p>
 </div>
+
+</section>
 
 <!-- 目次・章開き・索引は book-navigation.mjs で生成します。 -->
 <div id="book-toc"></div>
@@ -6084,3 +6089,18 @@ data＝{4,8,2,6}なら、目標は{6,4,8,2}です。まず最後の6をtopへ保
 ---
 
 本教材の擬似言語は、基本情報技術者試験用の記述形式に合わせています。演習量、難易度、解説の粒度は、研修対象者と実施時間に合わせて調整します。
+
+<section class="colophon" id="colophon">
+<div class="colophon-heading">
+  <h1>擬似言語とAIで学ぶ<br>アルゴリズム入門</h1>
+  <div class="rights-notice"><strong>無断複写・複製の禁止</strong><p>本書は著作権法上の保護を受けています。<br>本書の全部または一部を無断で複写複製<br>することは禁じられています。</p></div>
+</div>
+<div class="publication-details">
+  <p class="publication-date">2026年10月19日　　第1版　発行</p>
+  <div class="publisher">
+    <p class="publisher-label">著者・発行者</p>
+    <div><p>トレノケート株式会社</p><p>〒163-6020<br>東京都新宿区西新宿6丁目8番1号<br>住友不動産新宿オークタワー20階・27階<br>電話 03-3347-9686</p><p class="publisher-url"><a href="https://www.trainocate.co.jp/">https://www.trainocate.co.jp/</a></p></div>
+  </div>
+</div>
+<div class="colophon-footer"><p>落丁本、乱丁本はお取り替えいたします。<br>© 2026 Trainocate Japan, Ltd.</p></div>
+</section>

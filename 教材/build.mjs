@@ -482,7 +482,7 @@ try {
     '説明用コードの表示結果を直後の別枠に配置してください。');
   assert.equal((raw.match(/難易度 ★/g)||[]).length,48);
   const navigation=await prepareNavigation(page);
-  const options={format:'A4',printBackground:true,preferCSSPageSize:true,displayHeaderFooter:true,headerTemplate:'<span></span>',footerTemplate:'<div style="width:100%;text-align:center;font-size:8px;color:#697586;font-family:Meiryo">アルゴリズム入門　｜　<span class="pageNumber"></span></div>',tagged:true,outline:true};
+  const options={format:'A4',printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,tagged:true,outline:true};
   const pagination=await paginateNavigation(page,options,root,temp,navigation);
   await fs.writeFile(path.join(temp,'navigation.json'),JSON.stringify(pagination,null,2));
   await fs.writeFile(path.join(temp,'textbook-rendered.html'),await page.content());

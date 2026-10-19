@@ -31,7 +31,66 @@ def compact(value):
 
 
 def without_footer(text):
-    return re.sub(r'アルゴリズム[入⼊][門⾨][｜|]\d+$', '', compact(text))
+    text = unicodedata.normalize('NFKC', text)
+    text = re.sub(r'(?m)^アルゴリズム入門[^\S\r\n]*[｜|][^\S\r\n]*\d+[^\S\r\n]*(?:\r?\n|$)', '', text)
+    return compact(text)
+
+
+def html_text(value):
+    return unescape(re.sub(r'<[^>]+>', '', value))
+
+
+def front_section(ident):
+    section = re.search(rf'<section\b[^>]*\bid="{re.escape(ident)}"[^>]*>(.*?)</section>', html, re.S)
+    assert section, ('表紙まわりのHTMLがありません', ident)
+    return section.group(1)
+
+
+def assert_page_content(fragment, number, label):
+    blocks = [html_text(content) for _, content in
+              re.findall(r'<(h[1-6]|p|li|td|th|strong|small|span)\b[^>]*>(.*?)</\1>', fragment, re.S)]
+    assert blocks, ('検査する内容がありません', label)
+    for block in blocks:
+        if compact(block):
+            assert compact(block) in compact(pages[number - 1]), (label + 'の内容を1ページに収めてください', number, block)
+
+
+cover = re.search(r'<div class="cover">(.*?)</div>', html, re.S)
+assert cover, '表紙のHTMLがありません'
+assert_page_content(cover.group(1), 1, '表紙')
+book_title = '擬似言語とAIで学ぶアルゴリズム入門'
+assert compact(book_title) in compact(pages[0]), '表紙に教材名が必要です'
+
+front_ids = ('course-goals', 'course-overview', 'course-guide')
+front_pages = [destinations[ident] for ident in front_ids]
+assert front_pages == [2, 3, 4], '目標・概要・教材の使い方を表紙直後に1ページずつ配置してください'
+front_html = {ident: front_section(ident) for ident in front_ids}
+for ident, number in zip(front_ids, front_pages):
+    assert_page_content(front_html[ident], number, ident)
+assert sum(len(re.findall(r'class="slide-card"', fragment)) for fragment in front_html.values()) == 2, '目標・概要のスライド枠は各1枚必要です'
+for ident in front_ids[:2]:
+    assert len(re.findall(r'class="slide-card"', front_html[ident])) == 1, ('スライド枠を1枚配置してください', ident)
+goal_list = re.search(r'<ul class="course-goals-list">(.*?)</ul>', front_html['course-goals'], re.S)
+assert goal_list, '研修の目標一覧がありません'
+course_goals = [html_text(value) for value in re.findall(r'<li(?:\s[^>]*)?>(.*?)</li>', goal_list.group(1), re.S)]
+assert len(course_goals) == 5, '研修の目標は5項目必要です'
+assert all(compact(pages[front_pages[0] - 1]).count(compact(goal)) == 1 for goal in course_goals), '目標は同じページ内で繰り返さず、補足説明を添えてください'
+chapter_list = re.search(r'<ol class="course-chapter-list">(.*?)</ol>', front_html['course-overview'], re.S)
+assert chapter_list, '研修の概要の章一覧がありません'
+overview_chapters = [compact(html_text(value)) for value in re.findall(r'<li(?:\s[^>]*)?>(.*?)</li>', chapter_list.group(1), re.S)]
+assert overview_chapters == [compact(chapter['title']) for chapter in navigation['chapters']], '研修の概要に第0〜8章を順番に掲載してください'
+assert all(compact(pages[front_pages[1] - 1]).count(title) == 1 for title in overview_chapters), '概要の章一覧は同じページ内で繰り返さないでください'
+
+colophon_page = destinations['colophon']
+assert colophon_page == len(pages) and colophon_page % 2 == 1, '奥付はPDF最終ページかつ奇数ページにしてください'
+assert destinations['book-index'] < colophon_page, '索引を奥付より前に配置してください'
+assert_page_content(front_section('colophon'), colophon_page, '奥付')
+assert compact(book_title) in compact(pages[-1]), '奥付に教材名が必要です'
+assert compact('2026年10月19日　第1版　発行') in compact(pages[-1]), '奥付の発行日・版を確認してください'
+for number in (1, colophon_page):
+    text = compact(pages[number - 1])
+    assert 'コースコード' not in text and not re.search(r'(?:PRC0048G|JAC0080G)', text), ('表紙・奥付にコースコードを載せないでください', number)
+    assert not re.search(r'アルゴリズム[入⼊][門⾨][｜|]\d+', text), ('表紙・奥付の通常フッターを非表示にしてください', number)
 
 
 assert len(navigation['chapters']) == len(navigation['blanks']) == 9
@@ -54,6 +113,10 @@ for chapter, has_blank in zip(navigation['chapters'], navigation['blanks']):
     if has_blank:
         blank_pages.append(page_number - 1)
         assert without_footer(pages[page_number - 2]) == compact('（空白ページ）'), ('調整用の空白ページ', ident)
+assert isinstance(navigation['colophonBlank'], bool), '奥付用の空白ページの記録がありません'
+if navigation['colophonBlank']:
+    blank_pages.append(colophon_page - 1)
+    assert without_footer(pages[colophon_page - 2]) == compact('（空白ページ）'), '奥付直前の調整用空白ページを確認してください'
 assert [number for number, text in enumerate(pages, 1) if compact('（空白ページ）') in compact(text)] == blank_pages, '必要な調整用空白以外の空白ページがあります'
 assert all(without_footer(text) for text in pages), '意図しない白紙ページがあります'
 
@@ -61,7 +124,7 @@ assert all(without_footer(text) for text in pages), '意図しない白紙ペー
 links = []
 with pdfplumber.open(pdf) as document:
     for number, (page, rendered) in enumerate(zip(reader.pages, document.pages), 1):
-        if number >= toc['chapter-0'] and number < destinations['book-index']:
+        if (number >= toc['chapter-0'] and number < destinations['book-index']) or number >= colophon_page:
             continue
         for reference in page.get('/Annots', []):
             annotation = reference.get_object()
@@ -84,7 +147,10 @@ with pdfplumber.open(pdf) as document:
             links.append(link)
 
 toc_links = [link for link in links if link['page'] < toc['chapter-0']]
+assert len(navigation['toc']) == 96, '目次には前付け3項目と奥付を含む96項目が必要です'
 assert len(toc_links) == len(navigation['toc']), '目次の行数とPDFリンク数が一致しません'
+assert all(sum(entry['id'] == ident for entry in navigation['toc']) == 1 for ident in (*front_ids, 'colophon')), '目次に目標・概要・使い方・奥付を1項目ずつ掲載してください'
+assert sorted({link['page'] for link in toc_links}) == [5, 6, 7], '目次を前付けの次の3ページに収めてください'
 for entry in navigation['toc']:
     matches = [link for link in toc_links if link['id'] == entry['id']]
     assert len(matches) == 1, ('目次リンク', entry)
@@ -92,7 +158,7 @@ for entry in navigation['toc']:
     assert matches[0]['text'] == expected, ('目次の項目名・ページ番号', entry, matches[0])
 
 index_entries = [entry for group in navigation['index'] for entry in group['entries']]
-index_links = [link for link in links if link['page'] >= destinations['book-index']]
+index_links = [link for link in links if destinations['book-index'] <= link['page'] < colophon_page]
 assert len(index_entries) == 67, '索引は67項目必要です'
 assert {link['term'] for link in index_links} == {compact(entry['term']) for entry in index_entries}, '索引の項目とPDFの行が一致しません'
 for entry in index_entries:
@@ -175,6 +241,7 @@ for chapter in range(1, 9):
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')
 print(json.dumps({'pages': len(pages), 'toc': toc, 'chapter_openings': [toc[f'chapter-{n}'] for n in range(9)],
                   'blank_pages': blank_pages, 'toc_entries': len(navigation['toc']), 'index_entries': len(index_entries),
+                  'front_pages': dict(zip(front_ids, front_pages)), 'colophon_page': colophon_page,
                   'split_answer_figures': [p['page'] for p in report if p['flows'] and not p['answers']]}, ensure_ascii=False))
 
 if '--render' in sys.argv:
