@@ -243,27 +243,40 @@ body {
 
 .cover {
   box-sizing: border-box;
+  position: relative;
   min-height: 296mm;
   margin: 0;
-  padding: 92mm 30mm 0;
-  color: #111;
-  text-align: left;
+  padding: 0;
+  overflow: hidden;
+  color: #5c5c5c;
+  text-align: center;
   background: #fff;
 }
 
+.cover-logo { position: absolute; top: 10mm; left: 9mm; width: 100mm; height: auto; }
+.cover-band { position: absolute; top: 164mm; left: 14mm; width: 182mm; height: auto; }
+.cover-brand { position: absolute; right: 0; bottom: 0; width: 90mm; height: auto; }
+
 .cover-label {
-  margin: 0 0 4mm;
+  position: absolute;
+  top: 114mm;
+  left: 16mm;
+  right: 16mm;
+  margin: 0;
   font-size: 11pt;
 }
 
 .cover h1 {
+  position: absolute;
+  top: 128mm;
+  left: 16mm;
+  right: 16mm;
   margin: 0;
   border: 0;
-  border-bottom: .5pt solid #111;
-  padding: 0 0 4mm;
-  color: #111;
+  padding: 0;
+  color: #5c5c5c;
   font-family: var(--sans);
-  font-size: 28pt;
+  font-size: 30pt;
   font-weight: 800;
   line-height: 1.45;
 }
@@ -1790,7 +1803,6 @@ td:empty {
 
   .cover {
     min-height: 86vh;
-    padding: 100px 28px 80px;
   }
 
   .cover h1 {
@@ -1910,7 +1922,7 @@ td:empty {
 
   .cover {
     page: textbook-cover;
-    height: 296mm;
+    height: 297mm;
     min-height: 0;
     break-after: page;
     print-color-adjust: exact;
@@ -1918,7 +1930,7 @@ td:empty {
   }
 
   .cover h1 {
-    font-size: 28pt;
+    font-size: 30pt;
   }
 
   .course-front, .course-guide { break-before: page; break-after: page; }

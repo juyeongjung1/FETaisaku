@@ -1,8 +1,11 @@
 <link rel="stylesheet" href="教材.css">
 
 <div class="cover">
+  <img class="cover-logo" src="images/cover-logo.png" alt="TRAINOCATE">
   <p class="cover-label">基本情報技術者試験　科目B対策</p>
   <h1>擬似言語とAIで学ぶ<br>アルゴリズム入門</h1>
+  <img class="cover-band" src="images/cover-band.png" alt="">
+  <img class="cover-brand" src="images/cover-brand.png" alt="">
 </div>
 
 <section class="course-front" id="course-goals">
