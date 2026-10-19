@@ -66,25 +66,8 @@
   <p>AIの説明は、いつも正しいとは限りません。本書の解説や公式資料と照合し、自分で値を追って検証しましょう。「AIが言ったから正しい」ではなく、「自分でも同じ結果を確かめられたから正しい」と判断します。</p>
 </div>
 
-<div class="toc-box">
-
-## 目次
-
-<ol class="toc-list">
-  <li><a href="#chapter-0"><span>第0章　AIを学習相手にする</span><b>5</b></a></li>
-  <li><a href="#chapter-1"><span>第1章　アルゴリズムと擬似言語</span><b>9</b></a></li>
-  <li><a href="#chapter-2"><span>第2章　変数・データ型・代入</span><b>20</b></a></li>
-  <li><a href="#chapter-3"><span>第3章　順次処理</span><b>31</b></a></li>
-  <li><a href="#chapter-4"><span>第4章　選択処理</span><b>39</b></a></li>
-  <li><a href="#chapter-5"><span>第5章　繰返し処理</span><b>51</b></a></li>
-  <li><a href="#chapter-6"><span>第6章　配列</span><b>68</b></a></li>
-  <li><a href="#chapter-7"><span>第7章　トレースの技術</span><b>82</b></a></li>
-  <li><a href="#chapter-8"><span>第8章　総合演習</span><b>92</b></a></li>
-  <li><a href="#answers"><span>解答・解説</span><b>100</b></a></li>
-  <li><a href="#roadmap"><span>研修後の学習ロードマップ</span><b>149</b></a></li>
-</ol>
-
-</div>
+<!-- 目次・章開き・索引は book-navigation.mjs で生成します。 -->
+<div id="book-toc"></div>
 
 <div class="page-break"></div>
 

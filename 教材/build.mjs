@@ -3,6 +3,7 @@ import path from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';
 import exercises from './exercises.mjs';
+import {prepareNavigation, paginateNavigation} from './book-navigation.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const modules = process.env.FE_NODE_MODULES;
@@ -261,10 +262,6 @@ for(const item of exercises) {
   if (previous!==svg) await fs.writeFile(flowPath,svg);
 }
 let md=(await fs.readFile(source,'utf8')).replaceAll('\r\n','\n');
-try {
-  const toc=JSON.parse(await fs.readFile(path.join(temp,'toc.json'),'utf8'));
-  md=md.replace(/(<a href="#([^"]+)"><span>[^<]+<\/span><b>)[^<]*(<\/b>)/g,(full,start,id,end)=>start+(toc[id]||'')+end);
-} catch(e) {if(e.code!=='ENOENT') throw e;}
 function choiceTable(item) {
   if (!item.choices) return '';
   return '\n<div class="choice-table" data-exercise="'+item.id+'">\n\n| 選択肢 | 内容 |\n|---|---|\n'+
@@ -430,8 +427,6 @@ try {
       const variable=/for \(i|表示する\(i\)|^endfor/.test(line)?'i':/for \(j|表示する\(j\)|^  endfor/.test(line)?'j':'';
       return variable?`<span class="loop-${variable}">${safe}</span>`:safe;
     }).join('\n');
-    // 固定ページ番号はPDFの検査後、実ページに更新する。
-    for(const b of document.querySelectorAll('.toc-list b')) b.textContent='';
   });
   const raw=await page.locator('body').innerText();
   const snippets=await page.locator('pre').allTextContents();
@@ -486,14 +481,10 @@ try {
     !example.querySelector('pre').innerText.includes('表示する(') || example.querySelector('pre').nextElementSibling?.classList.contains('display-result'))),
     '説明用コードの表示結果を直後の別枠に配置してください。');
   assert.equal((raw.match(/難易度 ★/g)||[]).length,48);
+  const navigation=await prepareNavigation(page);
   const options={format:'A4',printBackground:true,preferCSSPageSize:true,displayHeaderFooter:true,headerTemplate:'<span></span>',footerTemplate:'<div style="width:100%;text-align:center;font-size:8px;color:#697586;font-family:Meiryo">アルゴリズム入門　｜　<span class="pageNumber"></span></div>',tagged:true,outline:true};
-  await page.pdf({...options,path:path.join(temp,'textbook.pdf')});
-  // QA側が出力した実ページ番号を次回ビルドに反映。
-  try {
-    const toc=JSON.parse(await fs.readFile(path.join(temp,'toc.json'),'utf8'));
-    await page.evaluate(toc=>{for(const a of document.querySelectorAll('.toc-list a')) a.querySelector('b').textContent=toc[a.getAttribute('href').slice(1)]||'';},toc);
-    await page.pdf({...options,path:path.join(temp,'textbook.pdf')});
-  } catch(e) {if(e.code!=='ENOENT') throw e;}
+  const pagination=await paginateNavigation(page,options,root,temp,navigation);
+  await fs.writeFile(path.join(temp,'navigation.json'),JSON.stringify(pagination,null,2));
   await fs.writeFile(path.join(temp,'textbook-rendered.html'),await page.content());
   console.log('生成先: '+path.join(temp,'textbook.pdf'));
 } finally {await browser.close();}

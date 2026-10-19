@@ -3,7 +3,10 @@ import json
 import re
 import subprocess
 import sys
+import unicodedata
+from html import unescape
 from pathlib import Path
+import pdfplumber
 from pypdf import PdfReader
 from PIL import Image, ImageOps, ImageDraw
 
@@ -13,6 +16,90 @@ pdf = work / 'textbook.pdf'
 reader = PdfReader(pdf)
 pages = [p.extract_text() for p in reader.pages]
 all_text = '\n'.join(pages)
+navigation = json.loads((work / 'navigation.json').read_text(encoding='utf8'))
+destinations = {name.lstrip('/'): reader.get_destination_page_number(destination) + 1
+                for name, destination in reader.named_destinations.items()}
+assert navigation['count'] == len(pages), '組版記録とPDFのページ数が一致しません'
+assert navigation['pages'] == destinations, '組版記録とPDFのリンク先が一致しません'
+toc = {ident: destinations[ident]
+       for ident in [*(f'chapter-{n}' for n in range(9)), 'answers', 'roadmap']}
+html = (work / 'textbook-rendered.html').read_text(encoding='utf8')
+
+
+def compact(value):
+    return re.sub(r'\s+', '', unicodedata.normalize('NFKC', value))
+
+
+def without_footer(text):
+    return re.sub(r'アルゴリズム[入⼊][門⾨][｜|]\d+$', '', compact(text))
+
+
+assert len(navigation['chapters']) == len(navigation['blanks']) == 9
+blank_pages = []
+for chapter, has_blank in zip(navigation['chapters'], navigation['blanks']):
+    ident, number = chapter['id'], chapter['number']
+    page_number = destinations[ident]
+    assert page_number % 2 == 0, ('章開きは偶数ページに配置してください', ident, page_number)
+    opener = re.search(rf'<section class="chapter-opening" id="{re.escape(ident)}">(.*?)</section>', html, re.S)
+    assert opener, ('章開きのHTMLがありません', ident)
+    goals = [unescape(re.sub(r'<[^>]+>', '', value))
+             for value in re.findall(r'<li(?:\s[^>]*)?>(.*?)</li>', opener.group(1), re.S)]
+    assert len(goals) == 3, ('章の目標は3項目必要です', ident)
+    opener_text = compact(pages[page_number - 1])
+    assert compact(chapter['title']) in opener_text and '章の目標' in opener_text, ('章開きの見出し', ident)
+    assert all(compact(goal) in opener_text for goal in goals), ('章の目標を扉1ページに収めてください', ident)
+    body_pages = [page for target, page in destinations.items()
+                  if target.startswith(f'section-{number}-') or target.startswith(f'question-{number}-')]
+    assert body_pages and min(body_pages) == page_number + 1, ('章本文は扉の次ページから開始してください', ident)
+    if has_blank:
+        blank_pages.append(page_number - 1)
+        assert without_footer(pages[page_number - 2]) == compact('（空白ページ）'), ('調整用の空白ページ', ident)
+assert [number for number, text in enumerate(pages, 1) if compact('（空白ページ）') in compact(text)] == blank_pages, '必要な調整用空白以外の空白ページがあります'
+assert all(without_footer(text) for text in pages), '意図しない白紙ページがあります'
+
+# PDFに印刷された参照数字と、実際にクリックできるリンク先を同時に検査する。
+links = []
+with pdfplumber.open(pdf) as document:
+    for number, (page, rendered) in enumerate(zip(reader.pages, document.pages), 1):
+        if number >= toc['chapter-0'] and number < destinations['book-index']:
+            continue
+        for reference in page.get('/Annots', []):
+            annotation = reference.get_object()
+            destination = annotation.get('/Dest', annotation.get('/A', {}).get('/D'))
+            if annotation.get('/Subtype') != '/Link' or not isinstance(destination, str):
+                continue
+            ident = destination.lstrip('/')
+            assert ident in destinations, ('無効なPDFリンク先', number, ident)
+            x0, y0, x1, y1 = map(float, annotation['/Rect'])
+            top, bottom = rendered.height - y1, rendered.height - y0
+            bbox = (max(0, x0 - 1), max(0, top - 1), min(rendered.width, x1 + 1), min(rendered.height, bottom + 1))
+            printed = compact(rendered.crop(bbox).extract_text() or '')
+            link = {'page': number, 'id': ident, 'text': printed}
+            if number >= destinations['book-index']:
+                middle = rendered.width / 2
+                left, right = (0, middle) if x0 < middle else (middle, rendered.width)
+                row = rendered.crop((left, max(0, top - 1), right, min(rendered.height, bottom + 1))).extract_text() or ''
+                link['term'] = compact(re.sub(r'[\d\s,、]+$', '', row))
+                assert printed.lstrip(',、') == str(destinations[ident]), ('索引の参照数字とリンク先が一致しません', link)
+            links.append(link)
+
+toc_links = [link for link in links if link['page'] < toc['chapter-0']]
+assert len(toc_links) == len(navigation['toc']), '目次の行数とPDFリンク数が一致しません'
+for entry in navigation['toc']:
+    matches = [link for link in toc_links if link['id'] == entry['id']]
+    assert len(matches) == 1, ('目次リンク', entry)
+    expected = compact(entry['label']) + str(destinations[entry['id']])
+    assert matches[0]['text'] == expected, ('目次の項目名・ページ番号', entry, matches[0])
+
+index_entries = [entry for group in navigation['index'] for entry in group['entries']]
+index_links = [link for link in links if link['page'] >= destinations['book-index']]
+assert len(index_entries) == 67, '索引は67項目必要です'
+assert {link['term'] for link in index_links} == {compact(entry['term']) for entry in index_entries}, '索引の項目とPDFの行が一致しません'
+for entry in index_entries:
+    matches = [link for link in index_links if link['term'] == compact(entry['term'])]
+    assert all(link['id'] in entry['refs'] for link in matches), ('索引のリンク先', entry, matches)
+    assert {destinations[link['id']] for link in matches} == {destinations[ident] for ident in entry['refs']}, ('索引の参照ページ', entry, matches)
+    assert len({link['page'] for link in matches}) == 1, ('索引の1項目を改ページで分割しないでください', entry)
 assert not re.search(r'<\s*/?\s*(span|strong|small|div|p|br)\b', all_text)
 assert '初稿' not in all_text
 assert not re.search(r'(?<!\*)\*\*(?!\*)', all_text), '太字の記法が本文に露出しています'
@@ -44,18 +131,8 @@ choice_ids = re.findall(r'<div class="choice-table" data-exercise="(\d-[A-F])">'
 assert len(choice_ids) == len(set(choice_ids)) == 12, '選択式は12問必要です'
 assert 'class="trace-worksheet"' not in (root / '教材/科目B_擬似言語とAIで学ぶアルゴリズム入門.md').read_text(encoding='utf8'), '記入表は問題内のコード直後へ配置してください'
 assert len(re.findall(r'^問題を解く前の確認欄\s*$', all_text, re.M)) == 6, '第8章の各問題に確認欄が必要です'
-toc = {}
 report = []
 for number, text in enumerate(pages, 1):
-    compact = re.sub(r'\s+', '', text)
-    for chapter in range(9):
-        heading = re.search(rf'^第{chapter}章[\s　]+[^\n]*', text, re.M)
-        if heading and len(re.findall(r'^第\d章[\s　]+[^\n]*', text, re.M)) == 1:
-            toc.setdefault(f'chapter-{chapter}', number)
-    if compact.startswith('解答・解説'):
-        toc.setdefault('answers', number)
-    if compact.startswith('研修後の学習ロードマップ'):
-        toc.setdefault('roadmap', number)
     report.append({'page': number, 'characters': len(text), 'head': text[:100],
                    'answers': re.findall(r'演習(\d-[A-F])\s*解答・解説', text),
                    'flows': re.findall(r'演習(\d-[A-F])のフローチャート', text)})
@@ -96,7 +173,9 @@ for chapter in range(1, 9):
 (work / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'qa.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')
-print(json.dumps({'pages': len(pages), 'toc': toc, 'split_answer_figures': [p['page'] for p in report if p['flows'] and not p['answers']]}, ensure_ascii=False))
+print(json.dumps({'pages': len(pages), 'toc': toc, 'chapter_openings': [toc[f'chapter-{n}'] for n in range(9)],
+                  'blank_pages': blank_pages, 'toc_entries': len(navigation['toc']), 'index_entries': len(index_entries),
+                  'split_answer_figures': [p['page'] for p in report if p['flows'] and not p['answers']]}, ensure_ascii=False))
 
 if '--render' in sys.argv:
     poppler = Path(sys.argv[sys.argv.index('--render') + 1])

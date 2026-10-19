@@ -1,5 +1,49 @@
 @charset "UTF-8";
 
+/* 章開き・目次・索引。本文とは別の紙面として組版する。 */
+.chapter-opening { position: relative; padding: 75mm 12mm 0; min-height: 264mm; box-sizing: border-box; }
+.chapter-number { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 46mm; height: 45mm; background: #e94823; color: white; font: 700 72pt/1 Arial, sans-serif; }
+.chapter-opening h1 { padding: 0 0 3mm; margin: 0; border: 0; border-bottom: .5pt solid #222; background: none; color: #111; font-size: 23pt; line-height: 1.5; text-align: center; }
+.chapter-opening h1::before, .chapter-opening h1::after { content: none; }
+.chapter-goals h2 { margin: 7mm 0 3mm; padding: 0; border: 0; background: none; color: #111; font-size: 16pt; }
+.chapter-goals ul { margin: 0; padding-left: 5mm; list-style-type: square; }
+.chapter-goals li { margin: 2mm 0; padding-left: 2mm; color: #222; font-size: 11pt; line-height: 1.7; }
+.parity-blank { box-sizing: border-box; min-height: 264mm; padding-top: 36mm; text-align: center; color: #697586; }
+.toc-page, .book-index { padding: 0 12mm; color: #111; }
+.navigation-title { margin: 8mm 0; padding: 0 0 4mm; border: 0; border-bottom: .5pt solid #333; background: none; color: #111; text-align: center; font-size: 24pt; line-height: 1.4; }
+.navigation-title::before, .navigation-title::after { content: none; }
+.toc-page + .toc-page .navigation-title { margin-top: 0; font-size: 14pt; }
+.toc-group { margin-bottom: 3mm; }
+.navigation-row { display: flex; align-items: baseline; gap: 1.5mm; margin: 0; padding: .55mm 0; text-decoration: none; color: #111; font-size: 9.5pt; line-height: 1.4; break-inside: avoid; }
+.navigation-row .entry-label { flex: 0 1 auto; }
+.entry-leader { flex: 1 1 3mm; min-width: 3mm; border-bottom: 1px dotted #777; }
+.page-reference { flex-shrink: 0; min-width: 7mm; text-align: right; font-variant-numeric: tabular-nums; }
+.navigation-row.level-0 { padding-top: 2mm; padding-bottom: 1.5mm; font-size: 11pt; font-weight: 700; break-after: avoid; }
+.navigation-row.level-1 { padding-left: 4mm; font-weight: 600; }
+.navigation-row.level-2 { padding-left: 8mm; font-size: 9pt; }
+.index-note { margin: 0 0 5mm; font-size: 9pt; color: #526273; }
+.index-columns { column-count: 2; column-gap: 12mm; }
+.book-index .navigation-title { margin: 4mm 0 5mm; padding-bottom: 3mm; }
+.index-group h2 { margin: 2.5mm 0 1mm; padding: 0; border: 0; background: none; color: #111; font-size: 11pt; line-height: 1.4; break-after: avoid; }
+.index-group:first-child h2 { margin-top: 0; }
+.index-row { display: flex; align-items: baseline; gap: 1mm; padding: .4mm 0; font-size: 9.5pt; line-height: 1.4; break-inside: avoid; }
+.index-references { display: flex; flex-shrink: 0; gap: .6mm; }
+.index-references a { color: #111; text-decoration: none; }
+.index-references a:not([hidden]) ~ a:not([hidden])::before { content: ", "; }
+@media print {
+  @page chapter-opening { size: A4; margin: 0; }
+  .chapter-opening, .parity-blank { height: 263mm; min-height: 0; break-before: page; break-after: page; break-inside: avoid; }
+  .chapter-opening { page: chapter-opening; height: 296mm; padding: 93mm 28mm 0; }
+  .chapter-number { top: 0; right: 0; }
+  .chapter-opening h1 { font-size: 23pt; }
+  .chapter-goals h2 { font-size: 16pt; }
+  .toc-page, .book-index { break-before: page; }
+  .toc-page { break-after: page; }
+  .toc-page .navigation-title, .book-index .navigation-title { font-size: 24pt; }
+  .toc-page + .toc-page .navigation-title { font-size: 14pt; }
+  .index-group h2 { font-size: 11pt; }
+}
+
 .lesson-subheading {
   margin: 1.4em 0 1.25em;
   padding: .45em .7em;
@@ -341,43 +385,6 @@ a:hover {
   text-underline-offset: 3px;
 }
 
-.toc-list {
-  margin: 0.5em 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.toc-list li {
-  margin: 0;
-  border-bottom: 1px dotted #aeb7c2;
-}
-
-.toc-list a {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1em;
-  padding: 0.34em 0.1em;
-}
-
-.toc-list a::after {
-  order: 2;
-  flex: 1;
-  border-bottom: 1px dotted #b6bec8;
-  content: "";
-}
-
-.toc-list span {
-  order: 1;
-}
-
-.toc-list b {
-  order: 3;
-  min-width: 2em;
-  color: var(--navy);
-  text-align: right;
-}
-
 ul,
 ol {
   margin: 0.7em 0 1.25em;
@@ -690,31 +697,6 @@ td:empty {
   white-space: nowrap;
   width: 1%;
   min-width: 12em;
-}
-
-.toc-box {
-  margin: 1.6em 0 2.2em;
-  border: 1px solid #dfe4e8;
-  border-left: 6px solid var(--blue);
-  border-radius: 9px;
-  background: #f8f9fa;
-  padding: 1.6em 2.3em 1.9em;
-  box-shadow: 0 3px 9px rgba(30, 54, 82, 0.06);
-}
-
-.toc-box h2 {
-  margin-top: 0;
-  border-bottom: 2px solid var(--blue);
-  padding-bottom: 0.5em;
-  color: var(--navy);
-}
-
-.toc-box ol {
-  margin-bottom: 0;
-}
-
-.toc-box li {
-  margin: 0.42em 0;
 }
 
 .visual-title {
@@ -1851,10 +1833,6 @@ td:empty {
     bottom: 32px;
   }
 
-  .toc-box {
-    padding: 1.3em 1.2em 1.5em;
-  }
-
   .input-methods,
   .visual-steps,
   .concept-visual,
@@ -2010,7 +1988,6 @@ td:empty {
   pre,
   table,
   .learning-cycle,
-  .toc-box,
   .input-methods,
   .problem-packet,
   .concept-visual,
@@ -2133,7 +2110,6 @@ td:empty {
     grid-template-columns: repeat(5, 1fr);
     gap: 4px;
     margin: 3mm 0 5mm;
-    break-after: page;
   }
 
   .learning-cycle div {
@@ -2160,7 +2136,6 @@ td:empty {
   .cover,
   pre,
   thead,
-  .toc-box,
   .thinking-sheet,
   .copy-template,
   .answer-sheet,
