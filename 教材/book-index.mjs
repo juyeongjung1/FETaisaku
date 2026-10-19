@@ -15,7 +15,7 @@ export default [
       { term: 'not', refs: ['section-4-2-2'] },
       { term: 'or', refs: ['section-4-2-2'] },
       { term: 'return', refs: ['function-guide'] },
-      { term: 'true・false', refs: ['section-2-2'] },
+      { term: 'true・false', refs: ['data-types'] },
       { term: 'while', refs: ['section-5-2-1'] },
     ],
   },
@@ -32,10 +32,10 @@ export default [
   {
     heading: 'か行',
     entries: [
-      { term: '改行する()', refs: ['question-8-C'] },
+      { term: '改行する()', refs: ['question-8-F'] },
       { term: '関数', refs: ['function-guide'] },
       { term: '擬似言語', refs: ['section-1-2'] },
-      { term: '境界の値', refs: ['section-4-2-1'] },
+      { term: '境界の値', refs: ['comparison-boundary'] },
       { term: '繰返し処理', refs: ['section-5-1', 'section-5-2-1'] },
       { term: '継続条件', refs: ['section-5-2-1'] },
       { term: '件数', refs: ['section-5-3-3'] },
@@ -48,13 +48,13 @@ export default [
     entries: [
       { term: '最大値', refs: ['section-6-3-2'] },
       { term: '実行前・実行後', refs: ['section-7-2-2'] },
-      { term: '実数型', refs: ['section-2-2'] },
+      { term: '実数型', refs: ['data-types'] },
       { term: '出力', refs: ['section-3-2'] },
       { term: '順次処理', refs: ['section-3-1'] },
       { term: '条件式', refs: ['section-4-1-1'] },
       { term: '条件分岐', refs: ['section-4-1'] },
       { term: '初期化', refs: ['section-2-1'] },
-      { term: '真・偽', refs: ['section-2-2', 'section-4-1-1'] },
+      { term: '真・偽', refs: ['data-types', 'section-4-1-1'] },
       { term: '整数型', refs: ['section-2-2'] },
       { term: '線形探索', refs: ['section-6-3-3'] },
       { term: '宣言', refs: ['section-2-1', 'section-2-2'] },
@@ -96,8 +96,8 @@ export default [
   {
     heading: 'ま行',
     entries: [
-      { term: '文字型', refs: ['section-2-2'] },
-      { term: '文字列型', refs: ['section-2-2'] },
+      { term: '文字型', refs: ['data-types'] },
+      { term: '文字列型', refs: ['data-types'] },
       { term: '戻り値', refs: ['function-guide'] },
     ],
   },
@@ -105,15 +105,15 @@ export default [
     heading: 'や行',
     entries: [
       { term: '要素', refs: ['section-6-1'] },
-      { term: '要素数', refs: ['question-8-B'] },
+      { term: '要素数', refs: ['question-8-E'] },
     ],
   },
   {
     heading: 'ら行',
     entries: [
-      { term: '累積', refs: ['section-5-3-2'] },
+      { term: '累積', refs: ['accumulation-guide'] },
       { term: '論理演算', refs: ['section-4-2-2'] },
-      { term: '論理型', refs: ['section-2-2'] },
+      { term: '論理型', refs: ['data-types'] },
     ],
   },
 ];

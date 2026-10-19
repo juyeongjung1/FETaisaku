@@ -119,6 +119,10 @@ if navigation['colophonBlank']:
     assert without_footer(pages[colophon_page - 2]) == compact('（空白ページ）'), '奥付直前の調整用空白ページを確認してください'
 assert [number for number, text in enumerate(pages, 1) if compact('（空白ページ）') in compact(text)] == blank_pages, '必要な調整用空白以外の空白ページがあります'
 assert all(without_footer(text) for text in pages), '意図しない白紙ページがあります'
+for page in reader.pages:
+    for reference in page.get('/Annots', []):
+        uri = reference.get_object().get('/A', {}).get('/URI', '')
+        assert not str(uri).lower().startswith('file:'), ('配布PDFにローカルファイルへのリンクがあります', uri)
 
 # PDFに印刷された参照数字と、実際にクリックできるリンク先を同時に検査する。
 links = []
@@ -160,6 +164,13 @@ for entry in navigation['toc']:
 index_entries = [entry for group in navigation['index'] for entry in group['entries']]
 index_links = [link for link in links if destinations['book-index'] <= link['page'] < colophon_page]
 assert len(index_entries) == 67, '索引は67項目必要です'
+for ident, terms in {
+    'data-types': ['実数型', '文字型', '文字列型', '論理型', 'true', 'false'],
+    'comparison-boundary': ['60点ちょうども含まれます', '59点', '60点', '61点'],
+    'accumulation-guide': ['累積する変数', '合計の初期値は通常0'],
+}.items():
+    for term in terms:
+        assert compact(term) in compact(pages[destinations[ident]-1]), ('索引の参照先に説明がありません', ident, term)
 assert {link['term'] for link in index_links} == {compact(entry['term']) for entry in index_entries}, '索引の項目とPDFの行が一致しません'
 for entry in index_entries:
     matches = [link for link in index_links if link['term'] == compact(entry['term'])]
@@ -189,7 +200,7 @@ assert '繰返しもひし形' not in compact_text and 'ループ端（上下一
 assert compact_text.count('問題：') == 29, '説明用コード全29例の課題が必要です'
 assert compact_text.count('このコードの課題：') == 42, '演習のコード全42例の課題が必要です'
 assert len(re.findall(r'^表示結果(?:（確認用の入力）)?\s*$', all_text, re.M)) == 34, '説明用20枠・演習14枠の表示結果が必要です'
-assert compact_text.count('トレース表（記入用）') == 2, '記入用の表は7-Bと8-Cに配置します'
+assert compact_text.count('トレース表（記入用）') == 2, '記入用の表は7-Bと8-Fに配置します'
 assert 'トレース表を自分で書くためのヒントがほしいです' in compact_text, '第7章のAI例に表を書くためのヒントを求める内容が必要です'
 assert '6.4の最大値' not in compact_text and '6.4のコード' not in compact_text, '最大値の節番号が古いままです'
 assert len(re.findall(r'正解：[アイウエ]', all_text)) == 12, '4択問題の正解記号は12問分必要です'
@@ -221,21 +232,23 @@ for chapter in range(1, 9):
                           if re.search(rf'演習{ident}[ 　]', text)]
         assert len(question_pages) == 1, ('問題見出し', ident)
         response_text = question_pages[0]
-        if ident == '8-C':
+        if ident == '8-F':
             question_page = pages.index(question_pages[0])
             response_text = pages[question_page+1]
-            assert '8-Cの続き｜選択肢と解答欄' in re.sub(r'\s+', '', response_text), '8-Cの選択肢は問題の直後のページへ続けてください'
-            assert 'トレース表（記入用）' in question_pages[0], '8-Cのコードと記入表を同じページに配置してください'
+            assert '8-Fの続き｜選択肢と解答欄' in re.sub(r'\s+', '', response_text), '8-Fの選択肢は問題の直後のページへ続けてください'
+            assert 'トレース表（記入用）' in question_pages[0], '8-Fのコードと記入表を同じページに配置してください'
             layout_text = reader.pages[question_page].extract_text(extraction_mode='layout')
-            assert layout_text.rfind('endfor') < layout_text.index('トレース表（記入用）'), '8-Cの表をコードの後に配置してください'
-            assert 'トレース表（記入用）' not in response_text, '8-Cの表は選択肢より前へ配置してください'
-        assert f'問題{ident}について質問です' in re.sub(r'\s+', '', response_text), ('問題とAIへの質問例を同じページに配置してください（8-Cは直後の続きページ）', ident)
+            assert layout_text.rfind('endfor') < layout_text.index('トレース表（記入用）'), '8-Fの表をコードの後に配置してください'
+            assert 'トレース表（記入用）' not in response_text, '8-Fの表は選択肢より前へ配置してください'
+        assert f'問題{ident}について質問です' in re.sub(r'\s+', '', response_text), ('問題とAIへの質問例を同じページに配置してください（8-Fは直後の続きページ）', ident)
         if chapter == 8:
             assert '問題を解く前の確認欄' in question_pages[0], ('第8章は各問題に確認欄を配置してください', ident)
         if ident in choice_ids:
-            assert len(re.findall(r'^[アイウエ](?=\s)', response_text, re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください（8-Cは直後の続きページ）', ident)
+            assert len(re.findall(r'^[アイウエ](?=\s)', response_text, re.M)) == 4, ('問題と4つの選択肢を同じページに配置してください（8-Fは直後の続きページ）', ident)
         if ident == '7-B':
             assert 'トレース表（記入用）' in question_pages[0], '7-Bの問題と記入表を同じページに配置してください'
+question_order = re.findall(r'演習(\d-[A-F])[ 　]', '\n'.join(pages[:toc['answers']-1]))
+assert question_order == [f'{chapter}-{letter}' for chapter in range(1, 9) for letter in 'ABCDEF'], '問題を各章のA〜F順に配置してください'
 (work / 'toc.json').write_text(json.dumps(toc, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'qa.json').write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding='utf8')
 (work / 'extracted.txt').write_text(all_text, encoding='utf8')

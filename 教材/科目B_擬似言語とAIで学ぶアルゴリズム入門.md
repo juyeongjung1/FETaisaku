@@ -114,7 +114,7 @@
 
 講師から案内されたGoogleアカウントで、Gemini Notebook（NotebookLM）の共有リンクを開きます。研修用のノートブックであることと、リンクの利用期間を確認してください。本書のPDFは登録済みなので、問題文の貼り付けやPDFの再アップロードは不要です。
 
-講師が学習支援用の設定を準備するため、受講者は初回設定を送らず、チャット欄に問題番号と質問を書きます。開けない場合は講師へ伝えてください。準備する側は[講師向けの確認手順](講師向け_AI学習支援の準備.md)を参照します。
+講師が学習支援用の設定を準備するため、受講者は初回設定を送らず、チャット欄に問題番号と質問を書きます。開けない場合は講師へ伝えてください。準備する側は、配布資料に同梱する講師用文書「AI学習支援の準備と受講者側の確認」を参照します。
 
 ### 0.2.2 自分の考えと疑問点を一緒に送る
 
@@ -339,7 +339,9 @@ total ← price × count
 <p class="example-task"><strong>問題：</strong>aに5、bに10を入れ、二つを足した値をcへ入れる。</p>
 
 ```text
-整数型: a, b, c
+整数型: a
+整数型: b
+整数型: c
 
 a ← 5
 b ← 10
@@ -370,8 +372,6 @@ c ← a ＋ b
   <p class="checkpoint-label">理解チェック</p>
   <p>「合計が100以上なら割引し、商品ごとに同じ計算を繰り返す」という処理には、三つの基本構造のうち何が含まれますか。</p>
 </div>
-
-<!-- 追加演習開始 1 -->
 
 <section class="exercise-question">
 
@@ -419,8 +419,6 @@ c ← a ＋ b
 
 </section>
 
-<div class="page-break"></div>
-
 <section class="exercise-question">
 
 ## 演習1-C　書類への確認印
@@ -466,8 +464,6 @@ c ← a ＋ b
 
 </section>
 
-<div class="page-break"></div>
-
 <section class="exercise-question">
 
 ## 演習1-E　変数と記号の意味
@@ -503,7 +499,7 @@ c ← a ＋ b
 <div class="answer-sheet">
   <p class="sheet-title">解答欄</p>
   <div><strong>含まれる基本構造</strong><span></span></div>
-  <div><strong>それぞれの対応関係</strong><span></span></div>
+  <div class="extended-answer"><strong>それぞれの対応関係</strong><span></span></div>
 </div>
 
 <div class="ai-box">
@@ -513,8 +509,6 @@ c ← a ＋ b
 </div>
 
 </section>
-
-<!-- 追加演習終了 1 -->
 
 <div class="page-break"></div>
 
@@ -570,13 +564,17 @@ total ← 0
 
 文字は引用符で囲んで書きます。`'A'`のような一重の引用符は一文字、`"合格"`のような二重の引用符は文字列を表します。引用符は値の区切りで、画面へ表示する文字には含めません。
 
+<div id="data-types">
+
 | データ型 | 保存する値の例 | 使用例 |
 |---|---|---|
-| 整数型 | `10`、`-3`、`0` | 件数、添字、合計 |
+| 整数型 | `10`、`-3`、`0` | 件数、金額、合計 |
 | 実数型 | `3.14`、`18.5` | 平均、身長、割合 |
 | 文字型 | `'A'`、`'?'` | 一文字の記号 |
 | 文字列型 | `"合格"`、`"Tokyo"` | 名前、メッセージ |
 | 論理型 | `true`、`false` | 条件が成立するか |
+
+</div>
 
 `整数型: a, b`のように、同じ型の変数をカンマで区切って一行に宣言することもできます。この書き方では、aとbの二つの箱を用意します。
 
@@ -688,7 +686,7 @@ a ← temp
 
 | 実行後 | `a` | `b` | `temp` |
 |---|---:|---:|---:|
-| 初期状態 | 10 | 3 | 未定義 |
+| 初期状態 | 10 | 3 | まだ値を入れていない |
 | `temp ← b` | 10 | 3 | 3 |
 | `b ← a` | 10 | 10 | 3 |
 | `a ← temp` | 3 | 10 | 3 |
@@ -740,15 +738,13 @@ total ← total × 2
 
 </section>
 
-<div class="page-break"></div>
-
 <section class="exercise-question">
 
 ## 演習2-B　値を交換する
 
 <span class="difficulty">難易度 ★☆☆</span>
 
-`x`に7、`y`に12が入っています。実行後に`x`が12、`y`が7となるように、空欄①〜③を埋めてください。コード中の`[ ① ]`などは、答えを書き入れる空欄を表します。
+`x`に7、`y`に12が入っています。実行後に`x`が12、`y`が7となるように、空欄①〜③を埋めてください。各空欄には、x・y・tempのいずれか一つの変数名を書いてください。コード中の`[ ① ]`などは、答えを書き入れる空欄を表します。
 
 <p class="exercise-task"><strong>このコードの課題：</strong>x＝7、y＝12の二つの値を交換する。</p>
 
@@ -774,8 +770,6 @@ y ← [ ③ ]
 </div>
 
 </section>
-
-<!-- 追加演習開始 2 -->
 
 <section class="exercise-question">
 
@@ -916,8 +910,6 @@ c ← temp
 
 </section>
 
-<!-- 追加演習終了 2 -->
-
 <div class="page-break"></div>
 
 <a id="chapter-3"></a>
@@ -1026,7 +1018,9 @@ total ← [ ③ ]
   <div><strong>空欄 ①</strong><span></span></div>
   <div><strong>空欄 ②</strong><span></span></div>
   <div><strong>空欄 ③</strong><span></span></div>
-  <div><strong>各変数の役割（自分の言葉で）</strong><span>apple, orange, total の役割を一言で説明</span></div>
+  <div><strong>appleの役割</strong><span></span></div>
+  <div><strong>orangeの役割</strong><span></span></div>
+  <div><strong>totalの役割</strong><span></span></div>
 </div>
 
 <div class="ai-box">
@@ -1037,11 +1031,45 @@ total ← [ ③ ]
 
 </section>
 
-<div class="page-break"></div>
+<section class="exercise-question">
+
+## 演習3-B　入力から出力まで
+
+<span class="difficulty">難易度 ★☆☆</span>
+
+priceは入力された単価、quantityは入力された個数とします。ここでは入力済みの値を200と3の代入で再現しています。入力操作そのものを書く場合は入力する()を使います。単価200円、個数3個のとき何が表示されますか。入力・処理・出力に分けて説明してください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>単価200円、個数3個から代金を計算し、表示する。</p>
+
+```text
+整数型: price, quantity, total
+
+price ← 200
+quantity ← 3
+total ← price × quantity
+表示する(total)
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>表示される値</strong><span></span></div>
+  <div><strong>入力 price（単価）</strong><span></span></div>
+  <div><strong>入力 quantity（個数）</strong><span></span></div>
+  <div><strong>処理</strong><span></span></div>
+  <div><strong>出力</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題3-Bについて質問です。</p>
+  <p><strong>分かっていること：</strong>priceは単価、quantityは個数です。<br><strong>試したこと：</strong>各行を入力・処理・出力に分けました。<br><strong>分からないこと：</strong>計算結果を覚えることと表示することの違いが分かりません。確認する点を一つ教えてください。</p>
+</div>
+
+</section>
 
 <section class="exercise-question">
 
-## 演習3-B　消費税込みの金額
+## 演習3-C　消費税込みの金額
 
 <span class="difficulty">難易度 ★★☆</span>
 
@@ -1070,48 +1098,8 @@ rate ← 0.1
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題3-Bについて質問です。</p>
-  <p><strong>分かっていること：</strong>rate＝0.1は10％を表します。<br><strong>試したこと：</strong>price × rateという式を考えました。<br><strong>分からないこと：</strong>この式で税込価格を求められるか分かりません。確認するヒントを一つください。</p>
-</div>
-
-</section>
-
-<div class="page-break"></div>
-
-<!-- 追加演習開始 3 -->
-
-<section class="exercise-question">
-
-## 演習3-C　入力から出力まで
-
-<span class="difficulty">難易度 ★☆☆</span>
-
-priceは入力された単価、quantityは入力された個数とします。ここでは入力済みの値を200と3の代入で再現しています。入力操作そのものを書く場合は入力する()を使います。単価200円、個数3個のとき何が表示されますか。入力・処理・出力に分けて説明してください。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>単価200円、個数3個から代金を計算し、表示する。</p>
-
-```text
-整数型: price, quantity, total
-
-price ← 200
-quantity ← 3
-total ← price × quantity
-表示する(total)
-```
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>表示される値</strong><span></span></div>
-  <div><strong>入力 price（単価）</strong><span></span></div>
-  <div><strong>入力 quantity（個数）</strong><span></span></div>
-  <div><strong>処理</strong><span></span></div>
-  <div><strong>出力</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題3-Cについて質問です。</p>
-  <p><strong>分かっていること：</strong>priceは単価、quantityは個数です。<br><strong>試したこと：</strong>各行を入力・処理・出力に分けました。<br><strong>分からないこと：</strong>計算結果を覚えることと表示することの違いが分かりません。確認する点を一つ教えてください。</p>
+  <p><strong>分かっていること：</strong>rate＝0.1は10％を表します。<br><strong>試したこと：</strong>price × rateという式を考えました。<br><strong>分からないこと：</strong>この式で税込価格を求められるか分かりません。確認するヒントを一つください。</p>
 </div>
 
 </section>
@@ -1199,7 +1187,7 @@ hours ← [ b ]
 
 <span class="difficulty">難易度 ★★★</span>
 
-【実践】ある倉庫で商品の受払（在庫管理）を行います。朝の業務開始時点の在庫は40個（stock）です。日中に15個が入荷（received）し、その後23個を出荷（shipped）しました。一日の業務終了後、翌日の目標在庫数50個（target）に対して何個不足しているか（shortage）を計算します。在庫数の増減と不足数を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。※出荷できる十分な在庫があるものとします。
+【実践】ある倉庫で商品の受払（在庫管理）を行います。朝の業務開始時点の在庫は40個（stock）です。日中に15個が入荷（received）し、その後23個を出荷（shipped）しました。一日の業務終了後、翌日の目標在庫数50個に対して何個不足しているか（shortage）を計算します。在庫数の増減と不足数を正しく計算するように、プログラム中の空欄 [ a ]、[ b ] に入る適切な組合せを一つ選んでください。※出荷できる十分な在庫があるものとします。
 
 <p class="exercise-task"><strong>このコードの課題：</strong>在庫40個に入荷15個と出荷23個を反映し、目標50個との差を求める。</p>
 
@@ -1238,8 +1226,6 @@ shortage ← 50 − stock
 
 </section>
 
-<!-- 追加演習終了 3 -->
-
 <div class="page-break"></div>
 
 <a id="chapter-4"></a>
@@ -1262,6 +1248,8 @@ shortage ← 50 − stock
 </div>
 
 擬似言語では、英語の `if`（もし〜なら）、`else`（そうでなければ）、`endif`（ifの終わり）を使って次のように記述します。`if`の丸括弧には、調べたい条件を書きます。ここで使う`≧`は「以上」で、`score ≧ 60`は「点数が60点以上か」を調べる式です。60点ちょうども含みます。
+
+以下の四つの例では、点数がscoreへ入力済みである場面の処理を示します。表示結果欄の点数ごとに条件を確かめてください。
 
 <div class="code-example" data-example="9">
 <p class="example-task"><strong>問題：</strong>点数scoreが60点以上なら「合格」、60点未満なら「不合格」を表示する。</p>
@@ -1405,7 +1393,7 @@ endif</code></pre>
 
 「60点より大きい」と「60点以上」は異なります。「以上」には60点ちょうども含まれます。
 
-<div class="boundary-visual">
+<div class="boundary-visual" id="comparison-boundary">
   <p class="visual-title">条件：score ≧ 60（60点以上）</p>
   <svg viewBox="0 0 720 150" role="img" aria-label="59点は偽。60点ちょうどを含め、60点から右は真。" xmlns="http://www.w3.org/2000/svg">
     <defs><marker id="score-arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M 0 0 L 8 4 L 0 8 Z" fill="#145fc0"/></marker></defs>
@@ -1496,8 +1484,6 @@ endif
 
 </section>
 
-<div class="page-break"></div>
-
 <section class="exercise-question">
 
 ## 演習4-B　合格の境目
@@ -1533,10 +1519,6 @@ endif
 </div>
 
 </section>
-
-<div class="page-break"></div>
-
-<!-- 追加演習開始 4 -->
 
 <section class="exercise-question compact-question">
 
@@ -1712,8 +1694,6 @@ endif
 </div>
 
 </section>
-
-<!-- 追加演習終了 4 -->
 
 <div class="page-break"></div>
 
@@ -1957,7 +1937,7 @@ endfor
 | 4 | 6 | 10 | 10 |
 | 5 | 10 | 15 | 15 |
 
-<div class="term-box">
+<div class="term-box" id="accumulation-guide">
   <p class="box-title">累積する変数</p>
   <p>`total`のように、繰返しのたびに値を加えていく変数を累積用の変数として使います。合計の初期値は通常0です。</p>
 </div>
@@ -2020,7 +2000,7 @@ endfor
 
 ### 5.3.4 合計から平均を求める
 
-平均は「合計 ÷ 件数」で求めます。直前と同じ1から5までを使い、合計を求めた後で、足した数の個数で割ります。
+平均は「合計 ÷ 件数」で求めます。5.3.2と同じ1から5までを使い、合計を求めた後で、足した数の個数で割ります。
 
 <div class="code-example" data-example="28">
 <p class="example-task"><strong>問題：</strong>1から5までの整数の合計と平均を求め、合計、平均の順に表示する。</p>
@@ -2124,15 +2104,82 @@ endfor
 
 **内側の`j`に注目：** 各段で1→2→3と進みます。段が変わる4行目では、再び1から始まります。前の段の3を引き継ぎません。
 
-全体では2×3＝6回、箱を確認します。一回でiとjを別々に表示するため、表示命令は合計12回です。文字を行ごとに表示する場合も、内側の繰返しを終えた後で改行すれば、一行ごとに一度だけ改行できます。
+全体では2×3＝6回、箱を確認します。一回でiとjを別々に表示するため、表示命令は合計12回です。
 
+</div>
+
+</section>
+
+<section class="exercise-question">
+
+## 演習5-A　繰返しによる加算
+
+<span class="difficulty">難易度 ★☆☆</span>
+
+最後のtotalを求め、繰返し部分が何回実行されるか答えてください。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>コードを読み、totalの最終値と繰返しの実行回数を求める。</p>
+
+```text
+整数型: i, total
+
+total ← 0
+for (i を 1 から 3 まで 1 ずつ増やす)
+  total ← total ＋ 2
+endfor
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の total</strong><span></span></div>
+  <div><strong>繰返しの実行回数</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題5-Aについて質問です。</p>
+  <p><strong>分かっていること：</strong>一周ごとにtotalへ2を足します。<br><strong>試したこと：</strong>iを1から3まで順に書きました。<br><strong>分からないこと：</strong>最後の3を含めて繰り返すのか迷います。確認するヒントを一つください。</p>
+</div>
+
+</section>
+
+<section class="exercise-question">
+
+## 演習5-B　最初の判定が偽なら
+
+<span class="difficulty">難易度 ★☆☆</span>
+
+表示されるiはいくつですか。繰返し内部は何回実行されますか。
+
+<p class="exercise-task"><strong>このコードの課題：</strong>最初のiが5のとき、繰返しの実行回数と表示される値を求める。</p>
+
+```text
+整数型: i
+
+i ← 5
+while (i ＜ 5)
+  i ← i ＋ 1
+endwhile
+表示する(i)
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>表示される i</strong><span></span></div>
+  <div><strong>内部の実行回数</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題5-Bについて質問です。</p>
+  <p><strong>分かっていること：</strong>最初のiは5です。<br><strong>試したこと：</strong>最初の条件i ＜ 5を調べました。<br><strong>分からないこと：</strong>条件が偽でも一回は処理するのか迷います。確認するヒントを一つください。</p>
 </div>
 
 </section>
 
 <section class="exercise-question compact-question">
 
-## 演習5-A　合計と平均
+## 演習5-C　合計と平均
 
 <span class="difficulty">難易度 ★★☆</span>
 
@@ -2168,17 +2215,15 @@ average ← [ ⑤ ]
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題5-Aについて質問です。</p>
+  <p>問題5-Cについて質問です。</p>
   <p><strong>分かっていること：</strong>iは一周ごとに変わります。<br><strong>試したこと：</strong>最初の二周を紙に書いて計算しました。<br><strong>分からないこと：</strong>totalの右辺で使う値の時点が分かりません。確認するヒントを一つください。</p>
 </div>
 
 </section>
 
-<div class="page-break"></div>
-
 <section class="exercise-question compact-question fit-question">
 
-## 演習5-B　処理回数を数える
+## 演習5-D　処理回数を数える
 
 <span class="difficulty">難易度 ★★☆</span>
 
@@ -2209,79 +2254,8 @@ endwhile
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題5-Bについて質問です。</p>
-  <p><strong>分かっていること：</strong>whileは条件を確かめてから処理します。<br><strong>試したこと：</strong>iを1から順に変えて処理を追いました。<br><strong>分からないこと：</strong>条件の判定回数と処理の実行回数の違いが分かりません。数え方のヒントを一つください。</p>
-</div>
-
-</section>
-
-<div class="page-break"></div>
-
-<!-- 追加演習開始 5 -->
-
-<section class="exercise-question">
-
-## 演習5-C　三回足す
-
-<span class="difficulty">難易度 ★☆☆</span>
-
-最後のtotalを求め、繰返し部分が何回実行されるか答えてください。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>totalへ2を3回足し、合計と繰り返した回数を求める。</p>
-
-```text
-整数型: i, total
-
-total ← 0
-for (i を 1 から 3 まで 1 ずつ増やす)
-  total ← total ＋ 2
-endfor
-```
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>最後の total</strong><span></span></div>
-  <div><strong>繰返しの実行回数</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題5-Cについて質問です。</p>
-  <p><strong>分かっていること：</strong>一周ごとにtotalへ2を足します。<br><strong>試したこと：</strong>iを1から3まで順に書きました。<br><strong>分からないこと：</strong>最後の3を含めて繰り返すのか迷います。確認するヒントを一つください。</p>
-</div>
-
-</section>
-
-<section class="exercise-question">
-
-## 演習5-D　最初の判定が偽なら
-
-<span class="difficulty">難易度 ★☆☆</span>
-
-表示されるiはいくつですか。繰返し内部は何回実行されますか。
-
-<p class="exercise-task"><strong>このコードの課題：</strong>最初のiが5のとき、繰返しの実行回数と表示される値を求める。</p>
-
-```text
-整数型: i
-
-i ← 5
-while (i ＜ 5)
-  i ← i ＋ 1
-endwhile
-表示する(i)
-```
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>表示される i</strong><span></span></div>
-  <div><strong>内部の実行回数</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題5-Dについて質問です。</p>
-  <p><strong>分かっていること：</strong>最初のiは5です。<br><strong>試したこと：</strong>最初の条件i ＜ 5を調べました。<br><strong>分からないこと：</strong>条件が偽でも一回は処理するのか迷います。確認するヒントを一つください。</p>
+  <p><strong>分かっていること：</strong>whileは条件を確かめてから処理します。<br><strong>試したこと：</strong>iを1から順に変えて処理を追いました。<br><strong>分からないこと：</strong>条件の判定回数と処理の実行回数の違いが分かりません。数え方のヒントを一つください。</p>
 </div>
 
 </section>
@@ -2379,8 +2353,6 @@ endfor
 </div>
 
 </section>
-
-<!-- 追加演習終了 5 -->
 
 <div class="page-break"></div>
 
@@ -2571,7 +2543,7 @@ endfor
 
 | i | A[i] | 比較前のmax | A[i] ＞ max | 比較後のmax |
 |---|---:|---:|---|---:|
-| 初期化 | 2 | ― | ― | 2 |
+| 初期化 | ― | ― | ― | 2 |
 | 2 | 5 | 2 | 真 | 5 |
 | 3 | 1 | 5 | 偽 | 5 |
 | 4 | 9 | 5 | 真 | 9 |
@@ -2582,7 +2554,7 @@ endfor
 | 9 | 6 | 10 | 偽 | 10 |
 | 10 | 4 | 10 | 偽 | 10 |
 
-最初の「初期化」の行は、`A[1]`の2を`max`へ入れた記録です。比較は次の`i＝2`の行から始まります。「比較前のmax」には前の行の「比較後のmax」を引き継ぎ、条件が偽でも同じ値を書きます。例えば`i＝3`では、1は5より大きくないので、`max`は5のままです。
+最初の「初期化」の行は、`A[1]`の2を`max`へ入れた記録です。「―」は、その式を参照していないことを表します。比較は次の`i＝2`の行から始まります。「比較前のmax」には前の行の「比較後のmax」を引き継ぎ、条件が偽でも同じ値を書きます。例えば`i＝3`では、1は5より大きくないので、`max`は5のままです。
 <div class="note-box">
   <p class="box-title">なぜ最大値の初期値を0にしないのか</p>
   <p>配列の値がすべて負の数の場合、0は配列に存在しないのに最大値として残ってしまいます。最初の要素を初期値にすれば、配列内の値から最大値を選べます。</p>
@@ -2656,8 +2628,6 @@ endfor
 `i＝2`では両方が真になり、位置2を記録します。`i＝4`でも①は真ですが、`position`はすでに2なので②は偽となり、最初の位置を保ちます。表示するのは探した値9ではなく、記録した位置2です。初期化の行の「―」は、まだ比較を行っていないことを表します。
 
 `target`を7に変えると、一致する要素がないため一度も位置を記録せず、最後も0のままです。問題が「最初の位置」と「最後の位置」のどちらを求めているかも確認しましょう。
-
-<!-- 追加演習開始 6 -->
 
 <section class="exercise-question">
 
@@ -2891,8 +2861,6 @@ endfor
 
 </section>
 
-<!-- 追加演習終了 6 -->
-
 <div class="page-break"></div>
 
 <a id="chapter-7"></a>
@@ -3030,8 +2998,6 @@ AIへ「トレース表を作って」と頼むだけでは、AIが作った表�
 
 <div class="page-break"></div>
 
-<!-- 追加演習開始 7 -->
-
 <section class="exercise-question">
 
 ## 演習7-A　実行前と実行後
@@ -3086,9 +3052,9 @@ endif
 
 <div class="trace-practice" data-exercise="7-B">
 <p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">宣言の後の処理を、コードに書かれた順に確認します。「判定・実行」は条件の行に真／偽、代入の行に実行する／実行しないと記入します。まだ値のない変数は「未定義」、値が変わらない欄は前の値を書きます。</p>
+<p class="trace-guide">各行を順に確認し、確認後の値を書きます。代入する行は実行直後、条件の行と実行しない行は保たれた値を記録します。まだ値がないときは「未定義」です。「判定・実行」には条件の真／偽、代入の実行する／実行しないを書きます。</p>
 
-| 確認する行 | 判定・実行 | その時のx | その時のy |
+| 確認する行 | 判定・実行 | 確認後のx | 確認後のy |
 |---|---:|---:|---:|
 | x ← 2 |  |  |  |
 | if (x ＞ 5) |  |  |  |
@@ -3154,7 +3120,7 @@ endfor
 
 </section>
 
-<section class="exercise-question">
+<section class="exercise-question compact-question">
 
 ## 演習7-D　繰返しの出口を記録する
 
@@ -3293,8 +3259,6 @@ endfor
 
 </section>
 
-<!-- 追加演習終了 7 -->
-
 <div class="page-break"></div>
 
 <a id="chapter-8"></a>
@@ -3303,17 +3267,101 @@ endfor
 
 この章では、複数の知識を組み合わせます。各問題の「問題を解く前の確認欄」で、確認できた項目にチェックを付けてから解き始めましょう。まず自分で考え、迷ったところをAIへ質問します。
 
+<section class="exercise-question compact-question">
+
+## 演習8-A　条件付きの更新
+
+<span class="difficulty">難易度 ★☆☆</span>
+
+A＝{2,6}です。最後のresultを答えてください。
+
+
+<div class="analysis-sheet" data-exercise="8-A">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 初めにresultへ入る値</li>
+<li>□ 比較する二つの値</li>
+<li>□ 条件が真のときの更新</li>
+</ul>
+</div>
+<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{2, 6}の二つの値を比べ、大きい方をresultへ残す。</p>
+
+```text
+整数型: result
+整数型の配列: A ← {2, 6}
+
+result ← A[1]
+if (A[2] ＞ result)
+  result ← A[2]
+endif
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の result</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題8-Aについて質問です。</p>
+  <p><strong>分かっていること：</strong>resultには最初にA[1]が入ります。<br><strong>試したこと：</strong>A[2]とresultを比べました。<br><strong>分からないこと：</strong>比較の結果からresultを更新するか判断できません。ヒントを一つください。</p>
+</div>
+
+</section>
+
+<section class="exercise-question compact-question">
+
+## 演習8-B　二つの値の合計
+
+<span class="difficulty">難易度 ★☆☆</span>
+
+A＝{3,5}です。最後のtotalを答えてください。
+
+
+<div class="analysis-sheet" data-exercise="8-B">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ totalの初期値</li>
+<li>□ 配列を読む順番</li>
+<li>□ 前の合計に足す値</li>
+</ul>
+</div>
+<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{3, 5}の二つの値を順に足す。</p>
+
+```text
+整数型: i, total
+整数型の配列: A ← {3, 5}
+
+total ← 0
+for (i を 1 から 2 まで 1 ずつ増やす)
+  total ← total ＋ A[i]
+endfor
+```
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>最後の total</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題8-Bについて質問です。</p>
+  <p><strong>分かっていること：</strong>配列の二つの値を足す問題です。<br><strong>試したこと：</strong>一周目のtotalを計算しました。<br><strong>分からないこと：</strong>二周目の右辺で使うtotalが分かりません。確認するヒントを一つください。</p>
+</div>
+
+</section>
+
 <section class="exercise-question compact-question fit-question">
 
-## 演習8-A　条件に合う値の件数
+## 演習8-C　条件に合う値の件数
 
 <span class="difficulty">難易度 ★★☆</span>
 
 配列`A`には10個の整数が入っています。5以上の値がいくつあるかを数えて表示します。空欄を埋めてください。
 
-<!-- 確認欄開始 8-A -->
+<!-- 確認欄開始 8-C -->
 
-<div class="analysis-sheet" data-exercise="8-A">
+<div class="analysis-sheet" data-exercise="8-C">
 <p class="sheet-title">問題を解く前の確認欄</p>
 <ul class="precheck-items">
 <li>□ 変数と配列の役割</li>
@@ -3322,7 +3370,7 @@ endfor
 </ul>
 </div>
 
-<!-- 確認欄終了 8-A -->
+<!-- 確認欄終了 8-C -->
 
 <p class="exercise-task"><strong>このコードの課題：</strong>配列Aのうち5以上の値を数え、件数を表示する。</p>
 
@@ -3351,278 +3399,22 @@ endfor
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題8-Aについて質問です。</p>
-  <p><strong>分かっていること：</strong>条件に合う値の件数を数えます。<br><strong>試したこと：</strong>配列の値を一つずつ条件に当てはめました。<br><strong>分からないこと：</strong>countをどの場面で増やすか迷います。確認するヒントを一つください。</p>
-</div>
-
-</section>
-
-<section class="exercise-question compact-question fit-question">
-
-## 演習8-B　最大値とその位置
-
-<span class="difficulty">難易度 ★★★</span>
-
-配列`A`の最大値と、その値が入っている添字を表示します。配列には少なくとも一つの要素があり、添字は1から始まります。最大値が複数ある場合は、最初に現れる位置を表示します。
-
-空欄①〜③に入れる内容の組合せとして、適切なものを一つ選んでください。`Aの要素数`は、配列Aに入っている値の個数です。例えばA＝{4, 9, 9}なら3です。
-
-<!-- 確認欄開始 8-B -->
-
-<div class="analysis-sheet" data-exercise="8-B">
-<p class="sheet-title">問題を解く前の確認欄</p>
-<ul class="precheck-items">
-<li>□ 同点時の条件（＞と≧）</li>
-<li>□ 値と位置を更新する場所</li>
-<li>□ 比較を始める位置</li>
-</ul>
-</div>
-
-<!-- 確認欄終了 8-B -->
-
-<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの最大値と、その値が最初に現れる位置を順に表示する。</p>
-
-```text
-整数型: i, max, maxIndex
-整数型の配列: A
-max ← A[1]
-maxIndex ← 1
-
-for (i を 2 から Aの要素数 まで 1 ずつ増やす)
-  if ([ ① ])
-    max ← [ ② ]
-    maxIndex ← [ ③ ]
-  endif
-endfor
-
-表示する(max)
-表示する(maxIndex)
-```
-
-<!-- 選択肢開始 8-B -->
-
-<div class="choice-table" data-exercise="8-B">
-
-| 選択肢 | 内容 |
-|---|---|
-| ア | ① A[i] ＞ max ／ ② A[i] ／ ③ i |
-| イ | ① A[i] ≧ max ／ ② A[i] ／ ③ i |
-| ウ | ① A[i] ＜ max ／ ② A[i] ／ ③ i |
-| エ | ① A[i] ＞ max ／ ② A[i] ／ ③ A[i] |
-
-</div>
-
-<!-- 選択肢終了 8-B -->
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題8-Bについて質問です。</p>
-  <p><strong>分かっていること：</strong>同じ最大値なら最初の位置を残します。<br><strong>試したこと：</strong>A＝{4,9,9}で比較の順を追いました。<br><strong>分からないこと：</strong>条件が＞と≧の場合の違いが分かりません。確認するヒントを一つください。</p>
-</div>
-
-</section>
-
-<section class="exercise-question compact-question fit-question two-page-question">
-
-## 演習8-C　記号を正方形に表示する
-
-<span class="difficulty">難易度 ★★★</span>
-
-`num`は入力された1以上の整数です。`num`行、各行に`num`個の`*`を表示します。<code class="syntax-keyword">横に表示する("*")</code>で`*`を一つ表示し、改行しません。<code class="syntax-keyword">改行する()</code>は次の行へ移る命令で、括弧の中に値は書きません。
-
-空欄①〜④に入る組合せを一つ選んでください。選択肢の「i：1～num」は「i を 1 から num まで 1 ずつ増やす」の略記です。どの範囲も1ずつ増やし、両端を含みます。
-
-<!-- 確認欄開始 8-C -->
-
-<div class="analysis-sheet" data-exercise="8-C">
-<p class="sheet-title">問題を解く前の確認欄</p>
-<ul class="precheck-items">
-<li>□ 二つの繰返しの担当</li>
-<li>□ 一文字の表示と改行</li>
-<li>□ 入力値と行・文字数の関係</li>
-</ul>
-</div>
-
-<!-- 確認欄終了 8-C -->
-
-<p class="exercise-task"><strong>このコードの課題：</strong>num行、各行にnum個の「*」を表示する。</p>
-
-```text
-整数型: num, i, j
-num ← 入力する()
-
-for ([ ① ])
-  for ([ ② ])
-    [ ③ ]
-  endfor
-  [ ④ ]
-endfor
-```
-
-<!-- トレース表開始 8-C -->
-
-<div class="trace-practice" data-exercise="8-C">
-<p class="trace-title">トレース表（記入用）</p>
-<p class="trace-guide">次ページの選択肢から組合せを選び、num＝3で一文字表示するたびに一行記入します。その文字の後、次の文字を表示するか処理を終えるまでに改行するかを「する／しない」で記録し、3行・各行3文字になるか確認してください。</p>
-
-| 表示順 | 外側のi | 内側のj | 表示する文字 | 表示後の改行 |
-|---|---:|---:|---:|---:|
-| 1 |  |  |  |  |
-| 2 |  |  |  |  |
-| 3 |  |  |  |  |
-| 4 |  |  |  |  |
-| 5 |  |  |  |  |
-| 6 |  |  |  |  |
-| 7 |  |  |  |  |
-| 8 |  |  |  |  |
-| 9 |  |  |  |  |
-
-
-</div>
-
-<!-- トレース表終了 8-C -->
-
-<div class="question-continuation">
-
-<p class="continuation-title">8-Cの続き｜選択肢と解答欄</p>
-
-前のページのコードとトレース表を使い、表示が次の例と一致する組合せを選んでください。
-
-**`num`が3の場合の出力例：** 1行に`***`を表示し、改行して3行出力します。
-
-<div class="output-sample"><code>***<br>***<br>***</code></div>
-
-<!-- 選択肢開始 8-C -->
-
-<div class="choice-table" data-exercise="8-C">
-
-| 選択肢 | 内容 |
-|---|---|
-| ア | ① i：1～num ／ ② j：1～i<br>③ 横に表示する("*") ／ ④ 改行する() |
-| イ | ① i：0～num ／ ② j：1～num<br>③ 横に表示する("*") ／ ④ 改行する() |
-| ウ | ① i：1～num ／ ② j：1～num<br>③ 横に表示する("*") ／ ④ 改行する() |
-| エ | ① i：1～num ／ ② j：1～num<br>③ 改行する() ／ ④ 横に表示する("*") |
-
-</div>
-
-<!-- 選択肢終了 8-C -->
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
   <p>問題8-Cについて質問です。</p>
-  <p><strong>分かっていること：</strong>iとjは別の繰返しで使います。<br><strong>試したこと：</strong>num＝3で、一行目のiとjを表に書きました。<br><strong>分からないこと：</strong>次の行のjと改行のタイミングが分かりません。ヒントを一つください。</p>
-</div>
-
-</div>
-
-</section>
-
-<!-- 追加演習開始 8 -->
-
-<section class="exercise-question compact-question">
-
-## 演習8-D　条件付きの更新
-
-<span class="difficulty">難易度 ★☆☆</span>
-
-A＝{2,6}です。最後のresultを答えてください。
-
-
-<div class="analysis-sheet" data-exercise="8-D">
-<p class="sheet-title">問題を解く前の確認欄</p>
-<ul class="precheck-items">
-<li>□ 初めにresultへ入る値</li>
-<li>□ 比較する二つの値</li>
-<li>□ 条件が真のときの更新</li>
-</ul>
-</div>
-<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{2, 6}の二つの値を比べ、大きい方をresultへ残す。</p>
-
-```text
-整数型: result
-整数型の配列: A ← {2, 6}
-
-result ← A[1]
-if (A[2] ＞ result)
-  result ← A[2]
-endif
-```
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>最後の result</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題8-Dについて質問です。</p>
-  <p><strong>分かっていること：</strong>resultには最初にA[1]が入ります。<br><strong>試したこと：</strong>A[2]とresultを比べました。<br><strong>分からないこと：</strong>比較の結果からresultを更新するか判断できません。ヒントを一つください。</p>
+  <p><strong>分かっていること：</strong>条件に合う値の件数を数えます。<br><strong>試したこと：</strong>値が4の場合と5の場合を自分で仮定し、数える対象か考えました。<br><strong>分からないこと：</strong>countをどの場面で増やすか迷います。確認するヒントを一つください。</p>
 </div>
 
 </section>
 
 <section class="exercise-question compact-question">
 
-## 演習8-E　二つの値の合計
-
-<span class="difficulty">難易度 ★☆☆</span>
-
-A＝{3,5}です。最後のtotalを答えてください。
-
-
-<div class="analysis-sheet" data-exercise="8-E">
-<p class="sheet-title">問題を解く前の確認欄</p>
-<ul class="precheck-items">
-<li>□ totalの初期値</li>
-<li>□ 配列を読む順番</li>
-<li>□ 前の合計に足す値</li>
-</ul>
-</div>
-<p class="exercise-task"><strong>このコードの課題：</strong>配列A＝{3, 5}の二つの値を順に足す。</p>
-
-```text
-整数型: i, total
-整数型の配列: A ← {3, 5}
-
-total ← 0
-for (i を 1 から 2 まで 1 ずつ増やす)
-  total ← total ＋ A[i]
-endfor
-```
-
-<div class="answer-sheet">
-  <p class="sheet-title">解答欄</p>
-  <div><strong>最後の total</strong><span></span></div>
-</div>
-
-<div class="ai-box">
-  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題8-Eについて質問です。</p>
-  <p><strong>分かっていること：</strong>配列の二つの値を足す問題です。<br><strong>試したこと：</strong>一周目のtotalを計算しました。<br><strong>分からないこと：</strong>二周目の右辺で使うtotalが分かりません。確認するヒントを一つください。</p>
-</div>
-
-</section>
-
-<section class="exercise-question compact-question">
-
-## 演習8-F　条件を満たした値だけ合計する
+## 演習8-D　条件を満たした値だけ合計する
 
 <span class="difficulty">難易度 ★★☆</span>
 
 A＝{3,8,5,1}から5以上の値だけを集計します。count、total、averageを求めてください。averageは実数型です。この配列では対象が必ず一つ以上あります。
 
 
-<div class="analysis-sheet" data-exercise="8-F">
+<div class="analysis-sheet" data-exercise="8-D">
 <p class="sheet-title">問題を解く前の確認欄</p>
 <ul class="precheck-items">
 <li>□ 対象となる値の条件</li>
@@ -3657,24 +3449,198 @@ average ← total ÷ count
 
 <div class="ai-box">
   <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
-  <p>問題8-Fについて質問です。</p>
+  <p>問題8-Dについて質問です。</p>
   <p><strong>分かっていること：</strong>5以上の値だけが集計の対象です。<br><strong>試したこと：</strong>配列の各値が対象かどうかを調べました。<br><strong>分からないこと：</strong>平均を求めるときに何個で割るか迷います。確認するヒントを一つください。</p>
 </div>
 
 </section>
 
-<!-- 追加演習終了 8 -->
+<section class="exercise-question compact-question fit-question">
+
+## 演習8-E　最大値とその位置
+
+<span class="difficulty">難易度 ★★★</span>
+
+配列`A`の最大値と、その値が入っている添字を表示します。配列には少なくとも一つの要素があり、添字は1から始まります。最大値が複数ある場合は、最初に現れる位置を表示します。
+
+空欄①〜③に入れる内容の組合せとして、適切なものを一つ選んでください。`Aの要素数`は、配列Aに入っている値の個数です。例えばA＝{4, 9, 9}なら3です。
+
+<!-- 確認欄開始 8-E -->
+
+<div class="analysis-sheet" data-exercise="8-E">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 同点時の条件（＞と≧）</li>
+<li>□ 値と位置を更新する場所</li>
+<li>□ 比較を始める位置</li>
+</ul>
+</div>
+
+<!-- 確認欄終了 8-E -->
+
+<p class="exercise-task"><strong>このコードの課題：</strong>配列Aの最大値と、その値が最初に現れる位置を順に表示する。</p>
+
+```text
+整数型: i, max, maxIndex
+整数型の配列: A
+max ← A[1]
+maxIndex ← 1
+
+for (i を 2 から Aの要素数 まで 1 ずつ増やす)
+  if ([ ① ])
+    max ← [ ② ]
+    maxIndex ← [ ③ ]
+  endif
+endfor
+
+表示する(max)
+表示する(maxIndex)
+```
+
+<!-- 選択肢開始 8-E -->
+
+<div class="choice-table" data-exercise="8-E">
+
+| 選択肢 | 内容 |
+|---|---|
+| ア | ① A[i] ＞ max ／ ② A[i] ／ ③ i |
+| イ | ① A[i] ≧ max ／ ② A[i] ／ ③ i |
+| ウ | ① A[i] ＜ max ／ ② A[i] ／ ③ i |
+| エ | ① A[i] ＞ max ／ ② A[i] ／ ③ A[i] |
+
+</div>
+
+<!-- 選択肢終了 8-E -->
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題8-Eについて質問です。</p>
+  <p><strong>分かっていること：</strong>同じ最大値なら最初の位置を残します。<br><strong>試したこと：</strong>A＝{4,9,9}で比較の順を追いました。<br><strong>分からないこと：</strong>条件が＞と≧の場合の違いが分かりません。確認するヒントを一つください。</p>
+</div>
+
+</section>
+
+<section class="exercise-question compact-question fit-question two-page-question">
+
+## 演習8-F　記号を正方形に表示する
+
+<span class="difficulty">難易度 ★★★</span>
+
+`num`は入力された1以上の整数です。`num`行、各行に`num`個の`*`を表示します。<code class="syntax-keyword">横に表示する("*")</code>で`*`を一つ表示し、改行しません。<code class="syntax-keyword">改行する()</code>は次の行へ移る命令で、括弧の中に値は書きません。
+
+空欄①〜④に入る組合せを一つ選んでください。選択肢の「i：1～num」は「i を 1 から num まで 1 ずつ増やす」の略記です。どの範囲も1ずつ増やし、両端を含みます。
+
+<!-- 確認欄開始 8-F -->
+
+<div class="analysis-sheet" data-exercise="8-F">
+<p class="sheet-title">問題を解く前の確認欄</p>
+<ul class="precheck-items">
+<li>□ 二つの繰返しの担当</li>
+<li>□ 一文字の表示と改行</li>
+<li>□ 入力値と行・文字数の関係</li>
+</ul>
+</div>
+
+<!-- 確認欄終了 8-F -->
+
+<p class="exercise-task"><strong>このコードの課題：</strong>num行、各行にnum個の「*」を表示する。</p>
+
+```text
+整数型: num, i, j
+num ← 入力する()
+
+for ([ ① ])
+  for ([ ② ])
+    [ ③ ]
+  endfor
+  [ ④ ]
+endfor
+```
+
+<!-- トレース表開始 8-F -->
+
+<div class="trace-practice" data-exercise="8-F">
+<p class="trace-title">トレース表（記入用）</p>
+<p class="trace-guide">次ページの選択肢から組合せを選び、num＝3で一文字表示するたびに一行記入します。その文字の後、次の文字を表示するか処理を終えるまでに改行するかを「する／しない」で記録し、3行・各行3文字になるか確認してください。</p>
+
+| 表示順 | 外側のi | 内側のj | 表示する文字 | 表示後の改行 |
+|---|---:|---:|---:|---:|
+| 1 |  |  |  |  |
+| 2 |  |  |  |  |
+| 3 |  |  |  |  |
+| 4 |  |  |  |  |
+| 5 |  |  |  |  |
+| 6 |  |  |  |  |
+| 7 |  |  |  |  |
+| 8 |  |  |  |  |
+| 9 |  |  |  |  |
+
+
+</div>
+
+<!-- トレース表終了 8-F -->
+
+<div class="question-continuation">
+
+<p class="continuation-title">8-Fの続き｜選択肢と解答欄</p>
+
+前のページのコードとトレース表を使い、表示が次の例と一致する組合せを選んでください。
+
+**`num`が3の場合の出力例：** 1行に`***`を表示し、改行して3行出力します。
+
+<div class="output-sample"><code>***<br>***<br>***</code></div>
+
+<!-- 選択肢開始 8-F -->
+
+<div class="choice-table" data-exercise="8-F">
+
+| 選択肢 | 内容 |
+|---|---|
+| ア | ① i：1～num ／ ② j：1～i<br>③ 横に表示する("*") ／ ④ 改行する() |
+| イ | ① i：0～num ／ ② j：1～num<br>③ 横に表示する("*") ／ ④ 改行する() |
+| ウ | ① i：1～num ／ ② j：1～num<br>③ 横に表示する("*") ／ ④ 改行する() |
+| エ | ① i：1～num ／ ② j：1～num<br>③ 改行する() ／ ④ 横に表示する("*") |
+
+</div>
+
+<!-- 選択肢終了 8-F -->
+
+<div class="answer-sheet">
+  <p class="sheet-title">解答欄</p>
+  <div><strong>選択肢（ア〜エ）</strong><span></span></div>
+</div>
+
+<div class="ai-box">
+  <p class="ai-label">AIへの質問例｜自分の考えを伝えてヒントを求める</p>
+  <p>問題8-Fについて質問です。</p>
+  <p><strong>分かっていること：</strong>iとjは別の繰返しで使います。<br><strong>試したこと：</strong>num＝3で、一行目のiとjを表に書きました。<br><strong>分からないこと：</strong>次の行のjと改行のタイミングが分かりません。ヒントを一つください。</p>
+</div>
+
+</div>
+
+</section>
+
+<div class="page-break"></div>
 
 ## 演習後の振り返り
+
+<div class="reflection-sheet">
 
 | 振り返る項目 | 記入欄 |
 |---|---|
 | 最初に分からなかったこと | |
 | 自分で試したこと | |
-| AIへ入力した質問 | |
+| AIへ入力した質問の要点 | |
 | AIから得たヒント | |
 | AIの説明を確認した方法 | |
 | 次に同じ問題を解くときの注意点 | |
+
+</div>
 
 <div class="page-break"></div>
 
@@ -3946,7 +3912,7 @@ average ← total ÷ count
 <div class="exercise-flow">
 <p class="flow-title">演習2-Aのフローチャート</p>
 <img src="images/flowcharts/2-A.svg" alt="演習2-Aの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+<p class="flow-caption">問題に示した処理を図にしています。</p>
 </div>
 
 </div>
@@ -4190,7 +4156,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 <div class="answer-part">
 
-### 解答
+### 解答例
 
 <div class="solution-table" data-exercise="3-A">
 
@@ -4199,7 +4165,9 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 | 空欄 ① | `150` |
 | 空欄 ② | `80` |
 | 空欄 ③ | `apple × 3 ＋ orange × 4` |
-| 各変数の役割（自分の言葉で） | apple：りんご一個の単価。<br>orange：みかん一個の単価。<br>total：計算した合計金額。 |
+| appleの役割 | りんご一個の単価。 |
+| orangeの役割 | みかん一個の単価。 |
+| totalの役割 | 計算した合計金額。 |
 
 </div>
 
@@ -4215,6 +4183,8 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 ### 解説
 
 単価と個数が入力値、単価×個数を足し合わせる計算が処理、totalを表示する命令が出力です。150 × 3 ＋ 80 × 4＝450 ＋ 320＝770なので、表示する値は770です。金額を覚える処理と、表示する処理を区別します。
+
+別解として、①を`150 × 3`、②を`80 × 4`、③を`apple ＋ orange`としても正解です。この場合、appleとorangeの役割は各商品の小計、totalは合計金額です。式と変数の役割が対応していれば正解とします。
 
 #### 値の確認（各処理の実行後）
 
@@ -4240,9 +4210,60 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 <div class="answer-part">
 
-### 解答の例の一つ
+### 解答
 
 <div class="solution-table" data-exercise="3-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 表示される値 | 600 |
+| 入力 price（単価） | 200円 |
+| 入力 quantity（個数） | 3個 |
+| 処理 | `total ← price × quantity` で合計金額を計算する。 |
+| 出力 | `表示する(total)` で600を表示する。 |
+
+</div>
+
+<div class="display-result" data-exercise="3-B">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">600</samp></div>
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+入力値の200と3を材料に、200 × 3＝600を計算してtotalへ入れます。ここまでが計算と値を覚える処理です。その後でtotalの600を表示することが出力です。同じ意味を表す説明であれば、言葉の書き方が違っても構いません。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| price ← 200 | price＝200 |
+| quantity ← 3 | price＝200、quantity＝3 |
+| total ← price × quantity | price＝200、quantity＝3、total＝600 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習3-Bのフローチャート</p>
+<img src="images/flowcharts/3-B.svg" alt="演習3-Bの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section" data-exercise="3-C">
+
+## 演習3-C　解答・解説
+
+<div class="answer-part">
+
+### 解答の例の一つ
+
+<div class="solution-table" data-exercise="3-C">
 
 | 解答欄の項目 | 解答 |
 |---|---|
@@ -4251,7 +4272,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </div>
 
-<div class="display-result" data-exercise="3-B">
+<div class="display-result" data-exercise="3-C">
   <p class="result-title">表示結果</p>
   <div class="result-case"><samp class="result-lines">1320</samp></div>
 </div>
@@ -4275,60 +4296,9 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 | taxIncluded ← price × (1 ＋ rate) | price＝1200、rate＝0.1、taxIncluded＝1320 |
 
 <div class="exercise-flow">
-<p class="flow-title">演習3-Bのフローチャート</p>
-<img src="images/flowcharts/3-B.svg" alt="演習3-Bの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="3-C">
-
-## 演習3-C　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="3-C">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 表示される値 | 600 |
-| 入力 price（単価） | 200円 |
-| 入力 quantity（個数） | 3個 |
-| 処理 | `total ← price × quantity` で合計金額を計算する。 |
-| 出力 | `表示する(total)` で600を表示する。 |
-
-</div>
-
-<div class="display-result" data-exercise="3-C">
-  <p class="result-title">表示結果</p>
-  <div class="result-case"><samp class="result-lines">600</samp></div>
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-入力値の200と3を材料に、200 × 3＝600を計算してtotalへ入れます。ここまでが計算と値を覚える処理です。その後でtotalの600を表示することが出力です。同じ意味を表す説明であれば、言葉の書き方が違っても構いません。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| price ← 200 | price＝200 |
-| quantity ← 3 | price＝200、quantity＝3 |
-| total ← price × quantity | price＝200、quantity＝3、total＝600 |
-
-<div class="exercise-flow">
 <p class="flow-title">演習3-Cのフローチャート</p>
 <img src="images/flowcharts/3-C.svg" alt="演習3-Cの処理順・分岐・繰返し">
-
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
 </div>
 
 </div>
@@ -4546,7 +4516,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 <div class="exercise-flow">
 <p class="flow-title">演習4-Bのフローチャート</p>
 <img src="images/flowcharts/4-B.svg" alt="演習4-Bの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+<p class="flow-caption">問題に示した処理を図にしています。</p>
 </div>
 
 </div>
@@ -4592,8 +4562,10 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 | 実行した処理 | その直後の値 |
 |---|---|
-| bmi ← weight ÷ (height × height) | bmi＝18.5 |
-| result ← "標準体重" | bmi＝18.5、result＝標準体重 |
+| height ← 入力する() | height＝1 |
+| weight ← 入力する() | height＝1、weight＝18.5 |
+| bmi ← weight ÷ (height × height) | height＝1、weight＝18.5、bmi＝18.5 |
+| result ← "標準体重" | height＝1、weight＝18.5、bmi＝18.5、result＝標準体重 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習4-Cのフローチャート</p>
@@ -4736,7 +4708,7 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 
 </section>
 
-<section class="answer-section dense-answer" data-exercise="5-A">
+<section class="answer-section" data-exercise="5-A">
 
 ## 演習5-A　解答・解説
 
@@ -4745,6 +4717,96 @@ aの元の10をtempへ残してから、aへbの20、bへcの30を入れます�
 ### 解答
 
 <div class="solution-table" data-exercise="5-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の total | 6 |
+| 繰返しの実行回数 | 3回 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+i＝1・2・3の三回、それぞれ2を足します。totalは0→2→4→6と変わります。forの終了値3の回も実行します。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| total ← 0 | total＝0 |
+| i＝1の回を終了 | total＝2、i＝1 |
+| i＝2の回を終了 | total＝4、i＝2 |
+| i＝3の回を終了 | total＝6、i＝3 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習5-Aのフローチャート</p>
+<img src="images/flowcharts/5-A.svg" alt="演習5-Aの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section" data-exercise="5-B">
+
+## 演習5-B　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="5-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 表示される i | 5 |
+| 内部の実行回数 | 0回 |
+
+</div>
+
+<div class="display-result" data-exercise="5-B">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><samp class="result-lines">5</samp></div>
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 5が偽なので、一度も内部へ入りません。iは5のままで、繰返しの後の表示命令へ進みます。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| i ← 5 | i＝5 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習5-Bのフローチャート</p>
+<img src="images/flowcharts/5-B.svg" alt="演習5-Bの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section dense-answer" data-exercise="5-C">
+
+## 演習5-C　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="5-C">
 
 | 解答欄の項目 | 解答 |
 |---|---|
@@ -4786,7 +4848,7 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 
 </div>
 
-<div class="display-result" data-exercise="5-A">
+<div class="display-result" data-exercise="5-C">
   <p class="result-title">表示結果</p>
   <div class="result-case"><samp class="result-lines">1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>55<br>5.5</samp></div>
 </div>
@@ -4794,8 +4856,8 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 </div>
 
 <div class="exercise-flow">
-<p class="flow-title">演習5-Aのフローチャート</p>
-<img src="images/flowcharts/5-A.svg" alt="演習5-Aの処理順・分岐・繰返し">
+<p class="flow-title">演習5-Cのフローチャート</p>
+<img src="images/flowcharts/5-C.svg" alt="演習5-Cの処理順・分岐・繰返し">
 <p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
 </div>
 
@@ -4803,15 +4865,15 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 
 </section>
 
-<section class="answer-section" data-exercise="5-B">
+<section class="answer-section" data-exercise="5-D">
 
-## 演習5-B　解答・解説
+## 演習5-D　解答・解説
 
 <div class="answer-part">
 
 ### 解答
 
-<div class="solution-table" data-exercise="5-B">
+<div class="solution-table" data-exercise="5-D">
 
 | 解答欄の項目 | 解答 |
 |---|---|
@@ -4842,99 +4904,9 @@ totalを0から始め、i＝1〜10を順に足します。合計55を10で割る
 
 
 <div class="exercise-flow">
-<p class="flow-title">演習5-Bのフローチャート</p>
-<img src="images/flowcharts/5-B.svg" alt="演習5-Bの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="5-C">
-
-## 演習5-C　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="5-C">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 最後の total | 6 |
-| 繰返しの実行回数 | 3回 |
-
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-i＝1・2・3の三回、それぞれ2を足します。totalは0→2→4→6と変わります。forの終了値3の回も実行します。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| total ← 0 | total＝0 |
-| i＝1の回を終了 | total＝2、i＝1 |
-| i＝2の回を終了 | total＝4、i＝2 |
-| i＝3の回を終了 | total＝6、i＝3 |
-
-<div class="exercise-flow">
-<p class="flow-title">演習5-Cのフローチャート</p>
-<img src="images/flowcharts/5-C.svg" alt="演習5-Cの処理順・分岐・繰返し">
-
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="5-D">
-
-## 演習5-D　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="5-D">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 表示される i | 5 |
-| 内部の実行回数 | 0回 |
-
-</div>
-
-<div class="display-result" data-exercise="5-D">
-  <p class="result-title">表示結果</p>
-  <div class="result-case"><samp class="result-lines">5</samp></div>
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-whileは内部の処理を行う前に条件を調べます。最初から5 ＜ 5が偽なので、一度も内部へ入りません。iは5のままで、繰返しの後の表示命令へ進みます。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| i ← 5 | i＝5 |
-
-<div class="exercise-flow">
 <p class="flow-title">演習5-Dのフローチャート</p>
 <img src="images/flowcharts/5-D.svg" alt="演習5-Dの処理順・分岐・繰返し">
-
+<p class="flow-caption">問題に示した処理を図にしています。</p>
 </div>
 
 </div>
@@ -5309,17 +5281,17 @@ A[1]の4をmaxへ入れた後、まだ比べていない2番目から調べま�
 
 初期化でpositionは未発見の目印0になります。一回目はA[1]がtargetの7と一致し、まだ未発見なので位置1を記録します。三回目も値は7ですが、すでにpositionは1です。最初の位置を残すには「未発見か」の条件も必要です。記録するのは商品番号A[i]ではなく、位置iです。
 
-表の確認に使う入力：A＝{7,4,7,9}、target＝7。
+表の確認に使う入力：A＝{7,4,7,9}。
 
 #### 値の確認（各処理の実行後）
 
 | 実行した処理 | その直後の値 |
 |---|---|
-| position ← 0 | position＝0 |
-| i＝1の回を終了 | position＝1、i＝1 |
-| i＝2の回を終了 | position＝1、i＝2 |
-| i＝3の回を終了 | position＝1、i＝3 |
-| i＝4の回を終了 | position＝1、i＝4 |
+| target ← 7 | target＝7 |
+| i＝1の回を終了 | target＝7、position＝1、i＝1 |
+| i＝2の回を終了 | target＝7、position＝1、i＝2 |
+| i＝3の回を終了 | target＝7、position＝1、i＝3 |
+| i＝4の回を終了 | target＝7、position＝1、i＝4 |
 
 <div class="exercise-flow">
 <p class="flow-title">演習6-Fのフローチャート</p>
@@ -5396,7 +5368,7 @@ A[1]の4をmaxへ入れた後、まだ比べていない2番目から調べま�
 
 #### 表の完成例
 
-| 確認する行 | 判定・実行 | その時のx | その時のy |
+| 確認する行 | 判定・実行 | 確認後のx | 確認後のy |
 |---|---:|---:|---:|
 | x ← 2 | 実行する | 2 | 未定義 |
 | if (x ＞ 5) | 偽 | 2 | 未定義 |
@@ -5582,7 +5554,7 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 
 ### 解説
 
-前の値と違ったときに新しいグループが始まるので、A[i] ≠ A[i − 1]を調べ、そのときだけgroupsを1増やします。グループは「2,2」「5,5」「2」の三つです。アも最後は偶然3になりますが、同じ値のときに増やすため仕様に合いません。
+最初の要素だけで一つのグループがあるのでgroupsを1にします。比較はi＝2から始めます。初期化行の「―」は、その式を参照していないことを表します。前の値と違ったときに新しいグループが始まるので、A[i] ≠ A[i − 1]を調べ、そのときだけgroupsを1増やします。グループは「2,2」「5,5」「2」の三つです。アも最後は偶然3になりますが、同じ値のときに増やすため仕様に合いません。
 
 | 選択肢 | i＝2後 | i＝3後 | i＝4後 | i＝5後 |
 |---|---:|---:|---:|---:|
@@ -5597,7 +5569,7 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 
 | i | A[i − 1] | A[i] | 前の値と違うか | 実行後のgroups |
 |---|---:|---:|---:|---:|
-| 初期化 | ― | 2 | ― | 1 |
+| 初期化 | ― | ― | ― | 1 |
 | 2 | 2 | 2 | 偽 | 1 |
 | 3 | 2 | 5 | 真 | 2 |
 | 4 | 5 | 5 | 偽 | 2 |
@@ -5616,7 +5588,7 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 
 </section>
 
-<section class="answer-section dense-answer" data-exercise="8-A">
+<section class="answer-section" data-exercise="8-A">
 
 ## 演習8-A　解答・解説
 
@@ -5625,6 +5597,93 @@ i＝3の行は2 × 3なので6になります。i＝4の行も、修正した6�
 ### 解答
 
 <div class="solution-table" data-exercise="8-A">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の result | 6 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最初はA[1]の2をresultへ入れます。A[2]の6の方が大きいので、条件が真となってresultを6へ更新します。
+
+表の確認に使う入力：A＝{2,6}。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| result ← A[1] | result＝2 |
+| result ← A[2] | result＝6 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習8-Aのフローチャート</p>
+<img src="images/flowcharts/8-A.svg" alt="演習8-Aの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section" data-exercise="8-B">
+
+## 演習8-B　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-B">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 最後の total | 8 |
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最初のtotalは0です。一周目で3、二周目で5を足すので、0→3→8と変わります。前の合計を使って次の値を足します。
+
+表の確認に使う入力：A＝{3,5}。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| total ← 0 | total＝0 |
+| i＝1の回を終了 | total＝3、i＝1 |
+| i＝2の回を終了 | total＝8、i＝2 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習8-Bのフローチャート</p>
+<img src="images/flowcharts/8-B.svg" alt="演習8-Bの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section dense-answer" data-exercise="8-C">
+
+## 演習8-C　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-C">
 
 | 解答欄の項目 | 解答 |
 |---|---|
@@ -5663,119 +5722,12 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 
 </div>
 
-<div class="display-result" data-exercise="8-A">
+<div class="display-result" data-exercise="8-C">
   <p class="result-title">表示結果</p>
   <div class="result-case"><span class="result-label">確認用：A＝{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}の場合</span><samp class="result-lines">6</samp></div>
 </div>
 
 </div>
-
-<div class="exercise-flow">
-<p class="flow-title">演習8-Aのフローチャート</p>
-<img src="images/flowcharts/8-A.svg" alt="演習8-Aの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="8-B">
-
-## 演習8-B　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="8-B">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 選択肢（ア〜エ） | **正解：ア** |
-
-</div>
-
-<div class="display-result" data-exercise="8-B">
-  <p class="result-title">表示結果</p>
-  <div class="result-case"><span class="result-label">確認用：A＝{4, 9, 9}の場合</span><samp class="result-lines">9<br>2</samp></div>
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-最大値を更新するときは、同じ条件の内側で位置も更新します。＞を使うと、同じ最大値では更新せず、最初の位置を残せます。A＝{4,9,9}ならmax＝9、maxIndex＝2です。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| max ← A[1] | max＝4 |
-| i＝2の回を終了 | max＝9、maxIndex＝2、i＝2 |
-| i＝3の回を終了 | max＝9、maxIndex＝2、i＝3 |
-
-<div class="exercise-flow">
-<p class="flow-title">演習8-Bのフローチャート</p>
-<img src="images/flowcharts/8-B.svg" alt="演習8-Bの処理順・分岐・繰返し">
-<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
-</div>
-
-公開問題への接続：[令和8年度 問1 配列の位置と上書きに注目する練習](https://www.fe-siken.com/kakomon/08_haru/b1.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
-
-</div>
-
-</section>
-
-<section class="answer-section dense-answer" data-exercise="8-C">
-
-## 演習8-C　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="8-C">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 選択肢（ア〜エ） | **正解：ウ** |
-
-</div>
-
-<div class="display-result" data-exercise="8-C">
-  <p class="result-title">表示結果</p>
-  <div class="result-case"><span class="result-label">num＝3の場合</span><samp class="result-lines">***<br>***<br>***</samp></div>
-</div>
-
-<div class="completed-trace" data-exercise="8-C">
-
-#### 表の完成例
-
-| 表示順 | 外側のi | 内側のj | 表示する文字 | 表示後の改行 |
-|---|---:|---:|---:|---:|
-| 1 | 1 | 1 | * | しない |
-| 2 | 1 | 2 | * | しない |
-| 3 | 1 | 3 | * | する |
-| 4 | 2 | 1 | * | しない |
-| 5 | 2 | 2 | * | しない |
-| 6 | 2 | 3 | * | する |
-| 7 | 3 | 1 | * | しない |
-| 8 | 3 | 2 | * | しない |
-| 9 | 3 | 3 | * | する |
-
-
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-外側のiは行、内側のjは一行の文字を担当します。完成表の最初の3行ではi＝1のまま、jが1→2→3と進みます。次の行へ移るとi＝2、j＝1から再び始まります。内側を終えた後で改行するので、表示順3・6・9の後に改行し、一行3文字、全体3行の正方形になります。
 
 <div class="exercise-flow">
 <p class="flow-title">演習8-Cのフローチャート</p>
@@ -5796,93 +5748,6 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 ### 解答
 
 <div class="solution-table" data-exercise="8-D">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 最後の result | 6 |
-
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-最初はA[1]の2をresultへ入れます。A[2]の6の方が大きいので、条件が真となってresultを6へ更新します。
-
-表の確認に使う入力：A＝{2,6}。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| result ← A[1] | result＝2 |
-| result ← A[2] | result＝6 |
-
-<div class="exercise-flow">
-<p class="flow-title">演習8-Dのフローチャート</p>
-<img src="images/flowcharts/8-D.svg" alt="演習8-Dの処理順・分岐・繰返し">
-
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="8-E">
-
-## 演習8-E　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="8-E">
-
-| 解答欄の項目 | 解答 |
-|---|---|
-| 最後の total | 8 |
-
-</div>
-
-</div>
-
-<div class="explanation-part">
-
-### 解説
-
-最初のtotalは0です。一周目で3、二周目で5を足すので、0→3→8と変わります。前の合計を使って次の値を足します。
-
-表の確認に使う入力：A＝{3,5}。
-
-#### 値の確認（各処理の実行後）
-
-| 実行した処理 | その直後の値 |
-|---|---|
-| total ← 0 | total＝0 |
-| i＝1の回を終了 | total＝3、i＝1 |
-| i＝2の回を終了 | total＝8、i＝2 |
-
-<div class="exercise-flow">
-<p class="flow-title">演習8-Eのフローチャート</p>
-<img src="images/flowcharts/8-E.svg" alt="演習8-Eの処理順・分岐・繰返し">
-
-</div>
-
-</div>
-
-</section>
-
-<section class="answer-section" data-exercise="8-F">
-
-## 演習8-F　解答・解説
-
-<div class="answer-part">
-
-### 解答
-
-<div class="solution-table" data-exercise="8-F">
 
 | 解答欄の項目 | 解答 |
 |---|---|
@@ -5914,9 +5779,116 @@ countは件数を覚えるので0から始めます。条件が真のときだ�
 | average ← total ÷ count | count＝2、total＝13、i＝5、average＝6.5 |
 
 <div class="exercise-flow">
+<p class="flow-title">演習8-Dのフローチャート</p>
+<img src="images/flowcharts/8-D.svg" alt="演習8-Dの処理順・分岐・繰返し">
+
+</div>
+
+</div>
+
+</section>
+
+<section class="answer-section" data-exercise="8-E">
+
+## 演習8-E　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-E">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ア** |
+
+</div>
+
+<div class="display-result" data-exercise="8-E">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">確認用：A＝{4, 9, 9}の場合</span><samp class="result-lines">9<br>2</samp></div>
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+最大値を更新するときは、同じ条件の内側で位置も更新します。＞を使うと、同じ最大値では更新せず、最初の位置を残せます。A＝{4,9,9}ならmax＝9、maxIndex＝2です。
+
+#### 値の確認（各処理の実行後）
+
+| 実行した処理 | その直後の値 |
+|---|---|
+| max ← A[1] | max＝4 |
+| i＝2の回を終了 | max＝9、maxIndex＝2、i＝2 |
+| i＝3の回を終了 | max＝9、maxIndex＝2、i＝3 |
+
+<div class="exercise-flow">
+<p class="flow-title">演習8-Eのフローチャート</p>
+<img src="images/flowcharts/8-E.svg" alt="演習8-Eの処理順・分岐・繰返し">
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
+</div>
+
+公開問題への接続：[令和8年度 問1 配列の位置と上書きに注目する練習](https://www.fe-siken.com/kakomon/08_haru/b1.html)（[IPA公式問題PDF](https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf)）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。
+
+</div>
+
+</section>
+
+<section class="answer-section dense-answer" data-exercise="8-F">
+
+## 演習8-F　解答・解説
+
+<div class="answer-part">
+
+### 解答
+
+<div class="solution-table" data-exercise="8-F">
+
+| 解答欄の項目 | 解答 |
+|---|---|
+| 選択肢（ア〜エ） | **正解：ウ** |
+
+</div>
+
+<div class="display-result" data-exercise="8-F">
+  <p class="result-title">表示結果</p>
+  <div class="result-case"><span class="result-label">num＝3の場合</span><samp class="result-lines">***<br>***<br>***</samp></div>
+</div>
+
+<div class="completed-trace" data-exercise="8-F">
+
+#### 表の完成例
+
+| 表示順 | 外側のi | 内側のj | 表示する文字 | 表示後の改行 |
+|---|---:|---:|---:|---:|
+| 1 | 1 | 1 | * | しない |
+| 2 | 1 | 2 | * | しない |
+| 3 | 1 | 3 | * | する |
+| 4 | 2 | 1 | * | しない |
+| 5 | 2 | 2 | * | しない |
+| 6 | 2 | 3 | * | する |
+| 7 | 3 | 1 | * | しない |
+| 8 | 3 | 2 | * | しない |
+| 9 | 3 | 3 | * | する |
+
+
+</div>
+
+</div>
+
+<div class="explanation-part">
+
+### 解説
+
+外側のiは行、内側のjは一行の文字を担当します。完成表の最初の3行ではi＝1のまま、jが1→2→3と進みます。次の行へ移るとi＝2、j＝1から再び始まります。内側を終えた後で改行するので、表示順3・6・9の後に改行し、一行3文字、全体3行の正方形になります。
+
+<div class="exercise-flow">
 <p class="flow-title">演習8-Fのフローチャート</p>
 <img src="images/flowcharts/8-F.svg" alt="演習8-Fの処理順・分岐・繰返し">
-
+<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>
 </div>
 
 </div>

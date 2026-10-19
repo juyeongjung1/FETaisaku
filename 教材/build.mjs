@@ -58,6 +58,10 @@ function declaredVariables(text,label) {
 // 本教材の限定した擬似言語のみを実行する検算器。入力はリポジトリの演習データに限定。
 function run(item,input=item.input||{}) {
   const env=structuredClone(input), history=[], output=[];
+  for(const line of code(item.steps)) {
+    const incoming=line.trim().match(/^(\w+) ← 入力する\(\)$/);
+    if(incoming) delete env[incoming[1]];
+  }
   let text='', guard=0;
   const snapshot=label=>history.push({label,values:structuredClone(env)});
   const expr=s=>String(s).replace(/([A-Za-z]+)の要素数/g,'$1.length')
@@ -71,7 +75,9 @@ function run(item,input=item.input||{}) {
       if(++guard>2000) throw new Error(`${item.id}:停止しません`);
       if(typeof s==='string') {
         if(s.includes(' ← ')) {
-          const [lhs,rhs]=s.split(' ← '); const v=value(rhs);
+          const [lhs,rhs]=s.split(' ← ');
+          if(rhs==='入力する()') assert(Object.hasOwn(input,lhs),item.id+'の入力がありません：'+lhs);
+          const v=rhs==='入力する()'?input[lhs]:value(rhs);
           const a=lhs.match(/^(\w+)\[(.+)\]$/);
           if(a) {const n=value(a[2]);assert(n>=1&&n<=env[a[1]].length);env[a[1]][n-1]=v;}
           else env[lhs]=v;
@@ -120,7 +126,7 @@ function verifyTraceTable(item) {
       if(record) current=record.values;
       rows.push(state(action,record?'実行する':'実行しない'));
     }
-  } else if(item.id==='8-C') {
+  } else if(item.id==='8-F') {
     const characters=[...result.text.replaceAll('\n','')];
     rows=turns('j').map((v,i)=>[String(i+1),String(v.i),String(v.j),characters[i],v.j===num?'する':'しない']);
   }
@@ -158,7 +164,11 @@ for(const item of exercises) if(!item.natural) {
 console.log(`演習48問・第1章は★3問と★★3問、第4章は★2問・★★3問・★★★1問、ほかの章は各難易度2問を確認。検算${tests}ケース成功。`);
 const traceExercises=exercises.filter(item=>item.traceGuide);
 assert.equal(traceExercises.length,2);
-assert.deepEqual(exercises.filter(item=>item.id.startsWith('7-')).map(item=>item.id),['7-A','7-B','7-C','7-D','7-E','7-F']);
+for(let chapter=1;chapter<=8;chapter++) {
+  const items=exercises.filter(item=>item.id.startsWith(chapter+'-'));
+  assert.deepEqual(items.map(item=>item.id),[...'ABCDEF'].map(letter=>chapter+'-'+letter));
+  assert.deepEqual(items.map(item=>item.level),items.map(item=>item.level).sort(), '第'+chapter+'章の難易度順');
+}
 assert(exercises.filter(item=>Number(item.id[0])<=6).every(item=>!item.tableTemplate&&!item.traceGuide&&!/表に|表を|トレース/.test(item.question+item.aiQuestion)), '第6章までは表への記入を求めません。');
 for(const id of ['6-C','6-D','6-E','6-F']) {
   const item=exercises.find(item=>item.id===id);
@@ -167,7 +177,7 @@ for(const id of ['6-C','6-D','6-E','6-F']) {
   assert.deepEqual(initial[1].split(',').map(Number),item.input.A,id+'の掲載コードと入力配列');
 }
 console.log(`記入用トレース表2問・完成表${traceExercises.reduce((n,item)=>n+verifyTraceTable(item),0)}行の全値を実行結果と照合。第1〜6章の演習に表の記入指定がないことを確認。`);
-const countExercise=exercises.find(item=>item.id==='5-B');
+const countExercise=exercises.find(item=>item.id==='5-D');
 const countRun=run(countExercise);let previous=countRun.history[0].values;
 const countRows=countRun.history.filter(row=>row.label==='繰返し一回分を終了').map(row=>{
   const first=(row.values['処理①']||0)>(previous['処理①']||0)?'○':'×';
@@ -175,7 +185,7 @@ const countRows=countRun.history.filter(row=>row.label==='繰返し一回分を�
   const result=[String(previous.i),'○',first,second,second];previous=row.values;return result;
 });
 countRows.push([String(countRun.env.i),'×','×','―','×']);
-assert.deepEqual(countExercise.answerTable.rows,countRows,'5-Bの○・×・―の完成表');
+assert.deepEqual(countExercise.answerTable.rows,countRows,'5-Dの○・×・―の完成表');
 
 // 順次を一つの箱にまとめ、分岐・ループは独立した節点で表現する。
 function graph(item) {
@@ -185,7 +195,7 @@ function graph(item) {
     label=label.replaceAll(' and ','\nand ');
     const width=Math.max(...label.split('\n').map(line=>[...line].reduce((sum,c)=>sum+(/[\x00-\x7f]/.test(c)?.105:.185),0)))+.35;
     const loop=shape==='loopstart'||shape==='loopend';
-    nodes.push(`${id} [label=${JSON.stringify(label)},width=${(shape==='diamond'?width*1.5:width).toFixed(2)},shape=${loop?'box':shape}${loop?`,class="${shape}",style="filled",fillcolor="#e8f3ee",color="#28704a"`:shape==='diamond'?',fillcolor="#fff3db"'+(item.id==='5-B'?',style="filled"':''):''}];`);return id;
+    nodes.push(`${id} [label=${JSON.stringify(label)},width=${(shape==='diamond'?width*1.5:width).toFixed(2)},shape=${loop?'box':shape}${loop?`,class="${shape}",style="filled",fillcolor="#e8f3ee",color="#28704a"`:shape==='diamond'?',fillcolor="#fff3db"'+(item.id==='5-D'?',style="filled"':''):''}];`);return id;
   };
   const edge=(a,b,label='',ports='')=>edges.push(`${a} -> ${b} [label=${JSON.stringify(label)}${ports?', '+ports:''}];`);
   const build=(steps,next)=>{
@@ -251,7 +261,7 @@ const sourceMap={
   '4-E':['2022年12月サンプル20問セット 問2 条件分岐の読み取り','https://www.fe-siken.com/kakomon/sample/b2.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
   '6-F':['2022年12月サンプル20問セット 問13 探索の考え方（公開問題は二分探索）','https://www.fe-siken.com/kakomon/sample/b13.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
   '7-F':['2022年12月サンプル20問セット 問3 配列を一行ずつ追う練習','https://www.fe-siken.com/kakomon/sample/b3.html','https://www.ipa.go.jp/shiken/syllabus/henkou/2022/gmcbt80000007cfs-att/fe_kamoku_b_set_sample_qs.pdf'],
-  '8-B':['令和8年度 問1 配列の位置と上書きに注目する練習','https://www.fe-siken.com/kakomon/08_haru/b1.html','https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf']
+  '8-E':['令和8年度 問1 配列の位置と上書きに注目する練習','https://www.fe-siken.com/kakomon/08_haru/b1.html','https://www.ipa.go.jp/shiken/mondai-kaiotu/sg_fe/koukai/rcu1hd0000012qj6-att/2026r08_fe_kamoku_b_qs.pdf']
 };
 for(const item of exercises) {
   const svg=loopSymbols(viz.renderString(graph(item),{format:'svg'}));
@@ -265,7 +275,7 @@ let md=(await fs.readFile(source,'utf8')).replaceAll('\r\n','\n');
 function choiceTable(item) {
   if (!item.choices) return '';
   return '\n<div class="choice-table" data-exercise="'+item.id+'">\n\n| 選択肢 | 内容 |\n|---|---|\n'+
-    item.choices.options.map((option,i)=>'| '+'アイウエ'[i]+' | '+(item.id==='8-C'?option.replace(' ／ ③','<br>③'):option)+' |').join('\n')+'\n\n</div>\n';
+    item.choices.options.map((option,i)=>'| '+'アイウエ'[i]+' | '+(item.id==='8-F'?option.replace(' ／ ③','<br>③'):option)+' |').join('\n')+'\n\n</div>\n';
 }
 function tableTemplate(item, table=item.tableTemplate) {
   if (!table) return '';
@@ -312,26 +322,30 @@ for (const item of exercises.filter(e=>e.existing&&e.choices)) {
   const from=md.indexOf(start)+start.length, to=md.indexOf(end,from);
   md=md.slice(0,from)+'\n'+choiceTable(item)+'\n'+md.slice(to);
 }
-// 生成部分のみを置換するので、本文や既存問題への手修正は保持する。
-md=md.replace(/<!-- 追加演習開始 \d -->[\s\S]*?<!-- 追加演習終了 \d -->\n*/g,'');
+// 既存問題は原稿を保持し、生成問題と合わせて問題番号順に配置する。
+const existingQuestions=new Map([...md.matchAll(/<section class="exercise-question\b[\s\S]*?<\/section>/g)].map(([section])=>[section.match(/## 演習(\d-[A-F])　/)[1],section]));
+md=md.replace(/<!-- 追加演習(?:開始|終了) \d -->\n*/g,'');
 for(let chapter=1;chapter<=8;chapter++) {
-  const extra=exercises.filter(e=>e.id.startsWith(chapter+'-')&&!e.existing);
-  const section=`<!-- 追加演習開始 ${chapter} -->\n\n`+extra.map(item=>{
+  const chapterItems=exercises.filter(e=>e.id.startsWith(chapter+'-'));
+  const section=chapterItems.map(item=>{
+    if(item.existing) return existingQuestions.get(item.id);
     const types=item.natural?'':item.types;
     const prereq=item.id==='7-F'?'\n**先に確認：** A[i − 1]は、一つ前の位置の値です。i＝2から始めるので、存在しないA[0]は読みません。≠は「等しくない」です。\n':'';
     const codeBlock = item.natural ? '' : (`<p class="exercise-task"><strong>このコードの課題：</strong>${escape(item.codeTask)}</p>\n\n` + '```text\n' + types + '\n\n' + (item.displayCode ? item.displayCode.join('\n') : code(item.steps).join('\n')) + '\n```\n');
     const tablePart = item.traceGuide?tracePractice(item):tableTemplate(item,item.tableTemplate||item.questionTable);
     const choicePart = choiceTable(item);
     const fields = item.choices ? ['選択肢（ア〜エ）'] : (item.answerFields || ['解答']);
-    const rows = fields.map(f => `  <div><strong>${f}</strong><span></span></div>`).join('\n');
+    const rows = fields.map((f,i) => `  <div${item.id==='1-F'&&i===1?' class="extended-answer"':''}><strong>${f}</strong><span></span></div>`).join('\n');
     const answerSheet = `<div class="answer-sheet">\n  <p class="sheet-title">解答欄</p>\n${rows}\n</div>`;
     const aiBox = `<div class="ai-box">\n  <p class="ai-label">${aiLabel}</p>\n  ${aiParagraphs(item.aiQuestion)}\n</div>`;
-    const breakTag = (item.id === '1-B' || item.id === '1-D') ? '\n<div class="page-break"></div>\n' : '';
     const secClass = item.traceGuide?'exercise-question compact-question fit-question':item.compact||item.prechecks ? 'exercise-question compact-question' : 'exercise-question';
-    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${precheck(item)}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>\n${breakTag}`;
-  }).join('\n')+`\n<!-- 追加演習終了 ${chapter} -->\n\n`;
+    return `<section class="${secClass}">\n\n## 演習${item.id}　${item.title}\n\n<span class="difficulty">難易度 ${'★'.repeat(item.level)+'☆'.repeat(3-item.level)}</span>\n\n${item.question}\n${prereq}\n${precheck(item)}${codeBlock}${tablePart}${choicePart}\n${answerSheet}\n\n${aiBox}\n\n</section>`;
+  }).join('\n\n')+'\n\n';
   const marker=chapter===8?'## 演習後の振り返り':`<div class="page-break"></div>\n\n<a id="chapter-${chapter+1}"></a>`;
-  assert(md.includes(marker),marker);md=md.replace(marker,section+marker);
+  const from=md.indexOf('<section class="exercise-question',md.indexOf(`<a id="chapter-${chapter}"></a>`));
+  const to=md.indexOf(marker,from);
+  assert(from>=0&&to>from,'第'+chapter+'章の演習範囲');
+  md=md.slice(0,from)+section+(chapter===8?'<div class="page-break"></div>\n\n':'')+md.slice(to);
 }
 function displayResult(item) {
   if(item.natural || !code(item.steps).some(line=>line.includes('表示する('))) return '';
@@ -344,7 +358,7 @@ function displayResult(item) {
       Object.entries(input).map(([key,value])=>`${key}＝${Array.isArray(value)?'{'+value.join(', ')+'}':value}`).join('、');
     const content=result.text || result.output.map(String).join('\n');
     assert(content,item.id+'の表示結果が空です');
-    return `  <div class="result-case">${label?'<span class="result-label">'+(['8-A','8-B'].includes(item.id)?'確認用：':'')+escape(label)+(item.id==='4-C'?'':'の場合')+'</span>':''}<samp class="result-lines">${escape(content.trimEnd()).replaceAll('\n','<br>')}</samp></div>`;
+    return `  <div class="result-case">${label?'<span class="result-label">'+(['8-C','8-E'].includes(item.id)?'確認用：':'')+escape(label)+(item.id==='4-C'?'':'の場合')+'</span>':''}<samp class="result-lines">${escape(content.trimEnd()).replaceAll('\n','<br>')}</samp></div>`;
   });
   return `\n<div class="display-result" data-exercise="${item.id}">\n  <p class="result-title">表示結果</p>\n${rows.join('\n')}\n</div>\n`;
 }
@@ -362,13 +376,13 @@ const answers=exercises.map(item=>{
     fields.map((field,i)=>`| ${field} | ${item.choices?'**正解：'+item.solution[i]+'**':item.solution[i]} |`).join('\n')+'\n\n</div>\n';
   const tableIsAnswer=Boolean(item.tableTemplate);
   const outputPart=displayResult(item);
-  const besideTrace=['5-A','6-C','8-A'].includes(item.id);
+  const besideTrace=['5-C','6-C','8-C'].includes(item.id);
   const answerPart=solution+(besideTrace?'':outputPart);
   const inputNote=input&&!outputPart?`\n表の確認に使う入力：${input}。\n`:'';
   const tablePart=trace(item).replace(/^### /gm,'#### ');
   const tracePart=besideTrace?`\n<div class="trace-with-result">\n<div>\n${tablePart}\n</div>\n${outputPart}\n</div>\n`:tablePart;
-  const secClass=['4-C','5-A','6-C','6-D','7-F','8-A','8-C'].includes(item.id)?'answer-section dense-answer':'answer-section';
-  return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n<div class="answer-part">\n\n### ${item.solutionTitle||'解答'}\n\n${answerPart}${tableIsAnswer?inputNote+tracePart:''}\n</div>\n\n<div class="explanation-part">\n\n### 解説\n\n${item.answer}\n${tableIsAnswer?'':inputNote+tracePart}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n${item.existing?'<p class="flow-caption">問題の入力と、空欄を埋めた処理を示しています。</p>':''}\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</div>\n\n</section>\n`;
+  const secClass=['4-C','5-C','6-C','6-D','7-F','8-C','8-F'].includes(item.id)?'answer-section dense-answer':'answer-section';
+  return `<section class="${secClass}" data-exercise="${item.id}">\n\n## 演習${item.id}　解答・解説\n\n<div class="answer-part">\n\n### ${item.solutionTitle||'解答'}\n\n${answerPart}${tableIsAnswer?inputNote+tracePart:''}\n</div>\n\n<div class="explanation-part">\n\n### 解説\n\n${item.answer}\n${tableIsAnswer?'':inputNote+tracePart}\n<div class="exercise-flow">\n<p class="flow-title">演習${item.id}のフローチャート</p>\n<img src="images/flowcharts/${item.id}.svg" alt="演習${item.id}の処理順・分岐・繰返し">\n${item.existing?'<p class="flow-caption">'+(['2-A','4-B','5-D'].includes(item.id)?'問題に示した処理を図にしています。':'問題の入力と、空欄を埋めた処理を示しています。')+'</p>':''}\n</div>\n${related?`\n公開問題への接続：[${related[0]}](${related[1]})（[IPA公式問題PDF](${related[2]})）。本演習は研修用のオリジナル問題であり、リンク先の問題・正解と同一ではありません。\n`:''}\n</div>\n\n</section>\n`;
 }).join('\n');
 // 共通の読み方は原稿に残し、各問の解説だけを再生成する。
 const answerIntro=md.match(/^# 解答・解説\n[\s\S]*?(?=<section class="answer-section\b)/m);
@@ -436,6 +450,10 @@ try {
   for(const item of exercises.filter(item=>!item.natural)) {
     const snippet=await page.locator('.exercise-question').filter({has:page.getByRole('heading',{name:`演習${item.id}　${item.title}`,exact:true})}).locator('pre').innerText();
     assert.deepEqual(declaredVariables(snippet,item.id),declaredVariables(item.types,item.id),item.id+'の掲載コードと生成元の宣言');
+    const actions=code(item.steps).map(line=>line.trim());
+    for(const line of snippet.split('\n').map(line=>line.trim()))
+      if(/^\w+(?:\[.+\])? ← /.test(line)&&!/\[\s*[a-d①-⑳]\s*\]/.test(line))
+        assert(actions.includes(line),item.id+'の図・検算に代入または入力処理がありません：'+line);
   }
   console.log(`全42演習と本文29例の使用変数・宣言、および検算${tests}ケースの型の一致を確認。`);
   assert(!/<\/?(?:span|strong|small|div|p|br)\b/.test(raw),'HTMLタグが本文に露出しています。');
@@ -443,7 +461,7 @@ try {
   assert.equal(await page.locator('.exercise-flow img').count(),48);
   assert.equal(await page.locator('.answer-part > h3').count(),48);
   assert.equal(await page.locator('.explanation-part > h3').count(),48);
-  assert.equal(await page.locator('.solution-table tbody tr').count(),100);
+  assert.equal(await page.locator('.solution-table tbody tr').count(),102);
   assert.equal(await page.locator('.choice-table').count(),12);
   assert.equal(await page.locator('.choice-table tbody tr').count(),48);
   assert.equal(await page.locator('.code-example > .example-task').count(),29);
@@ -458,14 +476,14 @@ try {
   assert.equal(await page.locator('.trace-practice tbody tr').count(),13);
   assert.equal(await page.locator('.completed-trace tbody tr').count(),13);
   assert(await page.locator('.trace-practice[data-exercise="7-B"]').evaluate(table=>table.previousElementSibling.tagName==='PRE'&&table.nextElementSibling.classList.contains('answer-sheet')), '7-Bの記入表はコードの直後、解答欄の前に配置してください。');
-  assert(await page.locator('.trace-practice[data-exercise="8-C"]').evaluate(table=>table.previousElementSibling.tagName==='PRE'&&Boolean(table.nextElementSibling.querySelector('.choice-table'))), '8-Cの記入表はコードの直後、選択肢の前に配置してください。');
+  assert(await page.locator('.trace-practice[data-exercise="8-F"]').evaluate(table=>table.previousElementSibling.tagName==='PRE'&&Boolean(table.nextElementSibling.querySelector('.choice-table'))), '8-Fの記入表はコードの直後、選択肢の前に配置してください。');
   assert.equal(await page.locator('.analysis-sheet').count(),6);
   for(const item of exercises.filter(item=>item.prechecks)) {
     const sheet=page.locator(`.analysis-sheet[data-exercise="${item.id}"]`);
     assert.deepEqual(await sheet.locator('li').allTextContents(),item.prechecks.map(label=>'□ '+label),item.id+'の確認項目');
     assert(await sheet.evaluate(sheet=>sheet.nextElementSibling.classList.contains('exercise-task')&&sheet.closest('.exercise-question').querySelector('h2').innerText.startsWith('演習'+sheet.dataset.exercise+'　')),item.id+'の確認欄を問題文の後・コードの前に配置してください。');
   }
-  assert.deepEqual((await page.locator('.exercise-question > h2').allTextContents()).filter(title=>title.startsWith('演習7-')).map(title=>title.slice(2,5)),['7-A','7-B','7-C','7-D','7-E','7-F']);
+  assert.deepEqual((await page.locator('.exercise-question > h2').allTextContents()).map(title=>title.slice(2,5)),exercises.map(item=>item.id));
   assert(await page.evaluate(()=>[...document.querySelectorAll('.exercise-question')].filter(section=>/^演習[1-6]-/.test(section.querySelector('h2').innerText)).every(section=>
     [...section.querySelectorAll('table')].every(table=>table.closest('.choice-table')))), '第6章までの演習は通常の解答欄を使用してください。');
   assert(await page.evaluate(()=>[...document.querySelectorAll('.trace-practice')].every(blank=>{
