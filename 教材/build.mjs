@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath, pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
 import exercises from './exercises.mjs';
 import {prepareNavigation, paginateNavigation} from './book-navigation.mjs';
 import {exportAiQuestionSource} from './ai-question-source.mjs';
@@ -504,6 +505,7 @@ try {
   const options={format:'A4',printBackground:true,preferCSSPageSize:true,displayHeaderFooter:false,tagged:true,outline:true};
   const pagination=await paginateNavigation(page,options,root,temp,navigation);
   await fs.writeFile(path.join(temp,'navigation.json'),JSON.stringify(pagination,null,2));
+  execFileSync(process.env.FE_PYTHON||'python',['-X','utf8',path.join(root,'pdf-bookmarks.py'),path.join(temp,'textbook.pdf'),path.join(temp,'navigation.json')],{stdio:'inherit'});
   await fs.writeFile(path.join(temp,'textbook-rendered.html'),await page.content());
   await exportAiQuestionSource(page,root,temp);
   console.log('生成先: '+path.join(temp,'textbook.pdf'));

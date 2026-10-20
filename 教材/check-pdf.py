@@ -64,6 +64,50 @@ assert compact(book_title) in compact(pages[0]), '表紙に教材名が必要で
 front_ids = ('course-goals', 'course-overview', 'course-guide')
 front_pages = [destinations[ident] for ident in front_ids]
 assert front_pages == [2, 3, 4], '目標・概要・教材の使い方を表紙直後に1ページずつ配置してください'
+
+# ブックマークの階層と実際の移動先を確認する。
+outline = reader.outline
+top_items = [item for item in outline if not isinstance(item, list)]
+expected_top = [
+    ('はじめに', front_pages[0]), ('目次', front_pages[-1] + 1),
+    *((chapter['title'], destinations[chapter['id']]) for chapter in navigation['chapters']),
+    ('解答・解説', destinations['answers']), ('研修後の学習ロードマップ', destinations['roadmap']),
+    ('参考資料', destinations['references']), ('索引', destinations['book-index']),
+]
+assert [(compact(item.title), reader.get_destination_page_number(item) + 1) for item in top_items] == [
+    (compact(title), number) for title, number in expected_top
+], 'ブックマークの最上位項目・順序・移動先を確認してください'
+assert isinstance(outline[1], list), '「はじめに」の下に前付け3項目を配置してください'
+assert [(item.title, reader.get_destination_page_number(item) + 1) for item in outline[1]] == [
+    ('研修の目標', 2), ('研修の概要', 3), ('この教材の使い方', 4)
+], '「はじめに」の子項目と移動先を確認してください'
+
+
+def bookmark_paths(items, parent=()):
+    current = parent
+    for item in items:
+        if isinstance(item, list):
+            yield from bookmark_paths(item, current)
+        else:
+            current = (*parent, item.title)
+            yield current, reader.get_destination_page_number(item) + 1
+
+
+bookmarks = list(bookmark_paths(outline))
+assert all(1 < number < destinations['colophon'] for _, number in bookmarks), '表紙・奥付のブックマークは不要です'
+assert all('目次（続き）' not in title for labels, _ in bookmarks for title in labels), '目次の続き項目をブックマークから除外してください'
+for n in range(1, 9):
+    chapter_title = navigation['chapters'][n]['title']
+    for letter in 'ABCDEF':
+        ident = f'{n}-{letter}'
+        for prefix, parent in [('question', chapter_title), ('answer', '解答・解説')]:
+            matches = [(labels, number) for labels, number in bookmarks
+                       if labels[0] == parent and labels[-1].startswith(f'演習{ident}　')]
+            assert len(matches) == 1, ('演習ブックマークの階層・件数', prefix, ident)
+            labels, number = matches[0]
+            assert compact(labels[-1]) in compact(pages[number - 1]), ('演習ブックマークの移動先に見出しがありません', prefix, ident)
+            assert (number < toc['answers']) == (prefix == 'question'), ('問題・解答の移動先が逆です', prefix, ident)
+
 front_html = {ident: front_section(ident) for ident in front_ids}
 for ident, number in zip(front_ids, front_pages):
     assert_page_content(front_html[ident], number, ident)
