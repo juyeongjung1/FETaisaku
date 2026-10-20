@@ -4,6 +4,7 @@ import {fileURLToPath, pathToFileURL} from 'node:url';
 import assert from 'node:assert/strict';
 import exercises from './exercises.mjs';
 import {prepareNavigation, paginateNavigation} from './book-navigation.mjs';
+import {exportAiQuestionSource} from './ai-question-source.mjs';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const modules = process.env.FE_NODE_MODULES;
@@ -504,5 +505,6 @@ try {
   const pagination=await paginateNavigation(page,options,root,temp,navigation);
   await fs.writeFile(path.join(temp,'navigation.json'),JSON.stringify(pagination,null,2));
   await fs.writeFile(path.join(temp,'textbook-rendered.html'),await page.content());
+  await exportAiQuestionSource(page,root,temp);
   console.log('生成先: '+path.join(temp,'textbook.pdf'));
 } finally {await browser.close();}
