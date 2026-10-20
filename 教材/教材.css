@@ -44,6 +44,15 @@
   .index-group h2 { font-size: 11pt; }
 }
 
+.lesson-subheading {
+  margin: 1.4em 0 1.25em;
+  padding: .45em .7em;
+  border-left: 5px solid #175fa8;
+  background: #edf4fc;
+  color: #173e67;
+  font-weight: 800;
+}
+.lesson-detailheading { border-bottom: 1px solid #afc8e2; padding-bottom: .25em; margin-bottom: 1.25em; color: #173e67; }
 .loop-i, code.loop-i { color: #135fa8; background: #e8f2ff; font-weight: 700; }
 .loop-j, code.loop-j { color: #b3261e; background: #fdecea; font-weight: 700; }
 .nested-key { display: flex; gap: 5mm; }
@@ -114,6 +123,8 @@
 .reflection-sheet td { height: 22mm; box-sizing: border-box; }
 .continuation-title { font-weight: 800; color: var(--navy); }
 @media print {
+  .lesson-subheading { margin: 7mm 0 6mm; padding: 1.6mm 2.5mm; line-height: 1.3; }
+  .lesson-detailheading { margin: 7mm 0 6mm; line-height: 1.4; }
   .answer-section { break-before: page; font-size: 10pt; }
   .answer-section h2 { margin: 0 0 3mm; }
   .answer-section h3 { margin: 2mm 0 1mm; font-size: 10pt; }
@@ -327,18 +338,13 @@ h1 {
   letter-spacing: 0;
 }
 
-h2,
-.lesson-subheading,
-.lesson-detailheading {
+h2 {
   margin: 2.25em 0 0.85em;
-  border: 0;
   border-bottom: 1px solid var(--warm-line);
   padding: 0 0 0.36em;
-  color: var(--ink);
+  font-size: 1.5rem;
   font-weight: 800;
 }
-
-h2 { font-size: 1.5rem; }
 
 h3 {
   margin: 1.9em 0 0.65em;
@@ -1957,8 +1963,6 @@ td:empty {
     break-after: avoid;
     font-size: 11pt;
   }
-
-  .lesson-subheading, .lesson-detailheading { margin: 7mm 0 6mm; line-height: 1.4; }
 
   p,
   li {
